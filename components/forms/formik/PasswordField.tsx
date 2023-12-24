@@ -18,20 +18,19 @@ const PasswordField = ({
   ...restProps
 }: InputProps<string>) => {
   const inputRef = useRef<HTMLInputElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState<boolean>(false);
 
   const setEndOfInput = () => {
     if (!inputRef.current) return;
 
     const length = inputRef.current.value.length;
 
-    if (length > 0)
-      setTimeout(() => {
-        if (!inputRef.current) return;
+    if (!length) return;
 
-        inputRef.current.selectionStart = inputRef.current.selectionEnd =
-          length;
-      });
+    setTimeout(() => {
+      if (!inputRef.current) return;
+      inputRef.current.selectionStart = inputRef.current.selectionEnd = length;
+    });
   };
 
   const PasswordIconClickHandler = () => {

@@ -6,8 +6,8 @@ import { ButtonSizes, ButtonType, ButtonVariants, button } from "../cva/button";
 import { Spinner } from ".";
 
 interface Props {
-  type?: ButtonType;
   children?: ReactNode;
+  type?: ButtonType;
   variant?: ButtonVariants;
   size?: ButtonSizes;
   fullWidth?: boolean;
@@ -43,7 +43,7 @@ const Button = ({
         <Spinner
           className={cn(
             "w-fit h-fit mx-auto",
-            variant != null && ["outlined", "text", "basic"].includes(variant)
+            ["outlined", "text", "basic"].includes(variant)
               ? "text-primary-main"
               : "text-white"
           )}

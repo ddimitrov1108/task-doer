@@ -4,9 +4,9 @@ import { FieldInputProps, FormikProps, FormikValues } from "formik";
 import { DefaultSession } from "next-auth";
 
 export interface InputProps<Type> {
+  type: "text" | "email" | "password";
   label: string;
   subLabel?: string;
-  type?: string;
   className?: string;
   fullWidth?: boolean;
   disabled?: boolean;
@@ -38,7 +38,7 @@ export interface IUserSession extends DefaultSession {
 
 export interface INavList {
   projects: IProject[];
-  labels: ILabel[]
+  labels: ILabel[];
 }
 
 export interface INavLink {

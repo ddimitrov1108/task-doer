@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 
 interface Props {
   variant: AlertVariants;
-  children?: ReactNode;
+  children: ReactNode;
   fullWidth?: boolean;
 }
 

@@ -8,7 +8,7 @@ export interface ILabel {
 const formatLabelName = (labelName: string) =>
   labelName.toLowerCase().replace(/\s+/g, "-");
 
-const getLabels = async (userId: number) => {
+const getLabels = async (userId: number): Promise<ILabel[]> => {
   try {
     return await prisma.label.findMany({
       where: {
@@ -25,7 +25,10 @@ const getLabels = async (userId: number) => {
   }
 };
 
-const isLabelDuplucated = async (userId: number, labelName: string) => {
+const isLabelDuplucated = async (
+  userId: number,
+  labelName: string
+): Promise<boolean> => {
   const formattedName = formatLabelName(labelName);
 
   try {

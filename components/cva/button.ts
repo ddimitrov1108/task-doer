@@ -1,6 +1,7 @@
 import { cva } from "class-variance-authority";
 
-export type ButtonType = "button" | "submit" | "reset" | undefined;
+export type ButtonType = "button" | "submit" | "reset";
+export type ButtonSizes = "sm" | "md" | "lg";
 
 export type ButtonVariants =
   | "primary"
@@ -8,11 +9,7 @@ export type ButtonVariants =
   | "outlined"
   | "error"
   | "text"
-  | "basic"
-  | null
-  | undefined;
-
-export type ButtonSizes = "sm" | "md" | "lg" | null | undefined;
+  | "basic";
 
 export const button = cva("button", {
   variants: {

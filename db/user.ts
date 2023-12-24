@@ -1,6 +1,16 @@
 import bcryptjs from "bcryptjs";
 import prisma from "@/lib/prisma";
 
+interface IUser {
+  id: number;
+  firstName: string;
+  lastName: string;
+  email: string;
+  hashPassword: string;
+  updated_at: Date;
+  created_at: Date;
+}
+
 interface ICreateUser {
   firstName: string;
   lastName: string;

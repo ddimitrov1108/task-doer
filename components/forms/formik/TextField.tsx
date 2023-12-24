@@ -7,7 +7,7 @@ import { InputProps } from "@/lib/interfaces";
 const TextField = ({
   label,
   subLabel,
-  type,
+  type = "text",
   className,
   field,
   form: { touched, errors },
@@ -20,7 +20,7 @@ const TextField = ({
       <Label className="pb-2" label={label} subLabel={subLabel} />
 
       <input
-        type={type || "text"}
+        type={type}
         disabled={disabled}
         className={cn(
           "bg-black-dark border outline-none px-4 py-2.5 rounded-lg w-full",

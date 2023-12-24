@@ -7,7 +7,7 @@ import bcryptjs from "bcryptjs";
 export const authConfig: NextAuthOptions = {
   pages: {
     signIn: "/sign-in",
-    signOut: "/sign-in"
+    signOut: "/sign-in",
   },
   secret: process.env.NEXTAUTH_SECRET,
   session: {
