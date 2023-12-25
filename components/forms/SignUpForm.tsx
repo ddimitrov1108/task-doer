@@ -19,12 +19,12 @@ const initialValues: ISignUpValues = {
 
 const SignUpForm = () => {
   const router = useRouter();
-  const { form, setFormState } = useForm();
+  const [form, setForm] = useForm();
 
   const onSubmitHandler = async (values: ISignUpValues) => {
     if (!values) return;
 
-    setFormState({ ...form, loading: true, error: "" });
+    setForm({ loading: true, error: "" });
     const { firstName, lastName, email, password, confirmPassword } = values;
 
     await signIn("sign-up", {
@@ -40,8 +40,7 @@ const SignUpForm = () => {
         return;
       }
 
-      setFormState({
-        ...form,
+      setForm({
         loading: false,
         error: value?.error || "Something went wrong. Please try again laterl.",
       });
@@ -57,7 +56,7 @@ const SignUpForm = () => {
       <Form>
         {form.error && <Alert variant="error">{form.error}</Alert>}
 
-        <div className="md:flex gap-2 justify-between">
+        <div className="md:flex gap-4 justify-between">
           <Field
             id="firstName"
             name="firstName"

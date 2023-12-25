@@ -13,12 +13,12 @@ const initialValues: ISignInValues = { email: "", password: "" };
 
 const SignInForm = () => {
   const router = useRouter();
-  const { form, setFormState } = useForm();
+  const [form, setForm] = useForm();
 
   const onSubmitHandler = async (values: ISignInValues) => {
     if (!values) return;
 
-    setFormState({ ...form, loading: true, error: "" });
+    setForm({ ...form, loading: true, error: "" });
     const { email, password } = values;
 
     await signIn("sign-in", {
@@ -31,7 +31,7 @@ const SignInForm = () => {
         return;
       }
 
-      setFormState({
+      setForm({
         ...form,
         loading: false,
         error: value?.error || "Something went wrong. Please try again laterl.",
