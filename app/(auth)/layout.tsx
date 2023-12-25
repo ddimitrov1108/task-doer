@@ -15,7 +15,7 @@ const AuthLayout = async ({ children }: Props) => {
 
   return (
     <div className="bg-black-main relative grid items-center grid-cols-7">
-      <div className="z-10 bg-black-main px-6 py-10 w-full min-h-screen max-w-[520px] mx-auto lg:mx-0 lg:max-w-none col-span-full lg:col-span-3 xl:col-span-2 xl:px-12">
+      <div className="z-10 bg-black-main px-4 py-10 w-full min-h-screen max-w-[520px] mx-auto lg:mx-0 lg:max-w-none col-span-full lg:col-span-3 xl:col-span-2 xl:px-12">
         <Logo className="max-w-fit" />
 
         <div className="relative flex flex-col min-h-[80vh] justify-center h- py-14">

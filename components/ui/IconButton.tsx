@@ -7,6 +7,7 @@ interface Props {
   children: ReactNode;
   className?: string;
   onClick?: MouseEventHandler;
+  title?: string;
 }
 
 const IconButton = ({ children, className, ...restProps }: Props) => {

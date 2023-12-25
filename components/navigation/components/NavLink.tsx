@@ -30,7 +30,7 @@ const NavLink = ({
         className,
         pathname === href
           ? "bg-black-light/10 text-white"
-          : "text-light hover:text-white hover:bg-black-light/10"
+          : "text-main hover:text-white hover:bg-black-light/10"
       )}
       {...restProps}
     >

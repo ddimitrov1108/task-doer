@@ -3,6 +3,11 @@ import { IProject } from "@/db/project";
 import { FieldInputProps, FormikProps, FormikValues } from "formik";
 import { DefaultSession } from "next-auth";
 
+export interface IApiResponse {
+  href?: string | null | undefined;
+  error?: string | null | undefined;
+}
+
 export interface InputProps<T> {
   type: "text" | "email" | "password";
   label: string;

@@ -1,7 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { ReactNode } from "react";
+import { MouseEventHandler, ReactNode } from "react";
 import { ButtonSizes, ButtonType, ButtonVariants, button } from "../cva/button";
 import { Spinner } from ".";
 
@@ -14,6 +14,7 @@ interface Props {
   className?: string;
   loading?: boolean;
   disabled?: boolean;
+  onClick?: MouseEventHandler;
 }
 
 const Button = ({
