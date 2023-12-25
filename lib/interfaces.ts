@@ -3,14 +3,14 @@ import { IProject } from "@/db/project";
 import { FieldInputProps, FormikProps, FormikValues } from "formik";
 import { DefaultSession } from "next-auth";
 
-export interface InputProps<Type> {
+export interface InputProps<T> {
   type: "text" | "email" | "password";
   label: string;
   subLabel?: string;
   className?: string;
   fullWidth?: boolean;
   disabled?: boolean;
-  field: FieldInputProps<Type>;
+  field: FieldInputProps<T>;
   form: FormikProps<FormikValues>;
 }
 
