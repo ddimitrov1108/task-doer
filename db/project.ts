@@ -1,38 +1,60 @@
+import { IProject } from "@/lib/interfaces";
 import prisma from "@/lib/prisma";
+import { validateProjectValues } from "@/lib/utils";
 
-export interface IProject {
-  id: number;
-  name: string;
-  color: string;
-}
+
 
 const getProjects = async (userId: number): Promise<IProject[]> => {
+  return await prisma.project.findMany({
+    where: {
+      uid: userId,
+    },
+    select: {
+      id: true,
+      name: true,
+      color: true,
+    },
+  });
+};
+
+const createProject = async (
+  userId: number,
+  project: { name: string; color: string }
+): Promise<IProject | null> => {
   try {
-    return await prisma.project.findMany({
-      where: {
+    if (!validateProjectValues(project))
+      throw new Error("Invalid fields. Failed to pass regex.");
+
+    return await prisma.project.create({
+      data: {
+        name: project.name,
+        color: project.color,
         uid: userId,
-      },
-      select: {
-        id: true,
-        name: true,
-        color: true,
       },
     });
   } catch (e) {
     console.error(e);
-    return [];
+    return null;
   }
 };
 
-const editProject = async (projectToUpdate: IProject) => {
+const updateProject = async (
+  userId: number,
+  projectId: number,
+  project: { name: string; color: string }
+): Promise<IProject | null> => {
   try {
+    if (!validateProjectValues(project))
+      throw new Error("Invalid fields. Failed to pass regex.");
+
     return await prisma.project.update({
       where: {
-        id: projectToUpdate.id,
+        id: projectId,
+        uid: userId,
       },
       data: {
-        name: projectToUpdate.name,
-        color: projectToUpdate.color,
+        name: project.name,
+        color: project.color,
       },
     });
   } catch (e) {
@@ -49,4 +71,4 @@ const deleteProject = async (projectToDelete: IProject) => {
   }
 };
 
-export { getProjects };
+export { getProjects, createProject, updateProject, deleteProject };

@@ -1,7 +1,16 @@
 import { ILabel } from "@/db/label";
-import { IProject } from "@/db/project";
 import { FieldInputProps, FormikProps, FormikValues } from "formik";
 import { DefaultSession } from "next-auth";
+
+export interface IProject {
+  id: number;
+  name: string;
+  color: string;
+}
+
+export interface IApiRouteIdSlug {
+  params: { id: string | null };
+}
 
 export interface IApiResponse {
   href?: string | null | undefined;
