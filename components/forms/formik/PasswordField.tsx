@@ -66,8 +66,7 @@ const PasswordField = ({
       <Label
         className="pb-2"
         htmlFor={field.name && field.name.toString()}
-        label={label}
-        subLabel={subLabel}
+        text={label}
       />
 
       <div className="relative">
@@ -99,6 +98,14 @@ const PasswordField = ({
 
       {errors[field.name] && touched[field.name] && (
         <ErrorMessage message={errors[field.name]} />
+      )}
+
+      {subLabel && (
+        <Label
+          className="text-main pb-2"
+          htmlFor={field.name && field.name.toString()}
+          text={subLabel}
+        />
       )}
     </div>
   );
