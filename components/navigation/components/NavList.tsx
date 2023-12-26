@@ -38,7 +38,8 @@ const NavList = ({ navList, onNavElClick }: Props) => {
           <NavLink
             key={id}
             href={href}
-            name={name}
+            title={name}
+            text={name}
             onClick={onNavElClick}
             appendIcon={<div className="text-primary-main">{icon}</div>}
             className="font-medium"

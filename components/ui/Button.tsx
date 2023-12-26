@@ -6,7 +6,7 @@ import { ButtonSizes, ButtonType, ButtonVariants, button } from "../cva/button";
 import { Spinner } from ".";
 
 interface Props {
-  children?: ReactNode;
+  children: ReactNode;
   type?: ButtonType;
   variant?: ButtonVariants;
   size?: ButtonSizes;

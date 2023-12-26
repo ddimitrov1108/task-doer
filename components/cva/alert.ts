@@ -8,8 +8,8 @@ export const alert = cva("div", {
     intent: {
       info: [
         "bg-primary-main/10",
-        "border-blue-500/40",
-        "border-l-blue-500",
+        "border-primary-main/40",
+        "border-l-primary-main",
         "text-primary-main",
       ],
       success: [

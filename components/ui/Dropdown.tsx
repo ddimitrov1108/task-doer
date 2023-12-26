@@ -7,19 +7,19 @@ import { Fragment, ReactNode } from "react";
 
 interface Props {
   btn: ReactNode;
+  children: ReactNode;
   className?: string;
   btnClassName?: string;
-  menuItemsClassName?: string;
+  bodyClassName?: string;
   chevronClassName?: string;
   showChevron?: boolean;
-  children: ReactNode;
 }
 
 const Dropdown = ({
   btn,
   className,
   btnClassName,
-  menuItemsClassName,
+  bodyClassName,
   chevronClassName,
   showChevron = true,
   children,
@@ -66,7 +66,7 @@ const Dropdown = ({
           <Menu.Items
             className={cn(
               "border border-black-light/40 bg-black-main p-2 overflow-hidden z-40 absolute right-0 mt-2 w-56 origin-top-right rounded-lg shadow-xl focus:outline-none outline-none select-none",
-              menuItemsClassName
+              bodyClassName
             )}
           >
             {children}

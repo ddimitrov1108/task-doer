@@ -21,8 +21,8 @@ export const button = cva("button", {
         "hover:border-primary-dark",
       ],
       secondary: [
-        "bg-primary-main/20",
-        "border-primary-main/20",
+        "bg-primary-main/10",
+        "border-primary-main/10",
         "text-primary-main",
         "hover:bg-primary-main hover:text-white",
       ],
@@ -40,7 +40,7 @@ export const button = cva("button", {
         "hover:bg-error-dark",
         "hover:border-error-dark",
       ],
-      text: ["text-primary-main", "bg-inherit", "border-black-light/20"],
+      text: ["text-primary-main", "bg-inherit", "border-transparent", "hover:bg-primary-main/10"],
     },
     size: {
       sm: ["py-1.5", "px-2"],

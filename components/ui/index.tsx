@@ -3,6 +3,7 @@ export { default as Button } from "./Button";
 export { default as Spinner } from "./Spinner";
 export { default as Skeleton } from "./Skeleton";
 export { default as TextLink } from "./TextLink";
+export { default as DisclousureContainer } from "./DisclousureContainer";
 export { default as Logo } from "./Logo";
 export { default as SideBar } from "./SideBar";
 export { default as HeaderText } from "./HeaderText";

@@ -44,12 +44,12 @@ const UserDropdownMenu = ({ user }: Props) => {
           as={Link}
           href={link.href}
           item={link}
-          className="text-light hover:text-white"
+          className="text-main hover:text-white"
           iconClassName="text-primary-main"
         />
       ))}
 
-<DropdownListItem
+      <DropdownListItem
         as="button"
         onClick={() => signOut()}
         className="text-error-main"

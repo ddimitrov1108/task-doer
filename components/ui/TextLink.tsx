@@ -1,33 +1,21 @@
 "use client";
 
 import Link from "next/link";
-import { ReactNode } from "react";
+import { MouseEventHandler, ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
 interface Props {
   href: string;
   title?: string;
-  hoverEffect?: boolean;
   className?: string;
   children: ReactNode;
   disabled?: boolean;
+  onClick?: MouseEventHandler;
 }
 
-const TextLink = ({
-  href,
-  title,
-  hoverEffect = true,
-  className,
-  children,
-  disabled = false,
-}: Props) => {
+const TextLink = ({ href, className, children, ...restProps }: Props) => {
   return (
-    <Link
-      href={href}
-      title={title}
-      className={cn("w-fit", className)}
-      onClick={(e) => disabled && e.preventDefault()}
-    >
+    <Link href={href} className={cn("w-fit", className)} {...restProps}>
       {children}
     </Link>
   );

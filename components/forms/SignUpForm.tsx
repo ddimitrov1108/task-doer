@@ -121,8 +121,6 @@ const SignUpForm = () => {
             href="/sign-in"
             className="font-medium text-sm text-primary-main"
             title="Sign In"
-            hoverEffect={false}
-            disabled={form.loading}
           >
             Sign In
           </TextLink>
