@@ -1,8 +1,8 @@
 "use client";
 
-import { NotistackProvider } from "@/components/providers";
 import { SessionProvider } from "next-auth/react";
 import { ReactNode } from "react";
+import { Toaster } from "sonner";
 
 interface Props {
   children: ReactNode;
@@ -10,9 +10,10 @@ interface Props {
 
 const Providers = ({ children }: Props) => {
   return (
-    <NotistackProvider>
-      <SessionProvider>{children}</SessionProvider>
-    </NotistackProvider>
+    <SessionProvider>
+      <Toaster />
+      {children}
+    </SessionProvider>
   );
 };
 export default Providers;
