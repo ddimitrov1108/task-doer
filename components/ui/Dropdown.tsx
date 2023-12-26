@@ -6,7 +6,7 @@ import { ChevronDown } from "lucide-react";
 import { Fragment, ReactNode } from "react";
 
 interface Props {
-  btnContent: string | ReactNode;
+  btn: ReactNode;
   className?: string;
   btnClassName?: string;
   menuItemsClassName?: string;
@@ -16,7 +16,7 @@ interface Props {
 }
 
 const Dropdown = ({
-  btnContent = "Dropdown",
+  btn,
   className,
   btnClassName,
   menuItemsClassName,
@@ -37,7 +37,7 @@ const Dropdown = ({
       >
         {({ open }) => (
           <>
-            {btnContent}
+            {btn}
             {showChevron && (
               <div
                 className={cn(

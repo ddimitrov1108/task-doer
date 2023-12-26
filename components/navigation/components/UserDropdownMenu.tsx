@@ -23,7 +23,7 @@ const UserDropdownMenu = ({ user }: Props) => {
   return (
     <Dropdown
       btnClassName="w-full flex items-center gap-3 hover:bg-black-light/10"
-      btnContent={
+      btn={
         <>
           <div className="text-2xl text-primary-main p-2 flex items-center bg-primary-light/10 rounded-full">
             <UserRound />
