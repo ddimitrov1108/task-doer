@@ -1,17 +1,15 @@
 "use client";
 
 import { INavList, IUserData } from "@/lib/interfaces";
-import { useSideBarState } from "../hooks";
-import { IconButton, Logo, SideBar } from "../ui";
-import { NavList, UserDropdownMenu } from "./components";
-import { Menu } from "lucide-react";
+import { useSideBarState } from "./hooks";
+import { NavList, UserDropdownMenu } from "./navigation";
+import { IconButton, Logo, SideBar } from "./ui";
 
 interface Props {
   user: IUserData;
   navList: INavList;
 }
 
-interface Props {}
 const HeaderNav = ({ user, navList }: Props) => {
   const [isOpen, setIsOpen, toggleIsOpen] = useSideBarState();
 
@@ -31,6 +29,7 @@ const HeaderNav = ({ user, navList }: Props) => {
       </SideBar>
 
       <IconButton
+        type="button"
         className="group lg:hidden flex flex-col items-end gap-1.5 w-[40px]"
         title="Open navigation"
         onClick={toggleIsOpen}

@@ -1,6 +1,6 @@
-import { createProject } from "@/db/project";
+import { createProject } from "@/db/ProjectDb";
 import { authConfig } from "@/lib/auth";
-import { IProject, IUserSession } from "@/lib/interfaces";
+import { INewProject, IUserSession } from "@/lib/interfaces";
 import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -10,7 +10,7 @@ export async function POST(req: NextRequest) {
   if (!session)
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
-  const { name, color }: IProject = await req.json();
+  const { name, color }: INewProject = await req.json();
 
   try {
     const newProject = await createProject(Number(session.user.id), {
@@ -21,7 +21,7 @@ export async function POST(req: NextRequest) {
     if (!newProject) throw Error("Failed to create project.");
 
     return NextResponse.json(
-      { href: `/todo/projects/${newProject.id}` },
+      { href: `/todo/project/${newProject.id}` },
       { status: 200 }
     );
   } catch (e) {

@@ -1,6 +1,16 @@
-import { ILabel } from "@/db/label";
 import { FieldInputProps, FormikProps, FormikValues } from "formik";
 import { DefaultSession } from "next-auth";
+
+export interface IUserData {
+  id?: number | null;
+  name?: string | null;
+  email?: string | null;
+  image?: string | null;
+}
+
+export interface IUserSession extends DefaultSession {
+  user: IUserData;
+}
 
 export interface IProject {
   id: number;
@@ -8,24 +18,18 @@ export interface IProject {
   color: string;
 }
 
-export interface IApiRouteIdSlug {
-  params: { id: string | null };
+export interface INewProject {
+  name: string;
+  color: string;
 }
 
-export interface IApiResponse {
-  href?: string | null | undefined;
-  error?: string | null | undefined;
+export interface ILabel {
+  id: number;
+  name: string;
 }
 
-export interface InputProps<T> {
-  type: "text" | "email" | "password";
-  label: string;
-  subLabel?: string;
-  className?: string;
-  fullWidth?: boolean;
-  disabled?: boolean;
-  field: FieldInputProps<T>;
-  form: FormikProps<FormikValues>;
+export interface INewLabel {
+  name: string;
 }
 
 export interface ISignInValues {
@@ -39,20 +43,15 @@ export interface ISignUpValues extends ISignInValues {
   confirmPassword: string;
 }
 
-export interface IUserData {
-  id?: number | null;
-  name?: string | null;
-  email?: string | null;
-  image?: string | null;
-}
-
-export interface IUserSession extends DefaultSession {
-  user: IUserData;
-}
-
-export interface INavList {
-  projects: IProject[];
-  labels: ILabel[];
+export interface InputProps<T> {
+  type: "text" | "email" | "password";
+  label: string;
+  subLabel?: string;
+  className?: string;
+  fullWidth?: boolean;
+  disabled?: boolean;
+  field: FieldInputProps<T>;
+  form: FormikProps<FormikValues>;
 }
 
 export interface INavLink {
@@ -60,4 +59,9 @@ export interface INavLink {
   name: string;
   icon: JSX.Element;
   href?: string;
+}
+
+export interface INavList {
+  projects: IProject[];
+  labels: ILabel[];
 }

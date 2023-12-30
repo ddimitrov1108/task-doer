@@ -1,6 +1,7 @@
+"use client";
+
 import { INavList } from "@/lib/interfaces";
-import { MouseEventHandler } from "react";
-import { NavLink } from ".";
+import { NavLink, ProjectsList } from ".";
 import { LandPlot, Star, Sun } from "lucide-react";
 import { v4 as uuidv4 } from "uuid";
 
@@ -27,10 +28,10 @@ const taskLinks = [
 
 interface Props {
   navList: INavList;
-  onNavElClick?: MouseEventHandler;
+  onNavElClick?: () => void;
 }
 
-const NavList = ({ navList, onNavElClick }: Props) => {
+const NavList = ({ navList, onNavElClick = () => {} }: Props) => {
   return (
     <>
       <div className="grid gap-2">
@@ -46,6 +47,8 @@ const NavList = ({ navList, onNavElClick }: Props) => {
           />
         ))}
       </div>
+
+      <ProjectsList projects={navList.projects} onNavElClick={onNavElClick} />
     </>
   );
 };

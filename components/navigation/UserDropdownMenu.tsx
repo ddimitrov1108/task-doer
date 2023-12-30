@@ -19,15 +19,17 @@ const dropdownLinks: INavLink[] = [
     href: "/account/settings",
   },
 ];
+
 const UserDropdownMenu = ({ user }: Props) => {
   return (
     <Dropdown
-      btnClassName="w-full flex items-center gap-3 hover:bg-black-light/10"
+      btnClassName="select-none w-full flex items-center gap-3 hover:bg-black-light/10"
       btn={
         <>
           <div className="text-2xl text-primary-main p-2 flex items-center bg-primary-light/10 rounded-full">
             <UserRound />
           </div>
+
           <div className="font-medium px-2 w-full grid text-left overflow-hidden">
             <span className="text-white truncate ...">{user.name}</span>
             <span className="text-sm text-main max-w-full truncate ...">
@@ -44,7 +46,7 @@ const UserDropdownMenu = ({ user }: Props) => {
           as={Link}
           href={link.href}
           item={link}
-          className="text-main hover:text-white"
+          className="text-light hover:text-white"
           iconClassName="text-primary-main"
         />
       ))}

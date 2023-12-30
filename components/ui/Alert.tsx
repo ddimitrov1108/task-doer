@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 interface Props {
   variant: AlertVariants;
   children: ReactNode;
+  className?: string;
 }
 
 const getAlertIcon = (variant: AlertIconsVariants) => {
@@ -22,14 +23,20 @@ const getAlertIcon = (variant: AlertIconsVariants) => {
   }
 };
 
-const Alert = ({ variant = "info", children, ...restProps }: Props) => {
+const Alert = ({
+  variant = "info",
+  children,
+  className,
+  ...restProps
+}: Props) => {
   const IconComponent = getAlertIcon(variant);
 
   return (
     <div
       className={cn(
-        "flex gap-2 mb-4 items-center px-4 py-2.5 border border-l-4 rounded-lg font-medium text-base w-full",
-        alert({ intent: variant })
+        "flex gap-2 items-center mb-4 px-4 py-2.5 border border-l-4 rounded-lg font-medium w-full",
+        alert({ intent: variant }),
+        className
       )}
       {...restProps}
     >

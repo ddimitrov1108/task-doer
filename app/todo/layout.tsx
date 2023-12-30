@@ -3,9 +3,9 @@ import { authConfig } from "@/lib/auth";
 import { IUserSession } from "@/lib/interfaces";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
-import { getLabels } from "@/db/label";
-import { getProjects } from "@/db/project";
-import { HeaderNav, SideNav } from "@/components/navigation";
+import { getProjects } from "@/db/ProjectDb";
+import { getLabels } from "@/db/Label";
+import { HeaderNav, SideNav } from "@/components";
 
 interface Props {
   children: ReactNode;

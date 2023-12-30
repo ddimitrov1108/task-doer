@@ -25,9 +25,12 @@ const Button = ({
   fullWidth,
   className,
   loading,
-  disabled,
   ...restProps
 }: Props) => {
+  const selectedVariant = ["outlined", "text", "basic"].includes(variant)
+    ? "text-primary-main"
+    : "text-white";
+
   return (
     <button
       className={cn(
@@ -37,18 +40,10 @@ const Button = ({
         button({ intent: variant, size: size })
       )}
       type={type}
-      disabled={disabled}
       {...restProps}
     >
       {loading ? (
-        <Spinner
-          className={cn(
-            "w-fit h-fit mx-auto",
-            ["outlined", "text", "basic"].includes(variant)
-              ? "text-primary-main"
-              : "text-white"
-          )}
-        />
+        <Spinner className={cn("w-fit h-fit mx-auto", selectedVariant)} />
       ) : (
         children
       )}

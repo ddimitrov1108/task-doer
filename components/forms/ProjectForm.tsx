@@ -2,25 +2,20 @@
 
 import { useParams, useRouter } from "next/navigation";
 import { useForm } from "../hooks";
-import { enqueueSnackbar } from "notistack";
 import { Alert, Button } from "../ui";
 import { Field, Form, Formik } from "formik";
 import { ColorPickerField, TextField } from "./formik";
 import { projectSchema } from "@/lib/yup-schemas";
-import { IApiResponse } from "@/lib/interfaces";
-
-interface IProjectValues {
-  name: string;
-  color: string;
-}
+import { toast } from "sonner";
+import { INewProject } from "@/lib/interfaces";
 
 interface Props {
-  initialState: IProjectValues;
+  initialState?: INewProject | null;
   editMode?: boolean;
   afterSubmit: () => void;
 }
 
-const initialValues: IProjectValues = { name: "", color: "#b8255f" };
+const initialValues: INewProject = { name: "", color: "#b8255f" };
 
 const ProjectForm = ({
   initialState,
@@ -31,7 +26,7 @@ const ProjectForm = ({
   const router = useRouter();
   const [form, setForm, controllerRef] = useForm();
 
-  const onSubmitHandler = async (values: IProjectValues) => {
+  const onSubmitHandler = async (values: INewProject) => {
     if (!values) return;
 
     controllerRef.current = new AbortController();
@@ -41,7 +36,7 @@ const ProjectForm = ({
     const { name, color } = values;
 
     if (editMode) {
-      await fetch(`/api/projects/${params.id}`, {
+      await fetch(`/api/project/${params.id}`, {
         method: "PUT",
         body: JSON.stringify({
           name,
@@ -50,12 +45,10 @@ const ProjectForm = ({
         signal,
       })
         .then((data) => data.json())
-        .then(({ error }: IApiResponse) => {
+        .then(({ error }: { error?: string }) => {
           if (error) throw error;
 
-          enqueueSnackbar("Project edited successfully!", {
-            variant: "success",
-          });
+          toast.success("Project edited successfully!");
           router.refresh();
           afterSubmit();
         })
@@ -63,7 +56,7 @@ const ProjectForm = ({
           setForm({ ...form, error: error });
         });
     } else {
-      await fetch("/api/projects", {
+      await fetch("/api/project", {
         method: "POST",
         body: JSON.stringify({
           name,
@@ -72,14 +65,12 @@ const ProjectForm = ({
         signal,
       })
         .then((data) => data.json())
-        .then(({ href, error }: IApiResponse) => {
+        .then(({ href, error }: { href?: string; error?: string }) => {
           if (error) throw error;
 
           if (!href) throw "Something went wrong.";
 
-          enqueueSnackbar("Project created successfully!", {
-            variant: "success",
-          });
+          toast.success("Project created successfully!");
           router.replace(href);
           router.refresh();
           afterSubmit();
@@ -126,7 +117,6 @@ const ProjectForm = ({
             variant="text"
             className="flex justify-center"
             disabled={form.loading}
-            loading={form.loading}
             onClick={afterSubmit}
             fullWidth
           >

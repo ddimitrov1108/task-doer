@@ -1,5 +1,5 @@
 import { INavList, IUserData } from "@/lib/interfaces";
-import { NavList, UserDropdownMenu } from "./components";
+import { NavList, UserDropdownMenu } from "./navigation";
 
 interface Props {
   user: IUserData;

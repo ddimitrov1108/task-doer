@@ -30,6 +30,7 @@ const AuthLayout = async ({ children }: Props) => {
             alt="banner"
             width={1920}
             height={1080}
+            draggable={false}
             className="min-h-screen object-cover"
           />
         </div>

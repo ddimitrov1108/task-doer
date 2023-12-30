@@ -1,6 +1,6 @@
 interface Props {
   label?: string;
-  title?: string;
+  title: string;
 }
 
 const HeaderText = ({ label = "", title = "Title" }: Props) => {
@@ -11,7 +11,12 @@ const HeaderText = ({ label = "", title = "Title" }: Props) => {
           {label}
         </h1>
       )}
-        <h1 className="capitalize text-xl xs:text-2xl lg:text-3xl font-bold">{title}</h1>
+      <h1
+        title={title}
+        className="capitalize text-xl xs:text-2xl lg:text-3xl font-bold"
+      >
+        {title}
+      </h1>
     </div>
   );
 };

@@ -1,5 +1,5 @@
-import bcryptjs from "bcryptjs";
 import prisma from "@/lib/prisma";
+import bcryptjs from "bcryptjs";
 
 interface IUser {
   id: number;
@@ -18,7 +18,7 @@ interface ICreateUser {
   password: string;
 }
 
-const getUser = async (email: string) => {
+const getUser = async (email: string): Promise<IUser | null> => {
   try {
     return await prisma.user.findUnique({
       where: { email },
@@ -29,7 +29,7 @@ const getUser = async (email: string) => {
   }
 };
 
-const createUser = async (user: ICreateUser) => {
+const createUser = async (user: ICreateUser): Promise<IUser | null> => {
   try {
     const hashPassword = await bcryptjs.hash(
       user.password,

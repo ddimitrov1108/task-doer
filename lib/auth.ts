@@ -1,7 +1,7 @@
-import { NextAuthOptions, User } from "next-auth";
+import { NextAuthOptions, User as UserAuth } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { emailRegex, nameRegex, passwordRegex } from "./regex";
-import { createUser, getUser } from "@/db/user";
+import { createUser, getUser } from "@/db/UserDb";
 import bcryptjs from "bcryptjs";
 
 export const authConfig: NextAuthOptions = {
@@ -107,7 +107,7 @@ export const authConfig: NextAuthOptions = {
           id: newUser.id.toString(),
           name: `${newUser.firstName} ${newUser.lastName}`,
           email: newUser.email,
-        } as User;
+        } as UserAuth;
       },
     }),
   ],

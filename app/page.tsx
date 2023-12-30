@@ -1,5 +1,6 @@
 import { Button, Logo } from "@/components/ui";
 import Link from "next/link";
+import SignOutBtn from "./SignOutBtn";
 
 export default function Home() {
   return (
@@ -15,13 +16,19 @@ export default function Home() {
 
         <div className="justify-center flex flex-col sm:flex-row gap-4">
           <Link href="/sign-in" className="w-full">
-            <Button variant="primary" fullWidth>Sign In</Button>
+            <Button variant="primary" fullWidth>
+              Sign In
+            </Button>
           </Link>
 
           <Link href="/sign-up" className="w-full">
-            <Button variant="text" fullWidth>Sign Up</Button>
+            <Button variant="text" fullWidth>
+              Sign Up
+            </Button>
           </Link>
         </div>
+
+        <SignOutBtn />
       </div>
     </div>
   );

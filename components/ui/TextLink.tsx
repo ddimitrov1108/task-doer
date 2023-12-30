@@ -6,9 +6,9 @@ import { cn } from "@/lib/utils";
 
 interface Props {
   href: string;
-  title?: string;
   className?: string;
   children: ReactNode;
+  title?: string;
   disabled?: boolean;
   onClick?: MouseEventHandler;
 }
