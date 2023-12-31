@@ -1,23 +1,23 @@
-import { FolderEdit, FolderPlus } from "lucide-react";
+import { IFormModal, INewLabel } from "@/lib/interfaces";
 import { Modal } from "../ui";
-import { ProjectForm } from "../forms";
-import { IFormModal, INewProject } from "@/lib/interfaces";
+import { AtSign } from "lucide-react";
+import { LabelForm } from "../forms";
 
-const ProjectModal = ({
+const LabelModal = ({
   isOpen,
   setIsOpen,
   editMode = false,
   initialState = null,
   afterSubmit,
-}: IFormModal<INewProject>) => {
+}: IFormModal<INewLabel>) => {
   return (
     <Modal
       modalTitle={
         <div className="flex items-center gap-2">
           <div className="text-2xl text-main">
-            {editMode ? <FolderEdit /> : <FolderPlus />}
+            <AtSign />
           </div>
-          {editMode ? "Edit Project" : "New Project"}
+          {editMode ? "Edit Label" : "New Label"}
         </div>
       }
       isOpen={isOpen}
@@ -25,7 +25,7 @@ const ProjectModal = ({
       className="max-w-sm"
       bodyClassName="pt-4"
     >
-      <ProjectForm
+      <LabelForm
         editMode={editMode}
         initialState={initialState}
         afterSubmit={afterSubmit}
@@ -33,4 +33,4 @@ const ProjectModal = ({
     </Modal>
   );
 };
-export default ProjectModal;
+export default LabelModal;
