@@ -17,11 +17,12 @@ body::-webkit-scrollbar-track {
 
 body::-webkit-scrollbar {
   width: 8px;
+  background-color: inherit;
 }
 
 body::-webkit-scrollbar-thumb {
   border-radius: 6px;
-  background-color: #28293D;
+  background-color: #555770;
 }
 
 .styled-overflow::-webkit-scrollbar-track {
@@ -34,7 +35,7 @@ body::-webkit-scrollbar-thumb {
 
 .styled-overflow::-webkit-scrollbar-thumb {
   border-radius: 6px;
-  background-color: #28293D;
+  background-color: #555770;
 }
 
 .styled-overflow-horizontal::-webkit-scrollbar-track {
