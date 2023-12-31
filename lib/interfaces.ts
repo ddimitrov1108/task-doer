@@ -32,6 +32,14 @@ export interface INewLabel {
   name: string;
 }
 
+export interface IFormModal<T> {
+  isOpen: boolean;
+  setIsOpen: () => void;
+  initialState?: T | null;
+  editMode?: boolean;
+  afterSubmit: () => void;
+}
+
 export interface ISignInValues {
   email: string;
   password: string;

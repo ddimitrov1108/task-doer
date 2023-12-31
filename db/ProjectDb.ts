@@ -1,6 +1,5 @@
 import { INewProject, IProject } from "@/lib/interfaces";
 import prisma from "@/lib/prisma";
-import { validateProjectValues } from "@/lib/utils";
 
 const getProjects = async (userId: number): Promise<IProject[]> => {
   try {
@@ -16,28 +15,58 @@ const getProjects = async (userId: number): Promise<IProject[]> => {
     });
   } catch (e) {
     console.error(e);
-    return [] as IProject[];
+    return [];
   }
 };
 
-const createProject = async (
+const deleteProject = async (
   userId: number,
-  project: INewProject
-): Promise<IProject | null> => {
+  projectId: number
+): Promise<boolean> => {
   try {
-    if (!validateProjectValues(project)) throw new Error("Invalid fields.");
-
-    return await prisma.project.create({
-      data: {
-        name: project.name,
-        color: project.color,
+    const projectToDelete = await prisma.project.findUnique({
+      where: {
+        id: projectId,
         uid: userId,
       },
+      include: {
+        tasks: {
+          include: {
+            labels: true,
+          },
+        },
+      },
     });
+
+    if (!projectToDelete) throw new Error("project not found");
+
+    const labelsToDelete = projectToDelete.tasks.flatMap((task) => task.labels);
+
+    await prisma.$transaction([
+      ...labelsToDelete.map((label) =>
+        prisma.taskWithLabel.deleteMany({
+          where: {
+            id: label.id,
+          },
+        })
+      ),
+      prisma.task.deleteMany({
+        where: {
+          pid: projectToDelete.id,
+        },
+      }),
+      prisma.project.delete({
+        where: {
+          id: projectId,
+        },
+      }),
+    ]);
+
+    return true;
   } catch (e) {
     console.error(e);
-    return null;
+    return false;
   }
 };
 
-export { getProjects, createProject };
+export { getProjects, deleteProject };

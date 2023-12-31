@@ -4,7 +4,7 @@ import { IUserSession } from "@/lib/interfaces";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import { getProjects } from "@/db/ProjectDb";
-import { getLabels } from "@/db/Label";
+import { getLabels } from "@/db/LabelDb";
 import { HeaderNav, SideNav } from "@/components";
 
 interface Props {

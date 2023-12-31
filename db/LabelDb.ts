@@ -38,24 +38,8 @@ const getLabels = async (userId: number): Promise<ILabel[]> => {
     });
   } catch (e) {
     console.error(e);
-    return [] as ILabel[];
-  }
-};
-
-const createLabel = async (userId: number, labelName: string) => {
-  const formattedName = formatLabelName(labelName);
-
-  try {
-    return await prisma.label.create({
-      data: {
-        uid: userId,
-        name: formattedName,
-      },
-    });
-  } catch (e) {
-    console.error(e);
     return [];
   }
 };
 
-export { getLabels, isLabelDuplucated, createLabel };
+export { getLabels, isLabelDuplucated };
