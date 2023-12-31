@@ -9,7 +9,7 @@ import { cn } from "@/lib/utils";
 interface Props {
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
-  modalTitle?: string | ReactNode;
+  modalTitle?: ReactNode;
   children: ReactNode;
   showCloseBtn?: boolean;
   className?: string;
@@ -75,11 +75,7 @@ const Modal = ({
                     headerClassName
                   )}
                 >
-                  {typeof modalTitle === "string" ? (
-                    <h1 className="text-base font-medium">{modalTitle}</h1>
-                  ) : (
-                    modalTitle
-                  )}
+                  {modalTitle}
 
                   {showCloseBtn && (
                     <IconButton
