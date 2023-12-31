@@ -1,7 +1,8 @@
+import { isLabelDuplucated } from "@/db/LabelDb";
 import { authConfig } from "@/lib/auth";
-import { INewProject, IUserSession } from "@/lib/interfaces";
+import { IUserSession } from "@/lib/interfaces";
 import prisma from "@/lib/prisma";
-import { validateProjectValues } from "@/lib/utils";
+import { validateLabelValues } from "@/lib/utils";
 import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -11,28 +12,33 @@ export async function POST(req: NextRequest) {
   if (!session || !session.user || !session.user.id)
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
-  const { name, color }: INewProject = await req.json();
+  const { name } = await req.json();
 
-  if (!validateProjectValues({ name, color }))
+  if (!validateLabelValues(name))
     return NextResponse.json({ error: "Invalid fields." }, { status: 400 });
 
+  const formattedName = name.toLowerCase().replace(/\s+/g, "-");
+
   try {
-    const newProject = await prisma.project.create({
+    const isDuplicate = await isLabelDuplucated(session.user.id, formattedName);
+
+    if (isDuplicate) {
+      return NextResponse.json(
+        { error: "The label already exists! Please try another name." },
+        { status: 409 }
+      );
+    }
+
+    await prisma.label.create({
       data: {
-        name,
-        color,
         uid: session.user.id,
+        name: formattedName,
       },
     });
 
-    if (!newProject) throw Error("Failed to create project.");
-
-    return NextResponse.json(
-      { href: `/todo/project/${newProject.id}` },
-      { status: 200 }
-    );
-  } catch (e) {
-    console.error(e);
+    return NextResponse.json({}, { status: 200 });
+  } catch (error) {
+    console.log(error);
     return NextResponse.json(
       { error: "Something went wrong. Please try again later." },
       { status: 500 }
