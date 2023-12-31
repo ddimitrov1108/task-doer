@@ -1,7 +1,7 @@
 "use client";
 
 import { INavList } from "@/lib/interfaces";
-import { NavLink, ProjectsList } from ".";
+import { LabelsList, NavLink, ProjectsList } from ".";
 import { LandPlot, Star, Sun } from "lucide-react";
 import { v4 as uuidv4 } from "uuid";
 
@@ -49,6 +49,7 @@ const NavList = ({ navList, onNavElClick = () => {} }: Props) => {
       </div>
 
       <ProjectsList projects={navList.projects} onNavElClick={onNavElClick} />
+      <LabelsList labels={navList.labels} onNavElClick={onNavElClick} />
     </>
   );
 };
