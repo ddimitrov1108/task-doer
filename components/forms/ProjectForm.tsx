@@ -7,7 +7,11 @@ import { Field, Form, Formik } from "formik";
 import { ColorPickerField, TextField } from "./formik";
 import { projectSchema } from "@/lib/yup-schemas";
 import { toast } from "sonner";
-import { INewProject } from "@/lib/interfaces";
+
+interface INewProject {
+  name: string;
+  color: string;
+}
 
 interface Props {
   initialState?: INewProject | null;
