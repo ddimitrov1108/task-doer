@@ -1,7 +1,12 @@
 import { FolderEdit, FolderPlus } from "lucide-react";
 import { Modal } from "../ui";
 import { ProjectForm } from "../forms";
-import { IFormModal, INewProject } from "@/lib/interfaces";
+import { IFormModal } from "@/lib/interfaces";
+
+interface INewProject {
+  name: string;
+  color: string;
+}
 
 const ProjectModal = ({
   isOpen,
