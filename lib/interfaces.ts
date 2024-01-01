@@ -1,24 +1,17 @@
 import { FieldInputProps, FormikProps, FormikValues } from "formik";
-import { DefaultSession } from "next-auth";
 
 export interface IUserData {
-  id?: number | null;
+  id?: string | null;
   name?: string | null;
   email?: string | null;
-  image?: string | null;
 }
 
-export interface IUserSession extends DefaultSession {
+export interface IUserSession {
   user: IUserData;
 }
 
 export interface IProject {
   id: number;
-  name: string;
-  color: string;
-}
-
-export interface INewProject {
   name: string;
   color: string;
 }

@@ -20,5 +20,4 @@ const HeaderText = ({ label = "", title = "Title" }: Props) => {
     </div>
   );
 };
-
 export default HeaderText;
