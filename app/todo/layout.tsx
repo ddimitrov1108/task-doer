@@ -3,9 +3,8 @@ import { authConfig } from "@/lib/auth";
 import { IUserSession } from "@/lib/interfaces";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
-import { getProjects } from "@/db/ProjectDb";
-import { getLabels } from "@/db/LabelDb";
 import { HeaderNav, SideNav } from "@/components";
+import { labelController, projectController } from "@/db";
 
 interface Props {
   children: ReactNode;
@@ -19,8 +18,8 @@ const layout = async ({ children }: Props) => {
   const id = Number(session.user.id);
 
   const [projects, labels] = await Promise.all([
-    getProjects(id),
-    getLabels(id),
+    projectController.getAll(id),
+    labelController.getAll(id),
   ]);
 
   return (

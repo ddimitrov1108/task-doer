@@ -1,8 +1,8 @@
 import { NextAuthOptions, User as UserAuth } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { emailRegex, nameRegex, passwordRegex } from "./regex";
-import { createUser, getUser } from "@/db/UserDb";
 import bcryptjs from "bcryptjs";
+import { userController } from "@/db";
 
 export const authConfig: NextAuthOptions = {
   pages: {
@@ -33,7 +33,7 @@ export const authConfig: NextAuthOptions = {
         if (!emailRegex.test(email) || !passwordRegex.test(password))
           throw new Error("Invalid credentials");
 
-        const user = await getUser(email);
+        const user = await userController.get(email);
 
         if (!user) throw new Error("User with this email does not exist");
 
@@ -83,18 +83,16 @@ export const authConfig: NextAuthOptions = {
         const comparePasswords = password.localeCompare(
           confirmPassword,
           undefined,
-          {
-            sensitivity: "base",
-          }
+          { sensitivity: "base" }
         );
 
         if (comparePasswords !== 0) throw new Error("Invalid credentials");
 
-        const searchUser = await getUser(email);
+        const searchUser = await userController.exists(email);
 
-        if (searchUser) throw new Error("User already exists");
+        if (searchUser) throw new Error("User with this email already exists");
 
-        const newUser = await createUser({
+        const newUser = await userController.create({
           firstName,
           lastName,
           email,

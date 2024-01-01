@@ -1,7 +1,7 @@
+import { projectController } from "@/db";
 import { authConfig } from "@/lib/auth";
 import { IUserSession } from "@/lib/interfaces";
-import prisma from "@/lib/prisma";
-import { validateIdParam, validateProjectValues } from "@/lib/utils";
+import { validateIdParam } from "@/lib/utils";
 import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -19,21 +19,15 @@ export async function PUT(
 
   const { name, color } = await req.json();
 
-  if (!validateProjectValues({ name, color }))
+  if (!projectController.validate({ name, color }))
     return NextResponse.json({ error: "Invalid fields." }, { status: 400 });
 
-  const projectId = parseInt(params.id);
-
   try {
-    const updatedProject = await prisma.project.update({
-      where: {
-        id: projectId,
-        uid: session.user.id,
-      },
-      data: {
-        name,
-        color,
-      },
+    const updatedProject = await projectController.update({
+      id: parseInt(params.id),
+      uid: parseInt(session.user.id),
+      name,
+      color,
     });
 
     if (!updatedProject) throw Error("Failed to update project");
@@ -61,5 +55,19 @@ export async function DELETE(
     return NextResponse.json({ error: "Bad Request." }, { status: 400 });
 
   try {
-  } catch (e) {}
+    const deletedProject = await projectController.delete(
+      parseInt(session.user.id),
+      parseInt(params.id)
+    );
+
+    if (!deletedProject) throw Error("Failed to delete project");
+
+    return NextResponse.json({}, { status: 200 });
+  } catch (e) {
+    console.error(e);
+    return NextResponse.json(
+      { error: "Something went wrong. Please try again later." },
+      { status: 500 }
+    );
+  }
 }
