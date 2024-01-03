@@ -8,6 +8,7 @@ import { Chip, IconButton } from "../ui";
 import Link from "next/link";
 import { MouseEvent } from "react";
 import { ITask } from "@/lib/interfaces";
+import { TaskLabelsList } from "./components";
 
 interface Props {
   task: ITask;
@@ -31,12 +32,12 @@ const Task = ({ task }: Props) => {
   return (
     <div
       onClick={onTaskClickHandler}
-      className="transition-all cursor-pointer group flex gap-4 items-start bg-black-main hover:bg-black-main/80 p-2 border border-transparent border-b-black-light/20 last:border-b-transparent first:rounded-t-md last:rounded-b-md"
+      className="transition-all cursor-pointer group flex gap-2 items-start bg-black-main hover:bg-black-main/80 p-2 border border-transparent border-b-black-light/20 last:border-b-transparent first:rounded-t-md last:rounded-b-md"
     >
       <div className="p-2">
         <button
           className={cn(
-            "text-base transition-all p-0.5 w-fit h-fit min-w-fit min-h-fit rounded-full grid items-center justify-center border border-gray-600/40",
+            "text-base transition-all p-0.5 w-fit h-fit min-w-fit min-h-fit rounded-full grid items-center justify-center border border-black-light/20",
             task.completed
               ? "text-black-main bg-success-main border-success-main"
               : "text-transparent hover:text-success-main"
@@ -46,7 +47,7 @@ const Task = ({ task }: Props) => {
             onCompletedHandler();
           }}
         >
-          <Check size={20} />
+          <Check size={16} />
         </button>
       </div>
 
@@ -91,7 +92,7 @@ const Task = ({ task }: Props) => {
                 "p-1 transition-all text-xl",
                 task.important
                   ? "text-warning-main"
-                  : "text-main hover:text-light"
+                  : "text-dark hover:text-main"
               )}
               onClick={onImportantHandler}
             >
@@ -100,19 +101,7 @@ const Task = ({ task }: Props) => {
           </div>
         </div>
 
-        {task.labels && task.labels.length > 0 && (
-          <div className="flex w-full items-center gap-1 py-1 overflow-auto styled-overflow-horizontal">
-            {task.labels.map((label) => (
-              <Link key={label.id} href={`/todo/labels/${label.id}`}>
-                <Chip
-                  title={label.name}
-                  prepEndIcon={<AtSign size={16} />}
-                  onClick={(e: MouseEvent) => e.stopPropagation()}
-                />
-              </Link>
-            ))}
-          </div>
-        )}
+        <TaskLabelsList labels={task.labels} />
       </div>
     </div>
   );

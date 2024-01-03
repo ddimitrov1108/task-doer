@@ -13,8 +13,7 @@ interface Props {
 const AddTaskButton = ({ className, ...restProps }: Props) => {
   return (
     <Button
-      size="sm"
-      variant="primary"
+      variant="secondary"
       className={cn("px-2 flex items-center gap-1 justify-center", className)}
       onClick={() => alert("add new task")}
       {...restProps}
