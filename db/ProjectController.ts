@@ -68,28 +68,7 @@ class ProjectController extends DbConnector {
     }
   }
 
-  public async get(userId: number, projectId: number) {
-    try {
-      return await this.prisma.project.findUnique({
-        where: {
-          id: projectId,
-          uid: userId,
-        },
-        include: {
-          tasks: {
-            include: {
-              labels: true,
-            },
-          },
-        },
-      });
-    } catch (e) {
-      console.error(e);
-      return null;
-    }
-  }
-
-  public async getDetails(
+  public async get(
     userId: number,
     projectId: number
   ): Promise<{
@@ -183,7 +162,19 @@ class ProjectController extends DbConnector {
     projectId: number
   ): Promise<IProject | null> {
     try {
-      const projectToDelete = await this.get(userId, projectId);
+      const projectToDelete = await this.prisma.project.findUnique({
+        where: {
+          id: projectId,
+          uid: userId,
+        },
+        include: {
+          tasks: {
+            include: {
+              labels: true,
+            },
+          },
+        },
+      });
 
       if (!projectToDelete) throw new Error("Project not found");
 

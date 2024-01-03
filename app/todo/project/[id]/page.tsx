@@ -19,7 +19,7 @@ const ProjectPage = async ({ params }: Props) => {
 
   if (!session || !session.user || !session.user.id) return redirect("/");
 
-  const project = await projectController.getDetails(
+  const project = await projectController.get(
     parseInt(session.user.id),
     parseInt(params.id)
   );
