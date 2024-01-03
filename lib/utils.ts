@@ -6,7 +6,9 @@ export function cn(...args: ClassValue[]) {
   return twMerge(clsx(args));
 }
 
-export const validateIdParam = (id: string | null | undefined): boolean => {
+export const validateIdParam = (
+  id: string | null | undefined
+): boolean => {
   return !!id && !!parseInt(id);
 };
 

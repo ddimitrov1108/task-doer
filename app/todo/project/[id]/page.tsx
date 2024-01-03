@@ -1,11 +1,33 @@
-interface Props {
-  params: { id?: number };
-}
+import { projectController } from "@/db";
+import { authConfig } from "@/lib/auth";
+import { IUserSession } from "@/lib/interfaces";
+import { validateIdParam } from "@/lib/utils";
+import { getServerSession } from "next-auth";
+import { notFound, redirect } from "next/navigation";
 
 export const revalidate = 30;
 
+interface Props {
+  params: { id?: string | undefined };
+}
+
 const ProjectPage = async ({ params }: Props) => {
-  return <div>{params.id}</div>;
+  if (!params?.id || !validateIdParam(params?.id)) return notFound();
+
+  const session: IUserSession | null = await getServerSession(authConfig);
+  
+  if (!session || !session.user || !session.user.id) return redirect("/");
+
+  const project = await projectController.get(
+    parseInt(session.user.id),
+    parseInt(params.id)
+  );
+
+  return (
+    <div>
+      <pre>{JSON.stringify(project, null, 4)}</pre>
+    </div>
+  );
 };
 
 export default ProjectPage;
