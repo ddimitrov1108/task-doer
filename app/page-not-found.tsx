@@ -23,7 +23,7 @@ const PageNotFound = (props: Props) => {
         </p>
       </div>
       <Link href="/todo" replace={true} className="mx-auto">
-        <Button size="sm" variant="secondary">
+        <Button variant="secondary">
           Home Page
         </Button>
       </Link>

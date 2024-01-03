@@ -22,7 +22,7 @@ export const button = cva("button", {
       ],
       secondary: [
         "bg-primary-main/10",
-        "border-primary-main/10",
+        "border-transparent",
         "text-primary-main",
         "hover:bg-primary-main hover:text-white",
       ],

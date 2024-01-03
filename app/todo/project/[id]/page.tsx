@@ -1,3 +1,4 @@
+import { TasksList } from "@/components/task";
 import { projectController } from "@/db";
 import { authConfig } from "@/lib/auth";
 import { IUserSession } from "@/lib/interfaces";
@@ -15,17 +16,19 @@ const ProjectPage = async ({ params }: Props) => {
   if (!params?.id || !validateIdParam(params?.id)) return notFound();
 
   const session: IUserSession | null = await getServerSession(authConfig);
-  
+
   if (!session || !session.user || !session.user.id) return redirect("/");
 
-  const project = await projectController.get(
+  const project = await projectController.getDetails(
     parseInt(session.user.id),
     parseInt(params.id)
   );
 
+  if (!project) return notFound();
+
   return (
     <div>
-      <pre>{JSON.stringify(project, null, 4)}</pre>
+      <TasksList tasks={project.tasks}/>
     </div>
   );
 };
