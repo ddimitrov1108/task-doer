@@ -1,5 +1,6 @@
 import { hexColorRegex, sectionNameRegex } from "@/lib/regex";
 import DbConnector from "./DbConnector";
+import { ITask } from "@/lib/interfaces";
 
 interface ICreateProject {
   name: string;
@@ -20,6 +21,15 @@ interface IProject {
   id: number;
   name: string;
   color: string;
+}
+
+interface IProjectRow {
+  id: number;
+  uid: number;
+  name: string;
+  color: string;
+  updated_at: Date;
+  created_at: Date;
 }
 
 class ProjectController extends DbConnector {
@@ -73,6 +83,66 @@ class ProjectController extends DbConnector {
           },
         },
       });
+    } catch (e) {
+      console.error(e);
+      return null;
+    }
+  }
+
+  public async getDetails(
+    userId: number,
+    projectId: number
+  ): Promise<{
+    id: number;
+    name: string;
+    color: string;
+    tasks: ITask[];
+  } | null> {
+    try {
+      const project = await this.prisma.project.findFirst({
+        where: {
+          id: projectId,
+          uid: userId,
+        },
+        select: {
+          id: true,
+          name: true,
+          color: true,
+          tasks: {
+            select: {
+              id: true,
+              name: true,
+              description: true,
+              important: true,
+              completed: true,
+              dueDate: true,
+              labels: {
+                select: {
+                  label: {
+                    select: {
+                      id: true,
+                      name: true,
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
+      });
+
+      if (!project) return null;
+
+      return {
+        ...project,
+        tasks: project.tasks.map(({ labels, ...restTask }) => ({
+          ...restTask,
+          labels: labels.map((label) => ({
+            id: label.label.id,
+            name: label.label.name,
+          })),
+        })),
+      };
     } catch (e) {
       console.error(e);
       return null;

@@ -4,13 +4,12 @@ import { cn } from "@/lib/utils";
 import { MouseEventHandler, ReactNode } from "react";
 
 interface Props {
-  children: ReactNode;
+  title: string;
   prepEndIcon?: ReactNode;
   className?: string;
-  onClick?: MouseEventHandler;
-  title?: string;
+  onClick?: MouseEventHandler<HTMLButtonElement> | undefined;
 }
-const Chip = ({ children, prepEndIcon, className, ...restProps }: Props) => {
+const Chip = ({ prepEndIcon, className, title, ...restProps }: Props) => {
   return (
     <button
       type="button"
@@ -23,7 +22,7 @@ const Chip = ({ children, prepEndIcon, className, ...restProps }: Props) => {
       {prepEndIcon && (
         <span className="text-primary-main font-medium">{prepEndIcon}</span>
       )}
-      {children}
+      {title}
     </button>
   );
 };

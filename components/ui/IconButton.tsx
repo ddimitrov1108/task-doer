@@ -7,7 +7,7 @@ import { Spinner } from ".";
 
 interface Props {
   children: ReactNode;
-  type: ButtonType;
+  type?: ButtonType;
   className?: string;
   loading?: boolean;
   disabled?: boolean;

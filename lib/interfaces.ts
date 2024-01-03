@@ -1,5 +1,18 @@
 import { FieldInputProps, FormikProps, FormikValues } from "formik";
 
+export interface ITask {
+  id: number;
+  name: string;
+  description: string;
+  completed: boolean;
+  important: boolean;
+  dueDate: Date;
+  labels?: {
+    id: number;
+    name: string;
+  }[];
+}
+
 export interface IUserData {
   id?: string | null;
   name?: string | null;
