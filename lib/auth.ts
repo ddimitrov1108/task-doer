@@ -37,7 +37,7 @@ export const authConfig: NextAuthOptions = {
 
         if (!user) throw new Error("User with this email does not exist");
 
-        const comparePasswords = await bcryptjs.compare(
+        const comparePasswords:boolean = await bcryptjs.compare(
           password,
           user.hashPassword
         );
@@ -49,7 +49,7 @@ export const authConfig: NextAuthOptions = {
           id: user.id.toString(),
           name: `${user.firstName} ${user.lastName}`,
           email: user.email,
-        };
+        } as UserAuth;
       },
     }),
     CredentialsProvider({
@@ -80,17 +80,18 @@ export const authConfig: NextAuthOptions = {
         )
           throw new Error("Invalid credentials");
 
-        const comparePasswords = password.localeCompare(
+        const comparePasswords: number = password.localeCompare(
           confirmPassword,
           undefined,
           { sensitivity: "base" }
         );
 
-        if (comparePasswords !== 0) throw new Error("Invalid credentials");
+        if (!comparePasswords) throw new Error("Invalid credentials");
 
-        const searchUser = await userController.exists(email);
+        const isEmailTaken: boolean = await userController.exists(email);
 
-        if (searchUser) throw new Error("User with this email already exists");
+        if (isEmailTaken)
+          throw new Error("User with this email already exists");
 
         const newUser = await userController.create({
           firstName,

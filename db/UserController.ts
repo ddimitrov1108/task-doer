@@ -34,8 +34,9 @@ class UserController extends DbConnector {
 
   public async exists(email: string): Promise<boolean> {
     try {
-      const searchedUser = await this.get(email);
-      return !!searchedUser;
+      return !!(await this.prisma.user.count({
+        where: { email },
+      }));
     } catch (e) {
       console.error(e);
       return false;
