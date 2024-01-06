@@ -20,7 +20,7 @@ interface Props {
   className?: string;
   loading?: boolean;
   disabled?: boolean;
-  onClick?: MouseEventHandler;
+  onClick?: MouseEventHandler<HTMLButtonElement>;
 }
 
 const Button = ({
