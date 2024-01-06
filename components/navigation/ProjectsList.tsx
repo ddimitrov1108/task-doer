@@ -1,11 +1,11 @@
 "use client";
 
-import { IProject } from "@/lib/interfaces";
 import { MouseEvent, useState } from "react";
 import { ProjectModal } from "../modals";
 import { NavLink } from ".";
 import { DisclousureContainer } from "../ui";
 import { Plus } from "lucide-react";
+import { IProject } from "@/lib/interfaces";
 
 interface Props {
   projects: IProject[];
@@ -13,7 +13,7 @@ interface Props {
 }
 
 const ProjectsList = ({ projects, onNavElClick = () => {} }: Props) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const onClickHandler = (e: MouseEvent) => {
     e.preventDefault();
@@ -29,7 +29,7 @@ const ProjectsList = ({ projects, onNavElClick = () => {} }: Props) => {
     <>
       <ProjectModal
         isOpen={isOpen}
-        setIsOpen={() => setIsOpen(!isOpen)}
+        setIsOpen={setIsOpen}
         afterSubmit={afterSubmitHandler}
       />
 

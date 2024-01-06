@@ -20,7 +20,7 @@ const PasswordField = ({
   const inputRef = useRef<HTMLInputElement>(null);
   const [isVisible, setIsVisible] = useState<boolean>(false);
 
-  const setEndOfInput = () => {
+  const setEndOfInput = (): void => {
     if (!inputRef.current) return;
 
     const length = inputRef.current.value.length;
@@ -33,7 +33,7 @@ const PasswordField = ({
     });
   };
 
-  const PasswordIconClickHandler = () => {
+  const PasswordIconClickHandler = (): void => {
     if (!inputRef.current) return;
 
     setIsVisible(!isVisible);

@@ -3,7 +3,30 @@
 import { InputProps } from "@/lib/interfaces";
 import { Label, ErrorMessage } from ".";
 import { cn } from "@/lib/utils";
-import { colorPickerColors } from "@/components/constants";
+import { MouseEvent } from "react";
+
+const colorPickerColors: string[] = [
+  "#b8255f",
+  "#db4035",
+  "#ff9933",
+  "#fad000",
+  "#afb83b",
+  "#7ecc49",
+  "#299438",
+  "#6accbc",
+  "#158fad",
+  "#14aaf5",
+  "#96c3eb",
+  "#4073ff",
+  "#884dff",
+  "#af38eb",
+  "#eb96eb",
+  "#e05194",
+  "#ff8d85",
+  "#808080",
+  "#b8b8b8",
+  "#ccac93",
+];
 
 const ColorPickerField = ({
   label,
@@ -14,8 +37,8 @@ const ColorPickerField = ({
   fullWidth,
   disabled,
 }: InputProps<string>) => {
-  const onClickHandler = (color: string) => {
-    setFieldValue(field.name, color);
+  const onClickHandler = (e: MouseEvent<HTMLButtonElement>): void => {
+    setFieldValue(field.name, e.currentTarget.value);
   };
 
   return (
@@ -27,15 +50,16 @@ const ColorPickerField = ({
           <button
             type="button"
             key={color}
+            value={color}
             className="flex justify-center items-center w-7 h-7 rounded-full"
             style={{ backgroundColor: color }}
-            onClick={() => onClickHandler(color)}
+            onClick={onClickHandler}
             disabled={disabled}
           >
             <div
               className={cn(
                 "transition-all rounded-full",
-                color === field.value ? "bg-black-main p-2.5" : "bg-inherit p-0"
+                color === field.value ? "bg-black-main p-2" : "bg-inherit p-0"
               )}
             ></div>
           </button>

@@ -1,14 +1,14 @@
 "use client";
 
 import { Dialog, Transition } from "@headlessui/react";
-import { Fragment, ReactNode } from "react";
+import { Dispatch, Fragment, ReactNode, SetStateAction } from "react";
 import { IconButton } from ".";
 import { X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface Props {
   isOpen: boolean;
-  setIsOpen: (isOpen: boolean) => void;
+  setIsOpen: Dispatch<SetStateAction<boolean>>;
   modalTitle?: ReactNode;
   children: ReactNode;
   showCloseBtn?: boolean;

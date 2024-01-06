@@ -19,7 +19,7 @@ const HeaderNav = ({ user, navList }: Props) => {
 
       <SideBar
         isOpen={isOpen}
-        onClose={toggleIsOpen}
+        setIsOpen={setIsOpen}
         containerClassName="bg-black-main px-0"
         headerClassName="pt-4 px-4"
         bodyClassName="w-full grid gap-4 px-4 py-4 bg-inherit"
@@ -30,7 +30,7 @@ const HeaderNav = ({ user, navList }: Props) => {
 
       <IconButton
         type="button"
-        className="group lg:hidden flex flex-col items-end gap-1.5 w-[40px]"
+        className="group lg:hidden flex flex-col items-end gap-1.5 min-w-[35px]"
         title="Open navigation"
         onClick={toggleIsOpen}
       >

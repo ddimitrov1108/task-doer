@@ -1,27 +1,33 @@
 import { ReactNode } from "react";
 import { authConfig } from "@/lib/auth";
-import { IUserSession } from "@/lib/interfaces";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import { HeaderNav, SideNav } from "@/components";
 import { labelController, projectController } from "@/db";
 import { TaskProvider } from "@/components/providers";
+import { ILabel, IProject, IUserSession } from "@/lib/interfaces";
 
 interface Props {
   children: ReactNode;
 }
+
+type FetchType = [IProject[], ILabel[]];
+
+const fetchData = async (userId: number): Promise<FetchType> => {
+  return await Promise.all([
+    projectController.getAll(userId),
+    labelController.getAll(userId),
+  ]);
+};
 
 const layout = async ({ children }: Props) => {
   const session: IUserSession | null = await getServerSession(authConfig);
 
   if (!session || !session.user || !session.user.id) return redirect("/");
 
-  const id = Number(session.user.id);
-
-  const [projects, labels] = await Promise.all([
-    projectController.getAll(id),
-    labelController.getAll(id),
-  ]);
+  const [projects, labels]: FetchType = await fetchData(
+    parseInt(session.user.id)
+  );
 
   return (
     <div className="w-full flex">

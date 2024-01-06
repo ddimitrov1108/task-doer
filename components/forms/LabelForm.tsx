@@ -2,12 +2,12 @@
 
 import { useParams, useRouter } from "next/navigation";
 import { useForm } from "../hooks";
-import { INewLabel } from "@/lib/interfaces";
 import { toast } from "sonner";
 import { Alert, Button } from "../ui";
 import { TextField } from "./formik";
 import { Field, Form, Formik } from "formik";
 import { labelSchema } from "@/lib/yup-schemas";
+import { INewLabel } from "@/db/LabelController";
 
 const initialValues: INewLabel = { name: "" };
 
@@ -20,17 +20,17 @@ interface Props {
 const LabelForm = ({ initialState, editMode = false, afterSubmit }: Props) => {
   const params = useParams();
   const router = useRouter();
-  const [form, setForm, controllerRef] = useForm();
+  const [form, setForm, abortControllerRef] = useForm();
 
   const onSubmitHandler = async (values: INewLabel) => {
     if (!values) return;
 
-    controllerRef.current = new AbortController();
-    const signal = controllerRef.current.signal;
+    abortControllerRef.current = new AbortController();
+    const signal: AbortSignal = abortControllerRef.current.signal;
 
     setForm({ loading: true, error: "" });
 
-    const reqBody = JSON.stringify({ name: values.name });
+    const reqBody: string = JSON.stringify({ name: values.name });
 
     if (editMode) {
       await fetch(`/api/label/${params.id}`, {
