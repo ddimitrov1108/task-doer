@@ -1,36 +1,12 @@
 import { hexColorRegex, sectionNameRegex } from "@/lib/regex";
 import DbConnector from "./DbConnector";
-import { ITask } from "@/lib/interfaces";
-
-interface ICreateProject {
-  name: string;
-  color: string;
-  uid: number;
-}
-
-interface IUpdateProject extends ICreateProject {
-  id: number;
-}
-
-interface IValidateProject {
-  name: string | null | undefined;
-  color: string | null | undefined;
-}
-
-interface IProject {
-  id: number;
-  name: string;
-  color: string;
-}
-
-interface IProjectRow {
-  id: number;
-  uid: number;
-  name: string;
-  color: string;
-  updated_at: Date;
-  created_at: Date;
-}
+import {
+  INewProject,
+  IProject,
+  ITask,
+  IUpdateProject,
+  IValidateProject,
+} from "@/lib/interfaces";
 
 class ProjectController extends DbConnector {
   constructor() {
@@ -128,10 +104,16 @@ class ProjectController extends DbConnector {
     }
   }
 
-  public async create(newProject: ICreateProject): Promise<IProject | null> {
+  public async create(
+    userId: number,
+    newProject: INewProject
+  ): Promise<IProject | null> {
     try {
       return await this.prisma.project.create({
-        data: newProject,
+        data: {
+          ...newProject,
+          uid: userId,
+        },
       });
     } catch (e) {
       console.error(e);
@@ -139,12 +121,12 @@ class ProjectController extends DbConnector {
     }
   }
 
-  public async update(project: IUpdateProject) {
+  public async update(userId: number, project: IUpdateProject) {
     try {
       return await this.prisma.project.update({
         where: {
           id: project.id,
-          uid: project.uid,
+          uid: userId,
         },
         data: {
           name: project.name,

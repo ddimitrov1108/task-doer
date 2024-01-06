@@ -1,9 +1,5 @@
+import { ILabel } from "@/lib/interfaces";
 import DbConnector from "./DbConnector";
-
-export interface ILabel {
-  id: number;
-  name: string;
-}
 
 class LabelController extends DbConnector {
   constructor() {
@@ -35,14 +31,12 @@ class LabelController extends DbConnector {
     const formattedName = this.formatName(labelName);
 
     try {
-      const isDuplicate = await this.prisma.label.findFirst({
+      return !!(await this.prisma.label.count({
         where: {
           uid: userId,
           name: formattedName,
         },
-      });
-
-      return !!isDuplicate;
+      }));
     } catch (e) {
       console.error(e);
       return false;

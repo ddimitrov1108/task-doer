@@ -1,20 +1,8 @@
 import bcryptjs from "bcryptjs";
 import DbConnector from "./DbConnector";
+import { INewUser, IUser } from "@/lib/interfaces";
 
-interface INewUser {
-  firstName: string;
-  lastName: string;
-  email: string;
-  password: string;
-}
-
-interface IUser {
-  id: number;
-  firstName: string;
-  lastName: string;
-  email: string;
-  hashPassword: string;
-}
+type UserReturnType = IUser | null;
 
 class UserController extends DbConnector {
   constructor() {
@@ -32,7 +20,7 @@ class UserController extends DbConnector {
     }
   }
 
-  public async get(email: string): Promise<IUser | null> {
+  public async get(email: string): Promise<UserReturnType> {
     try {
       return await this.prisma.user.findUnique({
         where: { email },
@@ -43,7 +31,7 @@ class UserController extends DbConnector {
     }
   }
 
-  public async create(newUser: INewUser): Promise<IUser | null> {
+  public async create(newUser: INewUser): Promise<UserReturnType> {
     try {
       const hashPassword = await bcryptjs.hash(
         newUser.password,
