@@ -2,7 +2,7 @@
 
 import { useRef, useState } from "react";
 
-interface IFormState {
+interface IState {
   loading: boolean;
   error: string;
 }
@@ -10,7 +10,7 @@ interface IFormState {
 const useForm = () => {
   const abortControllerRef = useRef<AbortController>();
 
-  const [form, setForm] = useState<IFormState>({
+  const [form, setForm] = useState<IState>({
     loading: false,
     error: "",
   });

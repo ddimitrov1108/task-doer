@@ -37,9 +37,8 @@ const ColorPickerField = ({
   fullWidth,
   disabled,
 }: InputProps<string>) => {
-  const onClickHandler = (e: MouseEvent<HTMLButtonElement>): void => {
+  const onClickHandler = (e: MouseEvent<HTMLButtonElement>) =>
     setFieldValue(field.name, e.currentTarget.value);
-  };
 
   return (
     <div className={cn("mb-4", className, fullWidth ? "w-full" : "w-fit")}>

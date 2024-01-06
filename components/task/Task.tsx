@@ -23,7 +23,7 @@ const Task = ({ task }: Props) => {
     return format(task.dueDate, "EEE, d MMM, yy", { locale: enUS });
   };
 
-  const onTaskClickHandler = (): void => {
+  const onTaskClickHandler = () => {
     alert(1);
   };
   const onCompletedHandler = () => alert("completed");

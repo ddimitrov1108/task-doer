@@ -68,19 +68,6 @@ export interface INewUser {
   password: string;
 }
 
-export interface ITask {
-  id: number;
-  name: string;
-  description: string;
-  completed: boolean;
-  important: boolean;
-  dueDate: Date;
-  labels?: {
-    id: number;
-    name: string;
-  }[];
-}
-
 export interface IProject {
   id: number;
   name: string;
@@ -108,4 +95,17 @@ export interface ILabel {
 
 export interface INewLabel {
   name: string;
+}
+
+export interface ITask {
+  id: number;
+  name: string;
+  description: string;
+  completed: boolean;
+  important: boolean;
+  dueDate: Date;
+  labels?: {
+    id: number;
+    name: string;
+  }[];
 }
