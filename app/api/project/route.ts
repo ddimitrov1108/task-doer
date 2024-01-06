@@ -21,11 +21,13 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Invalid fields." }, { status: 400 });
 
   try {
-    const newProject = await projectController.create({
-      name,
-      color,
-      uid: parseInt(session.user.id),
-    });
+    const newProject = await projectController.create(
+      parseInt(session.user.id),
+      {
+        name,
+        color,
+      }
+    );
 
     if (!newProject) throw new Error("Failed to create project.");
 

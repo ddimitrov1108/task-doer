@@ -23,12 +23,14 @@ export async function PUT(
     return NextResponse.json({ error: "Invalid fields." }, { status: 400 });
 
   try {
-    const updatedProject = await projectController.update({
-      id: parseInt(params.id),
-      uid: parseInt(session.user.id),
-      name,
-      color,
-    });
+    const updatedProject = await projectController.update(
+      parseInt(session.user.id),
+      {
+        id: parseInt(params.id),
+        name,
+        color,
+      }
+    );
 
     if (!updatedProject) throw Error("Failed to update project");
 
