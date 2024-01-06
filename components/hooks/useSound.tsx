@@ -2,8 +2,8 @@ import { useState, useEffect } from "react";
 import { Howl, Howler } from "howler";
 
 const useSound = (soundUrl: string) => {
-  const [sound, setSound] = useState(new Howl({ src: [soundUrl] }));
-  const [isPlaying, setIsPlaying] = useState(false);
+  const [sound, setSound] = useState<Howl>(new Howl({ src: [soundUrl] }));
+  const [isPlaying, setIsPlaying] = useState<boolean>(false);
 
   const playSound = () => {
     if (Howler.ctx.state === "suspended") {

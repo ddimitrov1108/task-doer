@@ -2,19 +2,19 @@
 
 import { useRef, useState } from "react";
 
-interface IForm {
+interface IFormState {
   loading: boolean;
   error: string;
 }
 
 const useForm = () => {
-  const controllerRef = useRef<AbortController>();
+  const abortControllerRef = useRef<AbortController>();
 
-  const [form, setForm] = useState<IForm>({
+  const [form, setForm] = useState<IFormState>({
     loading: false,
     error: "",
   });
 
-  return [form, setForm, controllerRef] as const;
+  return [form, setForm, abortControllerRef] as const;
 };
 export default useForm;
