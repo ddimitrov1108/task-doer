@@ -1,13 +1,13 @@
 "use client";
 
-import { MouseEventHandler, ReactNode } from "react";
+import { Dispatch, ReactNode, SetStateAction } from "react";
 import { X } from "lucide-react";
 import { Logo } from ".";
 import { cn } from "@/lib/utils";
 
 interface Props {
   isOpen: boolean;
-  onClose: MouseEventHandler;
+  setIsOpen: Dispatch<SetStateAction<boolean>>;
   children: ReactNode;
   containerClassName?: string;
   overlayClassName?: string;
@@ -17,17 +17,19 @@ interface Props {
 
 const SideBar = ({
   isOpen,
-  onClose,
+  setIsOpen,
   children,
   containerClassName,
   overlayClassName,
   headerClassName,
   bodyClassName,
 }: Props) => {
+  const onSideBarCloseHandler = () => setIsOpen(false);
+
   return (
     <div className="lg:hidden z-50 w-full h-full">
       <div
-        onClick={onClose}
+        onClick={onSideBarCloseHandler}
         className={cn(
           "z-50 transition-all fixed top-0 right-0 left-0 bottom-0 sm:backdrop-blur-sm sm:bg-containerBg/20",
           overlayClassName,
@@ -56,7 +58,7 @@ const SideBar = ({
                 tabIndex={0}
                 type="button"
                 className="grid items-center justify-center transition-all rounded-full outline-none text-gray-400 hover:text-slate-100 text-xl"
-                onClick={onClose}
+                onClick={onSideBarCloseHandler}
                 title="Close navigation"
               >
                 <X />
