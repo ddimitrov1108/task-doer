@@ -2,7 +2,13 @@
 
 import { cn } from "@/lib/utils";
 import { MouseEventHandler, ReactNode } from "react";
-import { ButtonSizes, ButtonType, ButtonVariants, button } from "../cva/button";
+import {
+  ButtonLoadingAnimationColor,
+  ButtonSizes,
+  ButtonType,
+  ButtonVariants,
+  button,
+} from "../cva/button";
 import { Spinner } from ".";
 
 interface Props {
@@ -18,16 +24,20 @@ interface Props {
 }
 
 const Button = ({
+  children,
   type = "button",
   variant = "primary",
   size = "md",
-  children,
-  fullWidth,
+  fullWidth = false,
+  loading = false,
   className,
-  loading,
   ...restProps
 }: Props) => {
-  const selectedVariant = ["outlined", "text", "basic"].includes(variant)
+  const selectedVariant: ButtonLoadingAnimationColor = [
+    "outlined",
+    "text",
+    "basic",
+  ].includes(variant)
     ? "text-primary-main"
     : "text-white";
 

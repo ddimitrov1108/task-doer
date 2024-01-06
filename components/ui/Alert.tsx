@@ -9,7 +9,7 @@ interface Props {
   className?: string;
 }
 
-const getAlertIcon = (variant: AlertIconsVariants) => {
+const getAlertVariantIcon = (variant: AlertIconsVariants): JSX.Element => {
   switch (variant) {
     case "success":
       return <CheckCircle />;
@@ -23,13 +23,8 @@ const getAlertIcon = (variant: AlertIconsVariants) => {
   }
 };
 
-const Alert = ({
-  variant = "info",
-  children,
-  className,
-  ...restProps
-}: Props) => {
-  const IconComponent = getAlertIcon(variant);
+const Alert = ({ variant = "info", children, className }: Props) => {
+  const IconComponent: JSX.Element = getAlertVariantIcon(variant);
 
   return (
     <div
@@ -38,7 +33,6 @@ const Alert = ({
         alert({ intent: variant }),
         className
       )}
-      {...restProps}
     >
       <div className="text-2xl">{IconComponent}</div>
 
