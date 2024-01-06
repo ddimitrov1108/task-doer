@@ -7,7 +7,7 @@ import { Alert, Button } from "../ui";
 import { TextField } from "./formik";
 import { Field, Form, Formik } from "formik";
 import { labelSchema } from "@/lib/yup-schemas";
-import { INewLabel } from "@/db/LabelController";
+import { INewLabel } from "@/lib/interfaces";
 
 const initialValues: INewLabel = { name: "" };
 
