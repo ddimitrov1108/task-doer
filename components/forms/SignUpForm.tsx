@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { ISignUpValues } from "../../lib/interfaces";
+import { ISignUpFormValues } from "../../lib/interfaces";
 import { useForm } from "../hooks";
 import { SignInResponse, signIn } from "next-auth/react";
 import { Alert, Button, TextLink } from "../ui";
@@ -9,7 +9,7 @@ import { PasswordField, TextField } from "./formik";
 import { Field, Form, Formik } from "formik";
 import { registerSchema } from "@/lib/yup-schemas";
 
-const initialValues: ISignUpValues = {
+const initialValues: ISignUpFormValues = {
   firstName: "",
   lastName: "",
   email: "",
@@ -21,7 +21,7 @@ const SignUpForm = () => {
   const router = useRouter();
   const [form, setForm] = useForm();
 
-  const onSubmitHandler = async (values: ISignUpValues) => {
+  const onSubmitHandler = async (values: ISignUpFormValues) => {
     if (!values) return;
 
     setForm({ loading: true, error: "" });
@@ -67,6 +67,7 @@ const SignUpForm = () => {
             component={TextField}
             fullWidth
           />
+
           <Field
             id="lastName"
             name="lastName"

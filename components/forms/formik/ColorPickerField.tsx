@@ -1,6 +1,6 @@
 "use client";
 
-import { InputProps } from "@/lib/interfaces";
+import { IFormInput } from "@/lib/interfaces";
 import { Label, ErrorMessage } from ".";
 import { cn } from "@/lib/utils";
 import { MouseEvent } from "react";
@@ -36,7 +36,7 @@ const ColorPickerField = ({
   form: { setFieldValue, touched, errors },
   fullWidth,
   disabled,
-}: InputProps<string>) => {
+}: IFormInput<string>) => {
   const onClickHandler = (e: MouseEvent<HTMLButtonElement>) =>
     setFieldValue(field.name, e.currentTarget.value);
 

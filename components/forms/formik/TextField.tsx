@@ -2,7 +2,7 @@
 
 import { Label, ErrorMessage } from ".";
 import { cn } from "@/lib/utils";
-import { InputProps } from "@/lib/interfaces";
+import { IFormInput } from "@/lib/interfaces";
 
 const TextField = ({
   label,
@@ -14,7 +14,7 @@ const TextField = ({
   fullWidth,
   disabled,
   ...restProps
-}: InputProps<string>) => {
+}: IFormInput<string>) => {
   return (
     <div className={cn("mb-4", fullWidth ? "w-full" : "w-fit")}>
       <Label className="pb-2" htmlFor={field.name}>

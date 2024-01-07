@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { ErrorMessage, Label } from ".";
 import { cn } from "@/lib/utils";
 import { Eye, EyeOff } from "lucide-react";
-import { InputProps } from "@/lib/interfaces";
+import { IFormInput } from "@/lib/interfaces";
 
 const PasswordField = ({
   label,
@@ -16,7 +16,7 @@ const PasswordField = ({
   fullWidth,
   disabled,
   ...restProps
-}: InputProps<string>) => {
+}: IFormInput<string>) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [isVisible, setIsVisible] = useState<boolean>(false);
 

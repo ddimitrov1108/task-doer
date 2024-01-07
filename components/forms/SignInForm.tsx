@@ -7,15 +7,15 @@ import { loginSchema } from "@/lib/yup-schemas";
 import { Alert, Button, TextLink } from "../ui";
 import { PasswordField, TextField } from "./formik";
 import { useForm } from "../hooks";
-import { ISignInValues } from "../../lib/interfaces";
+import { ISignInFormValues } from "../../lib/interfaces";
 
-const initialValues: ISignInValues = { email: "", password: "" };
+const initialValues: ISignInFormValues = { email: "", password: "" };
 
 const SignInForm = () => {
   const router = useRouter();
   const [form, setForm] = useForm();
 
-  const onSubmitHandler = async (values: ISignInValues) => {
+  const onSubmitHandler = async (values: ISignInFormValues) => {
     if (!values) return;
 
     setForm({ ...form, loading: true, error: "" });

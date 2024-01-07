@@ -11,7 +11,7 @@ export interface IUserSession {
   user: IUserData;
 }
 
-export interface InputProps<T> {
+export interface IFormInput<T> {
   type: "text" | "email" | "password";
   label: string;
   subLabel?: string;
@@ -30,12 +30,12 @@ export interface IFormModal<T> {
   afterSubmit: () => void;
 }
 
-export interface ISignInValues {
+export interface ISignInFormValues {
   email: string;
   password: string;
 }
 
-export interface ISignUpValues extends ISignInValues {
+export interface ISignUpFormValues extends ISignInFormValues {
   firstName: string;
   lastName: string;
   confirmPassword: string;
