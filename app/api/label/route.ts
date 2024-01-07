@@ -1,52 +1,57 @@
-// import { authConfig } from "@/lib/auth";
-// import { IUserSession } from "@/lib/interfaces";
-// import prisma from "@/lib/prisma";
-// import { validateLabelValues } from "@/lib/utils";
-// import { getServerSession } from "next-auth";
-// import { NextRequest, NextResponse } from "next/server";
-
+import { labelController } from "@/db";
+import { getUserFromServerSession } from "@/lib/auth";
+import { ILabel, ILabelFormValues, IUserData } from "@/lib/interfaces";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function POST(req: NextRequest) {
-  return NextResponse.json({}, { status: 200 });
+export async function GET(req: NextRequest) {
+  const user: IUserData | null = await getUserFromServerSession();
+
+  if (!user)
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+
+  try {
+    return await labelController.getList(user.id);
+  } catch (e) {
+    console.error(e);
+    return NextResponse.json(
+      { error: "Something went wrong. Please try again later" },
+      { status: 500 }
+    );
+  }
 }
 
-// export async function POST(req: NextRequest) {
-//   const session: IUserSession | null = await getServerSession(authConfig);
+export async function POST(req: NextRequest) {
+  const user: IUserData | null = await getUserFromServerSession();
 
-//   if (!session || !session.user || !session.user.id)
-//     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  if (!user)
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
-//   const { name } = await req.json();
+  const { name }: ILabelFormValues = await req.json();
 
-//   if (!validateLabelValues(name))
-//     return NextResponse.json({ error: "Invalid fields." }, { status: 400 });
+  if (!labelController.validate({ name }))
+    return NextResponse.json({ error: "Invalid fields" }, { status: 400 });
 
-//   const formattedName = name.toLowerCase().replace(/\s+/g, "-");
+  try {
+    const doesLabelExist: boolean = await labelController.exists(user.id, name);
 
-//   try {
-//     const isDuplicate = await isLabelDuplucated(session.user.id, formattedName);
+    if (doesLabelExist)
+      return NextResponse.json(
+        { error: "The label already exists! Please try another name" },
+        { status: 400 }
+      );
 
-//     if (isDuplicate) {
-//       return NextResponse.json(
-//         { error: "The label already exists! Please try another name." },
-//         { status: 409 }
-//       );
-//     }
+    const newLabel: ILabel | null = await labelController.create(user.id, {
+      name,
+    });
 
-//     await prisma.label.create({
-//       data: {
-//         uid: session.user.id,
-//         name: formattedName,
-//       },
-//     });
+    if (!newLabel) throw new Error("Failed to create label");
 
-//     return NextResponse.json({}, { status: 200 });
-//   } catch (error) {
-//     console.log(error);
-//     return NextResponse.json(
-//       { error: "Something went wrong. Please try again later." },
-//       { status: 500 }
-//     );
-//   }
-// }
+    return NextResponse.json({}, { status: 200 });
+  } catch (e) {
+    console.error(e);
+    return NextResponse.json(
+      { error: "Something went wrong. Please try again later" },
+      { status: 500 }
+    );
+  }
+}

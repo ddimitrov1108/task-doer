@@ -1,10 +1,8 @@
-interface Props {
-  params: { id?: number };
-}
+import { INextRouteParams } from "@/lib/interfaces";
 
 export const revalidate = 30;
 
-const LabelPage = async ({ params }: Props) => {
+const LabelPage = async ({ params }: INextRouteParams) => {
   return <div>{params.id}</div>;
 };
 
