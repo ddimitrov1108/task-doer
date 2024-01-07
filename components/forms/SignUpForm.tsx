@@ -42,7 +42,7 @@ const SignUpForm = () => {
 
       setForm({
         loading: false,
-        error: value?.error || "Something went wrong. Please try again laterl.",
+        error: value?.error || "Something went wrong. Please try again later",
       });
     });
   };

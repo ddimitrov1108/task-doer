@@ -66,7 +66,7 @@ const ProjectForm = ({
         .then(({ href, error }: { href?: string; error?: string }) => {
           if (error) throw error;
 
-          if (!href) throw "Something went wrong.";
+          if (!href) throw "Something went wrong";
 
           toast.success("Project created successfully!");
           router.replace(href);

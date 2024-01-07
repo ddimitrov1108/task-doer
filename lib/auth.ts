@@ -1,8 +1,9 @@
-import { NextAuthOptions, User as UserAuth } from "next-auth";
+import { NextAuthOptions, User as UserAuth, getServerSession } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { emailRegex, nameRegex, passwordRegex } from "./regex";
 import bcryptjs from "bcryptjs";
 import { userController } from "@/db";
+import { IUserSession, IUserData } from "./interfaces";
 
 export const authConfig: NextAuthOptions = {
   pages: {
@@ -37,7 +38,7 @@ export const authConfig: NextAuthOptions = {
 
         if (!user) throw new Error("User with this email does not exist");
 
-        const comparePasswords:boolean = await bcryptjs.compare(
+        const comparePasswords: boolean = await bcryptjs.compare(
           password,
           user.hashPassword
         );
@@ -132,3 +133,20 @@ export const authConfig: NextAuthOptions = {
     },
   },
 };
+
+export const getUserFromServerSession =
+  async (): Promise<IUserData | null> => {
+    const session: IUserSession | null = await getServerSession(authConfig);
+
+    return !session ||
+      !session.user ||
+      !session.user.id ||
+      !session.user.name ||
+      !session.user.email
+      ? null
+      : {
+          id: Number(session.user.id),
+          name: session.user.name,
+          email: session.user.email,
+        };
+  };

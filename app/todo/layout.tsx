@@ -1,19 +1,16 @@
 import { ReactNode } from "react";
-import { authConfig } from "@/lib/auth";
-import { getServerSession } from "next-auth";
+import { getUserFromServerSession } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import { HeaderNav, SideNav } from "@/components";
 import { labelController, projectController } from "@/db";
 import { TaskProvider } from "@/components/providers";
-import { ILabel, IProject, IUserSession } from "@/lib/interfaces";
+import { IUserData } from "@/lib/interfaces";
 
 interface Props {
   children: ReactNode;
 }
 
-type FetchType = [IProject[], ILabel[]];
-
-const fetchData = async (userId: number): Promise<FetchType> => {
+const fetchData = async (userId: number) => {
   return await Promise.all([
     projectController.getList(userId),
     labelController.getList(userId),
@@ -21,18 +18,16 @@ const fetchData = async (userId: number): Promise<FetchType> => {
 };
 
 const layout = async ({ children }: Props) => {
-  const session: IUserSession | null = await getServerSession(authConfig);
+  const user: IUserData | null = await getUserFromServerSession();
 
-  if (!session || !session.user || !session.user.id) return redirect("/");
+  if (!user) return redirect("/");
 
-  const [projects, labels]: FetchType = await fetchData(
-    parseInt(session.user.id)
-  );
+  const [projects, labels] = await fetchData(user.id);
 
   return (
     <div className="w-full flex">
-      <HeaderNav user={session.user} navList={{ projects, labels }} />
-      <SideNav user={session.user} navList={{ projects, labels }} />
+      <HeaderNav user={user} navList={{ projects, labels }} />
+      <SideNav user={user} navList={{ projects, labels }} />
 
       <div className="bg-black-dark h-full w-full mt-16 lg:mt-0 lg:ml-96 py-8 px-4 xxs:px-4 lg:px-8 xl:p-12">
         <TaskProvider>{children}</TaskProvider>

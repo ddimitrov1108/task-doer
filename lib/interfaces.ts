@@ -1,14 +1,24 @@
 import { FieldInputProps, FormikProps, FormikValues } from "formik";
 import { Dispatch, SetStateAction } from "react";
 
+export interface INextRouteParams {
+  params: {
+    id: string | null | undefined;
+  };
+}
+
 export interface IUserData {
-  id?: string | null;
-  name?: string | null;
-  email?: string | null;
+  id: number;
+  name: string;
+  email: string;
 }
 
 export interface IUserSession {
-  user: IUserData;
+  user: {
+    id?: string | null;
+    name?: string | null;
+    email?: string | null;
+  };
 }
 
 export interface IFormInput<T> {
@@ -90,8 +100,16 @@ export interface IProject extends IProjectFormValues {
   id: number;
 }
 
+export interface IProjectDetails extends IProject {
+  tasks: ITask[];
+}
+
 export interface ILabel extends ILabelFormValues {
   id: number;
+}
+
+export interface ILabelDetails extends ILabel {
+  tasks: ITask[];
 }
 
 export interface ITask {

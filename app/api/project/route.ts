@@ -1,30 +1,33 @@
 import { projectController } from "@/db";
-import { authConfig } from "@/lib/auth";
-import { IProject, IProjectFormValues, IUserSession } from "@/lib/interfaces";
-import { getServerSession } from "next-auth";
+import { getUserFromServerSession } from "@/lib/auth";
+import {
+  IProject,
+  IProjectFormValues,
+  IUserData,
+} from "@/lib/interfaces";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
-  const session: IUserSession | null = await getServerSession(authConfig);
+  const user: IUserData | null = await getUserFromServerSession();
 
-  if (!session || !session.user || !session.user.id)
+  if (!user)
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
   const { name, color }: IProjectFormValues = await req.json();
 
   if (!projectController.validate({ name, color }))
-    return NextResponse.json({ error: "Invalid fields." }, { status: 400 });
+    return NextResponse.json({ error: "Invalid fields" }, { status: 400 });
 
   try {
     const newProject: IProject | null = await projectController.create(
-      parseInt(session.user.id),
+      user.id,
       {
         name,
         color,
       }
     );
 
-    if (!newProject) throw new Error("Failed to create project.");
+    if (!newProject) throw new Error("Failed to create project");
 
     return NextResponse.json(
       { href: `/todo/project/${newProject.id}` },
@@ -33,7 +36,7 @@ export async function POST(req: NextRequest) {
   } catch (e) {
     console.error(e);
     return NextResponse.json(
-      { error: "Something went wrong. Please try again later." },
+      { error: "Something went wrong. Please try again later" },
       { status: 500 }
     );
   }

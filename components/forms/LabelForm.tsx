@@ -94,7 +94,6 @@ const LabelForm = ({ initialState, editMode = false, afterSubmit }: Props) => {
             variant="text"
             className="flex justify-center"
             disabled={form.loading}
-            loading={form.loading}
             onClick={afterSubmit}
             fullWidth
           >

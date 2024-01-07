@@ -2,8 +2,8 @@ import { hexColorRegex, sectionNameRegex } from "@/lib/regex";
 import DbConnector from "./DbConnector";
 import {
   IProject,
+  IProjectDetails,
   IProjectFormValues,
-  ITask,
   IValidateProjectValues,
 } from "@/lib/interfaces";
 
@@ -46,12 +46,7 @@ class ProjectController extends DbConnector {
   public async get(
     userId: number,
     projectId: number
-  ): Promise<{
-    id: number;
-    name: string;
-    color: string;
-    tasks: ITask[];
-  } | null> {
+  ): Promise<IProjectDetails | null> {
     try {
       const project = await this.prisma.project.findFirst({
         where: {
@@ -133,6 +128,11 @@ class ProjectController extends DbConnector {
         data: {
           name: project.name,
           color: project.color,
+        },
+        select: {
+          id: true,
+          name: true,
+          color: true,
         },
       });
     } catch (e) {

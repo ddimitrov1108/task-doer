@@ -90,7 +90,7 @@ const TaskProvider = ({ children }: Props) => {
       .then((data) => data.json())
       .then(({ error }) => {
         if (error) throw error;
-        toast.success("Task deleted.");
+        toast.success("Task deleted");
         router.refresh();
       })
       .catch((error) => {

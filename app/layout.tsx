@@ -8,7 +8,7 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "TaskDoer",
   description:
-    "Application that will help you to manage your day to day and future activities.",
+    "Application that will help you to manage your day to day and future activities",
 };
 
 export default function RootLayout({
