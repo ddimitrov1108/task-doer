@@ -42,7 +42,9 @@ const ColorPickerField = ({
 
   return (
     <div className={cn("mb-4", className, fullWidth ? "w-full" : "w-fit")}>
-      <Label className="pb-2" htmlFor={field.name} text={label} />
+      <Label className="pb-2" htmlFor={field.name}>
+        {label}
+      </Label>
 
       <div className="w-full flex flex-wrap gap-2">
         {colorPickerColors.map((color) => (
@@ -70,11 +72,9 @@ const ColorPickerField = ({
       )}
 
       {subLabel && (
-        <Label
-          className="text-main pb-2"
-          htmlFor={field.name && field.name.toString()}
-          text={subLabel}
-        />
+        <Label className="text-main pb-2" htmlFor={field.name}>
+          {subLabel}
+        </Label>
       )}
     </div>
   );

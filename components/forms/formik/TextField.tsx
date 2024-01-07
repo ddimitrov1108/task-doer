@@ -17,7 +17,9 @@ const TextField = ({
 }: InputProps<string>) => {
   return (
     <div className={cn("mb-4", fullWidth ? "w-full" : "w-fit")}>
-      <Label className="pb-2" text={label} />
+      <Label className="pb-2" htmlFor={field.name}>
+        {label}
+      </Label>
 
       <input
         type={type}
@@ -38,11 +40,9 @@ const TextField = ({
       )}
 
       {subLabel && (
-        <Label
-          className="text-main pb-2"
-          htmlFor={field.name && field.name.toString()}
-          text={subLabel}
-        />
+        <Label className="text-main pb-2" htmlFor={field.name}>
+          {subLabel}
+        </Label>
       )}
     </div>
   );

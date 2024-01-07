@@ -63,11 +63,9 @@ const PasswordField = ({
 
   return (
     <div className={cn("mb-4", fullWidth ? "w-full" : "w-fit")}>
-      <Label
-        className="pb-2"
-        htmlFor={field.name && field.name.toString()}
-        text={label}
-      />
+      <Label className="pb-2" htmlFor={field.name}>
+        {label}
+      </Label>
 
       <div className="relative">
         <button
@@ -101,11 +99,9 @@ const PasswordField = ({
       )}
 
       {subLabel && (
-        <Label
-          className="text-main pb-2"
-          htmlFor={field.name && field.name.toString()}
-          text={subLabel}
-        />
+        <Label className="text-main pb-2" htmlFor={field.name}>
+          {subLabel}
+        </Label>
       )}
     </div>
   );
