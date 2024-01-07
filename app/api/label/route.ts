@@ -10,7 +10,8 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
   try {
-    return await labelController.getList(user.id);
+    const labels: ILabel[] = await labelController.getList(user.id);
+    return NextResponse.json(labels, { status: 200 });
   } catch (e) {
     console.error(e);
     return NextResponse.json(
