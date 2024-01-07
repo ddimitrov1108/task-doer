@@ -22,7 +22,7 @@ body::-webkit-scrollbar {
 
 body::-webkit-scrollbar-thumb {
   border-radius: 6px;
-  background-color: #555770;
+  background-color: #303149;
 }
 
 .styled-overflow::-webkit-scrollbar-track {
@@ -35,7 +35,7 @@ body::-webkit-scrollbar-thumb {
 
 .styled-overflow::-webkit-scrollbar-thumb {
   border-radius: 6px;
-  background-color: #555770;
+  background-color: #303149;
 }
 
 .styled-overflow-horizontal::-webkit-scrollbar-track {
