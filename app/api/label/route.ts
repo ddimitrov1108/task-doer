@@ -33,7 +33,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Invalid fields" }, { status: 400 });
 
   try {
-    const doesLabelExist: boolean = await labelController.exists(user.id, name);
+    const doesLabelExist = await labelController.exists(user.id, name);
 
     if (doesLabelExist)
       return NextResponse.json(

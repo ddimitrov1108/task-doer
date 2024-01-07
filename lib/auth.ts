@@ -38,7 +38,7 @@ export const authConfig: NextAuthOptions = {
 
         if (!user) throw new Error("User with this email does not exist");
 
-        const comparePasswords: boolean = await bcryptjs.compare(
+        const comparePasswords = await bcryptjs.compare(
           password,
           user.hashPassword
         );
@@ -81,7 +81,7 @@ export const authConfig: NextAuthOptions = {
         )
           throw new Error("Invalid credentials");
 
-        const isEmailTaken: boolean = await userController.exists(email);
+        const isEmailTaken = await userController.exists(email);
 
         if (isEmailTaken)
           throw new Error("User with this email already exists");
