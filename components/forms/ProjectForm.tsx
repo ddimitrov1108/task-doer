@@ -7,15 +7,15 @@ import { Field, Form, Formik } from "formik";
 import { ColorPickerField, TextField } from "./formik";
 import { projectSchema } from "@/lib/yup-schemas";
 import { toast } from "sonner";
-import { INewProject } from "@/lib/interfaces";
+import { IProjectFormValues } from "@/lib/interfaces";
 
 interface Props {
-  initialState?: INewProject | null;
+  initialState?: IProjectFormValues | null;
   editMode?: boolean;
   afterSubmit: () => void;
 }
 
-const initialValues: INewProject = { name: "", color: "#b8255f" };
+const initialValues: IProjectFormValues = { name: "", color: "#b8255f" };
 
 const ProjectForm = ({
   initialState,
@@ -26,7 +26,7 @@ const ProjectForm = ({
   const router = useRouter();
   const [form, setForm, abortControllerRef] = useForm();
 
-  const onSubmitHandler = async (values: INewProject) => {
+  const onSubmitHandler = async (values: IProjectFormValues) => {
     if (!values) return;
 
     abortControllerRef.current = new AbortController();

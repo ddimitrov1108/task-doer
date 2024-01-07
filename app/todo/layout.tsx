@@ -15,8 +15,8 @@ type FetchType = [IProject[], ILabel[]];
 
 const fetchData = async (userId: number): Promise<FetchType> => {
   return await Promise.all([
-    projectController.getAll(userId),
-    labelController.getAll(userId),
+    projectController.getList(userId),
+    labelController.getList(userId),
   ]);
 };
 

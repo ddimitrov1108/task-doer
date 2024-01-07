@@ -1,5 +1,6 @@
-import { ILabel } from "@/lib/interfaces";
+import { ILabel, IValidateLabelValues } from "@/lib/interfaces";
 import DbConnector from "./DbConnector";
+import { sectionNameRegex } from "@/lib/regex";
 
 class LabelController extends DbConnector {
   constructor() {
@@ -10,7 +11,34 @@ class LabelController extends DbConnector {
     return labelName.toLowerCase().replace(/\s+/g, "-");
   }
 
-  public async getAll(userId: number): Promise<ILabel[]> {
+  public validate(label: IValidateLabelValues): boolean {
+    try {
+      if (!label.name) return false;
+
+      return sectionNameRegex.test(label.name);
+    } catch (e) {
+      console.log(e);
+      return false;
+    }
+  }
+
+  public async exists(userId: number, labelName: string): Promise<boolean> {
+    const formattedName: string = this.formatName(labelName);
+
+    try {
+      return !!(await this.prisma.label.count({
+        where: {
+          uid: userId,
+          name: formattedName,
+        },
+      }));
+    } catch (e) {
+      console.error(e);
+      return false;
+    }
+  }
+
+  public async getList(userId: number): Promise<ILabel[]> {
     try {
       return await this.prisma.label.findMany({
         where: {
@@ -24,22 +52,6 @@ class LabelController extends DbConnector {
     } catch (e) {
       console.error(e);
       return [];
-    }
-  }
-
-  public async exists(userId: number, labelName: string): Promise<boolean> {
-    const formattedName = this.formatName(labelName);
-
-    try {
-      return !!(await this.prisma.label.count({
-        where: {
-          uid: userId,
-          name: formattedName,
-        },
-      }));
-    } catch (e) {
-      console.error(e);
-      return false;
     }
   }
 }

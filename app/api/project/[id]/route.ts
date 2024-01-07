@@ -1,6 +1,6 @@
 import { projectController } from "@/db";
 import { authConfig } from "@/lib/auth";
-import { IUserSession } from "@/lib/interfaces";
+import { IProject, IProjectFormValues, IUserSession } from "@/lib/interfaces";
 import { validateIdParam } from "@/lib/utils";
 import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
@@ -17,13 +17,13 @@ export async function PUT(
   if (!validateIdParam(params.id))
     return NextResponse.json({ error: "Bad Request." }, { status: 400 });
 
-  const { name, color } = await req.json();
+  const { name, color }: IProjectFormValues = await req.json();
 
   if (!projectController.validate({ name, color }))
     return NextResponse.json({ error: "Invalid fields." }, { status: 400 });
 
   try {
-    const updatedProject = await projectController.update(
+    const updatedProject: IProject | null = await projectController.update(
       parseInt(session.user.id),
       {
         id: parseInt(params.id),

@@ -41,6 +41,24 @@ export interface ISignUpFormValues extends ISignInFormValues {
   confirmPassword: string;
 }
 
+export interface IProjectFormValues {
+  name: string;
+  color: string;
+}
+
+export interface ILabelFormValues {
+  name: string;
+}
+
+export interface IValidateProjectValues {
+  name: string | null | undefined;
+  color: string | null | undefined;
+}
+
+export interface IValidateLabelValues {
+  name: string | null | undefined;
+}
+
 export interface INavList {
   projects: IProject[];
   labels: ILabel[];
@@ -68,33 +86,12 @@ export interface INewUser {
   password: string;
 }
 
-export interface IProject {
-  id: number;
-  name: string;
-  color: string;
-}
-
-export interface INewProject {
-  name: string;
-  color: string;
-}
-
-export interface IUpdateProject extends INewProject {
+export interface IProject extends IProjectFormValues {
   id: number;
 }
 
-export interface IValidateProject {
-  name: string | null | undefined;
-  color: string | null | undefined;
-}
-
-export interface ILabel {
+export interface ILabel extends ILabelFormValues {
   id: number;
-  name: string;
-}
-
-export interface INewLabel {
-  name: string;
 }
 
 export interface ITask {

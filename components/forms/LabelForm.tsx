@@ -7,12 +7,12 @@ import { Alert, Button } from "../ui";
 import { TextField } from "./formik";
 import { Field, Form, Formik } from "formik";
 import { labelSchema } from "@/lib/yup-schemas";
-import { INewLabel } from "@/lib/interfaces";
+import { ILabelFormValues } from "@/lib/interfaces";
 
-const initialValues: INewLabel = { name: "" };
+const initialValues: ILabelFormValues = { name: "" };
 
 interface Props {
-  initialState?: INewLabel | null;
+  initialState?: ILabelFormValues | null;
   editMode?: boolean;
   afterSubmit: () => void;
 }
@@ -22,7 +22,7 @@ const LabelForm = ({ initialState, editMode = false, afterSubmit }: Props) => {
   const router = useRouter();
   const [form, setForm, abortControllerRef] = useForm();
 
-  const onSubmitHandler = async (values: INewLabel) => {
+  const onSubmitHandler = async (values: ILabelFormValues) => {
     if (!values) return;
 
     abortControllerRef.current = new AbortController();

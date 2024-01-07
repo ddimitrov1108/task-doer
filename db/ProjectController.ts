@@ -1,11 +1,10 @@
 import { hexColorRegex, sectionNameRegex } from "@/lib/regex";
 import DbConnector from "./DbConnector";
 import {
-  INewProject,
   IProject,
+  IProjectFormValues,
   ITask,
-  IUpdateProject,
-  IValidateProject,
+  IValidateProjectValues,
 } from "@/lib/interfaces";
 
 class ProjectController extends DbConnector {
@@ -13,7 +12,7 @@ class ProjectController extends DbConnector {
     super();
   }
 
-  public validate(project: IValidateProject): boolean {
+  public validate(project: IValidateProjectValues): boolean {
     try {
       if (!project.name || !project.color) return false;
 
@@ -26,7 +25,7 @@ class ProjectController extends DbConnector {
     }
   }
 
-  public async getAll(userId: number): Promise<IProject[]> {
+  public async getList(userId: number): Promise<IProject[]> {
     try {
       return await this.prisma.project.findMany({
         where: {
@@ -106,7 +105,7 @@ class ProjectController extends DbConnector {
 
   public async create(
     userId: number,
-    newProject: INewProject
+    newProject: IProjectFormValues
   ): Promise<IProject | null> {
     try {
       return await this.prisma.project.create({
@@ -121,7 +120,10 @@ class ProjectController extends DbConnector {
     }
   }
 
-  public async update(userId: number, project: IUpdateProject) {
+  public async update(
+    userId: number,
+    project: IProject
+  ): Promise<IProject | null> {
     try {
       return await this.prisma.project.update({
         where: {

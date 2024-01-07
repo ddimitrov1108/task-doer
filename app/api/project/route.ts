@@ -1,13 +1,8 @@
 import { projectController } from "@/db";
 import { authConfig } from "@/lib/auth";
-import { IUserSession } from "@/lib/interfaces";
+import { IProject, IProjectFormValues, IUserSession } from "@/lib/interfaces";
 import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
-
-interface IRequestBodyValues {
-  name: string;
-  color: string;
-}
 
 export async function POST(req: NextRequest) {
   const session: IUserSession | null = await getServerSession(authConfig);
@@ -15,13 +10,13 @@ export async function POST(req: NextRequest) {
   if (!session || !session.user || !session.user.id)
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
-  const { name, color }: IRequestBodyValues = await req.json();
+  const { name, color }: IProjectFormValues = await req.json();
 
   if (!projectController.validate({ name, color }))
     return NextResponse.json({ error: "Invalid fields." }, { status: 400 });
 
   try {
-    const newProject = await projectController.create(
+    const newProject: IProject | null = await projectController.create(
       parseInt(session.user.id),
       {
         name,
