@@ -81,14 +81,6 @@ export const authConfig: NextAuthOptions = {
         )
           throw new Error("Invalid credentials");
 
-        const comparePasswords: number = password.localeCompare(
-          confirmPassword,
-          undefined,
-          { sensitivity: "base" }
-        );
-
-        if (!comparePasswords) throw new Error("Invalid credentials");
-
         const isEmailTaken: boolean = await userController.exists(email);
 
         if (isEmailTaken)
@@ -134,19 +126,18 @@ export const authConfig: NextAuthOptions = {
   },
 };
 
-export const getUserFromServerSession =
-  async (): Promise<IUserData | null> => {
-    const session: IUserSession | null = await getServerSession(authConfig);
+export const getUserFromServerSession = async (): Promise<IUserData | null> => {
+  const session: IUserSession | null = await getServerSession(authConfig);
 
-    return !session ||
-      !session.user ||
-      !session.user.id ||
-      !session.user.name ||
-      !session.user.email
-      ? null
-      : {
-          id: Number(session.user.id),
-          name: session.user.name,
-          email: session.user.email,
-        };
-  };
+  return !session ||
+    !session.user ||
+    !session.user.id ||
+    !session.user.name ||
+    !session.user.email
+    ? null
+    : {
+        id: Number(session.user.id),
+        name: session.user.name,
+        email: session.user.email,
+      };
+};
