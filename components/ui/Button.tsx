@@ -1,7 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { ComponentProps, MouseEventHandler, ReactNode } from "react";
+import { ComponentProps } from "react";
 import {
   ButtonLoadingAnimationColor,
   ButtonSizes,
@@ -14,7 +14,6 @@ interface Props extends ComponentProps<"button"> {
   variant?: ButtonVariants;
   size?: ButtonSizes;
   fullWidth?: boolean;
-  className?: string;
   loading?: boolean;
 }
 

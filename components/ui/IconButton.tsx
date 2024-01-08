@@ -1,19 +1,11 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { MouseEventHandler, ReactNode } from "react";
-import { ButtonType } from "../cva/button";
+import { ComponentProps } from "react";
 import { Spinner } from ".";
 
-interface Props {
-  children: ReactNode;
-  type?: ButtonType;
-  className?: string;
+interface Props extends ComponentProps<"button"> {
   loading?: boolean;
-  disabled?: boolean;
-  title?: string;
-  onClick?: MouseEventHandler;
-  tabIndex?: number;
 }
 
 const IconButton = ({
