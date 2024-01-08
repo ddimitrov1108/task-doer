@@ -2,7 +2,7 @@
 
 import { INavList } from "@/lib/interfaces";
 import { LabelsList, NavLink, ProjectsList } from ".";
-import { LandPlot, Star, Sun } from "lucide-react";
+import { CheckCheck, InfinityIcon, LandPlot, Star, Sun } from "lucide-react";
 import { v4 as uuidv4 } from "uuid";
 
 const taskLinks = [
@@ -22,7 +22,19 @@ const taskLinks = [
     id: uuidv4(),
     name: "Planned",
     icon: <LandPlot size={20} />,
-    href: "/todo/important",
+    href: "/todo/planned",
+  },
+  {
+    id: uuidv4(),
+    name: "Completed",
+    icon: <CheckCheck size={20} />,
+    href: "/todo/completed",
+  },
+  {
+    id: uuidv4(),
+    name: "All",
+    icon: <InfinityIcon size={20} />,
+    href: "/todo/all",
   },
 ];
 

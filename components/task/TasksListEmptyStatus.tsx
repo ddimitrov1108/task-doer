@@ -3,14 +3,14 @@ import { AddTaskButton } from ".";
 
 const TasksListEmptyStatus = () => {
   return (
-    <div className="py-24 lg:py-32 grid justify-center items-center gap-4">
+    <div className="py-24 lg:py-40 grid justify-center items-center gap-4">
       <div>
         <Image
           src="/tasks-notfound.svg"
-          width={128}
-          height={128}
+          width={192}
+          height={192}
           alt="tasks-notfound.svg"
-          className="w-24 h-24 lg:w-32 lg:h-32 mx-auto"
+          className="w-24 h-24 lg:w-48 lg:h-48 mx-auto"
         />
 
         <p className="text-center text-main">

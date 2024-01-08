@@ -1,7 +1,7 @@
 interface Props {}
-const page = (props: Props) => {
+const MyDayPage = (props: Props) => {
   return (
-    <div>page</div>
+    <div>MyDayPage</div>
   )
 }
-export default page
+export default MyDayPage
