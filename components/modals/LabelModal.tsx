@@ -15,7 +15,7 @@ const LabelModal = ({
       modalTitle={
         <div className="flex items-center gap-2">
           <div className="text-2xl text-main">
-            <AtSign />
+            <AtSign size={20}/>
           </div>
           {editMode ? "Edit Label" : "New Label"}
         </div>

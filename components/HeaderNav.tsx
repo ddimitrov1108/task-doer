@@ -34,9 +34,9 @@ const HeaderNav = ({ user, navList }: Props) => {
         title="Open navigation"
         onClick={toggleIsOpen}
       >
-        <div className="transition-all w-full h-[2px] rounded-full bg-light group-hover:w-[80%]"></div>
-        <div className="transition-all w-[60%] h-[2px] rounded-full bg-light ml-1.5 group-hover:w-full"></div>
-        <div className="transition-all w-[80%] h-[2px] rounded-full bg-light group-hover:w-[60%]"></div>
+        <div className="transition-all w-full h-[2px] rounded-full bg-main group-hover:bg-light group-hover:w-[80%]"></div>
+        <div className="transition-all w-[60%] h-[2px] rounded-full bg-main group-hover:bg-light ml-1.5 group-hover:w-full"></div>
+        <div className="transition-all w-[80%] h-[2px] rounded-full bg-main group-hover:bg-light group-hover:w-[60%]"></div>
       </IconButton>
     </header>
   );

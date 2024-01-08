@@ -15,7 +15,7 @@ const ProjectModal = ({
       modalTitle={
         <div className="flex items-center gap-2">
           <div className="text-2xl text-main">
-            {editMode ? <FolderEdit /> : <FolderPlus />}
+            {editMode ? <FolderEdit size={20} /> : <FolderPlus size={20} />}
           </div>
           {editMode ? "Edit Project" : "New Project"}
         </div>

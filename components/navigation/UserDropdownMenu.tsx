@@ -15,7 +15,7 @@ const dropdownLinks: INavLink[] = [
   {
     id: uuidv4(),
     name: "Settings",
-    icon: <UserRoundCog />,
+    icon: <UserRoundCog size={20} />,
     href: "/account/settings",
   },
 ];
@@ -57,7 +57,7 @@ const UserDropdownMenu = ({ user }: Props) => {
         className="text-error-main"
         item={{
           name: "Sign Out",
-          icon: <LogOut />,
+          icon: <LogOut size={20} />,
         }}
       />
     </Dropdown>

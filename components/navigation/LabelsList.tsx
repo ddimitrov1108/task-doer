@@ -5,7 +5,7 @@ import { MouseEvent, useState } from "react";
 import { NavLink } from ".";
 import { DisclousureContainer } from "../ui";
 import { AtSign, Plus } from "lucide-react";
-import LabelModal from "../modals/LabelModal";
+import { LabelModal } from "../modals";
 
 interface Props {
   labels: ILabel[];

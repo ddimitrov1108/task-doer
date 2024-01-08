@@ -96,7 +96,7 @@ const Task = ({ task }: Props) => {
               )}
               onClick={onImportantHandler}
             >
-              <Star size={20} />
+              <Star />
             </IconButton>
           </div>
         </div>

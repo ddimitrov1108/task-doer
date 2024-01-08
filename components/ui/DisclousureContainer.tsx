@@ -46,7 +46,7 @@ const DisclousureContainer = ({
                     open && "rotate-180"
                   )}
                 >
-                  {showChevron && <ChevronDown />}
+                  {showChevron && <ChevronDown size={20} />}
                 </div>
                 {title}
               </div>
