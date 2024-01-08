@@ -1,6 +1,5 @@
 import { Button, Logo } from "@/components/ui";
 import Link from "next/link";
-import SignOutBtn from "./SignOutBtn";
 
 export default function Home() {
   return (
@@ -27,8 +26,6 @@ export default function Home() {
             </Button>
           </Link>
         </div>
-
-        <SignOutBtn />
       </div>
     </div>
   );
