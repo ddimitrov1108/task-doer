@@ -1,3 +1,5 @@
+import { ProjectInteractiveButtons } from "@/components/interactive-buttons";
+import { ProjectProvider } from "@/components/providers";
 import { TasksList } from "@/components/task";
 import { projectController } from "@/db";
 import { getUserFromServerSession } from "@/lib/auth";
@@ -20,7 +22,16 @@ const ProjectPage = async ({ params }: INextRouteParams) => {
 
   return (
     <div>
-      <TasksList tasks={project.tasks} />
+      <ProjectProvider
+        initValue={{
+          id: project.id,
+          name: project.name,
+          color: project.color,
+        }}
+      >
+        <ProjectInteractiveButtons />
+        <TasksList tasks={project.tasks} />
+      </ProjectProvider>
     </div>
   );
 };
