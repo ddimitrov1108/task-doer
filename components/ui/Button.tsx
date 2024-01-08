@@ -1,26 +1,21 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { MouseEventHandler, ReactNode } from "react";
+import { ComponentProps, MouseEventHandler, ReactNode } from "react";
 import {
   ButtonLoadingAnimationColor,
   ButtonSizes,
-  ButtonType,
   ButtonVariants,
   button,
 } from "../cva/button";
 import { Spinner } from ".";
 
-interface Props {
-  children: ReactNode;
-  type?: ButtonType;
+interface Props extends ComponentProps<"button"> {
   variant?: ButtonVariants;
   size?: ButtonSizes;
   fullWidth?: boolean;
   className?: string;
   loading?: boolean;
-  disabled?: boolean;
-  onClick?: MouseEventHandler<HTMLButtonElement>;
 }
 
 const Button = ({

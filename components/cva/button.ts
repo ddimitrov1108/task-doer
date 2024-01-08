@@ -1,6 +1,5 @@
 import { cva } from "class-variance-authority";
 
-export type ButtonType = "button" | "submit" | "reset";
 export type ButtonSizes = "sm" | "md" | "lg";
 export type ButtonLoadingAnimationColor = "text-primary-main" | "text-white";
 
