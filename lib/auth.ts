@@ -1,4 +1,4 @@
-import { NextAuthOptions, User as UserAuth, getServerSession } from "next-auth";
+import { NextAuthOptions, User, getServerSession } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { emailRegex, nameRegex, passwordRegex } from "./regex";
 import bcryptjs from "bcryptjs";
@@ -50,7 +50,7 @@ export const authConfig: NextAuthOptions = {
           id: user.id.toString(),
           name: `${user.firstName} ${user.lastName}`,
           email: user.email,
-        } as UserAuth;
+        } as User;
       },
     }),
     CredentialsProvider({
@@ -86,25 +86,25 @@ export const authConfig: NextAuthOptions = {
         if (isEmailTaken)
           throw new Error("User with this email already exists");
 
-        const newUser = await userController.create({
+        const user = await userController.create({
           firstName,
           lastName,
           email,
           password,
         });
 
-        if (!newUser) throw new Error("Something went wrong. Please try again");
+        if (!user) throw new Error("Something went wrong. Please try again");
 
         return {
-          id: newUser.id.toString(),
-          name: `${newUser.firstName} ${newUser.lastName}`,
-          email: newUser.email,
-        } as UserAuth;
+          id: user.id.toString(),
+          name: `${user.firstName} ${user.lastName}`,
+          email: user.email,
+        } as User;
       },
     }),
   ],
   callbacks: {
-    session: ({ session, token }) => {
+    session({ session, token }) {
       return {
         ...session,
         user: {

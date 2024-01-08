@@ -2,20 +2,16 @@ import { labelController } from "@/db";
 import { getUserFromServerSession } from "@/lib/auth";
 import { validateIdParam } from "@/lib/utils";
 import { NextRequest, NextResponse } from "next/server";
-import {
-  ILabelFormValues,
-  INextRouteParams,
-  IUserData,
-} from "@/lib/interfaces";
+import { ILabelFormValues, INextRouteParams } from "@/lib/interfaces";
 
 export async function PUT(req: NextRequest, { params }: INextRouteParams) {
-  const user: IUserData | null = await getUserFromServerSession();
+  if (!validateIdParam(params.id))
+    return NextResponse.json({ error: "Bad Request" }, { status: 400 });
+
+  const user = await getUserFromServerSession();
 
   if (!user)
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-
-  if (!validateIdParam(params.id))
-    return NextResponse.json({ error: "Bad Request" }, { status: 400 });
 
   const { name }: ILabelFormValues = await req.json();
 
@@ -41,13 +37,13 @@ export async function PUT(req: NextRequest, { params }: INextRouteParams) {
 }
 
 export async function DELETE(req: NextRequest, { params }: INextRouteParams) {
-  const user: IUserData | null = await getUserFromServerSession();
+  if (!validateIdParam(params.id))
+    return NextResponse.json({ error: "Bad Request" }, { status: 400 });
+
+  const user = await getUserFromServerSession();
 
   if (!user)
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-
-  if (!validateIdParam(params.id))
-    return NextResponse.json({ error: "Bad Request" }, { status: 400 });
 
   try {
     const deletedLabel = await labelController.delete(

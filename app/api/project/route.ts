@@ -1,14 +1,10 @@
 import { projectController } from "@/db";
 import { getUserFromServerSession } from "@/lib/auth";
-import {
-  IProject,
-  IProjectFormValues,
-  IUserData,
-} from "@/lib/interfaces";
+import { IProjectFormValues } from "@/lib/interfaces";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
-  const user: IUserData | null = await getUserFromServerSession();
+  const user = await getUserFromServerSession();
 
   if (!user)
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
@@ -19,13 +15,10 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Invalid fields" }, { status: 400 });
 
   try {
-    const newProject: IProject | null = await projectController.create(
-      user.id,
-      {
-        name,
-        color,
-      }
-    );
+    const newProject = await projectController.create(user.id, {
+      name,
+      color,
+    });
 
     if (!newProject) throw new Error("Failed to create project");
 
