@@ -1,11 +1,12 @@
 "use client";
 
-import { MouseEvent, useState } from "react";
+import { MouseEvent, useContext, useState } from "react";
 import { ProjectModal } from "../modals";
 import { NavLink } from ".";
 import { DisclousureContainer } from "../ui";
 import { Plus } from "lucide-react";
 import { IProject } from "@/lib/interfaces";
+import { ProjectContext } from "../providers";
 
 interface Props {
   projects: IProject[];
@@ -13,11 +14,12 @@ interface Props {
 }
 
 const ProjectsList = ({ projects, onNavElClick = () => {} }: Props) => {
+  const projectContext = useContext(ProjectContext);
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const onClickHandler = (e: MouseEvent) => {
     e.preventDefault();
-    setIsOpen(true);
+    projectContext?.setIsOpenProjectModal(true);
     onNavElClick();
   };
 

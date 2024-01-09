@@ -58,14 +58,14 @@ CREATE TABLE `Task` (
 
 -- CreateTable
 CREATE TABLE `TaskWithLabel` (
-    `uuid` VARCHAR(191) NOT NULL,
+    `id` VARCHAR(191) NOT NULL,
     `task_id` VARCHAR(191) NOT NULL,
     `label_id` VARCHAR(191) NOT NULL,
 
     INDEX `task_id`(`task_id`),
     INDEX `label_id`(`label_id`),
     UNIQUE INDEX `TaskWithLabel_task_id_label_id_key`(`task_id`, `label_id`),
-    PRIMARY KEY (`uuid`)
+    PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- AddForeignKey

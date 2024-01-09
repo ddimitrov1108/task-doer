@@ -65,7 +65,7 @@ model Task {
 }
 
 model TaskWithLabel {
-  uuid          String  @id @default(uuid())
+  id            String  @id @default(uuid())
   task          Task    @relation(fields: [task_id], references: [id])
   task_id       String
   label         Label   @relation(fields: [label_id], references: [id])

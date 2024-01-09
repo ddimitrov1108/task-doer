@@ -9,21 +9,15 @@ import { ProjectContext } from "../providers/ProjectProvider";
 const ProjectInteractiveButtons = () => {
   const projectContext = useContext(ProjectContext);
 
-  const onEditProjectHandler = () => {
-    projectContext?.setEditMode(true);
-    projectContext?.setIsOpenProjectModal(true);
-  };
-
-  const onDeleteProjectHandler = () => {
-    projectContext?.setIsOpenDeleteConfirmationModal(true);
-  };
-
   const projectInteractions = [
     {
       id: useId(),
       name: "Edit",
       icon: <Pencil size={20} />,
-      onClick: onEditProjectHandler,
+      onClick: () => {
+        projectContext?.setEditMode(true);
+        projectContext?.setIsOpenProjectModal(true);
+      },
       className: "text-light hover:text-white",
       iconClassName: "text-primary-main",
     },
@@ -31,7 +25,9 @@ const ProjectInteractiveButtons = () => {
       id: useId(),
       name: "Delete",
       icon: <Trash2 size={20} />,
-      onClick: onDeleteProjectHandler,
+      onClick: () => {
+        projectContext?.setIsOpenDeleteConfirmationModal(true);
+      },
       className: "text-error-main",
       iconClassName: "text-error-main",
     },
