@@ -6,7 +6,6 @@ import {
   ReactNode,
   SetStateAction,
   createContext,
-  useEffect,
   useState,
 } from "react";
 import { DeleteConfirmationModal, ProjectModal } from "../modals";
@@ -14,7 +13,6 @@ import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
 interface Props {
-  initValue: IProject;
   children: ReactNode;
 }
 
@@ -25,7 +23,7 @@ export const ProjectContext = createContext<{
   setIsOpenDeleteConfirmationModal: Dispatch<SetStateAction<boolean>>;
 } | null>(null);
 
-const ProjectProvider = ({ initValue, children }: Props) => {
+const ProjectProvider = ({ children }: Props) => {
   const router = useRouter();
   const [project, setProject] = useState<IProject>();
   const [editMode, setEditMode] = useState<boolean>(false);
@@ -54,11 +52,6 @@ const ProjectProvider = ({ initValue, children }: Props) => {
     setIsOpenDeleteConfirmationModal(false);
     setProject(undefined);
   };
-
-  useEffect(() => {
-    setProject(initValue);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   return (
     <ProjectContext.Provider
