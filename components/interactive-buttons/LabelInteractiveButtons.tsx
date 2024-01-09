@@ -1,22 +1,22 @@
 "use client";
 
-import { MoreHorizontal, Pencil, Trash2 } from "lucide-react";
 import { useContext, useId, useState } from "react";
+import { ModalsContext, StorageContext } from "../providers";
+import { useRouter } from "next/navigation";
+import { DeleteConfirmationModal } from "../modals";
 import { AddTaskButton } from "../task";
 import { Dropdown, DropdownListItem, IconButton } from "../ui";
-import { ModalsContext, StorageContext } from "../providers";
-import { DeleteConfirmationModal } from "../modals";
+import { MoreHorizontal, Pencil, Trash2 } from "lucide-react";
 import { toast } from "sonner";
-import { useRouter } from "next/navigation";
 
-const ProjectInteractiveButtons = () => {
+const LabelInteractiveButtons = () => {
   const storageContext = useContext(StorageContext);
   const modalsContext = useContext(ModalsContext);
 
   const router = useRouter();
   const [open, setOpen] = useState<boolean>(false);
 
-  const projectInteractions = [
+  const labelInteractions = [
     {
       id: useId(),
       name: "Edit",
@@ -40,23 +40,23 @@ const ProjectInteractiveButtons = () => {
     },
   ];
 
-  const deleteProject = async (): Promise<void> => {
-    if (!storageContext?.project) return;
+  const deleteLabel = async () => {
+    if (!storageContext?.label) return;
 
-    await fetch(`/api/project/${storageContext?.project.id}`, {
+    await fetch(`/api/label/${storageContext?.label.id}`, {
       method: "DELETE",
     })
       .then((data) => data.json())
       .then(({ error }) => {
         if (error) throw error;
 
-        storageContext?.setProject(undefined);
-        toast.success("Project deleted successfully!");
+        storageContext?.setLabel(undefined);
+        toast("Label deleted successfully!");
         router.replace("/todo");
         router.refresh();
       })
       .catch((error) => {
-        toast.error(error);
+        toast(error);
       });
 
     setOpen(false);
@@ -65,10 +65,10 @@ const ProjectInteractiveButtons = () => {
   return (
     <>
       <DeleteConfirmationModal
-        message="Do you want to delete this project? All tasks will be deleted."
+        message="Do you want to delete this label? Label will be removed from associated tasks."
         open={open}
         setOpen={setOpen}
-        onSubmit={deleteProject}
+        onSubmit={deleteLabel}
       />
 
       <div className="min-w-full md:min-w-fit flex items-center justify-between gap-1">
@@ -82,7 +82,7 @@ const ProjectInteractiveButtons = () => {
             </IconButton>
           }
         >
-          {projectInteractions.map(
+          {labelInteractions.map(
             ({ id, className, iconClassName, onClick, ...item }) => (
               <DropdownListItem
                 key={id}
@@ -99,4 +99,4 @@ const ProjectInteractiveButtons = () => {
     </>
   );
 };
-export default ProjectInteractiveButtons;
+export default LabelInteractiveButtons;
