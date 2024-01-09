@@ -8,14 +8,14 @@ interface Props {
 }
 
 const sortByDate = (arr: ITask[]) =>
-  arr.sort((a, b) => a.dueDate.getTime() - b.dueDate.getTime());
+  arr.sort((a, b) => a.due_date.getTime() - b.due_date.getTime());
 
 const TasksList = ({ tasks }: Props) => {
   if (!tasks || tasks.length === 0) return <TasksListEmptyStatus />;
 
   const pastDueTasks = sortByDate(
     tasks.filter(
-      (e) => !e.completed && isPast(e.dueDate) && !isToday(e.dueDate)
+      (e) => !e.completed && isPast(e.due_date) && !isToday(e.due_date)
     )
   );
 
@@ -24,7 +24,7 @@ const TasksList = ({ tasks }: Props) => {
       (e) =>
         e.important &&
         !e.completed &&
-        (isToday(e.dueDate) || isFuture(e.dueDate))
+        (isToday(e.due_date) || isFuture(e.due_date))
     )
   );
 
@@ -33,7 +33,7 @@ const TasksList = ({ tasks }: Props) => {
       (e) =>
         !e.important &&
         !e.completed &&
-        (isToday(e.dueDate) || isFuture(e.dueDate))
+        (isToday(e.due_date) || isFuture(e.due_date))
     )
   );
 

@@ -15,12 +15,12 @@ interface Props {
 }
 
 const Task = ({ task }: Props) => {
-  const isPastDue = isPast(task.dueDate);
+  const isPastDue = isPast(task.due_date);
 
   const getDueDateText = () => {
-    if (isToday(task.dueDate)) return "Today";
-    if (isTomorrow(task.dueDate)) return "Tomorrow";
-    return format(task.dueDate, "EEE, d MMM, yy", { locale: enUS });
+    if (isToday(task.due_date)) return "Today";
+    if (isTomorrow(task.due_date)) return "Tomorrow";
+    return format(task.due_date, "EEE, d MMM, yy", { locale: enUS });
   };
 
   const onTaskClickHandler = () => {

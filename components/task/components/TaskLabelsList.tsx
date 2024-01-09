@@ -8,7 +8,7 @@ import { MouseEvent } from "react";
 interface Props {
   labels:
     | {
-        id: number;
+        id: string;
         name: string;
       }[]
     | undefined;

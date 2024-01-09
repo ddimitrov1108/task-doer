@@ -10,8 +10,8 @@ import { Field, Form, Formik } from "formik";
 import { registerSchema } from "@/lib/yup-schemas";
 
 const initialValues: ISignUpFormValues = {
-  firstName: "",
-  lastName: "",
+  first_name: "",
+  last_name: "",
   email: "",
   password: "",
   confirmPassword: "",
@@ -25,11 +25,11 @@ const SignUpForm = () => {
     if (!values) return;
 
     setForm({ loading: true, error: "" });
-    const { firstName, lastName, email, password, confirmPassword } = values;
+    const { first_name, last_name, email, password, confirmPassword } = values;
 
     await signIn("sign-up", {
-      firstName,
-      lastName,
+      first_name,
+      last_name,
       email,
       password,
       confirmPassword,
@@ -58,8 +58,8 @@ const SignUpForm = () => {
 
         <div className="md:flex gap-4 justify-between">
           <Field
-            id="firstName"
-            name="firstName"
+            id="first_name"
+            name="first_name"
             label="First Name"
             placeholder="e.g. Daniel"
             disabled={form.loading}
@@ -69,8 +69,8 @@ const SignUpForm = () => {
           />
 
           <Field
-            id="lastName"
-            name="lastName"
+            id="last_name"
+            name="last_name"
             label="Last Name"
             placeholder="e.g. Dimitrov"
             disabled={form.loading}

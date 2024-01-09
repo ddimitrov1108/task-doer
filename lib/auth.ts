@@ -40,7 +40,7 @@ export const authConfig: NextAuthOptions = {
 
         const comparePasswords = await bcryptjs.compare(
           password,
-          user.hashPassword
+          user.hash_password
         );
 
         if (!comparePasswords)
@@ -48,7 +48,7 @@ export const authConfig: NextAuthOptions = {
 
         return {
           id: user.id.toString(),
-          name: `${user.firstName} ${user.lastName}`,
+          name: `${user.first_name} ${user.last_name}`,
           email: user.email,
         } as User;
       },
@@ -58,8 +58,8 @@ export const authConfig: NextAuthOptions = {
       name: "Sign up",
       type: "credentials",
       credentials: {
-        firstName: { type: "text" },
-        lastName: { type: "text" },
+        first_name: { type: "text" },
+        last_name: { type: "text" },
         email: { type: "email" },
         password: { type: "password" },
         confirmPassword: { type: "password" },
@@ -67,14 +67,20 @@ export const authConfig: NextAuthOptions = {
       async authorize(credentials) {
         if (!credentials) return null;
 
-        const { firstName, lastName, email, password, confirmPassword } =
+        const { first_name, last_name, email, password, confirmPassword } =
           credentials;
 
-        if (!firstName || !lastName || !email || !password || !confirmPassword)
+        if (
+          !first_name ||
+          !last_name ||
+          !email ||
+          !password ||
+          !confirmPassword
+        )
           throw new Error("Invalid credentials");
 
         if (
-          !nameRegex.test(`${firstName} ${lastName}`) ||
+          !nameRegex.test(`${first_name} ${last_name}`) ||
           !emailRegex.test(email) ||
           !passwordRegex.test(password) ||
           !passwordRegex.test(confirmPassword)
@@ -87,8 +93,8 @@ export const authConfig: NextAuthOptions = {
           throw new Error("User with this email already exists");
 
         const user = await userController.create({
-          firstName,
-          lastName,
+          first_name,
+          last_name,
           email,
           password,
         });
@@ -97,7 +103,7 @@ export const authConfig: NextAuthOptions = {
 
         return {
           id: user.id.toString(),
-          name: `${user.firstName} ${user.lastName}`,
+          name: `${user.first_name} ${user.last_name}`,
           email: user.email,
         } as User;
       },
@@ -136,7 +142,7 @@ export const getUserFromServerSession = async (): Promise<IUserData | null> => {
     !session.user.email
     ? null
     : {
-        id: Number(session.user.id),
+        id: session.user.id,
         name: session.user.name,
         email: session.user.email,
       };
