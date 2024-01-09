@@ -1,11 +1,11 @@
 import { labelController } from "@/db";
 import { getUserFromServerSession } from "@/lib/auth";
-import { validateIdParam } from "@/lib/utils";
+import { isUUID } from "@/lib/utils";
 import { NextRequest, NextResponse } from "next/server";
 import { ILabelFormValues, INextRouteParams } from "@/lib/interfaces";
 
 export async function PUT(req: NextRequest, { params }: INextRouteParams) {
-  if (!validateIdParam(params.id))
+  if (!params.id || !isUUID(params.id))
     return NextResponse.json({ error: "Bad Request" }, { status: 400 });
 
   const user = await getUserFromServerSession();
@@ -20,7 +20,7 @@ export async function PUT(req: NextRequest, { params }: INextRouteParams) {
 
   try {
     const updatedLabel = await labelController.update(user.id, {
-      id: Number(params.id),
+      id: params.id,
       name,
     });
 
@@ -37,7 +37,7 @@ export async function PUT(req: NextRequest, { params }: INextRouteParams) {
 }
 
 export async function DELETE(req: NextRequest, { params }: INextRouteParams) {
-  if (!validateIdParam(params.id))
+  if (!params.id || !isUUID(params.id))
     return NextResponse.json({ error: "Bad Request" }, { status: 400 });
 
   const user = await getUserFromServerSession();
@@ -46,10 +46,7 @@ export async function DELETE(req: NextRequest, { params }: INextRouteParams) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
   try {
-    const deletedLabel = await labelController.delete(
-      user.id,
-      Number(params.id)
-    );
+    const deletedLabel = await labelController.delete(user.id, params.id);
 
     if (!deletedLabel)
       return NextResponse.json({ error: "Label not found." }, { status: 404 });

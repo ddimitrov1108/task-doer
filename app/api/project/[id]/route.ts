@@ -1,11 +1,11 @@
 import { projectController } from "@/db";
 import { getUserFromServerSession } from "@/lib/auth";
 import { IProjectFormValues, INextRouteParams } from "@/lib/interfaces";
-import { validateIdParam } from "@/lib/utils";
+import { isUUID } from "@/lib/utils";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function PUT(req: NextRequest, { params }: INextRouteParams) {
-  if (!validateIdParam(params.id))
+  if (!params.id || !isUUID(params.id))
     return NextResponse.json({ error: "Bad Request" }, { status: 400 });
 
   const user = await getUserFromServerSession();
@@ -20,7 +20,7 @@ export async function PUT(req: NextRequest, { params }: INextRouteParams) {
 
   try {
     const updatedProject = await projectController.update(user.id, {
-      id: Number(params.id),
+      id: params.id,
       name,
       color,
     });
@@ -38,7 +38,7 @@ export async function PUT(req: NextRequest, { params }: INextRouteParams) {
 }
 
 export async function DELETE(req: NextRequest, { params }: INextRouteParams) {
-  if (!validateIdParam(params.id))
+  if (!params.id || !isUUID(params.id))
     return NextResponse.json({ error: "Bad Request" }, { status: 400 });
 
   const user = await getUserFromServerSession();
@@ -47,10 +47,7 @@ export async function DELETE(req: NextRequest, { params }: INextRouteParams) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
   try {
-    const deletedProject = await projectController.delete(
-      user.id,
-      Number(params.id)
-    );
+    const deletedProject = await projectController.delete(user.id, params.id);
 
     if (!deletedProject) throw new Error("Failed to delete project");
 
