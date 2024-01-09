@@ -110,7 +110,14 @@ export const authConfig: NextAuthOptions = {
     }),
   ],
   callbacks: {
-    session({ session, token }) {
+    async session({ session, token }) {
+      if (!session || !token) throw new Error("Session expired");
+
+      const doesUserExist =
+        token.email && (await userController.exists(token.email));
+
+      if (!doesUserExist) throw new Error("User doesnt exist");
+
       return {
         ...session,
         user: {

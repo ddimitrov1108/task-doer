@@ -11,7 +11,7 @@ class UserController extends DbConnector {
 
   public async exists(email: string): Promise<boolean> {
     try {
-      return !!(await this.prisma.user.count({
+      return !!(await this.prisma.user.findUnique({
         where: { email },
       }));
     } catch (e) {
