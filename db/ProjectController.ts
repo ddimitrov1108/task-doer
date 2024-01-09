@@ -25,11 +25,11 @@ class ProjectController extends DbConnector {
     }
   }
 
-  public async getList(userId: number): Promise<IProject[]> {
+  public async getList(user_id: string): Promise<IProject[]> {
     try {
       return await this.prisma.project.findMany({
         where: {
-          uid: userId,
+          user_id: user_id,
         },
         select: {
           id: true,
@@ -44,14 +44,14 @@ class ProjectController extends DbConnector {
   }
 
   public async get(
-    userId: number,
-    projectId: number
+    user_id: string,
+    project_id: string
   ): Promise<IProjectDetails | null> {
     try {
-      const project = await this.prisma.project.findFirst({
+      const project = await this.prisma.project.findUnique({
         where: {
-          id: projectId,
-          uid: userId,
+          id: project_id,
+          user_id: user_id,
         },
         select: {
           id: true,
@@ -64,7 +64,7 @@ class ProjectController extends DbConnector {
               description: true,
               important: true,
               completed: true,
-              dueDate: true,
+              due_date: true,
               labels: {
                 select: {
                   label: {
@@ -86,10 +86,7 @@ class ProjectController extends DbConnector {
         ...project,
         tasks: project.tasks.map(({ labels, ...restTask }) => ({
           ...restTask,
-          labels: labels.map((label) => ({
-            id: label.label.id,
-            name: label.label.name,
-          })),
+          labels: labels.map(({ label }) => ({ ...label })),
         })),
       };
     } catch (e) {
@@ -99,14 +96,14 @@ class ProjectController extends DbConnector {
   }
 
   public async create(
-    userId: number,
+    user_id: string,
     newProject: IProjectFormValues
   ): Promise<IProject | null> {
     try {
       return await this.prisma.project.create({
         data: {
           ...newProject,
-          uid: userId,
+          user_id: user_id,
         },
       });
     } catch (e) {
@@ -116,14 +113,14 @@ class ProjectController extends DbConnector {
   }
 
   public async update(
-    userId: number,
+    user_id: string,
     project: IProject
   ): Promise<IProject | null> {
     try {
       return await this.prisma.project.update({
         where: {
           id: project.id,
-          uid: userId,
+          user_id: user_id,
         },
         data: {
           name: project.name,
@@ -142,14 +139,14 @@ class ProjectController extends DbConnector {
   }
 
   public async delete(
-    userId: number,
-    projectId: number
+    user_id: string,
+    project_id: string
   ): Promise<IProject | null> {
     try {
       const projectToDelete = await this.prisma.project.findUnique({
         where: {
-          id: projectId,
-          uid: userId,
+          id: project_id,
+          user_id: user_id,
         },
         include: {
           tasks: {
@@ -176,7 +173,7 @@ class ProjectController extends DbConnector {
         ),
         this.prisma.task.deleteMany({
           where: {
-            pid: projectToDelete.id,
+            project_id: projectToDelete.id,
           },
         }),
       ]);

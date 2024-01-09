@@ -31,19 +31,19 @@ class UserController extends DbConnector {
     }
   }
 
-  public async create(newUser: INewUser): Promise<UserReturnType> {
+  public async create(user: INewUser): Promise<UserReturnType> {
     try {
-      const hashPassword = await bcryptjs.hash(
-        newUser.password,
+      const hash_password = await bcryptjs.hash(
+        user.password,
         Number(process.env.HASH_SALT)
       );
 
       return await this.prisma.user.create({
         data: {
-          firstName: newUser.firstName,
-          lastName: newUser.lastName,
-          email: newUser.email,
-          hashPassword,
+          first_name: user.first_name,
+          last_name: user.last_name,
+          email: user.email,
+          hash_password,
         },
       });
     } catch (e) {
