@@ -4,8 +4,8 @@ import { ProjectForm } from "../forms";
 import { IFormModal, IProjectFormValues } from "@/lib/interfaces";
 
 const ProjectModal = ({
-  isOpen,
-  setIsOpen,
+  open,
+  setOpen,
   editMode = false,
   initialState = null,
   afterSubmit,
@@ -20,8 +20,8 @@ const ProjectModal = ({
           {editMode ? "Edit Project" : "New Project"}
         </div>
       }
-      isOpen={isOpen}
-      setIsOpen={setIsOpen}
+      open={open}
+      setOpen={setOpen}
       className="max-w-sm"
       bodyClassName="pt-4"
     >

@@ -11,15 +11,15 @@ interface Props {
 }
 
 const HeaderNav = ({ user, navList }: Props) => {
-  const [isOpen, setIsOpen, toggleIsOpen] = useSideBarState();
+  const [open, setOpen, toggleIsOpen] = useSideBarState();
 
   return (
     <header className="bg-black-main shadow-lg shadow-black-dark flex items-center justify-between z-20 fixed top-0 w-full py-3 px-4 lg:hidden">
       <Logo />
 
       <SideBar
-        isOpen={isOpen}
-        setIsOpen={setIsOpen}
+        open={open}
+        setOpen={setOpen}
         containerClassName="bg-black-main px-0"
         headerClassName="pt-4 px-4"
         bodyClassName="w-full grid gap-4 px-4 py-4 bg-inherit"

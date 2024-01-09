@@ -3,18 +3,18 @@
 import { useEffect, useState } from "react";
 
 const useSideBarState = (initialState: boolean = false) => {
-  const [isOpen, setIsOpen] = useState<boolean>(initialState);
-  const toggleIsOpen = () => setIsOpen(!isOpen);
+  const [open, setOpen] = useState<boolean>(initialState);
+  const toggleIsOpen = () => setOpen(!open);
 
   useEffect(() => {
     if (window && window.innerWidth < 1280)
-      document.body.style.overflow = isOpen ? "hidden" : "auto";
+      document.body.style.overflow = open ? "hidden" : "auto";
 
     return () => {
       document.body.style.overflow = "auto";
     };
-  }, [isOpen]);
+  }, [open]);
 
-  return [isOpen, setIsOpen, toggleIsOpen] as const;
+  return [open, setOpen, toggleIsOpen] as const;
 };
 export default useSideBarState;

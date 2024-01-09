@@ -4,8 +4,8 @@ import { AtSign } from "lucide-react";
 import { LabelForm } from "../forms";
 
 const LabelModal = ({
-  isOpen,
-  setIsOpen,
+  open,
+  setOpen,
   editMode = false,
   initialState = null,
   afterSubmit,
@@ -20,8 +20,8 @@ const LabelModal = ({
           {editMode ? "Edit Label" : "New Label"}
         </div>
       }
-      isOpen={isOpen}
-      setIsOpen={setIsOpen}
+      open={open}
+      setOpen={setOpen}
       className="max-w-sm"
       bodyClassName="pt-4"
     >

@@ -7,8 +7,8 @@ import { X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface Props {
-  isOpen: boolean;
-  setIsOpen: Dispatch<SetStateAction<boolean>>;
+  open: boolean;
+  setOpen: Dispatch<SetStateAction<boolean>>;
   modalTitle?: ReactNode;
   children: ReactNode;
   showCloseBtn?: boolean;
@@ -18,8 +18,8 @@ interface Props {
 }
 
 const Modal = ({
-  isOpen,
-  setIsOpen,
+  open,
+  setOpen,
   modalTitle = "",
   children,
   showCloseBtn = true,
@@ -28,15 +28,15 @@ const Modal = ({
   bodyClassName,
 }: Props) => {
   const onCloseClickHandler = () => {
-    setIsOpen(false);
+    setOpen(false);
   };
 
   return (
-    <Transition appear show={isOpen} as={Fragment}>
+    <Transition appear show={open} as={Fragment}>
       <Dialog
         as="div"
         className="relative z-50"
-        open={isOpen}
+        open={open}
         onClose={onCloseClickHandler}
       >
         <Transition.Child

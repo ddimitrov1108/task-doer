@@ -6,15 +6,15 @@ import { useForm } from "../hooks";
 import { AlertTriangle } from "lucide-react";
 
 interface Props {
-  isOpen: boolean;
-  setIsOpen: Dispatch<SetStateAction<boolean>>;
+  open: boolean;
+  setOpen: Dispatch<SetStateAction<boolean>>;
   message: string;
   onSubmit: () => Promise<void> | void;
 }
 
 const DeleteConfirmationModal = ({
-  isOpen,
-  setIsOpen,
+  open,
+  setOpen,
   message,
   onSubmit,
 }: Props) => {
@@ -37,8 +37,8 @@ const DeleteConfirmationModal = ({
           Delete Confirmation
         </div>
       }
-      isOpen={isOpen}
-      setIsOpen={setIsOpen}
+      open={open}
+      setOpen={setOpen}
       className="max-w-sm"
       bodyClassName="pt-4"
     >
@@ -50,7 +50,7 @@ const DeleteConfirmationModal = ({
             variant="text"
             className="flex justify-center"
             disabled={form.loading}
-            onClick={() => setIsOpen(false)}
+            onClick={() => setOpen(false)}
             fullWidth
           >
             Cancel

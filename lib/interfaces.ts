@@ -33,8 +33,8 @@ export interface IFormInput<T> {
 }
 
 export interface IFormModal<T> {
-  isOpen: boolean;
-  setIsOpen: Dispatch<SetStateAction<boolean>>;
+  open: boolean;
+  setOpen: Dispatch<SetStateAction<boolean>>;
   initialState?: T | null;
   editMode?: boolean;
   afterSubmit: () => void;
