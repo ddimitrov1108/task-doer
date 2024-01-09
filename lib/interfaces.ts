@@ -8,7 +8,7 @@ export interface INextRouteParams {
 }
 
 export interface IUserData {
-  id: number;
+  id: string;
   name: string;
   email: string;
 }
@@ -46,8 +46,8 @@ export interface ISignInFormValues {
 }
 
 export interface ISignUpFormValues extends ISignInFormValues {
-  firstName: string;
-  lastName: string;
+  first_name: string;
+  last_name: string;
   confirmPassword: string;
 }
 
@@ -82,22 +82,22 @@ export interface INavLink {
 }
 
 export interface IUser {
-  id: number;
-  firstName: string;
-  lastName: string;
+  id: string;
+  first_name: string;
+  last_name: string;
   email: string;
-  hashPassword: string;
+  hash_password: string;
 }
 
 export interface INewUser {
-  firstName: string;
-  lastName: string;
+  first_name: string;
+  last_name: string;
   email: string;
   password: string;
 }
 
 export interface IProject extends IProjectFormValues {
-  id: number;
+  id: string;
 }
 
 export interface IProjectDetails extends IProject {
@@ -105,7 +105,7 @@ export interface IProjectDetails extends IProject {
 }
 
 export interface ILabel extends ILabelFormValues {
-  id: number;
+  id: string;
 }
 
 export interface ILabelDetails extends ILabel {
@@ -113,14 +113,14 @@ export interface ILabelDetails extends ILabel {
 }
 
 export interface ITask {
-  id: number;
+  id: string;
   name: string;
   description: string;
   completed: boolean;
   important: boolean;
-  dueDate: Date;
+  due_date: Date;
   labels?: {
-    id: number;
+    id: string;
     name: string;
   }[];
 }

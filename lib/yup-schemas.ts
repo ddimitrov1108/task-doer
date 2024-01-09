@@ -18,12 +18,12 @@ export const loginSchema = Yup.object().shape({
 });
 
 export const registerSchema = Yup.object().shape({
-  firstName: Yup.string()
+  first_name: Yup.string()
     .matches(nameRegex, "Invalid field")
     .min(2, "Minimum length of 2 symbols is required")
     .max(20, "Maximum length of 20 symbols is exceeded")
     .required("Field is required"),
-  lastName: Yup.string()
+  last_name: Yup.string()
     .matches(nameRegex, "Invalid field")
     .min(2, "Minimum length of 2 symbols is required")
     .max(20, "Maximum length of 20 symbols is exceeded")
