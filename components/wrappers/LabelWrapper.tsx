@@ -2,17 +2,19 @@
 
 import { ILabel } from "@/lib/interfaces";
 import { ReactNode, useContext, useEffect } from "react";
+import { StorageContext } from "../providers";
 
 interface Props {
-  label: ILabel;
+  value: ILabel;
   children: ReactNode;
 }
-const LabelWrapper = ({ label, children }: Props) => {
+const LabelWrapper = ({ value, children }: Props) => {
+  const storageContext = useContext(StorageContext);
 
   useEffect(() => {
-    // labelContext?.setProject(label);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [label]);
+    storageContext?.setLabel(value);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [value]);
 
   return children;
 };

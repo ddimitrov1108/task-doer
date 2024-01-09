@@ -5,16 +5,16 @@ import { ReactNode, useContext, useEffect } from "react";
 import { StorageContext } from "../providers";
 
 interface Props {
-  project: IProject;
+  value: IProject;
   children: ReactNode;
 }
-const ProjectWrapper = ({ project, children }: Props) => {
+const ProjectWrapper = ({ value, children }: Props) => {
   const storageContext = useContext(StorageContext);
 
   useEffect(() => {
-    storageContext?.setProject(project);
+    storageContext?.setProject(value);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [project]);
+  }, [value]);
 
   return children;
 };

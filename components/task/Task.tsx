@@ -89,14 +89,14 @@ const Task = ({ task }: Props) => {
           >
             <IconButton
               className={cn(
-                "p-1 transition-all text-xl",
+                "p-2 transition-all text-xl",
                 task.important
                   ? "text-warning-main"
                   : "text-dark hover:text-main"
               )}
               onClick={onImportantHandler}
             >
-              <Star />
+              <Star size={20}/>
             </IconButton>
           </div>
         </div>

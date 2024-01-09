@@ -23,7 +23,7 @@ const ProjectPage = async ({ params }: INextRouteParams) => {
 
   return (
     <ProjectWrapper
-      project={{
+      value={{
         id: project.id,
         name: project.name,
         color: project.color,
@@ -39,6 +39,7 @@ const ProjectPage = async ({ params }: INextRouteParams) => {
             {project.name}
           </div>
         </PageHeader>
+
         <ProjectInteractiveButtons />
       </div>
 
