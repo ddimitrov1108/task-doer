@@ -46,7 +46,7 @@ const Dropdown = ({
                   chevronClassName
                 )}
               >
-                <ChevronDown />
+                <ChevronDown size={20}/>
               </div>
             )}
           </>

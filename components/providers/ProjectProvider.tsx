@@ -6,6 +6,7 @@ import {
   ReactNode,
   SetStateAction,
   createContext,
+  useEffect,
   useState,
 } from "react";
 import { DeleteConfirmationModal, ProjectModal } from "../modals";
@@ -53,6 +54,10 @@ const ProjectProvider = ({ children }: Props) => {
     setProject(undefined);
   };
 
+  useEffect(() => {
+    console.log(project);
+  }, [project]);
+
   return (
     <ProjectContext.Provider
       value={{
@@ -73,7 +78,7 @@ const ProjectProvider = ({ children }: Props) => {
         isOpen={isOpenProjectModal}
         setIsOpen={setIsOpenProjectModal}
         editMode={editMode}
-        initialState={project}
+        initialState={editMode ? project : undefined}
         afterSubmit={() => setIsOpenProjectModal(false)}
       />
 

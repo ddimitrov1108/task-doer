@@ -35,12 +35,13 @@ const ProjectInteractiveButtons = () => {
 
   return (
     <>
-      <div className="min-w-full md:min-w-fit flex items-center justify-between gap-2">
+      <div className="min-w-full md:min-w-fit flex items-center justify-between gap-1">
         <AddTaskButton />
 
         <Dropdown
+          showChevron={false}
           btn={
-            <IconButton className="transition-all text-2xl bg-black-main">
+            <IconButton className="transition-all text-2xl bg-black-main text-light">
               <MoreHorizontal size={20} />
             </IconButton>
           }

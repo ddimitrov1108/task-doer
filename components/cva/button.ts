@@ -43,7 +43,7 @@ export const button = cva("button", {
       text: ["text-primary-main", "bg-inherit", "border-transparent", "hover:bg-primary-main/10"],
     },
     size: {
-      sm: ["py-1.5", "px-2"],
+      sm: ["py-1", "px-1.5"],
       md: ["py-2.5", "px-4"],
       lg: ["py-3.5", "px-4"],
     },

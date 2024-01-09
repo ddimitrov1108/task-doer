@@ -19,6 +19,7 @@ const ProjectsList = ({ projects, onNavElClick = () => {} }: Props) => {
 
   const onClickHandler = (e: MouseEvent) => {
     e.preventDefault();
+    projectContext?.setEditMode(false);
     projectContext?.setIsOpenProjectModal(true);
     onNavElClick();
   };
@@ -57,7 +58,7 @@ const ProjectsList = ({ projects, onNavElClick = () => {} }: Props) => {
             onClick={onNavElClick}
             appendIcon={
               <div
-                className="w-2 h-2 rounded-full"
+                className="w-2.5 h-2.5 rounded-full"
                 style={{ backgroundColor: color }}
               ></div>
             }
