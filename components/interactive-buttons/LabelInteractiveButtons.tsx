@@ -22,8 +22,10 @@ const LabelInteractiveButtons = () => {
       name: "Edit",
       icon: <Pencil size={20} />,
       onClick: () => {
-        modalsContext?.setEditMode(true);
-        modalsContext?.setOpenProjectModal(true);
+        modalsContext?.modifyModalState({
+          editMode: true,
+          isLabelModalOpen: true,
+        });
       },
       className: "text-light hover:text-white",
       iconClassName: "text-primary-main",

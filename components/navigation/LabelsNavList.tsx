@@ -17,9 +17,12 @@ const LabelsNavList = ({ labels, onNavElClick = () => {} }: Props) => {
 
   const onClickHandler = (e: MouseEvent) => {
     e.preventDefault();
-    modalsContext?.setEditMode(false);
-    modalsContext?.setOpenLabelModal(true);
     onNavElClick();
+
+    modalsContext?.modifyModalState({
+      editMode: false,
+      isLabelModalOpen: true,
+    });
   };
   return (
     <DisclousureContainer

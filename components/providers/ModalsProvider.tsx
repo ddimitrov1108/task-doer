@@ -1,13 +1,6 @@
 "use client";
 
-import {
-  Dispatch,
-  ReactNode,
-  SetStateAction,
-  createContext,
-  useContext,
-  useState,
-} from "react";
+import { ReactNode, createContext, useContext, useState } from "react";
 import { LabelModal, ProjectModal } from "../modals";
 import { StorageContext } from ".";
 
@@ -15,41 +8,66 @@ interface Props {
   children: ReactNode;
 }
 
+interface IModalState {
+  isProjectModalOpen: boolean;
+  isLabelModalOpen: boolean;
+  editMode: boolean;
+}
+
 export const ModalsContext = createContext<{
-  setOpenLabelModal: Dispatch<SetStateAction<boolean>>;
-  setOpenProjectModal: Dispatch<SetStateAction<boolean>>;
-  setEditMode: Dispatch<SetStateAction<boolean>>;
+  modalState: IModalState;
+  modifyModalState: (state: {
+    isProjectModalOpen?: boolean;
+    isLabelModalOpen?: boolean;
+    editMode?: boolean;
+  }) => void;
 } | null>(null);
 
 const ModalsProvider = ({ children }: Props) => {
   const storageContext = useContext(StorageContext);
 
-  const [openLabelModal, setOpenLabelModal] = useState<boolean>(false);
-  const [openProjectModal, setOpenProjectModal] = useState<boolean>(false);
-  const [editMode, setEditMode] = useState<boolean>(false);
+  const [modalState, setModalState] = useState<IModalState>({
+    isProjectModalOpen: false,
+    isLabelModalOpen: false,
+    editMode: false,
+  });
+
+  const modifyModalState = (state: {
+    isProjectModalOpen?: boolean;
+    isLabelModalOpen?: boolean;
+    editMode?: boolean;
+  }) => {
+    setModalState({ ...modalState, ...state });
+  };
+
+  const initialProjectState = modalState.editMode
+    ? storageContext?.project
+    : undefined;
+  const initialLabelState = modalState.editMode
+    ? storageContext?.label
+    : undefined;
 
   return (
     <ModalsContext.Provider
       value={{
-        setOpenProjectModal,
-        setOpenLabelModal,
-        setEditMode,
+        modalState,
+        modifyModalState,
       }}
     >
       <ProjectModal
-        open={openProjectModal}
-        setOpen={setOpenProjectModal}
-        editMode={editMode}
-        initialState={storageContext?.project}
-        afterSubmit={() => setOpenProjectModal(false)}
+        open={modalState.isProjectModalOpen}
+        setOpen={() => modifyModalState({ isProjectModalOpen: true })}
+        editMode={modalState.editMode}
+        initialState={initialProjectState}
+        afterSubmit={() => modifyModalState({ isProjectModalOpen: false })}
       />
 
       <LabelModal
-        open={openLabelModal}
-        setOpen={setOpenLabelModal}
-        editMode={editMode}
-        initialState={storageContext?.label}
-        afterSubmit={() => setOpenLabelModal(false)}
+        open={modalState.isLabelModalOpen}
+        setOpen={() => modifyModalState({ isLabelModalOpen: true })}
+        editMode={modalState.editMode}
+        initialState={initialLabelState}
+        afterSubmit={() => modifyModalState({ isLabelModalOpen: false })}
       />
 
       {children}

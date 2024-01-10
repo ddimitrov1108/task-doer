@@ -17,9 +17,12 @@ const ProjectsNavList = ({ projects, onNavElClick = () => {} }: Props) => {
 
   const onClickHandler = (e: MouseEvent) => {
     e.preventDefault();
-    modalsContext?.setEditMode(false);
-    modalsContext?.setOpenProjectModal(true);
     onNavElClick();
+
+    modalsContext?.modifyModalState({
+      editMode: false,
+      isProjectModalOpen: true,
+    });
   };
 
   return (
