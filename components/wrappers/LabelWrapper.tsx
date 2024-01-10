@@ -8,6 +8,7 @@ interface Props {
   value: ILabel;
   children: ReactNode;
 }
+
 const LabelWrapper = ({ value, children }: Props) => {
   const storageContext = useContext(StorageContext);
 

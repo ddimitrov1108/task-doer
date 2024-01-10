@@ -1,5 +1,12 @@
 import * as Yup from "yup";
-import { nameRegex, emailRegex, passwordRegex, sectionNameRegex, hexColorRegex } from "./regex";
+import {
+  nameRegex,
+  emailRegex,
+  passwordRegex,
+  sectionNameRegex,
+  hexColorRegex,
+  descriptionRegex,
+} from "./regex";
 
 export const loginSchema = Yup.object().shape({
   email: Yup.string()
@@ -63,4 +70,18 @@ export const labelSchema = Yup.object().shape({
     .min(2, "Minimum length of 2 symbols is required")
     .max(20, "Maximum length of 20 symbols is exceeded")
     .required("Field is required"),
+});
+
+export const taskSchema = Yup.object().shape({
+  name: Yup.string()
+    .matches(sectionNameRegex, "Invalid field")
+    .min(2, "Minimum length of 2 symbols is required")
+    .max(40, "Maximum length of 40 symbols is exceeded")
+    .required("Field is required"),
+  description: Yup.string()
+    .matches(descriptionRegex, "Invalid field")
+    .max(255, "Maximum length of 255 symbols is exceeded"),
+  dueDate: Yup.date().required("Date is required"),
+  important: Yup.boolean().default(false),
+  labels: Yup.array().default([]),
 });

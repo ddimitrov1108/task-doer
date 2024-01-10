@@ -71,7 +71,7 @@ const ProjectInteractiveButtons = () => {
         <Dropdown
           showChevron={false}
           btn={
-            <IconButton className="transition-all text-2xl bg-black-main text-light">
+            <IconButton className="p-2 transition-all bg-black-main text-main">
               <MoreHorizontal size={20} />
             </IconButton>
           }

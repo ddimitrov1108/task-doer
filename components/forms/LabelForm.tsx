@@ -9,13 +9,13 @@ import { Field, Form, Formik } from "formik";
 import { labelSchema } from "@/lib/yup-schemas";
 import { ILabelFormValues } from "@/lib/interfaces";
 
-const initialValues: ILabelFormValues = { name: "" };
-
 interface Props {
   initialState?: ILabelFormValues | null;
   editMode?: boolean;
   afterSubmit: () => void;
 }
+
+const initialValues: ILabelFormValues = { name: "" };
 
 const LabelForm = ({ initialState, editMode = false, afterSubmit }: Props) => {
   const params = useParams();

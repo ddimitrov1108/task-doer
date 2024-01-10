@@ -8,6 +8,7 @@ interface Props {
   value: IProject;
   children: ReactNode;
 }
+
 const ProjectWrapper = ({ value, children }: Props) => {
   const storageContext = useContext(StorageContext);
 

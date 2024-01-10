@@ -60,6 +60,18 @@ export interface ILabelFormValues {
   name: string;
 }
 
+export interface ITaskFormValues {
+  name: string;
+  description: string;
+  completed: boolean;
+  important: boolean;
+  due_date: Date;
+  labels?: {
+    id: string;
+    name: string;
+  }[];
+}
+
 export interface IValidateProjectValues {
   name: string | null | undefined;
   color: string | null | undefined;

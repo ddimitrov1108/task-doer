@@ -9,6 +9,7 @@ interface Props {
   className?: string;
   onClick?: MouseEventHandler<HTMLButtonElement> | undefined;
 }
+
 const Chip = ({ prepEndIcon, className, title, ...restProps }: Props) => {
   return (
     <button

@@ -2,8 +2,7 @@ import { Button } from "@/components/ui"
 import Image from "next/image"
 import Link from "next/link"
 
-interface Props {}
-const PageNotFound = (props: Props) => {
+const PageNotFound = () => {
   return (
     <div className="h-[80vh] grid justify-center items-center">
     <div className="grid gap-4">

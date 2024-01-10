@@ -4,6 +4,7 @@ interface Props {
   label?: string;
   children: ReactNode;
 }
+
 const PageHeader = ({ label = "", children }: Props) => {
   return (
     <div className="w-full truncate ...">

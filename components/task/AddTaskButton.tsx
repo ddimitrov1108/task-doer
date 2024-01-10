@@ -10,6 +10,7 @@ interface Props {
   title?: string;
   onClick?: MouseEventHandler<HTMLButtonElement> | undefined;
 }
+
 const AddTaskButton = ({ className, ...restProps }: Props) => {
   return (
     <Button

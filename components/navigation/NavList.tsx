@@ -5,6 +5,11 @@ import { LabelsNavList, NavLink, ProjectsNavList } from ".";
 import { CheckCheck, InfinityIcon, LandPlot, Star, Sun } from "lucide-react";
 import { v4 as uuidv4 } from "uuid";
 
+interface Props {
+  navList: INavList;
+  onNavElClick?: () => void;
+}
+
 const taskLinks = [
   {
     id: uuidv4(),
@@ -37,11 +42,6 @@ const taskLinks = [
     href: "/todo/all",
   },
 ];
-
-interface Props {
-  navList: INavList;
-  onNavElClick?: () => void;
-}
 
 const NavList = ({ navList, onNavElClick = () => {} }: Props) => {
   return (
