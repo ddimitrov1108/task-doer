@@ -8,25 +8,20 @@ import {
   StorageProvider,
   TaskProvider,
 } from "@/components/providers";
-import { IUserData } from "@/lib/interfaces";
 
 interface Props {
   children: ReactNode;
 }
 
-const fetchData = async (user_id: string) => {
-  return await Promise.all([
-    projectController.getList(user_id),
-    labelController.getList(user_id),
-  ]);
-};
-
-const layout = async ({ children }: Props) => {
-  const user: IUserData | null = await getUserFromServerSession();
+const TodoLayout = async ({ children }: Props) => {
+  const user = await getUserFromServerSession();
 
   if (!user) return redirect("/");
 
-  const [projects, labels] = await fetchData(user.id);
+  const [projects, labels] = await Promise.all([
+    projectController.getList(user.id),
+    labelController.getList(user.id),
+  ]);
 
   return (
     <StorageProvider>
@@ -43,4 +38,4 @@ const layout = async ({ children }: Props) => {
     </StorageProvider>
   );
 };
-export default layout;
+export default TodoLayout;

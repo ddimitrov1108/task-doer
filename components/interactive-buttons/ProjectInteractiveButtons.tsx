@@ -4,16 +4,14 @@ import { MoreHorizontal, Pencil, Trash2 } from "lucide-react";
 import { useContext, useId, useState } from "react";
 import { AddTaskButton } from "../task";
 import { Dropdown, DropdownListItem, IconButton } from "../ui";
-import { ModalsContext, StorageContext } from "../providers";
+import { ModalsContext } from "../providers";
 import { DeleteConfirmationModal } from "../modals";
 import { toast } from "sonner";
 import { useParams, useRouter } from "next/navigation";
 import { deleteProject } from "@/app/actions";
 
 const ProjectInteractiveButtons = () => {
-  const storageContext = useContext(StorageContext);
   const modalsContext = useContext(ModalsContext);
-
   const params = useParams();
   const router = useRouter();
   const [open, setOpen] = useState<boolean>(false);
@@ -45,37 +43,18 @@ const ProjectInteractiveButtons = () => {
   ];
 
   const onDeleteHandler = async (): Promise<void> => {
-    const projectId = params.id.toString();
-
     await deleteProject(params.id.toString())
-    .then(({error}) => {
-      if (error) throw error;
+      .then(({ error }) => {
+        if (error) throw error;
 
-      toast.success("Project deleted successfully!");
-    }).catch()
-  }
-
-  // const deleteProject = async (): Promise<void> => {
-  //   if (!storageContext?.project) return;
-
-  //   await fetch(`/api/project/${storageContext?.project.id}`, {
-  //     method: "DELETE",
-  //   })
-  //     .then((data) => data.json())
-  //     .then(({ error }) => {
-  //       if (error) throw error;
-
-  //       storageContext?.setProject(undefined);
-  //       toast.success("Project deleted successfully!");
-  //       router.replace("/todo");
-  //       router.refresh();
-  //     })
-  //     .catch((error) => {
-  //       toast.error(error);
-  //     });
-
-  //   setOpen(false);
-  // };
+        toast.success("Project deleted successfully!");
+        setOpen(false);
+        router.replace("/todo");
+      })
+      .catch((e: string) => {
+        console.error(e);
+      });
+  };
 
   return (
     <>

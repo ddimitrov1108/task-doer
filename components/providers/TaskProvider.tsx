@@ -18,8 +18,6 @@ interface Props {
 }
 
 export const TaskContext = createContext<{
-  selectedTask: ITask | undefined;
-  setSelectedTask: Dispatch<SetStateAction<ITask | undefined>>;
   setCompleted: (task: ITask) => Promise<void>;
   setImportant: (task: ITask) => Promise<void>;
   setOpenNewTaskModal: Dispatch<SetStateAction<boolean>>;

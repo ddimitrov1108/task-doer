@@ -51,6 +51,7 @@ const ModalsProvider = ({ children }: Props) => {
   const initialProjectState = modalState.editMode
     ? storageContext?.project
     : undefined;
+
   const initialLabelState = modalState.editMode
     ? storageContext?.label
     : undefined;
