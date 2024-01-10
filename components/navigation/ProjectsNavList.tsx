@@ -1,29 +1,30 @@
 "use client";
 
-import { ILabel } from "@/lib/interfaces";
 import { MouseEvent, useContext } from "react";
 import { NavLink } from ".";
 import { DisclousureContainer } from "../ui";
-import { AtSign, Plus } from "lucide-react";
+import { Plus } from "lucide-react";
+import { IProject } from "@/lib/interfaces";
 import { ModalsContext } from "../providers";
 
 interface Props {
-  labels: ILabel[];
+  projects: IProject[];
   onNavElClick?: () => void;
 }
 
-const LabelsList = ({ labels, onNavElClick = () => {} }: Props) => {
+const ProjectsNavList = ({ projects, onNavElClick = () => {} }: Props) => {
   const modalsContext = useContext(ModalsContext);
 
   const onClickHandler = (e: MouseEvent) => {
     e.preventDefault();
     modalsContext?.setEditMode(false);
-    modalsContext?.setOpenLabelModal(true);
+    modalsContext?.setOpenProjectModal(true);
     onNavElClick();
   };
+
   return (
     <DisclousureContainer
-      title="Labels"
+      title="Projects"
       appendToTitle={
         <button
           className="text-xl text-main hover:text-primary-main"
@@ -36,16 +37,22 @@ const LabelsList = ({ labels, onNavElClick = () => {} }: Props) => {
       bodyClassName="px-2 styled-overflow max-h-[240px] overflow-auto grid gap-1"
       open
     >
-      {labels.map(({ id, name }) => (
+      {projects.map(({ id, name, color }) => (
         <NavLink
           key={id}
-          href={`/todo/label/${id}`}
+          href={`/todo/project/${id}`}
           text={name}
           onClick={onNavElClick}
-          appendIcon={<AtSign size={16} className="text-primary-main" />}
+          appendIcon={
+            <div
+              className="w-2.5 h-2.5 rounded-full"
+              style={{ backgroundColor: color }}
+            ></div>
+          }
+          className=""
         />
       ))}
     </DisclousureContainer>
   );
 };
-export default LabelsList;
+export default ProjectsNavList;

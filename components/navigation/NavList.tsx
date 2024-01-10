@@ -1,7 +1,7 @@
 "use client";
 
 import { INavList } from "@/lib/interfaces";
-import { LabelsList, NavLink, ProjectsList } from ".";
+import { LabelsNavList, NavLink, ProjectsNavList } from ".";
 import { CheckCheck, InfinityIcon, LandPlot, Star, Sun } from "lucide-react";
 import { v4 as uuidv4 } from "uuid";
 
@@ -60,8 +60,8 @@ const NavList = ({ navList, onNavElClick = () => {} }: Props) => {
         ))}
       </div>
 
-      <ProjectsList projects={navList.projects} onNavElClick={onNavElClick} />
-      <LabelsList labels={navList.labels} onNavElClick={onNavElClick} />
+      <ProjectsNavList projects={navList.projects} onNavElClick={onNavElClick} />
+      <LabelsNavList labels={navList.labels} onNavElClick={onNavElClick} />
     </>
   );
 };
