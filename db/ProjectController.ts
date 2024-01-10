@@ -6,6 +6,7 @@ import {
   IProjectFormValues,
   IValidateProjectValues,
 } from "@/lib/interfaces";
+import { z } from "zod";
 
 class ProjectController extends DbConnector {
   constructor() {
@@ -13,16 +14,14 @@ class ProjectController extends DbConnector {
   }
 
   public validate(project: IValidateProjectValues): boolean {
-    try {
-      if (!project.name || !project.color) return false;
+    const schema = z
+      .object({
+        name: z.string().regex(sectionNameRegex),
+        color: z.string().regex(hexColorRegex),
+      })
+      .safeParse(project);
 
-      return (
-        sectionNameRegex.test(project.name) && hexColorRegex.test(project.color)
-      );
-    } catch (e) {
-      console.log(e);
-      return false;
-    }
+    return schema.success;
   }
 
   public async getList(user_id: string): Promise<IProject[]> {

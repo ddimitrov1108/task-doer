@@ -1,6 +1,6 @@
 "use client";
 
-import { useParams, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useForm } from "../hooks";
 import { Alert, Button } from "../ui";
 import { Field, Form, Formik } from "formik";
@@ -8,6 +8,9 @@ import { ColorPickerField, TextField } from "./formik";
 import { projectSchema } from "@/lib/yup-schemas";
 import { toast } from "sonner";
 import { IProjectFormValues } from "@/lib/interfaces";
+import { createProject, updateProject } from "@/app/actions";
+import { useContext } from "react";
+import { StorageContext } from "../providers";
 
 interface Props {
   initialState?: IProjectFormValues | null;
@@ -22,59 +25,44 @@ const ProjectForm = ({
   editMode = false,
   afterSubmit,
 }: Props) => {
-  const params = useParams();
+  const storageContext = useContext(StorageContext);
   const router = useRouter();
-  const [form, setForm, abortControllerRef] = useForm();
+  const [form, setForm] = useForm();
 
   const onSubmitHandler = async (values: IProjectFormValues) => {
     if (!values) return;
 
-    abortControllerRef.current = new AbortController();
-    const signal = abortControllerRef.current.signal;
-
-    setForm({ loading: true, error: "" });
-
-    const reqBody = JSON.stringify({
-      name: values.name,
-      color: values.color,
-    });
+    setForm({ ...form, loading: true, error: "" });
 
     if (editMode) {
-      await fetch(`/api/project/${params.id}`, {
-        method: "PUT",
-        body: reqBody,
-        signal,
-      })
-        .then((data) => data.json())
-        .then(({ error }: { error?: string }) => {
+      if (!storageContext?.project) return;
+
+      await updateProject(storageContext?.project.id, values)
+        .then(({ error }) => {
           if (error) throw error;
 
           toast.success("Project edited successfully!");
-          router.refresh();
+          setForm({ ...form, loading: false });
           afterSubmit();
         })
-        .catch((error) => {
-          setForm({ ...form, error: error });
+        .catch((e: string) => {
+          console.error(e);
+          setForm({ ...form, error: e, loading: false });
         });
     } else {
-      await fetch("/api/project", {
-        method: "POST",
-        body: reqBody,
-        signal,
-      })
-        .then((data) => data.json())
-        .then(({ href, error }: { href?: string; error?: string }) => {
+      await createProject(values)
+        .then(({ error, href }) => {
           if (error) throw error;
 
-          if (!href) throw "Something went wrong";
+          if (href) router.replace(href);
 
           toast.success("Project created successfully!");
-          router.replace(href);
-          router.refresh();
+          setForm({ ...form, loading: false });
           afterSubmit();
         })
-        .catch((error) => {
-          setForm({ ...form, error: error });
+        .catch((e: string) => {
+          console.error(e);
+          setForm({ ...form, error: e, loading: false });
         });
     }
   };

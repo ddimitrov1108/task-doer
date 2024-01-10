@@ -6,6 +6,7 @@ import {
 } from "@/lib/interfaces";
 import DbConnector from "./DbConnector";
 import { sectionNameRegex } from "@/lib/regex";
+import { z } from "zod";
 
 class LabelController extends DbConnector {
   constructor() {
@@ -17,14 +18,13 @@ class LabelController extends DbConnector {
   }
 
   public validate(label: IValidateLabelValues): boolean {
-    try {
-      if (!label.name) return false;
+    const schema = z
+      .object({
+        name: z.string().regex(sectionNameRegex),
+      })
+      .safeParse(label);
 
-      return sectionNameRegex.test(label.name);
-    } catch (e) {
-      console.log(e);
-      return false;
-    }
+    return schema.success;
   }
 
   public async exists(user_id: string, labelName: string): Promise<boolean> {
@@ -155,7 +155,10 @@ class LabelController extends DbConnector {
     }
   }
 
-  public async delete(user_id: string, label_id: string): Promise<ILabel | null> {
+  public async delete(
+    user_id: string,
+    label_id: string
+  ): Promise<ILabel | null> {
     try {
       const labelToDelete = await this.prisma.label.findFirst({
         where: {
