@@ -96,6 +96,10 @@ body::-webkit-scrollbar-thumb {
 }
 
 input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(0.5);
+}
+
+input[type="date"]::-webkit-clear-button {
   display: none;
 }
 

@@ -3,4 +3,7 @@ export { default as ErrorMessage } from "./ErrorMessage";
 export { default as TextField } from "./TextField";
 export { default as PasswordField } from "./PasswordField";
 export { default as ColorPickerField } from "./ColorPickerField";
+export { default as CheckboxField } from "./CheckboxField";
+export { default as TextareaField } from "./TextareaField";
+export { default as DatePickerField } from "./DatePickerField";
 

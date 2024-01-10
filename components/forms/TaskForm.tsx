@@ -1,11 +1,17 @@
 "use client";
 
 import { Field, Form, Formik } from "formik";
-import { TextField } from "./formik";
+import {
+  CheckboxField,
+  DatePickerField,
+  TextField,
+  TextareaField,
+} from "./formik";
 import { Alert, Button } from "../ui";
 import { useForm } from "../hooks";
 import { ITaskFormValues } from "@/lib/interfaces";
 import { taskSchema } from "@/lib/yup-schemas";
+import { format } from "date-fns";
 
 interface Props {
   initialState?: ITaskFormValues | null;
@@ -19,10 +25,10 @@ interface Props {
 const initialValues = {
   name: "",
   description: "",
-  due_date: new Date(),
-  labels: [],
-  completed: false,
   important: false,
+  completed: false,
+  due_date: format(new Date(), "yyyy-MM-dd"),
+  labels: [],
 };
 
 const TaskForm = ({ initialState, editMode = false, afterSubmit }: Props) => {
@@ -32,7 +38,14 @@ const TaskForm = ({ initialState, editMode = false, afterSubmit }: Props) => {
 
   return (
     <Formik
-      initialValues={initialState || initialValues}
+      initialValues={
+        initialState
+          ? {
+              ...initialState,
+              due_date: format(new Date(initialState.due_date), "yyyy-MM-dd"),
+            }
+          : initialValues
+      }
       validationSchema={taskSchema}
       onSubmit={onSubmitHandler}
     >
@@ -50,7 +63,7 @@ const TaskForm = ({ initialState, editMode = false, afterSubmit }: Props) => {
           fullWidth
         />
 
-        {/* <Field
+        <Field
           id="due_date"
           name="due_date"
           label="Due Date"
@@ -58,7 +71,7 @@ const TaskForm = ({ initialState, editMode = false, afterSubmit }: Props) => {
           component={DatePickerField}
           fullWidth
         />
-
+        {/*
         <Field
           id="labels"
           name="labels"
@@ -67,7 +80,7 @@ const TaskForm = ({ initialState, editMode = false, afterSubmit }: Props) => {
           component={LabelsSelectField}
           fullWidth
         />
-
+*/}
         <Field
           id="description"
           name="description"
@@ -75,7 +88,7 @@ const TaskForm = ({ initialState, editMode = false, afterSubmit }: Props) => {
           placeholder="Walk the doggo"
           disabled={form.loading}
           maxLength={255}
-          component={TextAreaField}
+          component={TextareaField}
           fullWidth
         />
 
@@ -86,9 +99,9 @@ const TaskForm = ({ initialState, editMode = false, afterSubmit }: Props) => {
           type="checkbox"
           disabled={form.loading}
           maxLength={4}
-          component={CheckBoxField}
+          component={CheckboxField}
           fullWidth
-        /> */}
+        />
 
         <div className="flex flex-col-reverse md:flex-row gap-2 justify-between items-center">
           <Button
@@ -100,7 +113,7 @@ const TaskForm = ({ initialState, editMode = false, afterSubmit }: Props) => {
           >
             Cancel
           </Button>
-          
+
           <Button
             type="submit"
             className="flex justify-center"

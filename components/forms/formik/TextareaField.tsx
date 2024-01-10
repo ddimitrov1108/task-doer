@@ -1,13 +1,13 @@
 "use client";
 
-import { Label, ErrorMessage } from ".";
 import { cn } from "@/lib/utils";
+import { ErrorMessage, Label } from ".";
 import { IFormInput } from "@/lib/interfaces";
 import { ComponentProps } from "react";
 
-type Props = IFormInput<string> & ComponentProps<"input">;
+type Props = IFormInput<string> & ComponentProps<"textarea">;
 
-const TextField = ({
+const TextareaField = ({
   label,
   subLabel,
   type = "text",
@@ -23,10 +23,10 @@ const TextField = ({
         {label}
       </Label>
 
-      <input
-        type={type}
+      <textarea
+        autoComplete="on"
         className={cn(
-          "bg-black-dark border outline-none px-4 py-2.5 rounded-lg w-full",
+          "bg-black-dark border outline-none px-4 py-2.5 rounded-lg w-full max-h-[300px]",
           className,
           errors[field.name] && touched[field.name]
             ? "border-error-main"
@@ -34,7 +34,8 @@ const TextField = ({
         )}
         {...field}
         {...restProps}
-      />
+        rows={3}
+      ></textarea>
 
       {errors[field.name] && touched[field.name] && (
         <ErrorMessage message={errors[field.name]} />
@@ -48,4 +49,4 @@ const TextField = ({
     </div>
   );
 };
-export default TextField;
+export default TextareaField;
