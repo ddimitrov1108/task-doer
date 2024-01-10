@@ -101,7 +101,6 @@ const TaskProvider = ({ children }: Props) => {
   return (
     <TaskContext.Provider
       value={{
-        setSelectedTask,
         setCompleted,
         setImportant,
         setOpenNewTaskModal,
