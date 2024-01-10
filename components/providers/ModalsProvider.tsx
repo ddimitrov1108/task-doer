@@ -40,6 +40,14 @@ const ModalsProvider = ({ children }: Props) => {
     setModalState({ ...modalState, ...state });
   };
 
+  const toggleProjectModal = (state: boolean): void => {
+    setModalState({ ...modalState, isProjectModalOpen: state });
+  };
+
+  const toggleLabelModal = (state: boolean): void => {
+    setModalState({ ...modalState, isLabelModalOpen: state });
+  };
+
   const initialProjectState = modalState.editMode
     ? storageContext?.project
     : undefined;
@@ -56,18 +64,22 @@ const ModalsProvider = ({ children }: Props) => {
     >
       <ProjectModal
         open={modalState.isProjectModalOpen}
-        setOpen={() => modifyModalState({ isProjectModalOpen: true })}
+        setOpen={toggleProjectModal}
         editMode={modalState.editMode}
         initialState={initialProjectState}
-        afterSubmit={() => modifyModalState({ isProjectModalOpen: false })}
+        afterSubmit={() =>
+          setModalState({ ...modalState, isProjectModalOpen: false })
+        }
       />
 
       <LabelModal
         open={modalState.isLabelModalOpen}
-        setOpen={() => modifyModalState({ isLabelModalOpen: true })}
+        setOpen={toggleLabelModal}
         editMode={modalState.editMode}
         initialState={initialLabelState}
-        afterSubmit={() => modifyModalState({ isLabelModalOpen: false })}
+        afterSubmit={() =>
+          setModalState({ ...modalState, isLabelModalOpen: false })
+        }
       />
 
       {children}

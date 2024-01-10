@@ -20,13 +20,10 @@ interface Props {
 const LabelForm = ({ initialState, editMode = false, afterSubmit }: Props) => {
   const params = useParams();
   const router = useRouter();
-  const [form, setForm, abortControllerRef] = useForm();
+  const [form, setForm] = useForm();
 
   const onSubmitHandler = async (values: ILabelFormValues) => {
     if (!values) return;
-
-    abortControllerRef.current = new AbortController();
-    const signal: AbortSignal = abortControllerRef.current.signal;
 
     setForm({ loading: true, error: "" });
 
@@ -36,7 +33,6 @@ const LabelForm = ({ initialState, editMode = false, afterSubmit }: Props) => {
       await fetch(`/api/label/${params.id}`, {
         method: "PUT",
         body: reqBody,
-        signal,
       })
         .then((data) => data.json())
         .then(({ error }: { error?: string }) => {
@@ -53,7 +49,6 @@ const LabelForm = ({ initialState, editMode = false, afterSubmit }: Props) => {
       await fetch("/api/label", {
         method: "POST",
         body: reqBody,
-        signal,
       })
         .then((data) => data.json())
         .then(({ error }: { error?: string }) => {

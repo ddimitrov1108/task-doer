@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useState } from "react";
 
 interface IState {
   loading: boolean;
@@ -8,13 +8,11 @@ interface IState {
 }
 
 const useForm = () => {
-  const abortControllerRef = useRef<AbortController>();
-
   const [form, setForm] = useState<IState>({
     loading: false,
     error: "",
   });
 
-  return [form, setForm, abortControllerRef] as const;
+  return [form, setForm] as const;
 };
 export default useForm;

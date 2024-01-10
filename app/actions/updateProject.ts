@@ -30,7 +30,7 @@ export default async function updateProject(
 
     revalidatePath("/todo/project/[id]");
 
-    return { error: undefined };
+    return {};
   } catch (e) {
     console.error(e);
     return { error: "Something went wrong. Please try again later" };

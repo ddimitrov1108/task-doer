@@ -7,12 +7,14 @@ import { Dropdown, DropdownListItem, IconButton } from "../ui";
 import { ModalsContext, StorageContext } from "../providers";
 import { DeleteConfirmationModal } from "../modals";
 import { toast } from "sonner";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
+import { deleteProject } from "@/app/actions";
 
 const ProjectInteractiveButtons = () => {
   const storageContext = useContext(StorageContext);
   const modalsContext = useContext(ModalsContext);
 
+  const params = useParams();
   const router = useRouter();
   const [open, setOpen] = useState<boolean>(false);
 
@@ -42,27 +44,38 @@ const ProjectInteractiveButtons = () => {
     },
   ];
 
-  const deleteProject = async (): Promise<void> => {
-    if (!storageContext?.project) return;
+  const onDeleteHandler = async (): Promise<void> => {
+    const projectId = params.id.toString();
 
-    await fetch(`/api/project/${storageContext?.project.id}`, {
-      method: "DELETE",
-    })
-      .then((data) => data.json())
-      .then(({ error }) => {
-        if (error) throw error;
+    await deleteProject(params.id.toString())
+    .then(({error}) => {
+      if (error) throw error;
 
-        storageContext?.setProject(undefined);
-        toast.success("Project deleted successfully!");
-        router.replace("/todo");
-        router.refresh();
-      })
-      .catch((error) => {
-        toast.error(error);
-      });
+      toast.success("Project deleted successfully!");
+    }).catch()
+  }
 
-    setOpen(false);
-  };
+  // const deleteProject = async (): Promise<void> => {
+  //   if (!storageContext?.project) return;
+
+  //   await fetch(`/api/project/${storageContext?.project.id}`, {
+  //     method: "DELETE",
+  //   })
+  //     .then((data) => data.json())
+  //     .then(({ error }) => {
+  //       if (error) throw error;
+
+  //       storageContext?.setProject(undefined);
+  //       toast.success("Project deleted successfully!");
+  //       router.replace("/todo");
+  //       router.refresh();
+  //     })
+  //     .catch((error) => {
+  //       toast.error(error);
+  //     });
+
+  //   setOpen(false);
+  // };
 
   return (
     <>
@@ -70,7 +83,7 @@ const ProjectInteractiveButtons = () => {
         message="Do you want to delete this project? All tasks will be deleted."
         open={open}
         setOpen={setOpen}
-        onSubmit={deleteProject}
+        onSubmit={onDeleteHandler}
       />
 
       <div className="min-w-full md:min-w-fit flex items-center justify-between gap-1">

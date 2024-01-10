@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useForm } from "../hooks";
 import { Alert, Button } from "../ui";
 import { Field, Form, Formik } from "formik";
@@ -9,8 +9,6 @@ import { projectSchema } from "@/lib/yup-schemas";
 import { toast } from "sonner";
 import { IProjectFormValues } from "@/lib/interfaces";
 import { createProject, updateProject } from "@/app/actions";
-import { useContext } from "react";
-import { StorageContext } from "../providers";
 
 interface Props {
   initialState?: IProjectFormValues | null;
@@ -25,7 +23,7 @@ const ProjectForm = ({
   editMode = false,
   afterSubmit,
 }: Props) => {
-  const storageContext = useContext(StorageContext);
+  const params = useParams();
   const router = useRouter();
   const [form, setForm] = useForm();
 
@@ -35,9 +33,9 @@ const ProjectForm = ({
     setForm({ ...form, loading: true, error: "" });
 
     if (editMode) {
-      if (!storageContext?.project) return;
+      const projectId = params.id.toString();
 
-      await updateProject(storageContext?.project.id, values)
+      await updateProject(projectId, values)
         .then(({ error }) => {
           if (error) throw error;
 
@@ -54,9 +52,11 @@ const ProjectForm = ({
         .then(({ error, href }) => {
           if (error) throw error;
 
-          if (href) router.replace(href);
+          if (href) {
+            toast.success("Project created successfully!");
+            router.replace(href);
+          }
 
-          toast.success("Project created successfully!");
           setForm({ ...form, loading: false });
           afterSubmit();
         })

@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 
 interface Props {
   open: boolean;
-  setOpen: Dispatch<SetStateAction<boolean>>;
+  setOpen: (state: boolean) => void | Dispatch<SetStateAction<boolean>>;
   modalTitle?: ReactNode;
   children: ReactNode;
   showCloseBtn?: boolean;
