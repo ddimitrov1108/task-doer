@@ -28,7 +28,7 @@ export default async function updateProject(
 
     if (!updatedProject) throw new Error("Failed to update project");
 
-    revalidatePath("/todo/project/[id]");
+    revalidatePath("/todo/project/[id]", "page");
 
     return {};
   } catch (e) {

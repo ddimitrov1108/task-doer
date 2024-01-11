@@ -1,22 +1,22 @@
 "use server";
 
-import { projectController } from "@/db";
+import { labelController } from "@/db";
 import { getUserFromServerSession } from "@/lib/auth";
 import { isUUID } from "@/lib/utils";
 import { revalidatePath } from "next/cache";
 
-export default async function deleteProject(project_id: string) {
+export default async function deleteLabel(label_id: string) {
   const user = await getUserFromServerSession();
 
   if (!user) return { error: "Unauthenticated" };
-  if (!isUUID(project_id)) return { error: "Bad Request" };
+  if (!isUUID(label_id)) return { error: "Bad Request" };
 
   try {
-    const deletedProject = await projectController.delete(user.id, project_id);
+    const deletedLabel = await labelController.delete(user.id, label_id);
 
-    if (!deletedProject) throw new Error("Failed to delete project");
+    if (!deletedLabel) throw new Error("Failed to delete label");
 
-    revalidatePath("/todo/project/[id]", "page");
+    revalidatePath("/todo/label/[id]", "page");
 
     return {};
   } catch (e) {
