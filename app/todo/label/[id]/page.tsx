@@ -1,7 +1,7 @@
 import { PageHeader } from "@/components";
 import { LabelInteractiveButtons } from "@/components/interactive-buttons";
+import { LabelProvider } from "@/components/providers";
 import { TasksList } from "@/components/task";
-import { LabelWrapper } from "@/components/wrappers";
 import { labelController } from "@/db";
 import { getUserFromServerSession } from "@/lib/auth";
 import { INextRouteParams } from "@/lib/interfaces";
@@ -23,8 +23,8 @@ const LabelPage = async ({ params }: INextRouteParams) => {
   if (!label) return notFound();
 
   return (
-    <LabelWrapper
-      value={{
+    <LabelProvider
+      initValue={{
         id: label.id,
         name: label.name,
       }}
@@ -42,7 +42,7 @@ const LabelPage = async ({ params }: INextRouteParams) => {
 
       <TasksList tasks={label.tasks} />
       <pre>{JSON.stringify(label, null, 4)}</pre>
-    </LabelWrapper>
+    </LabelProvider>
   );
 };
 

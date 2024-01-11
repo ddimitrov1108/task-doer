@@ -23,7 +23,7 @@ const ProjectPage = async ({ params }: INextRouteParams) => {
 
   return (
     <ProjectProvider
-      init={{
+      initValue={{
         id: project.id,
         name: project.name,
         color: project.color,

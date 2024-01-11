@@ -8,7 +8,7 @@ import { toast } from "sonner";
 import { deleteLabel } from "@/app/actions";
 
 interface Props {
-  init: ILabel;
+  initValue: ILabel;
   children: React.ReactNode;
 }
 
@@ -18,9 +18,9 @@ export const LabelContext = createContext<{
   setOpenDeleteModal: React.Dispatch<React.SetStateAction<boolean>>;
 } | null>(null);
 
-const LabelProvider = ({ init, children }: Props) => {
+const LabelProvider = ({ initValue, children }: Props) => {
   const router = useRouter();
-  const [label, setLabel] = useState<ILabel>(init);
+  const [label, setLabel] = useState<ILabel>(initValue);
   const [openLabelModal, setOpenLabelModal] = useState<boolean>(false);
   const [openDeleteModal, setOpenDeleteModal] = useState<boolean>(false);
 

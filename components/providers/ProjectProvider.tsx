@@ -8,7 +8,7 @@ import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
 interface Props {
-  init: IProject;
+  initValue: IProject;
   children: React.ReactNode;
 }
 
@@ -18,9 +18,9 @@ export const ProjectContext = createContext<{
   setOpenDeleteModal: React.Dispatch<React.SetStateAction<boolean>>;
 } | null>(null);
 
-const ProjectProvider = ({ init, children }: Props) => {
+const ProjectProvider = ({ initValue, children }: Props) => {
   const router = useRouter();
-  const [project, setProject] = useState<IProject>(init);
+  const [project, setProject] = useState<IProject>(initValue);
   const [openProjectModal, setOpenProjectModal] = useState<boolean>(false);
   const [openDeleteModal, setOpenDeleteModal] = useState<boolean>(false);
 
