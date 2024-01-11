@@ -1,7 +1,7 @@
 import { PageHeader } from "@/components";
 import { ProjectInteractiveButtons } from "@/components/interactive-buttons";
+import { ProjectProvider } from "@/components/providers";
 import { TasksList } from "@/components/task";
-import { ProjectWrapper } from "@/components/wrappers";
 import { projectController } from "@/db";
 import { getUserFromServerSession } from "@/lib/auth";
 import { INextRouteParams } from "@/lib/interfaces";
@@ -22,8 +22,8 @@ const ProjectPage = async ({ params }: INextRouteParams) => {
   if (!project) return notFound();
 
   return (
-    <ProjectWrapper
-      value={{
+    <ProjectProvider
+      init={{
         id: project.id,
         name: project.name,
         color: project.color,
@@ -44,7 +44,7 @@ const ProjectPage = async ({ params }: INextRouteParams) => {
       </div>
 
       <TasksList tasks={project.tasks} />
-    </ProjectWrapper>
+    </ProjectProvider>
   );
 };
 
