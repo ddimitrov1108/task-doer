@@ -1,8 +1,7 @@
 import { cn } from "@/lib/utils";
-import { ReactNode } from "react";
 
 interface Props {
-  children: ReactNode;
+  children: React.ReactNode;
   htmlFor?: string;
   className?: string;
 }

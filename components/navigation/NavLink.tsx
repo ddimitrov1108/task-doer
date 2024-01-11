@@ -3,15 +3,14 @@
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { MouseEventHandler, ReactNode } from "react";
 
 interface Props {
   href: string;
   text: string;
-  appendIcon?: ReactNode;
+  appendIcon?: React.ReactNode;
   className?: string;
   title?: string;
-  onClick?: MouseEventHandler;
+  onClick?: React.MouseEventHandler;
 }
 
 const NavLink = ({

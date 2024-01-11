@@ -1,11 +1,11 @@
 "use client";
 
 import { ILabel } from "@/lib/interfaces";
-import { MouseEvent, useContext } from "react";
+import { useState } from "react";
 import { NavLink } from ".";
 import { DisclousureContainer } from "../ui";
 import { AtSign, Plus } from "lucide-react";
-import { ModalsContext } from "../providers";
+import { LabelModal } from "../modals";
 
 interface Props {
   labels: ILabel[];
@@ -13,42 +13,46 @@ interface Props {
 }
 
 const LabelsNavList = ({ labels, onNavElClick = () => {} }: Props) => {
-  const modalsContext = useContext(ModalsContext);
+  const [open, setOpen] = useState<boolean>(false);
 
-  const onClickHandler = (e: MouseEvent) => {
+  const onClickHandler = (e: React.MouseEvent) => {
     e.preventDefault();
     onNavElClick();
-
-    modalsContext?.modifyModalState({
-      editMode: false,
-      isLabelModalOpen: true,
-    });
+    setOpen(false);
   };
   return (
-    <DisclousureContainer
-      title="Labels"
-      appendToTitle={
-        <button
-          className="text-xl text-main hover:text-primary-main"
-          onClick={onClickHandler}
-        >
-          <Plus size={20} />
-        </button>
-      }
-      btnClassName="p-2 rounded-lg justify-between"
-      bodyClassName="px-2 styled-overflow max-h-[240px] overflow-auto grid gap-1"
-      open
-    >
-      {labels.map(({ id, name }) => (
-        <NavLink
-          key={id}
-          href={`/todo/label/${id}`}
-          text={name}
-          onClick={onNavElClick}
-          appendIcon={<AtSign size={16} className="text-primary-main" />}
-        />
-      ))}
-    </DisclousureContainer>
+    <>
+      <LabelModal
+        open={open}
+        setOpen={setOpen}
+        afterSubmit={() => setOpen(false)}
+      />
+
+      <DisclousureContainer
+        title="Labels"
+        appendToTitle={
+          <button
+            className="text-xl text-main hover:text-primary-main"
+            onClick={onClickHandler}
+          >
+            <Plus size={20} />
+          </button>
+        }
+        btnClassName="p-2 rounded-lg justify-between"
+        bodyClassName="px-2 styled-overflow max-h-[240px] overflow-auto grid gap-1"
+        open
+      >
+        {labels.map(({ id, name }) => (
+          <NavLink
+            key={id}
+            href={`/todo/label/${id}`}
+            text={name}
+            onClick={onNavElClick}
+            appendIcon={<AtSign size={16} className="text-primary-main" />}
+          />
+        ))}
+      </DisclousureContainer>
+    </>
   );
 };
 export default LabelsNavList;

@@ -1,8 +1,6 @@
-import { ReactNode } from "react";
-
 interface Props {
   label?: string;
-  children: ReactNode;
+  children: React.ReactNode;
 }
 
 const PageHeader = ({ label = "", children }: Props) => {

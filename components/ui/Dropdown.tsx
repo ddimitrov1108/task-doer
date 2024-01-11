@@ -3,11 +3,11 @@
 import { cn } from "@/lib/utils";
 import { Menu, Transition } from "@headlessui/react";
 import { ChevronDown } from "lucide-react";
-import { Fragment, ReactNode } from "react";
+import { Fragment } from "react";
 
 interface Props {
-  btn: ReactNode;
-  children: ReactNode;
+  btn: React.ReactNode;
+  children: React.ReactNode;
   className?: string;
   btnClassName?: string;
   bodyClassName?: string;
@@ -33,7 +33,7 @@ const Dropdown = ({
           "cursor-pointer transition-all w-fit p-2 rounded-lg",
           btnClassName
         )}
-        onMouseUp={(e) => e.stopPropagation()}
+        onMouseUp={(e: React.MouseEvent) => e.stopPropagation()}
       >
         {({ open }) => (
           <>
@@ -46,7 +46,7 @@ const Dropdown = ({
                   chevronClassName
                 )}
               >
-                <ChevronDown size={20}/>
+                <ChevronDown size={20} />
               </div>
             )}
           </>

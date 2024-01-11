@@ -1,13 +1,12 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { MouseEventHandler, ReactNode } from "react";
 
 interface Props {
   title: string;
-  prepEndIcon?: ReactNode;
+  prepEndIcon?: React.ReactNode;
   className?: string;
-  onClick?: MouseEventHandler<HTMLButtonElement> | undefined;
+  onClick?: React.MouseEventHandler<HTMLButtonElement> | undefined;
 }
 
 const Chip = ({ prepEndIcon, className, title, ...restProps }: Props) => {

@@ -3,9 +3,6 @@
 import { ITask } from "@/lib/interfaces";
 import { useRouter } from "next/navigation";
 import {
-  Dispatch,
-  ReactNode,
-  SetStateAction,
   createContext,
   useState,
 } from "react";
@@ -14,16 +11,16 @@ import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 
 interface Props {
-  children: ReactNode;
+  children: React.ReactNode;
 }
 
 export const TaskContext = createContext<{
   setCompleted: (task: ITask) => Promise<void>;
   setImportant: (task: ITask) => Promise<void>;
-  setOpenNewTaskModal: Dispatch<SetStateAction<boolean>>;
-  setOpenTaskEditModal: Dispatch<SetStateAction<boolean>>;
-  setOpenDeleteTaskModal: Dispatch<SetStateAction<boolean>>;
-  setIsSideDetailsOpen: Dispatch<SetStateAction<boolean>>;
+  setOpenNewTaskModal: React.Dispatch<React.SetStateAction<boolean>>;
+  setOpenTaskEditModal: React.Dispatch<React.SetStateAction<boolean>>;
+  setOpenDeleteTaskModal: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsSideDetailsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 } | null>(null);
 
 const TaskProvider = ({ children }: Props) => {

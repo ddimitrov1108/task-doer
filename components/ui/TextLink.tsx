@@ -1,16 +1,15 @@
 "use client";
 
 import Link from "next/link";
-import { MouseEventHandler, ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
 interface Props {
   href: string;
   className?: string;
-  children: ReactNode;
+  children: React.ReactNode;
   title?: string;
   disabled?: boolean;
-  onClick?: MouseEventHandler;
+  onClick?: React.MouseEventHandler;
 }
 
 const TextLink = ({ href, className, children, ...restProps }: Props) => {

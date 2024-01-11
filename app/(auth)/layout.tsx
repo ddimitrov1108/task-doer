@@ -3,10 +3,9 @@ import { authConfig } from "@/lib/auth";
 import { getServerSession } from "next-auth";
 import Image from "next/image";
 import { redirect } from "next/navigation";
-import { ReactNode } from "react";
 
 interface Props {
-  children: ReactNode;
+  children: React.ReactNode;
 }
 
 const AuthLayout = async ({ children }: Props) => {

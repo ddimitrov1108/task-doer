@@ -1,14 +1,13 @@
 "use client";
 
-import { Dispatch, ReactNode, SetStateAction } from "react";
 import { X } from "lucide-react";
 import { Logo } from ".";
 import { cn } from "@/lib/utils";
 
 interface Props {
   open: boolean;
-  setOpen: Dispatch<SetStateAction<boolean>>;
-  children: ReactNode;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  children: React.ReactNode;
   containerClassName?: string;
   overlayClassName?: string;
   headerClassName?: string;

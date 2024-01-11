@@ -1,11 +1,10 @@
-import { ReactNode } from "react";
 import { AlertIconsVariants, AlertVariants, alert } from "../cva/alert";
 import { AlertOctagon, AlertTriangle, CheckCircle, Info } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface Props {
   variant: AlertVariants;
-  children: ReactNode;
+  children: React.ReactNode;
   className?: string;
 }
 

@@ -3,12 +3,11 @@
 import { cn } from "@/lib/utils";
 import { Disclosure } from "@headlessui/react";
 import { ChevronDown } from "lucide-react";
-import { ReactNode } from "react";
 
 interface Props {
-  title: ReactNode;
-  children: ReactNode;
-  appendToTitle?: ReactNode;
+  title: React.ReactNode;
+  children: React.ReactNode;
+  appendToTitle?: React.ReactNode;
   className?: string;
   btnClassName?: string;
   bodyClassName?: string;
