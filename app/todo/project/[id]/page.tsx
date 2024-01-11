@@ -1,7 +1,6 @@
-import { PageHeader } from "@/components";
-import { ProjectInteractiveButtons } from "@/components/interactive-buttons";
 import { ProjectProvider } from "@/components/providers";
 import { TasksList } from "@/components/task";
+import { PageTitle } from "@/components/ui";
 import { projectController } from "@/db";
 import { getUserFromServerSession } from "@/lib/auth";
 import { INextRouteParams } from "@/lib/interfaces";
@@ -30,17 +29,13 @@ const ProjectPage = async ({ params }: INextRouteParams) => {
       }}
     >
       <div className="mb-8 grid gap-4 md:flex md:items-end md:justify-between">
-        <PageHeader label="project">
-          <div className="flex gap-3 items-center">
-            <div
-              className="min-w-[14px] min-h-[14px] rounded-full"
-              style={{ backgroundColor: project.color }}
-            ></div>
-            {project.name}
-          </div>
-        </PageHeader>
-
-        <ProjectInteractiveButtons />
+        <PageTitle label="project" className="flex gap-3 items-center">
+          <div
+            className="min-w-[14px] min-h-[14px] rounded-full"
+            style={{ backgroundColor: project.color }}
+          ></div>
+          <h1>{project.name}</h1>
+        </PageTitle>
       </div>
 
       <TasksList tasks={project.tasks} />

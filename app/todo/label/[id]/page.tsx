@@ -1,7 +1,6 @@
-import { PageHeader } from "@/components";
-import { LabelInteractiveButtons } from "@/components/interactive-buttons";
 import { LabelProvider } from "@/components/providers";
 import { TasksList } from "@/components/task";
+import { PageTitle } from "@/components/ui";
 import { labelController } from "@/db";
 import { getUserFromServerSession } from "@/lib/auth";
 import { INextRouteParams } from "@/lib/interfaces";
@@ -29,19 +28,12 @@ const LabelPage = async ({ params }: INextRouteParams) => {
         name: label.name,
       }}
     >
-      <div className="mb-8 grid gap-4 md:flex md:items-end md:justify-between">
-        <PageHeader label="label">
-          <div className="flex gap-3 items-center">
-            <AtSign size={20} className="text-primary-main" />
-            {label.name}
-          </div>
-        </PageHeader>
-
-        <LabelInteractiveButtons />
-      </div>
+      <PageTitle label="label" className="flex gap-3 items-center">
+        <AtSign size={20} className="text-primary-main" />
+        <h1>{label.name}</h1>
+      </PageTitle>
 
       <TasksList tasks={label.tasks} />
-      <pre>{JSON.stringify(label, null, 4)}</pre>
     </LabelProvider>
   );
 };
