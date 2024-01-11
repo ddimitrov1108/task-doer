@@ -2,7 +2,7 @@
 
 import { ILabel } from "@/lib/interfaces";
 import { useRouter } from "next/navigation";
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { DeleteConfirmationModal, LabelModal } from "../modals";
 import { toast } from "sonner";
 import { deleteLabel } from "@/app/actions";
@@ -37,6 +37,10 @@ const LabelProvider = ({ initValue, children }: Props) => {
         console.error(e);
       });
   };
+
+  useEffect(() => {
+    setLabel(initValue);
+  }, [initValue]);
 
   return (
     <LabelContext.Provider
