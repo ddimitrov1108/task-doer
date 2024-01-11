@@ -18,7 +18,7 @@ const LabelsNavList = ({ labels, onNavElClick = () => {} }: Props) => {
   const onClickHandler = (e: React.MouseEvent) => {
     e.preventDefault();
     onNavElClick();
-    setOpen(false);
+    setOpen(true);
   };
   return (
     <>

@@ -1,7 +1,7 @@
 "use client";
 
 import { IProject } from "@/lib/interfaces";
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { DeleteConfirmationModal, ProjectModal } from "../modals";
 import { deleteProject } from "@/app/actions";
 import { toast } from "sonner";
@@ -37,6 +37,10 @@ const ProjectProvider = ({ initValue, children }: Props) => {
         console.error(e);
       });
   };
+
+  useEffect(() => {
+    setProject(initValue);
+  }, [initValue]);
 
   return (
     <ProjectContext.Provider
