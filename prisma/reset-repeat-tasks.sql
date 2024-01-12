@@ -14,7 +14,7 @@ STARTS CURRENT_TIMESTAMP
 COMMENT 'Reset completed tasks every day at midnight'
 DO
 BEGIN
-    UPDATE your_tasks_table
+    UPDATE task
     SET completed = 0, due_date = DATE_ADD(CURDATE(), INTERVAL 1 DAY)
     WHERE completed = 1 AND repeat_task = 1;
 END//
