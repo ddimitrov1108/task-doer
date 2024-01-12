@@ -35,7 +35,7 @@ model Label {
 model Project {
   id            String   @id @default(uuid())
   user_id       String
-  name          String   @db.VarChar(40)
+  name          String   @db.VarChar(20)
   color         String   @default("#b8255f") @db.VarChar(9)
   updated_at    DateTime @default(now()) @db.Timestamp(0)
   created_at    DateTime @default(now()) @db.Timestamp(0)
@@ -47,10 +47,11 @@ model Project {
 
 model Task {
   id            String    @id @default(uuid())
-  name          String    @db.VarChar(40)
+  name          String    @db.VarChar(20)
   description   String    @default("") @db.TinyText
   completed     Boolean   @default(false)
   important     Boolean   @default(false)
+  repeat        Boolean   @default(false)
   due_date      DateTime  @db.Date @default(now())
   updated_at    DateTime  @default(now()) @db.Timestamp(0)
   created_at    DateTime  @default(now()) @db.Timestamp(0)
