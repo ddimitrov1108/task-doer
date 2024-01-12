@@ -1,3 +1,4 @@
+import { ProjectInteractiveButtons } from "@/components/interactive-buttons";
 import { ProjectProvider } from "@/components/providers";
 import { TasksList } from "@/components/task";
 import { PageTitle } from "@/components/ui";
@@ -36,6 +37,8 @@ const ProjectPage = async ({ params }: INextRouteParams) => {
           ></div>
           <h1>{project.name}</h1>
         </PageTitle>
+
+        <ProjectInteractiveButtons/>
       </div>
 
       <TasksList tasks={project.tasks} />

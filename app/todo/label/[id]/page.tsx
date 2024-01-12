@@ -1,3 +1,4 @@
+import { LabelInteractiveButtons } from "@/components/interactive-buttons";
 import { LabelProvider } from "@/components/providers";
 import { TasksList } from "@/components/task";
 import { PageTitle } from "@/components/ui";
@@ -28,10 +29,14 @@ const LabelPage = async ({ params }: INextRouteParams) => {
         name: label.name,
       }}
     >
-      <PageTitle label="label" className="flex gap-3 items-center">
-        <AtSign size={20} className="text-primary-main" />
-        <h1>{label.name}</h1>
-      </PageTitle>
+      <div className="mb-8 grid gap-4 md:flex md:items-end md:justify-between">
+        <PageTitle label="label" className="flex gap-2 items-center">
+          <AtSign size={20} className="text-primary-main" />
+          <h1>{label.name}</h1>
+        </PageTitle>
+
+        <LabelInteractiveButtons/>
+      </div>
 
       <TasksList tasks={label.tasks} />
     </LabelProvider>

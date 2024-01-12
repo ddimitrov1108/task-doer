@@ -13,18 +13,24 @@ interface Props {
 }
 
 export const ProjectContext = createContext<{
-  setProject: React.Dispatch<React.SetStateAction<IProject>>;
+  setProject: React.Dispatch<React.SetStateAction<IProject | undefined>>;
   setOpenProjectModal: React.Dispatch<React.SetStateAction<boolean>>;
   setOpenDeleteModal: React.Dispatch<React.SetStateAction<boolean>>;
 } | null>(null);
 
 const ProjectProvider = ({ initValue, children }: Props) => {
   const router = useRouter();
-  const [project, setProject] = useState<IProject>(initValue);
+  const [project, setProject] = useState<IProject>();
   const [openProjectModal, setOpenProjectModal] = useState<boolean>(false);
   const [openDeleteModal, setOpenDeleteModal] = useState<boolean>(false);
 
   const onDeleteProjectHandler = async () => {
+    if (!project) {
+      toast.success("Something went wrong. Please try again later");
+      setOpenDeleteModal(false);
+      return;
+    }
+
     await deleteProject(project.id)
       .then(({ error }) => {
         if (error) throw error;
