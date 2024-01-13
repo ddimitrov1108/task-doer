@@ -34,9 +34,7 @@ const ProjectForm = ({
     setForm({ ...form, loading: true, error: "" });
 
     if (editMode) {
-      const projectId = params.id.toString();
-
-      await updateProject(projectId, values)
+      await updateProject(params.id.toString(), values)
         .then(({ error }) => {
           if (error) throw error;
 

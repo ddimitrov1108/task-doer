@@ -8,6 +8,7 @@ import { TextField } from "./formik";
 import { Field, Form, Formik } from "formik";
 import { labelSchema } from "@/lib/yup-schemas";
 import { ILabelFormValues } from "@/lib/interfaces";
+import { createLabel, updateLabel } from "@/app/actions";
 
 interface Props {
   initialState?: ILabelFormValues | null;
@@ -27,39 +28,31 @@ const LabelForm = ({ initialState, editMode = false, afterSubmit }: Props) => {
 
     setForm({ loading: true, error: "" });
 
-    const reqBody: string = JSON.stringify({ name: values.name });
-
     if (editMode) {
-      await fetch(`/api/label/${params.id}`, {
-        method: "PUT",
-        body: reqBody,
-      })
-        .then((data) => data.json())
-        .then(({ error }: { error?: string }) => {
+      await updateLabel(params.id.toString(), values)
+        .then(({ error }) => {
           if (error) throw error;
 
           toast.success("Label edited successfully!");
-          router.refresh();
+          setForm({ ...form, loading: false });
           afterSubmit();
         })
-        .catch((error) => {
-          setForm({ ...form, error: error });
+        .catch((e: string) => {
+          console.error(e);
+          setForm({ ...form, error: e, loading: false });
         });
     } else {
-      await fetch("/api/label", {
-        method: "POST",
-        body: reqBody,
-      })
-        .then((data) => data.json())
-        .then(({ error }: { error?: string }) => {
+      await createLabel(values)
+        .then(({ error }) => {
           if (error) throw error;
 
           toast.success("Label created successfully!");
-          router.refresh();
+          setForm({ ...form, loading: false });
           afterSubmit();
         })
-        .catch((error) => {
-          setForm({ ...form, error: error });
+        .catch((e: string) => {
+          console.error(e);
+          setForm({ ...form, error: e, loading: false });
         });
     }
   };
