@@ -56,7 +56,7 @@ export const projectSchema = Yup.object().shape({
   name: Yup.string()
     .matches(sectionNameRegex, "Invalid field")
     .min(2, "Minimum length of 2 symbols is required")
-    .max(40, "Maximum length of 40 symbols is exceeded")
+    .max(30, "Maximum length of 40 symbols is exceeded")
     .required("Field is required"),
   color: Yup.string()
     .matches(hexColorRegex, "Invalid field")
@@ -68,7 +68,7 @@ export const labelSchema = Yup.object().shape({
   name: Yup.string()
     .matches(sectionNameRegex, "Invalid field")
     .min(2, "Minimum length of 2 symbols is required")
-    .max(20, "Maximum length of 20 symbols is exceeded")
+    .max(30, "Maximum length of 20 symbols is exceeded")
     .required("Field is required"),
 });
 
@@ -76,7 +76,7 @@ export const taskSchema = Yup.object().shape({
   name: Yup.string()
     .matches(sectionNameRegex, "Invalid field")
     .min(2, "Minimum length of 2 symbols is required")
-    .max(40, "Maximum length of 40 symbols is exceeded")
+    .max(30, "Maximum length of 40 symbols is exceeded")
     .required("Field is required"),
   description: Yup.string()
     .matches(descriptionRegex, "Invalid field")
