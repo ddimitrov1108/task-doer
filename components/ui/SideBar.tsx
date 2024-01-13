@@ -5,9 +5,11 @@ import { Logo } from ".";
 import { cn } from "@/lib/utils";
 
 interface Props {
+  title?: React.ReactNode;
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   children: React.ReactNode;
+  showFrom?: "left" | "right";
   containerClassName?: string;
   overlayClassName?: string;
   headerClassName?: string;
@@ -15,9 +17,11 @@ interface Props {
 }
 
 const SideBar = ({
+  title,
   open,
   setOpen,
   children,
+  showFrom = "left",
   containerClassName,
   overlayClassName,
   headerClassName,
@@ -39,7 +43,10 @@ const SideBar = ({
       <div
         className={cn(
           "z-50 fixed top-0 w-full h-full sm:w-1/2 transition-all ease-in-out duration-300 bg-bodyBg",
-          open ? "left-0" : "-left-full",
+          showFrom === "left" && (open ? "left-0" : "-left-full"),
+          showFrom === "right" &&
+            (open ? "right-0 translate-x-0" : "right-0 translate-x-full"),
+
           containerClassName
         )}
       >
@@ -51,7 +58,7 @@ const SideBar = ({
                 headerClassName
               )}
             >
-              <Logo />
+              {title ? title : <Logo />}
 
               <button
                 tabIndex={0}

@@ -3,7 +3,7 @@
 import { MoreHorizontal, Pencil, Trash2 } from "lucide-react";
 import { useContext, useId } from "react";
 import { AddTaskButton } from "../task";
-import { Dropdown, DropdownListItem, IconButton } from "../ui";
+import { Dropdown, DropdownListItem, ButtonIcon } from "../ui";
 import { ProjectContext } from "../providers";
 
 const ProjectInteractiveButtons = () => {
@@ -33,15 +33,16 @@ const ProjectInteractiveButtons = () => {
   ];
 
   return (
-    <div className="min-w-full md:min-w-fit flex items-center justify-between gap-1">
+    <div className="min-w-full md:min-w-fit flex items-center justify-between gap-2">
       <AddTaskButton />
 
       <Dropdown
         showChevron={false}
+        btnClassName="p-0"
         btn={
-          <IconButton className="p-2 transition-all bg-black-main text-main">
+          <ButtonIcon className="p-2 transition-all bg-black-main text-main">
             <MoreHorizontal size={20} />
-          </IconButton>
+          </ButtonIcon>
         }
       >
         {projectInteractions.map(

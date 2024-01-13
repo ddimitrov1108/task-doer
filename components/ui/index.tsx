@@ -1,7 +1,7 @@
 export { default as Alert } from "./Alert";
 export { default as PageTitle } from "./PageTitle";
 export { default as Button } from "./Button";
-export { default as IconButton } from "./IconButton";
+export { default as ButtonIcon } from "./ButtonIcon";
 export { default as Spinner } from "./Spinner";
 export { default as Logo } from "./Logo";
 export { default as Skeleton } from "./Skeleton";

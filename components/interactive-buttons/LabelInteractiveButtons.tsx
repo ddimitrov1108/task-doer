@@ -3,7 +3,7 @@
 import { useContext, useId } from "react";
 import { LabelContext } from "../providers";
 import { AddTaskButton } from "../task";
-import { Dropdown, DropdownListItem, IconButton } from "../ui";
+import { Dropdown, DropdownListItem, ButtonIcon } from "../ui";
 import { MoreHorizontal, Pencil, Trash2 } from "lucide-react";
 
 const LabelInteractiveButtons = () => {
@@ -39,9 +39,9 @@ const LabelInteractiveButtons = () => {
       <Dropdown
         showChevron={false}
         btn={
-          <IconButton className="p-2 transition-all bg-black-main text-main">
+          <ButtonIcon className="p-2 transition-all bg-black-main text-main">
             <MoreHorizontal size={20} />
-          </IconButton>
+          </ButtonIcon>
         }
       >
         {labelInteractions.map(

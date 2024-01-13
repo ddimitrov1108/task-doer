@@ -3,7 +3,7 @@
 import { INavList, IUserData } from "@/lib/interfaces";
 import { useSideBarState } from "./hooks";
 import { NavList, UserDropdownMenu } from "./navigation";
-import { IconButton, Logo, SideBar } from "./ui";
+import { ButtonIcon, Logo, SideBar } from "./ui";
 
 interface Props {
   user: IUserData;
@@ -28,7 +28,7 @@ const HeaderNav = ({ user, navList }: Props) => {
         <NavList navList={navList} onNavElClick={toggleIsOpen} />
       </SideBar>
 
-      <IconButton
+      <ButtonIcon
         type="button"
         className="group lg:hidden flex flex-col items-end gap-1.5 min-w-[35px]"
         title="Open navigation"
@@ -37,7 +37,7 @@ const HeaderNav = ({ user, navList }: Props) => {
         <div className="transition-all w-full h-[2px] rounded-full bg-main group-hover:bg-light group-hover:w-[80%]"></div>
         <div className="transition-all w-[60%] h-[2px] rounded-full bg-main group-hover:bg-light ml-1.5 group-hover:w-full"></div>
         <div className="transition-all w-[80%] h-[2px] rounded-full bg-main group-hover:bg-light group-hover:w-[60%]"></div>
-      </IconButton>
+      </ButtonIcon>
     </header>
   );
 };

@@ -2,7 +2,7 @@
 
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
-import { IconButton } from ".";
+import { ButtonIcon } from ".";
 import { X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -78,14 +78,14 @@ const Modal = ({
                   {modalTitle}
 
                   {showCloseBtn && (
-                    <IconButton
+                    <ButtonIcon
                       type="button"
                       tabIndex={0}
                       onClick={onCloseClickHandler}
                       className="text-xl"
                     >
                       <X />
-                    </IconButton>
+                    </ButtonIcon>
                   )}
                 </Dialog.Title>
                 <div className={cn("mt-1", bodyClassName)}>{children}</div>

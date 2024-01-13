@@ -8,7 +8,7 @@ interface Props extends ComponentProps<"button"> {
   loading?: boolean;
 }
 
-const IconButton = ({
+const ButtonIcon = ({
   type = "button",
   children,
   loading,
@@ -32,4 +32,4 @@ const IconButton = ({
     </button>
   );
 };
-export default IconButton;
+export default ButtonIcon;

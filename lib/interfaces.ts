@@ -113,28 +113,18 @@ export interface IProject extends IProjectFormValues {
   id: string;
 }
 
-export interface IProjectDetails extends IProject {
-  tasks: ITask[];
-}
-
 export interface ILabel extends ILabelFormValues {
   id: string;
 }
 
-export interface ILabelDetails extends ILabel {
+export interface ITask extends ITaskFormValues {
+  id: string;
+}
+
+export interface IProjectDetails extends IProject {
   tasks: ITask[];
 }
 
-export interface ITask {
-  id: string;
-  name: string;
-  description: string;
-  completed: boolean;
-  important: boolean;
-  repeat: boolean;
-  due_date: Date;
-  labels?: {
-    id: string;
-    name: string;
-  }[];
+export interface ILabelDetails extends ILabel {
+  tasks: ITask[];
 }
