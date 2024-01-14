@@ -9,7 +9,7 @@ const SignInForm = dynamic(() => import("@/components/forms/SignInForm"), {
 
 const SignInPage = () => {
   return (
-    <div>
+    <>
       <div className="grid mb-8">
         <h1 className="text-3xl xl:text-4xl font-semibold text-white">
           Sign In
@@ -22,7 +22,7 @@ const SignInPage = () => {
       <div className="w-full">
         <SignInForm />
       </div>
-    </div>
+    </>
   );
 };
 export default SignInPage;

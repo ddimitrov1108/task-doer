@@ -1,15 +1,15 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { ISignInFormValues } from "../../lib/interfaces";
+import { useForm } from "../hooks";
 import { SignInResponse } from "next-auth/react";
 import { Field, Form, Formik } from "formik";
 import { loginSchema } from "@/lib/yup-schemas";
-import { useForm } from "../hooks";
-import { ISignInFormValues } from "../../lib/interfaces";
-import { Button } from "../ui";
 import { PasswordField, TextField } from "./formik";
+import { Button } from "../ui";
 import dynamic from "next/dynamic";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const Alert = dynamic(() => import("../ui/Alert"));
 
@@ -23,16 +23,14 @@ const SignInForm = () => {
     if (!values) return;
 
     setForm({ loading: true, error: "" });
-
     const { signIn } = await import("next-auth/react");
 
     await signIn("sign-in", {
       ...values,
       redirect: false,
     })
-      .then((res: SignInResponse | undefined) => {
+      .then(async (res: SignInResponse | undefined) => {
         if (res?.error) throw res.error;
-
         router.replace("/todo");
       })
       .catch((e) => {
