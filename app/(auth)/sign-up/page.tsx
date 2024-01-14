@@ -2,7 +2,7 @@ import Spinner from "@/components/ui/Spinner";
 import dynamic from "next/dynamic";
 
 const SignUpForm = dynamic(() => import("@/components/forms/SignUpForm"), {
-  loading: () => <Spinner className="p-4 flex items-center justify-center" />,
+  loading: () => <Spinner className="h-[450px] flex items-center justify-center" />,
 });
 
 const SignUpPage = () => {
