@@ -1,15 +1,16 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { ErrorMessage, Label } from ".";
 import { IFormInput } from "@/lib/interfaces";
-import { ComponentProps } from "react";
+import dynamic from "next/dynamic";
 
-type Props = IFormInput<string> & ComponentProps<"textarea">;
+const Label = dynamic(() => import("./Label"));
+const ErrorMessage = dynamic(() => import("./ErrorMessage"));
+
+type Props = IFormInput<string> & React.ComponentProps<"textarea">;
 
 const TextareaField = ({
   label,
-  subLabel,
   type = "text",
   className,
   field,
@@ -19,9 +20,7 @@ const TextareaField = ({
 }: Props) => {
   return (
     <div className={cn("mb-4", fullWidth ? "w-full" : "w-fit")}>
-      <Label className="pb-2" htmlFor={field.name}>
-        {label}
-      </Label>
+      {label && <Label className="pb-2" htmlFor={field.name} label={label} />}
 
       <textarea
         autoComplete="on"
@@ -39,12 +38,6 @@ const TextareaField = ({
 
       {errors[field.name] && touched[field.name] && (
         <ErrorMessage message={errors[field.name]} />
-      )}
-
-      {subLabel && (
-        <Label className="text-main pb-2" htmlFor={field.name}>
-          {subLabel}
-        </Label>
       )}
     </div>
   );

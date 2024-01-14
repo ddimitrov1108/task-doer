@@ -1,14 +1,18 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { ErrorMessage, Label } from ".";
 import { cn } from "@/lib/utils";
 import { Eye, EyeOff } from "lucide-react";
 import { IFormInput } from "@/lib/interfaces";
+import dynamic from "next/dynamic";
+
+const Label = dynamic(() => import("./Label"));
+const ErrorMessage = dynamic(() => import("./ErrorMessage"));
+
+type Props = IFormInput<string> & React.ComponentProps<"input">;
 
 const PasswordField = ({
-  label,
-  subLabel,
+  label = "",
   type = "password",
   className,
   field,
@@ -16,7 +20,7 @@ const PasswordField = ({
   fullWidth,
   disabled,
   ...restProps
-}: IFormInput<string>) => {
+}: Props) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [isVisible, setIsVisible] = useState<boolean>(false);
 
@@ -63,9 +67,7 @@ const PasswordField = ({
 
   return (
     <div className={cn("mb-4", fullWidth ? "w-full" : "w-fit")}>
-      <Label className="pb-2" htmlFor={field.name}>
-        {label}
-      </Label>
+      {label && <Label className="pb-2" htmlFor={field.name} label={label} />}
 
       <div className="relative">
         <button
@@ -96,12 +98,6 @@ const PasswordField = ({
 
       {errors[field.name] && touched[field.name] && (
         <ErrorMessage message={errors[field.name]} />
-      )}
-
-      {subLabel && (
-        <Label className="text-main pb-2" htmlFor={field.name}>
-          {subLabel}
-        </Label>
       )}
     </div>
   );

@@ -1,15 +1,16 @@
 "use client";
 
-import { Label, ErrorMessage } from ".";
 import { cn } from "@/lib/utils";
 import { IFormInput } from "@/lib/interfaces";
-import { ComponentProps } from "react";
+import dynamic from "next/dynamic";
 
-type Props = IFormInput<string> & ComponentProps<"input">;
+const Label = dynamic(() => import("./Label"));
+const ErrorMessage = dynamic(() => import("./ErrorMessage"));
+
+type Props = IFormInput<string> & React.ComponentProps<"input">;
 
 const TextField = ({
-  label,
-  subLabel,
+  label = "",
   type = "text",
   className,
   field,
@@ -19,9 +20,7 @@ const TextField = ({
 }: Props) => {
   return (
     <div className={cn("mb-4", fullWidth ? "w-full" : "w-fit")}>
-      <Label className="pb-2" htmlFor={field.name}>
-        {label}
-      </Label>
+      {label && <Label className="pb-2" htmlFor={field.name} label={label} />}
 
       <input
         type={type}
@@ -38,12 +37,6 @@ const TextField = ({
 
       {errors[field.name] && touched[field.name] && (
         <ErrorMessage message={errors[field.name]} />
-      )}
-
-      {subLabel && (
-        <Label className="text-main pb-2" htmlFor={field.name}>
-          {subLabel}
-        </Label>
       )}
     </div>
   );

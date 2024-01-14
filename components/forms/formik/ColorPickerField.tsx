@@ -1,9 +1,11 @@
 "use client";
 
 import { IFormInput } from "@/lib/interfaces";
-import { Label, ErrorMessage } from ".";
 import { cn } from "@/lib/utils";
-import { MouseEvent } from "react";
+import dynamic from "next/dynamic";
+
+const Label = dynamic(() => import("./Label"));
+const ErrorMessage = dynamic(() => import("./ErrorMessage"));
 
 const colorPickerColors: string[] = [
   "#b8255f",
@@ -29,22 +31,19 @@ const colorPickerColors: string[] = [
 ];
 
 const ColorPickerField = ({
-  label,
-  subLabel,
+  label = "",
   className,
   field,
   form: { setFieldValue, touched, errors },
   fullWidth,
   disabled,
 }: IFormInput<string>) => {
-  const onClickHandler = (e: MouseEvent<HTMLButtonElement>) =>
+  const onClickHandler = (e: React.MouseEvent<HTMLButtonElement>) =>
     setFieldValue(field.name, e.currentTarget.value);
 
   return (
     <div className={cn("mb-4", className, fullWidth ? "w-full" : "w-fit")}>
-      <Label className="pb-2" htmlFor={field.name}>
-        {label}
-      </Label>
+      {label && <Label className="pb-2" htmlFor={field.name} label={label} />}
 
       <div className="w-full flex flex-wrap gap-2">
         {colorPickerColors.map((color) => (
@@ -69,12 +68,6 @@ const ColorPickerField = ({
 
       {errors[field.name] && touched[field.name] && (
         <ErrorMessage message={errors[field.name]} />
-      )}
-
-      {subLabel && (
-        <Label className="text-main pb-2" htmlFor={field.name}>
-          {subLabel}
-        </Label>
       )}
     </div>
   );

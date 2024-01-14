@@ -2,11 +2,13 @@
 
 import { IFormInput } from "@/lib/interfaces";
 import { cn } from "@/lib/utils";
-import { format, isValid, parseISO } from "date-fns";
-import { ComponentProps } from "react";
-import { ErrorMessage, Label } from ".";
+import { format, isValid } from "date-fns";
+import dynamic from "next/dynamic";
 
-type Props = IFormInput<string> & ComponentProps<"input">;
+const Label = dynamic(() => import("./Label"));
+const ErrorMessage = dynamic(() => import("./ErrorMessage"));
+
+type Props = IFormInput<string> & React.ComponentProps<"input">;
 
 const tryFormatDate = (value: Date) => {
   try {
@@ -21,22 +23,19 @@ const tryFormatDate = (value: Date) => {
 };
 
 const DatePickerField = ({
-  label,
-  subLabel,
-  type = "text",
+  label = "",
+  type = "date",
   className,
   field,
   form: { touched, errors },
   fullWidth,
   ...restProps
 }: Props) => {
-  const formattedDate = format(field.value || new Date(), "dd/MM/yyyy") 
+  const formattedDate = format(field.value || new Date(), "dd/MM/yyyy");
 
   return (
     <div className={cn("mb-4 min-h-fit", fullWidth ? "w-full" : "w-fit")}>
-      <Label className="pb-2" htmlFor={field.name}>
-        {label}
-      </Label>
+      {label && <Label className="pb-2" htmlFor={field.name} label={label} />}
 
       <input
         type="date"
@@ -54,12 +53,6 @@ const DatePickerField = ({
 
       {errors[field.name] && touched[field.name] && (
         <ErrorMessage message={errors[field.name]} />
-      )}
-
-      {subLabel && (
-        <Label className="text-main pb-2" htmlFor={field.name}>
-          {subLabel}
-        </Label>
       )}
     </div>
   );
