@@ -82,7 +82,6 @@ class LabelController extends DbConnector {
                   description: true,
                   important: true,
                   completed: true,
-                  repeat: true,
                   due_date: true,
                   labels: {
                     select: {

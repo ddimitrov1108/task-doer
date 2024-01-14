@@ -83,6 +83,5 @@ export const taskSchema = Yup.object().shape({
     .max(255, "Maximum length of 255 symbols is exceeded"),
   due_date: Yup.date().required("Date is required"),
   important: Yup.boolean().default(false),
-  repeat: Yup.boolean().default(false),
   labels: Yup.array().default([]),
 });

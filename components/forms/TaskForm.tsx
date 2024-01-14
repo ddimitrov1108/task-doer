@@ -26,7 +26,6 @@ const initialValues: ITaskFormValues = {
   description: "",
   important: false,
   completed: false,
-  repeat: false,
   due_date: new Date(),
   labels: [],
 };
@@ -43,7 +42,7 @@ const TaskForm = ({ initialState, editMode = false, afterSubmit }: Props) => {
       onSubmit={onSubmitHandler}
     >
       <Form>
-        {form.error && <Alert variant="error" message={form.error}/>}
+        {form.error && <Alert variant="error" message={form.error} />}
 
         <Field
           id="name"
@@ -89,17 +88,6 @@ const TaskForm = ({ initialState, editMode = false, afterSubmit }: Props) => {
           id="important"
           name="important"
           label="Important"
-          type="checkbox"
-          disabled={form.loading}
-          maxLength={4}
-          component={CheckboxField}
-          fullWidth
-        />
-
-        <Field
-          id="repeat"
-          name="repeat"
-          label="Repeat"
           type="checkbox"
           disabled={form.loading}
           maxLength={4}

@@ -64,7 +64,6 @@ export interface ITaskFormValues {
   description: string;
   completed: boolean;
   important: boolean;
-  repeat: boolean;
   due_date: Date;
   labels?: {
     id: string;
