@@ -1,18 +1,17 @@
 "use client";
 
-import { SignInResponse } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { SignInResponse } from "next-auth/react";
 import { Field, Form, Formik } from "formik";
 import { loginSchema } from "@/lib/yup-schemas";
 import { useForm } from "../hooks";
 import { ISignInFormValues } from "../../lib/interfaces";
+import { Button } from "../ui";
+import { PasswordField, TextField } from "./formik";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 
 const Alert = dynamic(() => import("../ui/Alert"));
-const Button = dynamic(() => import("../ui/Button"));
-const TextField = dynamic(() => import("./formik/TextField"));
-const PasswordField = dynamic(() => import("./formik/PasswordField"));
 
 const initialValues: ISignInFormValues = { email: "", password: "" };
 
@@ -23,27 +22,25 @@ const SignInForm = () => {
   const onSubmitHandler = async (values: ISignInFormValues) => {
     if (!values) return;
 
-    setForm({ ...form, loading: true, error: "" });
+    setForm({ loading: true, error: "" });
 
-    const { email, password } = values;
     const { signIn } = await import("next-auth/react");
 
     await signIn("sign-in", {
-      email,
-      password,
+      ...values,
       redirect: false,
-    }).then((value: SignInResponse | undefined): void | PromiseLike<void> => {
-      if (!value?.error) {
-        router.replace("/todo");
-        return;
-      }
+    })
+      .then((res: SignInResponse | undefined) => {
+        if (res?.error) throw res.error;
 
-      setForm({
-        ...form,
-        loading: false,
-        error: value.error,
+        router.replace("/todo");
+      })
+      .catch((e) => {
+        setForm({
+          loading: false,
+          error: e,
+        });
       });
-    });
   };
 
   return (

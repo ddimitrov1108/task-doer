@@ -4,9 +4,9 @@ import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import { Eye, EyeOff } from "lucide-react";
 import { IFormInput } from "@/lib/interfaces";
+import { Label } from ".";
 import dynamic from "next/dynamic";
 
-const Label = dynamic(() => import("./Label"));
 const ErrorMessage = dynamic(() => import("./ErrorMessage"));
 
 type Props = IFormInput<string> & React.ComponentProps<"input">;
@@ -67,7 +67,7 @@ const PasswordField = ({
 
   return (
     <div className={cn("mb-4", fullWidth ? "w-full" : "w-fit")}>
-      {label && <Label className="pb-2" htmlFor={field.name} label={label} />}
+      <Label className="pb-2" htmlFor={field.name} label={label} />
 
       <div className="relative">
         <button

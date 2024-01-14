@@ -3,9 +3,7 @@
 import { cn } from "@/lib/utils";
 import { Switch } from "@headlessui/react";
 import { IFormInput } from "@/lib/interfaces";
-import dynamic from "next/dynamic";
-
-const Label = dynamic(() => import("./Label"));
+import { Label } from ".";
 
 type Props = IFormInput<boolean> & React.ComponentProps<"input">;
 
@@ -24,7 +22,7 @@ const CheckboxField = ({
         fullWidth ? "w-full" : "w-fit"
       )}
     >
-      {label && <Label className="pb-2" htmlFor={field.name} label={label} />}
+      <Label className="pb-2" htmlFor={field.name} label={label} />
 
       <Switch
         disabled={disabled}

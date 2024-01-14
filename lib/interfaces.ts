@@ -23,7 +23,7 @@ export interface IUserSession {
 
 export interface IFormInput<T> {
   type: "text" | "email" | "password" | "date";
-  label?: string;
+  label: string;
   className?: string;
   fullWidth?: boolean;
   disabled?: boolean;
