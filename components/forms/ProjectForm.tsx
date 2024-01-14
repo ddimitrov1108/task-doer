@@ -73,7 +73,7 @@ const ProjectForm = ({
       onSubmit={onSubmitHandler}
     >
       <Form>
-        {form.error && <Alert variant="error">{form.error}</Alert>}
+        {form.error && <Alert variant="error" message={form.error}/>}
 
         <Field
           id="name"
@@ -81,7 +81,7 @@ const ProjectForm = ({
           label="Enter name"
           placeholder="My Project Name"
           disabled={form.loading}
-          maxLength={40}
+          maxLength={30}
           component={TextField}
           fullWidth
         />

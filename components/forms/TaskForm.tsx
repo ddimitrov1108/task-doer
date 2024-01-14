@@ -11,7 +11,6 @@ import { Alert, Button } from "../ui";
 import { useForm } from "../hooks";
 import { ITaskFormValues } from "@/lib/interfaces";
 import { taskSchema } from "@/lib/yup-schemas";
-import { format } from "date-fns";
 
 interface Props {
   initialState?: ITaskFormValues | null;
@@ -28,7 +27,7 @@ const initialValues: ITaskFormValues = {
   important: false,
   completed: false,
   repeat: false,
-  due_date: format(new Date(), "yyyy-MM-dd"),
+  due_date: new Date(),
   labels: [],
 };
 
@@ -39,19 +38,12 @@ const TaskForm = ({ initialState, editMode = false, afterSubmit }: Props) => {
 
   return (
     <Formik
-      initialValues={
-        initialState
-          ? {
-              ...initialState,
-              due_date: format(new Date(initialState.due_date), "yyyy-MM-dd"),
-            }
-          : initialValues
-      }
+      initialValues={initialState ? initialState : initialValues}
       validationSchema={taskSchema}
       onSubmit={onSubmitHandler}
     >
       <Form>
-        {form.error && <Alert variant="error">{form.error}</Alert>}
+        {form.error && <Alert variant="error" message={form.error}/>}
 
         <Field
           id="name"
@@ -59,7 +51,7 @@ const TaskForm = ({ initialState, editMode = false, afterSubmit }: Props) => {
           label="Name"
           placeholder="My Task Name"
           disabled={form.loading}
-          maxLength={40}
+          maxLength={30}
           component={TextField}
           fullWidth
         />

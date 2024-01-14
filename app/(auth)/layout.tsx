@@ -1,16 +1,18 @@
-import { Logo } from "@/components/ui";
-import { authConfig } from "@/lib/auth";
-import { getServerSession } from "next-auth";
+import dynamic from "next/dynamic";
 import Image from "next/image";
-import { redirect } from "next/navigation";
 
 interface Props {
   children: React.ReactNode;
 }
 
+const Logo = dynamic(() => import("@/components/ui/Logo"));
+
 const AuthLayout = async ({ children }: Props) => {
-  const session = await getServerSession(authConfig);
-  if (session) return redirect("/todo");
+  const session = await (
+    await import("next-auth")
+  ).getServerSession((await import("@/lib/auth")).authConfig);
+
+  if (session) return (await import("next/navigation")).redirect("/todo");
 
   return (
     <div className="bg-black-main relative grid items-center grid-cols-7">

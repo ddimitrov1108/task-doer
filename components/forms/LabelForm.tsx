@@ -1,14 +1,16 @@
 "use client";
 
-import { useParams, useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 import { useForm } from "../hooks";
 import { toast } from "sonner";
-import { Alert, Button } from "../ui";
+import { Button } from "../ui";
 import { TextField } from "./formik";
 import { Field, Form, Formik } from "formik";
 import { labelSchema } from "@/lib/yup-schemas";
 import { ILabelFormValues } from "@/lib/interfaces";
-import { createLabel, updateLabel } from "@/app/actions";
+import dynamic from "next/dynamic";
+
+const Alert = dynamic(() => import("../ui/Alert"));
 
 interface Props {
   initialState?: ILabelFormValues | null;
@@ -20,7 +22,6 @@ const initialValues: ILabelFormValues = { name: "" };
 
 const LabelForm = ({ initialState, editMode = false, afterSubmit }: Props) => {
   const params = useParams();
-  const router = useRouter();
   const [form, setForm] = useForm();
 
   const onSubmitHandler = async (values: ILabelFormValues) => {
@@ -29,6 +30,8 @@ const LabelForm = ({ initialState, editMode = false, afterSubmit }: Props) => {
     setForm({ loading: true, error: "" });
 
     if (editMode) {
+      const { updateLabel } = await import("@/app/actions");
+
       await updateLabel(params.id.toString(), values)
         .then(({ error }) => {
           if (error) throw error;
@@ -42,6 +45,8 @@ const LabelForm = ({ initialState, editMode = false, afterSubmit }: Props) => {
           setForm({ ...form, error: e, loading: false });
         });
     } else {
+      const { createLabel } = await import("@/app/actions");
+
       await createLabel(values)
         .then(({ error }) => {
           if (error) throw error;
@@ -64,7 +69,7 @@ const LabelForm = ({ initialState, editMode = false, afterSubmit }: Props) => {
       onSubmit={onSubmitHandler}
     >
       <Form>
-        {form.error && <Alert variant="error">{form.error}</Alert>}
+        {form.error && <Alert variant="error" message={form.error} />}
 
         <Field
           id="name"
@@ -72,7 +77,7 @@ const LabelForm = ({ initialState, editMode = false, afterSubmit }: Props) => {
           label="Enter name"
           placeholder="My Label Name"
           disabled={form.loading}
-          maxLength={20}
+          maxLength={30}
           component={TextField}
           fullWidth
         />

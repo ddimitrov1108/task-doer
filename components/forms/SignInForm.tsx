@@ -1,13 +1,18 @@
 "use client";
 
-import { SignInResponse, signIn } from "next-auth/react";
+import { SignInResponse } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { Field, Form, Formik } from "formik";
 import { loginSchema } from "@/lib/yup-schemas";
-import { Alert, Button, TextLink } from "../ui";
-import { PasswordField, TextField } from "./formik";
 import { useForm } from "../hooks";
 import { ISignInFormValues } from "../../lib/interfaces";
+import dynamic from "next/dynamic";
+import Link from "next/link";
+
+const Alert = dynamic(() => import("../ui/Alert"));
+const Button = dynamic(() => import("../ui/Button"));
+const TextField = dynamic(() => import("./formik/TextField"));
+const PasswordField = dynamic(() => import("./formik/PasswordField"));
 
 const initialValues: ISignInFormValues = { email: "", password: "" };
 
@@ -19,7 +24,9 @@ const SignInForm = () => {
     if (!values) return;
 
     setForm({ ...form, loading: true, error: "" });
+
     const { email, password } = values;
+    const { signIn } = await import("next-auth/react");
 
     await signIn("sign-in", {
       email,
@@ -46,7 +53,7 @@ const SignInForm = () => {
       onSubmit={onSubmitHandler}
     >
       <Form>
-        {form.error && <Alert variant="error">{form.error}</Alert>}
+        {form.error && <Alert variant="error" message={form.error} />}
 
         <Field
           id="email"
@@ -74,13 +81,14 @@ const SignInForm = () => {
 
         <div className="w-full flex mt-1 space-x-2 text-sm text-main">
           <span>Dont have an account?</span>
-          <TextLink
+          <Link
+            aria-disabled={form.loading}
             href="/sign-up"
             className="font-medium text-sm text-primary-main"
             title="Sign Up"
           >
             Sign Up
-          </TextLink>
+          </Link>
         </div>
 
         <Button
