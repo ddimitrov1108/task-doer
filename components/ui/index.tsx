@@ -5,7 +5,6 @@ export { default as ButtonIcon } from "./ButtonIcon";
 export { default as Spinner } from "./Spinner";
 export { default as Logo } from "./Logo";
 export { default as Skeleton } from "./Skeleton";
-export { default as TextLink } from "./TextLink";
 export { default as SideBar } from "./SideBar";
 export { default as Dropdown } from "./Dropdown";
 export { default as DropdownListItem } from "./DropdownListItem";

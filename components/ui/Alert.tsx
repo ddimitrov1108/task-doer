@@ -4,38 +4,37 @@ import { cn } from "@/lib/utils";
 
 interface Props {
   variant: AlertVariants;
-  children: React.ReactNode;
+  message: string;
   className?: string;
 }
 
 const getAlertVariantIcon = (variant: AlertIconsVariants): JSX.Element => {
   switch (variant) {
     case "success":
-      return <CheckCircle />;
+      return <CheckCircle size={20} />;
     case "error":
-      return <AlertOctagon />;
+      return <AlertOctagon size={20} />;
     case "warning":
-      return <AlertTriangle />;
+      return <AlertTriangle size={20} />;
     case "info":
     default:
-      return <Info />;
+      return <Info size={20} />;
   }
 };
 
-const Alert = ({ variant = "info", children, className }: Props) => {
+const Alert = ({ variant = "info", message, className }: Props) => {
   const IconComponent: JSX.Element = getAlertVariantIcon(variant);
 
   return (
     <div
       className={cn(
-        "flex gap-2 items-center mb-4 px-4 py-2.5 border border-l-4 rounded-lg font-medium w-full",
+        "text-sm flex gap-2 items-center mb-4 px-4 py-2.5 border border-l-4 rounded-lg font-medium w-full",
         alert({ intent: variant }),
         className
       )}
     >
-      <div className="text-2xl">{IconComponent}</div>
-
-      <p>{children}</p>
+      {IconComponent}
+      {message}
     </div>
   );
 };

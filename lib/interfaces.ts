@@ -22,9 +22,8 @@ export interface IUserSession {
 }
 
 export interface IFormInput<T> {
-  type: "text" | "email" | "password";
-  label: string;
-  subLabel?: string;
+  type: "text" | "email" | "password" | "date";
+  label?: string;
   className?: string;
   fullWidth?: boolean;
   disabled?: boolean;
@@ -66,7 +65,7 @@ export interface ITaskFormValues {
   completed: boolean;
   important: boolean;
   repeat: boolean;
-  due_date: string;
+  due_date: Date;
   labels?: {
     id: string;
     name: string;

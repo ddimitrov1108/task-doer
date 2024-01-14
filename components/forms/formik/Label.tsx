@@ -1,15 +1,15 @@
 import { cn } from "@/lib/utils";
 
 interface Props {
-  children: React.ReactNode;
+  label: string;
   htmlFor?: string;
   className?: string;
 }
 
-const Label = ({ children, htmlFor, className }: Props) => {
+const Label = ({ label, htmlFor, className }: Props) => {
   return (
     <div className={cn("font-medium text-sm text-light min-w-fit", className)}>
-      <label htmlFor={htmlFor}>{children}</label>
+      <label htmlFor={htmlFor}>{label}</label>
     </div>
   );
 };
