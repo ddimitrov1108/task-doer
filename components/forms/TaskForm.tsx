@@ -1,19 +1,20 @@
 "use client";
 
 import { Field, Form, Formik } from "formik";
-import {
-  CheckboxField,
-  DatePickerField,
-  TextField,
-  TextareaField,
-} from "./formik";
-import { Alert, Button } from "../ui";
 import { useForm } from "../hooks";
-import { ITaskFormValues } from "@/lib/interfaces";
+import { TaskFormValues } from "@/lib/interfaces";
 import { taskSchema } from "@/lib/yup-schemas";
+import Button from "../ui/Button";
+import TextField from "./formik/TextField";
+import DatePickerField from "./formik/DatePickerField";
+import TextareaField from "./formik/TextareaField";
+import CheckboxField from "./formik/CheckboxField";
+import dynamic from "next/dynamic";
+
+const Alert = dynamic(() => import("../ui/Alert"));
 
 interface Props {
-  initialState?: ITaskFormValues | null;
+  initialState?: TaskFormValues | null;
   editMode?: boolean;
   afterSubmit: () => void;
 }
@@ -21,7 +22,7 @@ interface Props {
 //format(new Date(), "yyyy-MM-dd")
 //format(new Date(initialState.due_date), "yyyy-MM-dd")
 
-const initialValues: ITaskFormValues = {
+const initialValues: TaskFormValues = {
   name: "",
   description: "",
   important: false,
@@ -33,7 +34,7 @@ const initialValues: ITaskFormValues = {
 const TaskForm = ({ initialState, editMode = false, afterSubmit }: Props) => {
   const [form, setForm] = useForm();
 
-  const onSubmitHandler = async (values: ITaskFormValues) => {};
+  const onSubmitHandler = async (values: TaskFormValues) => {};
 
   return (
     <Formik

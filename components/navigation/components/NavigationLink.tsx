@@ -13,7 +13,7 @@ interface Props {
   onClick?: React.MouseEventHandler;
 }
 
-const NavLink = ({
+const NavigationLink = ({
   href,
   text,
   appendIcon,
@@ -39,4 +39,4 @@ const NavLink = ({
     </Link>
   );
 };
-export default NavLink;
+export default NavigationLink;

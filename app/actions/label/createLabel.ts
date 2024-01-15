@@ -1,11 +1,11 @@
 "use server";
 
-import { labelController } from "@/db";
+import labelController from "@/db/LabelController";
 import { getUserFromServerSession } from "@/lib/auth";
-import { ILabelFormValues } from "@/lib/interfaces";
+import { LabelFormValues } from "@/lib/interfaces";
 import { revalidatePath } from "next/cache";
 
-export default async function createLabel(values: ILabelFormValues) {
+export default async function createLabel(values: LabelFormValues) {
   const user = await getUserFromServerSession();
 
   if (!user) return { error: "Unauthenticated" };

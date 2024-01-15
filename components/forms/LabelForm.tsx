@@ -3,28 +3,26 @@
 import { useParams } from "next/navigation";
 import { useForm } from "../hooks";
 import { toast } from "sonner";
-import { Button } from "../ui";
-import { TextField } from "./formik";
 import { Field, Form, Formik } from "formik";
 import { labelSchema } from "@/lib/yup-schemas";
-import { ILabelFormValues } from "@/lib/interfaces";
+import { IForm, LabelFormValues } from "@/lib/interfaces";
+import Button from "../ui/Button";
+import TextField from "./formik/TextField";
 import dynamic from "next/dynamic";
 
 const Alert = dynamic(() => import("../ui/Alert"));
 
-interface Props {
-  initialState?: ILabelFormValues | null;
-  editMode?: boolean;
-  afterSubmit: () => void;
-}
+const initialValues: LabelFormValues = { name: "" };
 
-const initialValues: ILabelFormValues = { name: "" };
-
-const LabelForm = ({ initialState, editMode = false, afterSubmit }: Props) => {
+const LabelForm = ({
+  initialState,
+  editMode = false,
+  afterSubmit,
+}: IForm<LabelFormValues>) => {
   const params = useParams();
   const [form, setForm] = useForm();
 
-  const onSubmitHandler = async (values: ILabelFormValues) => {
+  const onSubmitHandler = async (values: LabelFormValues) => {
     if (!values) return;
 
     setForm({ loading: true, error: "" });
@@ -37,7 +35,6 @@ const LabelForm = ({ initialState, editMode = false, afterSubmit }: Props) => {
           if (error) throw error;
 
           toast.success("Label edited successfully!");
-          setForm({ ...form, loading: false });
           afterSubmit();
         })
         .catch((e: string) => {
@@ -52,7 +49,6 @@ const LabelForm = ({ initialState, editMode = false, afterSubmit }: Props) => {
           if (error) throw error;
 
           toast.success("Label created successfully!");
-          setForm({ ...form, loading: false });
           afterSubmit();
         })
         .catch((e: string) => {

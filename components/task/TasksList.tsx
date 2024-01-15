@@ -1,7 +1,9 @@
 import { ITask } from "@/lib/interfaces";
-import { Task, TasksListCompletedStatus, TasksListEmptyStatus } from ".";
 import { isFuture, isPast, isToday } from "date-fns";
-import { DisclousureContainer } from "../ui";
+import TasksListEmptyStatus from "./TasksListEmptyStatus";
+import TasksListCompletedStatus from "./TasksListCompletedStatus";
+import DisclousureContainer from "../ui/DisclousureContainer";
+import Task from "./Task";
 
 interface Props {
   tasks: ITask[];

@@ -1,18 +1,15 @@
-"use client";
-
 import { INavLink } from "@/lib/interfaces";
 import { cn } from "@/lib/utils";
 import { Menu } from "@headlessui/react";
 import Link from "next/link";
-import { ElementType, MouseEventHandler } from "react";
 
 interface Props {
-  as: ElementType | undefined;
+  as: React.ElementType | undefined;
   item: INavLink;
   className?: string;
   iconClassName?: string;
   href?: string;
-  onClick?: MouseEventHandler;
+  onClick?: React.MouseEventHandler;
 }
 
 const DropdownListItem = ({

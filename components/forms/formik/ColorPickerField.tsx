@@ -1,8 +1,8 @@
 "use client";
 
-import { IFormInput } from "@/lib/interfaces";
+import { FormInput } from "@/lib/interfaces";
 import { cn } from "@/lib/utils";
-import { Label } from ".";
+import Label from "./Label";
 import dynamic from "next/dynamic";
 
 const ErrorMessage = dynamic(() => import("./ErrorMessage"));
@@ -37,7 +37,7 @@ const ColorPickerField = ({
   form: { setFieldValue, touched, errors },
   fullWidth,
   disabled,
-}: IFormInput<string>) => {
+}: FormInput<string>) => {
   const onClickHandler = (e: React.MouseEvent<HTMLButtonElement>) =>
     setFieldValue(field.name, e.currentTarget.value);
 

@@ -2,51 +2,47 @@
 
 import { useParams, useRouter } from "next/navigation";
 import { useForm } from "../hooks";
-import { Alert, Button } from "../ui";
 import { Field, Form, Formik } from "formik";
-import { ColorPickerField, TextField } from "./formik";
 import { projectSchema } from "@/lib/yup-schemas";
 import { toast } from "sonner";
-import { IProjectFormValues } from "@/lib/interfaces";
-import { createProject, updateProject } from "@/app/actions";
-import { ProjectContext } from "../providers";
+import { IForm, ProjectFormValues } from "@/lib/interfaces";
+import Button from "../ui/Button";
+import TextField from "./formik/TextField";
+import ColorPickerField from "./formik/ColorPickerField";
+import dynamic from "next/dynamic";
 
-interface Props {
-  initialState?: IProjectFormValues | null;
-  editMode?: boolean;
-  afterSubmit: () => void;
-}
+const Alert = dynamic(() => import("../ui/Alert"));
 
-const initialValues: IProjectFormValues = { name: "", color: "#b8255f" };
+const initialValues: ProjectFormValues = { name: "", color: "#b8255f" };
 
 const ProjectForm = ({
   initialState,
   editMode = false,
   afterSubmit,
-}: Props) => {
+}: IForm<ProjectFormValues>) => {
   const params = useParams();
   const router = useRouter();
   const [form, setForm] = useForm();
 
-  const onSubmitHandler = async (values: IProjectFormValues) => {
+  const onSubmitHandler = async (values: ProjectFormValues) => {
     if (!values) return;
 
-    setForm({ ...form, loading: true, error: "" });
+    setForm({ loading: true, error: "" });
 
     if (editMode) {
+      const { updateProject } = await import("@/app/actions");
+
       await updateProject(params.id.toString(), values)
         .then(({ error }) => {
           if (error) throw error;
 
           toast.success("Project edited successfully!");
-          setForm({ ...form, loading: false });
           afterSubmit();
         })
-        .catch((e: string) => {
-          console.error(e);
-          setForm({ ...form, error: e, loading: false });
-        });
+        .catch((e: string) => setForm({ loading: false, error: e }));
     } else {
+      const { createProject } = await import("@/app/actions");
+
       await createProject(values)
         .then(({ error, href }) => {
           if (error) throw error;
@@ -56,13 +52,9 @@ const ProjectForm = ({
             router.replace(href);
           }
 
-          setForm({ ...form, loading: false });
           afterSubmit();
         })
-        .catch((e: string) => {
-          console.error(e);
-          setForm({ ...form, error: e, loading: false });
-        });
+        .catch((e: string) => setForm({ loading: false, error: e }));
     }
   };
 
@@ -73,7 +65,7 @@ const ProjectForm = ({
       onSubmit={onSubmitHandler}
     >
       <Form>
-        {form.error && <Alert variant="error" message={form.error}/>}
+        {form.error && <Alert variant="error" message={form.error} />}
 
         <Field
           id="name"

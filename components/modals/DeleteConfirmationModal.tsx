@@ -1,7 +1,8 @@
 "use client";
 
 import { Dispatch, FormEvent, SetStateAction } from "react";
-import { Button, Modal } from "../ui";
+import Modal from "../ui/Modal";
+import Button from "../ui/Button";
 import { useForm } from "../hooks";
 import { AlertTriangle } from "lucide-react";
 

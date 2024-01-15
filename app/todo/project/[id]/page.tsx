@@ -1,16 +1,17 @@
-import { ProjectInteractiveButtons } from "@/components/interactive-buttons";
-import { ProjectProvider, TaskProvider } from "@/components/providers";
-import { TasksList } from "@/components/task";
-import { PageTitle } from "@/components/ui";
-import { projectController } from "@/db";
+import ProjectInteractiveButtons from "@/components/interactive-buttons/ProjectInteractiveButtons";
+import ProjectProvider from "@/components/providers/ProjectProvider";
+import TaskProvider from "@/components/providers/TaskProvider";
+import TasksList from "@/components/task/TasksList";
+import PageTitle from "@/components/ui/PageTitle";
+import projectController from "@/db/ProjectController";
 import { getUserFromServerSession } from "@/lib/auth";
-import { INextRouteParams } from "@/lib/interfaces";
+import { NextRouteParams } from "@/lib/interfaces";
 import { isUUID } from "@/lib/utils";
 import { notFound, redirect } from "next/navigation";
 
 export const revalidate = 30;
 
-const ProjectPage = async ({ params }: INextRouteParams) => {
+const ProjectPage = async ({ params }: NextRouteParams) => {
   if (!params.id || !isUUID(params.id)) return notFound();
 
   const user = await getUserFromServerSession();

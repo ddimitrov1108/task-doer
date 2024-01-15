@@ -1,10 +1,13 @@
-import { Button, Logo } from "@/components/ui";
+import dynamic from "next/dynamic";
 import Link from "next/link";
+
+const Logo = dynamic(() => import("@/components/ui/Logo"));
+const Button = dynamic(() => import("@/components/ui/Button"));
 
 export default function Home() {
   return (
     <div className="h-screen grid items-center justify-center gap-4">
-      <div className="grid gap-10">
+      <div className="grid gap-12">
         <div className="grid gap-2 text-center">
           <Logo className="w-fit mx-auto" />
           <p className="w-80">

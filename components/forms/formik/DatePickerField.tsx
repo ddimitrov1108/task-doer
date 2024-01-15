@@ -1,14 +1,12 @@
-"use client";
-
-import { IFormInput } from "@/lib/interfaces";
+import { FormInput } from "@/lib/interfaces";
 import { cn } from "@/lib/utils";
 import { format, isValid } from "date-fns";
-import { Label } from ".";
+import Label from "./Label";
 import dynamic from "next/dynamic";
 
 const ErrorMessage = dynamic(() => import("./ErrorMessage"));
 
-type Props = IFormInput<string> & React.ComponentProps<"input">;
+type Props = FormInput<string> & React.ComponentProps<"input">;
 
 const tryFormatDate = (value: Date) => {
   try {

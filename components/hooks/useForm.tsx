@@ -2,13 +2,13 @@
 
 import { useState } from "react";
 
-interface IState {
+interface State {
   loading: boolean;
   error: string;
 }
 
 const useForm = () => {
-  const [form, setForm] = useState<IState>({
+  const [form, setForm] = useState<State>({
     loading: false,
     error: "",
   });

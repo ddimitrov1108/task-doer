@@ -7,10 +7,9 @@ import { useSideBarState, useSound } from "../hooks";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import TaskModal from "../modals/TaskModal";
-import { DeleteConfirmationModal } from "../modals";
-import { TaskDetailsContainer } from "../task";
-import { SideBar } from "../ui";
-
+import DeleteConfirmationModal from "../modals/DeleteConfirmationModal";
+import SideBar from "../ui/SideBar";
+import TaskDetailsContainer from "../task/TaskDetailsContainer";
 interface Props {
   children: React.ReactNode;
 }
@@ -53,7 +52,7 @@ const TaskProvider = ({ children }: Props) => {
     setOpenDeleteModal(true);
   };
 
-  // const setCompleted = async (task: ITask): Promise<void> => {
+  // const setCompleted = async (task: Task): Promise<void> => {
   //   await fetch(`/api/tasks/${task.id}/complete`, {
   //     method: "PUT",
   //     headers: { "Content-Type": "application/json" },
@@ -74,7 +73,7 @@ const TaskProvider = ({ children }: Props) => {
   //     });
   // };
 
-  // const setImportant = async (task: ITask): Promise<void> => {
+  // const setImportant = async (task: Task): Promise<void> => {
   //   await fetch(`/api/tasks/${task.id}/important`, {
   //     method: "PUT",
   //     headers: { "Content-Type": "application/json" },

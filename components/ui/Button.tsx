@@ -1,5 +1,3 @@
-"use client";
-
 import { cn } from "@/lib/utils";
 import { ComponentProps } from "react";
 import {
@@ -8,7 +6,7 @@ import {
   ButtonVariants,
   button,
 } from "../cva/button";
-import { Spinner } from ".";
+import Spinner from "./Spinner";
 
 interface Props extends ComponentProps<"button"> {
   variant?: ButtonVariants;
@@ -19,7 +17,6 @@ interface Props extends ComponentProps<"button"> {
 
 const Button = ({
   children,
-  type = "button",
   variant = "primary",
   size = "md",
   fullWidth = false,
@@ -43,7 +40,6 @@ const Button = ({
         fullWidth ? "w-full" : "w-fit",
         button({ intent: variant, size: size })
       )}
-      type={type}
       {...restProps}
     >
       {loading ? (

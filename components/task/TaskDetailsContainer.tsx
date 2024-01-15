@@ -1,8 +1,8 @@
 import { ITask } from "@/lib/interfaces";
 import { cn } from "@/lib/utils";
-import { ButtonIcon } from "../ui";
 import { X } from "lucide-react";
 import { format } from "date-fns";
+import ButtonIcon from "../ui/ButtonIcon";
 
 interface Props {
   task: ITask | undefined;

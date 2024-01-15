@@ -1,31 +1,24 @@
 "use client";
 
-import { ISignUpFormValues } from "../../lib/interfaces";
+import { useRouter } from "next/navigation";
 import { useForm } from "../hooks";
 import { SignInResponse } from "next-auth/react";
+import { SignUpFormValues } from "@/lib/interfaces";
 import { Field, Form, Formik } from "formik";
 import { registerSchema } from "@/lib/yup-schemas";
-import { PasswordField, TextField } from "./formik";
-import { Button } from "../ui";
-import dynamic from "next/dynamic";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import TextField from "./formik/TextField";
+import PasswordField from "./formik/PasswordField";
+import Button from "../ui/Button";
+import dynamic from "next/dynamic"
 
 const Alert = dynamic(() => import("../ui/Alert"));
-
-const initialValues: ISignUpFormValues = {
-  first_name: "",
-  last_name: "",
-  email: "",
-  password: "",
-  confirmPassword: "",
-};
 
 const SignUpForm = () => {
   const router = useRouter();
   const [form, setForm] = useForm();
 
-  const onSubmitHandler = async (values: ISignUpFormValues) => {
+  const onSubmitHandler = async (values: SignUpFormValues) => {
     if (!values) return;
 
     setForm({ loading: true, error: "" });
@@ -35,21 +28,22 @@ const SignUpForm = () => {
       ...values,
       redirect: false,
     })
-      .then(async (res: SignInResponse | undefined) => {
+      .then((res: SignInResponse | undefined) => {
         if (res?.error) throw res.error;
         router.replace("/todo");
       })
-      .catch((e) => {
-        setForm({
-          loading: false,
-          error: e,
-        });
-      });
+      .catch((e: string) => setForm({ loading: false, error: e }));
   };
 
   return (
     <Formik
-      initialValues={initialValues}
+      initialValues={{
+        first_name: "",
+        last_name: "",
+        email: "",
+        password: "",
+        confirmPassword: "",
+      }}
       validationSchema={registerSchema}
       onSubmit={onSubmitHandler}
     >

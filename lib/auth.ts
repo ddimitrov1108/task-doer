@@ -1,11 +1,10 @@
-import { NextAuthOptions, User, getServerSession } from "next-auth";
+import { NextAuthOptions, getServerSession } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { emailRegex, nameRegex, passwordRegex } from "./regex";
+import { UserSession } from "./interfaces";
 import bcryptjs from "bcryptjs";
-import { userController } from "@/db";
-import { IUserSession, IUserData } from "./interfaces";
+import userController from "@/db/UserController";
 
-export const authConfig: NextAuthOptions = {
+const authConfig: NextAuthOptions = {
   pages: {
     signIn: "/sign-in",
     signOut: "/sign-in",
@@ -27,19 +26,15 @@ export const authConfig: NextAuthOptions = {
       async authorize(credentials) {
         if (!credentials) return null;
 
-        const { email, password } = credentials;
-
-        if (!email || !password) throw new Error("Invalid credentials");
-
-        if (!emailRegex.test(email) || !passwordRegex.test(password))
+        if (!userController.validateSignIn(credentials))
           throw new Error("Invalid credentials");
 
-        const user = await userController.get(email);
+        const user = await userController.get(credentials.email);
 
         if (!user) throw new Error("User with this email does not exist");
 
         const comparePasswords = await bcryptjs.compare(
-          password,
+          credentials.password,
           user.hash_password
         );
 
@@ -47,10 +42,10 @@ export const authConfig: NextAuthOptions = {
           throw new Error("Email or Password is incorrect");
 
         return {
-          id: user.id.toString(),
+          id: user.id,
           name: `${user.first_name} ${user.last_name}`,
           email: user.email,
-        } as User;
+        };
       },
     }),
     CredentialsProvider({
@@ -67,45 +62,28 @@ export const authConfig: NextAuthOptions = {
       async authorize(credentials) {
         if (!credentials) return null;
 
-        const { first_name, last_name, email, password, confirmPassword } =
-          credentials;
-
-        if (
-          !first_name ||
-          !last_name ||
-          !email ||
-          !password ||
-          !confirmPassword
-        )
+        if (!userController.validateSignUp(credentials))
           throw new Error("Invalid credentials");
 
-        if (
-          !nameRegex.test(`${first_name} ${last_name}`) ||
-          !emailRegex.test(email) ||
-          !passwordRegex.test(password) ||
-          !passwordRegex.test(confirmPassword)
-        )
-          throw new Error("Invalid credentials");
-
-        const isEmailTaken = await userController.exists(email);
+        const isEmailTaken = await userController.exists(credentials.email);
 
         if (isEmailTaken)
           throw new Error("User with this email already exists");
 
         const user = await userController.create({
-          first_name,
-          last_name,
-          email,
-          password,
+          first_name: credentials.first_name,
+          last_name: credentials.last_name,
+          email: credentials.email,
+          password: credentials.password,
         });
 
         if (!user) throw new Error("Something went wrong. Please try again");
 
         return {
-          id: user.id.toString(),
+          id: user.id,
           name: `${user.first_name} ${user.last_name}`,
           email: user.email,
-        } as User;
+        };
       },
     }),
   ],
@@ -139,18 +117,18 @@ export const authConfig: NextAuthOptions = {
   },
 };
 
-export const getUserFromServerSession = async (): Promise<IUserData | null> => {
-  const session: IUserSession | null = await getServerSession(authConfig);
+export default authConfig;
 
-  return !session ||
-    !session.user ||
-    !session.user.id ||
-    !session.user.name ||
-    !session.user.email
-    ? null
-    : {
+export const getUserFromServerSession = async () => {
+  const session = await getServerSession<NextAuthOptions, UserSession>(
+    authConfig
+  );
+
+  return session && session.user
+    ? {
         id: session.user.id,
         name: session.user.name,
         email: session.user.email,
-      };
+      }
+    : null;
 };

@@ -1,27 +1,28 @@
 import { FieldInputProps, FormikProps, FormikValues } from "formik";
+import { Session } from "next-auth";
 import { Dispatch, SetStateAction } from "react";
 
-export interface INextRouteParams {
+export interface NextRouteParams {
   params: {
     id: string | null | undefined;
   };
 }
 
-export interface IUserData {
+export interface UserData {
   id: string;
   name: string;
   email: string;
 }
 
-export interface IUserSession {
-  user: {
-    id?: string | null;
-    name?: string | null;
-    email?: string | null;
+export interface UserSession extends Session {
+  user?: {
+    id: string;
+    name: string;
+    email: string;
   };
 }
 
-export interface IFormInput<T> {
+export interface FormInput<T> {
   type: "text" | "email" | "password" | "date";
   label: string;
   className?: string;
@@ -31,35 +32,38 @@ export interface IFormInput<T> {
   form: FormikProps<FormikValues>;
 }
 
-export interface IFormModal<T> {
+export interface FormModal<T> extends IForm<T> {
   open: boolean;
   setOpen: (state: boolean) => void | Dispatch<SetStateAction<boolean>>;
-  initialState?: T | null;
+}
+
+export interface IForm<T> {
+  initialState?: T | undefined;
   editMode?: boolean;
   afterSubmit: () => void;
 }
 
-export interface ISignInFormValues {
+export interface SignInFormValues {
   email: string;
   password: string;
 }
 
-export interface ISignUpFormValues extends ISignInFormValues {
+export interface SignUpFormValues extends SignInFormValues {
   first_name: string;
   last_name: string;
   confirmPassword: string;
 }
 
-export interface IProjectFormValues {
+export interface ProjectFormValues {
   name: string;
   color: string;
 }
 
-export interface ILabelFormValues {
+export interface LabelFormValues {
   name: string;
 }
 
-export interface ITaskFormValues {
+export interface TaskFormValues {
   name: string;
   description: string;
   completed: boolean;
@@ -71,18 +75,9 @@ export interface ITaskFormValues {
   }[];
 }
 
-export interface IValidateProjectValues {
-  name: string | null | undefined;
-  color: string | null | undefined;
-}
-
-export interface IValidateLabelValues {
-  name: string | null | undefined;
-}
-
-export interface INavList {
-  projects: IProject[];
-  labels: ILabel[];
+export interface NavList {
+  projects: Project[];
+  labels: Label[];
 }
 
 export interface INavLink {
@@ -92,37 +87,22 @@ export interface INavLink {
   href?: string;
 }
 
-export interface IUser {
-  id: string;
-  first_name: string;
-  last_name: string;
-  email: string;
-  hash_password: string;
-}
-
-export interface INewUser {
-  first_name: string;
-  last_name: string;
-  email: string;
-  password: string;
-}
-
-export interface IProject extends IProjectFormValues {
+export interface Project extends ProjectFormValues {
   id: string;
 }
 
-export interface ILabel extends ILabelFormValues {
+export interface Label extends LabelFormValues {
   id: string;
 }
 
-export interface ITask extends ITaskFormValues {
+export interface ITask extends TaskFormValues {
   id: string;
 }
 
-export interface IProjectDetails extends IProject {
+export interface ProjectDetails extends Project {
   tasks: ITask[];
 }
 
-export interface ILabelDetails extends ILabel {
+export interface LabelDetails extends Label {
   tasks: ITask[];
 }

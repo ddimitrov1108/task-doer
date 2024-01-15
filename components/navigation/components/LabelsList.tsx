@@ -1,18 +1,18 @@
 "use client";
 
+import { Label } from "@/lib/interfaces";
 import { useState } from "react";
-import { NavLink } from ".";
-import { DisclousureContainer } from "../ui";
-import { Plus } from "lucide-react";
-import { IProject } from "@/lib/interfaces";
-import { ProjectModal } from "../modals";
+import { AtSign, Plus } from "lucide-react";
+import LabelModal from "@/components/modals/LabelModal";
+import DisclousureContainer from "@/components/ui/DisclousureContainer";
+import NavLink from "./NavigationLink";
 
 interface Props {
-  projects: IProject[];
+  labels: Label[];
   onNavElClick?: () => void;
 }
 
-const ProjectsNavList = ({ projects, onNavElClick = () => {} }: Props) => {
+const LabelsList = ({ labels, onNavElClick = () => {} }: Props) => {
   const [open, setOpen] = useState<boolean>(false);
 
   const onClickHandler = (e: React.MouseEvent) => {
@@ -20,17 +20,16 @@ const ProjectsNavList = ({ projects, onNavElClick = () => {} }: Props) => {
     onNavElClick();
     setOpen(true);
   };
-
   return (
     <>
-      <ProjectModal
+      <LabelModal
         open={open}
         setOpen={setOpen}
         afterSubmit={() => setOpen(false)}
       />
 
       <DisclousureContainer
-        title="Projects"
+        title="Labels"
         appendToTitle={
           <button
             className="text-xl text-main hover:text-primary-main"
@@ -43,23 +42,17 @@ const ProjectsNavList = ({ projects, onNavElClick = () => {} }: Props) => {
         bodyClassName="px-2 styled-overflow max-h-[240px] overflow-auto grid gap-1"
         open
       >
-        {projects.map(({ id, name, color }) => (
+        {labels.map(({ id, name }) => (
           <NavLink
             key={id}
-            href={`/todo/project/${id}`}
+            href={`/todo/label/${id}`}
             text={name}
             onClick={onNavElClick}
-            appendIcon={
-              <div
-                className="w-2.5 h-2.5 rounded-full"
-                style={{ backgroundColor: color }}
-              ></div>
-            }
-            className=""
+            appendIcon={<AtSign size={16} className="text-primary-main" />}
           />
         ))}
       </DisclousureContainer>
     </>
   );
 };
-export default ProjectsNavList;
+export default LabelsList;

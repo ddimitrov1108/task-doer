@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { AddTaskButton } from ".";
+import AddTaskButton from "./AddTaskButton";
 
 const TasksListEmptyStatus = () => {
   return (

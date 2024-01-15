@@ -7,7 +7,7 @@ import { AtSign, Check, MoreVertical, Star, StickyNote } from "lucide-react";
 import { MouseEvent, useState } from "react";
 import { ITask } from "@/lib/interfaces";
 import Link from "next/link";
-import { Chip } from "../ui";
+import Chip from "../ui/Chip";
 
 interface Props {
   task: ITask;

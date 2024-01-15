@@ -1,19 +1,19 @@
 import { hexColorRegex, sectionNameRegex } from "@/lib/regex";
 import DbConnector from "./DbConnector";
-import {
-  IProject,
-  IProjectDetails,
-  IProjectFormValues,
-  IValidateProjectValues,
-} from "@/lib/interfaces";
+import { Project, ProjectDetails, ProjectFormValues } from "@/lib/interfaces";
 import { z } from "zod";
+
+type ValidateProjectValues = {
+  name: string | null | undefined;
+  color: string | null | undefined;
+};
 
 class ProjectController extends DbConnector {
   constructor() {
     super();
   }
 
-  public validate(project: IValidateProjectValues): boolean {
+  public validate(project: ValidateProjectValues): boolean {
     const schema = z
       .object({
         name: z.string().regex(sectionNameRegex),
@@ -24,7 +24,7 @@ class ProjectController extends DbConnector {
     return schema.success;
   }
 
-  public async getList(user_id: string): Promise<IProject[]> {
+  public async getList(user_id: string): Promise<Project[]> {
     try {
       return await this.prisma.project.findMany({
         where: {
@@ -45,7 +45,7 @@ class ProjectController extends DbConnector {
   public async get(
     user_id: string,
     project_id: string
-  ): Promise<IProjectDetails | null> {
+  ): Promise<ProjectDetails | null> {
     try {
       const project = await this.prisma.project.findUnique({
         where: {
@@ -96,8 +96,8 @@ class ProjectController extends DbConnector {
 
   public async create(
     user_id: string,
-    newProject: IProjectFormValues
-  ): Promise<IProject | null> {
+    newProject: ProjectFormValues
+  ): Promise<Project | null> {
     try {
       return await this.prisma.project.create({
         data: {
@@ -113,8 +113,8 @@ class ProjectController extends DbConnector {
 
   public async update(
     user_id: string,
-    project: IProject
-  ): Promise<IProject | null> {
+    project: Project
+  ): Promise<Project | null> {
     try {
       return await this.prisma.project.update({
         where: {
@@ -140,7 +140,7 @@ class ProjectController extends DbConnector {
   public async delete(
     user_id: string,
     project_id: string
-  ): Promise<IProject | null> {
+  ): Promise<Project | null> {
     try {
       const projectToDelete = await this.prisma.project.findUnique({
         where: {
@@ -189,4 +189,5 @@ class ProjectController extends DbConnector {
   }
 }
 
-export default ProjectController;
+const projectController = new ProjectController();
+export default projectController;

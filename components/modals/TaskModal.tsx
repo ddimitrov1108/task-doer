@@ -1,4 +1,4 @@
-import { IFormModal, ITaskFormValues } from "@/lib/interfaces"
+import { FormModal, TaskFormValues } from "@/lib/interfaces"
 
 interface Props {}
 
@@ -6,9 +6,9 @@ const TaskModal = ({
   open,
   setOpen,
   editMode = false,
-  initialState = null,
+  initialState,
   afterSubmit,
-}: IFormModal<ITaskFormValues>) => {
+}: FormModal<TaskFormValues>) => {
   return (
     <div>TaskModal</div>
   )

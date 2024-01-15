@@ -3,13 +3,13 @@
 import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import { Eye, EyeOff } from "lucide-react";
-import { IFormInput } from "@/lib/interfaces";
-import { Label } from ".";
+import { FormInput } from "@/lib/interfaces";
+import Label from "./Label";
 import dynamic from "next/dynamic";
 
 const ErrorMessage = dynamic(() => import("./ErrorMessage"));
 
-type Props = IFormInput<string> & React.ComponentProps<"input">;
+type Props = FormInput<string> & React.ComponentProps<"input">;
 
 const PasswordField = ({
   label = "",

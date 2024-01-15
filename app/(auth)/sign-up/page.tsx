@@ -1,11 +1,4 @@
-import Spinner from "@/components/ui/Spinner";
-import dynamic from "next/dynamic";
-
-const SignUpForm = dynamic(() => import("@/components/forms/SignUpForm"), {
-  loading: () => (
-    <Spinner className="min-h-[320px] flex items-center justify-center" />
-  ),
-});
+import SignUpForm from "@/components/forms/SignUpForm";
 
 const SignUpPage = () => {
   return (

@@ -1,35 +1,43 @@
 "use client";
 
-import { ILabel } from "@/lib/interfaces";
+import { Label } from "@/lib/interfaces";
 import { useRouter } from "next/navigation";
-import { createContext, useState } from "react";
-import { DeleteConfirmationModal, LabelModal } from "../modals";
+import { createContext, useEffect, useState } from "react";
 import { toast } from "sonner";
-import { deleteLabel } from "@/app/actions";
+import LabelModal from "../modals/LabelModal";
+import DeleteConfirmationModal from "../modals/DeleteConfirmationModal";
 
 interface Props {
-  initValue: ILabel;
+  initValue: Label;
   children: React.ReactNode;
 }
 
 export const LabelContext = createContext<{
-  setLabel: React.Dispatch<React.SetStateAction<ILabel>>;
+  setLabel: React.Dispatch<React.SetStateAction<Label>>;
   setOpenLabelModal: React.Dispatch<React.SetStateAction<boolean>>;
   setOpenDeleteModal: React.Dispatch<React.SetStateAction<boolean>>;
 } | null>(null);
 
 const LabelProvider = ({ initValue, children }: Props) => {
   const router = useRouter();
-  const [label, setLabel] = useState<ILabel>(initValue);
+  const [label, setLabel] = useState<Label>(initValue);
   const [openLabelModal, setOpenLabelModal] = useState<boolean>(false);
   const [openDeleteModal, setOpenDeleteModal] = useState<boolean>(false);
 
   const onDeleteLabelHandler = async () => {
+    if (!label) {
+      toast.error("Something went wrong. Please try again later");
+      setOpenDeleteModal(false);
+      return;
+    }
+
+    const { deleteLabel } = await import("@/app/actions");
+
     await deleteLabel(label.id)
       .then(({ error }) => {
         if (error) throw error;
 
-        toast("Label deleted successfully!");
+        toast.success("Label deleted successfully!");
         setOpenDeleteModal(false);
         router.replace("/todo");
       })
@@ -37,6 +45,10 @@ const LabelProvider = ({ initValue, children }: Props) => {
         console.error(e);
       });
   };
+
+  useEffect(() => {
+    setLabel(initValue);
+  }, [initValue]);
 
   return (
     <LabelContext.Provider

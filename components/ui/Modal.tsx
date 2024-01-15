@@ -2,13 +2,17 @@
 
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
-import { ButtonIcon } from ".";
 import { X } from "lucide-react";
 import { cn } from "@/lib/utils";
+import dynamic from "next/dynamic";
+
+const ButtonIcon = dynamic(() => import("./ButtonIcon"));
 
 interface Props {
   open: boolean;
-  setOpen: (state: boolean) => void | React.Dispatch<React.SetStateAction<boolean>>;
+  setOpen: (
+    state: boolean
+  ) => void | React.Dispatch<React.SetStateAction<boolean>>;
   modalTitle?: React.ReactNode;
   children: React.ReactNode;
   showCloseBtn?: boolean;

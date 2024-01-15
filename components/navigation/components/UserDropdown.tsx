@@ -1,33 +1,25 @@
 "use client";
 
-import { Dropdown, DropdownListItem } from "@/components/ui";
-import { INavLink, IUserData } from "@/lib/interfaces";
+import { UserData } from "@/lib/interfaces";
 import { LogOut, UserRound, UserRoundCog } from "lucide-react";
-import { signOut } from "next-auth/react";
-import Link from "next/link";
 import { v4 as uuidv4 } from "uuid";
+import Link from "next/link";
+import { signOut } from "next-auth/react";
+import Dropdown from "@/components/ui/Dropdown";
+import DropdownListItem from "@/components/ui/DropdownListItem";
 
 interface Props {
-  user: IUserData;
+  user: UserData;
 }
 
-const dropdownLinks: INavLink[] = [
-  {
-    id: uuidv4(),
-    name: "Settings",
-    icon: <UserRoundCog size={20} />,
-    href: "/account/settings",
-  },
-];
-
-const UserDropdownMenu = ({ user }: Props) => {
+const UserDropdown = ({ user }: Props) => {
   return (
     <Dropdown
-      btnClassName="select-none w-full flex items-center gap-3 hover:bg-black-light/10"
-      btn={
+      buttonClassName="select-none w-full flex items-center gap-3 hover:bg-black-light/10"
+      buttonContent={
         <>
           <div className="text-2xl text-primary-main p-2 flex items-center bg-primary-light/10 rounded-full">
-            <UserRound />
+            <UserRound size={20} />
           </div>
 
           <div className="font-medium px-2 w-full grid text-left overflow-hidden">
@@ -40,7 +32,14 @@ const UserDropdownMenu = ({ user }: Props) => {
       }
       chevronClassName="pr-0.5"
     >
-      {dropdownLinks.map((link) => (
+      {[
+        {
+          id: uuidv4(),
+          name: "Settings",
+          icon: <UserRoundCog size={20} />,
+          href: "/account/settings",
+        },
+      ].map((link) => (
         <DropdownListItem
           key={link.id}
           as={Link}
@@ -63,4 +62,4 @@ const UserDropdownMenu = ({ user }: Props) => {
     </Dropdown>
   );
 };
-export default UserDropdownMenu;
+export default UserDropdown;

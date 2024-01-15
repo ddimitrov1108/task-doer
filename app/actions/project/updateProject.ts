@@ -1,14 +1,14 @@
 "use server";
 
-import { projectController } from "@/db";
+import projectController from "@/db/ProjectController";
 import { getUserFromServerSession } from "@/lib/auth";
-import { IProjectFormValues } from "@/lib/interfaces";
+import { ProjectFormValues } from "@/lib/interfaces";
 import { isUUID } from "@/lib/utils";
 import { revalidatePath } from "next/cache";
 
 export default async function updateProject(
   project_id: string,
-  values: IProjectFormValues
+  values: ProjectFormValues
 ) {
   const user = await getUserFromServerSession();
 

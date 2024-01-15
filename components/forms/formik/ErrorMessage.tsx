@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
 import { FormikErrors } from "formik";
 
-interface Props {
+type Props = {
   message?:
     | string
     | FormikErrors<any>
@@ -9,11 +9,9 @@ interface Props {
     | FormikErrors<any>[]
     | undefined;
   className?: string;
-}
+};
 
 const ErrorMessage = ({ message, className }: Props) => {
-  const errorMessage = Array.isArray(message) ? message[0] : message;
-
   return (
     <div
       className={cn(
@@ -21,7 +19,7 @@ const ErrorMessage = ({ message, className }: Props) => {
         className
       )}
     >
-      <>{errorMessage}</>
+      <>{Array.isArray(message) ? message[0] : message}</>
     </div>
   );
 };

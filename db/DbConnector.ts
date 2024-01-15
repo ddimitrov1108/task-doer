@@ -1,6 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 
-class DbConnector {
+export default class DbConnector {
   protected prisma: PrismaClient;
 
   constructor() {
@@ -14,5 +14,3 @@ class DbConnector {
     }
   }
 }
-
-export default DbConnector;

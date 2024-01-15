@@ -1,10 +1,14 @@
 "use client";
 
 import { useContext, useId } from "react";
-import { LabelContext } from "../providers";
-import { AddTaskButton } from "../task";
-import { Dropdown, DropdownListItem, ButtonIcon } from "../ui";
 import { MoreHorizontal, Pencil, Trash2 } from "lucide-react";
+import dynamic from "next/dynamic";
+import { LabelContext } from "../providers/LabelProvider";
+import AddTaskButton from "../task/AddTaskButton";
+import ButtonIcon from "../ui/ButtonIcon";
+
+const Dropdown = dynamic(() => import("../ui/Dropdown"))
+const DropdownListItem = dynamic(() => import("../ui/DropdownListItem"))
 
 const LabelInteractiveButtons = () => {
   const labelContext = useContext(LabelContext);
@@ -38,7 +42,7 @@ const LabelInteractiveButtons = () => {
 
       <Dropdown
         showChevron={false}
-        btn={
+        buttonContent={
           <ButtonIcon className="p-2 transition-all bg-black-main text-main">
             <MoreHorizontal size={20} />
           </ButtonIcon>

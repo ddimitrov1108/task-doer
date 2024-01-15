@@ -2,10 +2,10 @@
 
 import { cn } from "@/lib/utils";
 import { Switch } from "@headlessui/react";
-import { IFormInput } from "@/lib/interfaces";
-import { Label } from ".";
+import { FormInput } from "@/lib/interfaces";
+import Label from "./Label";
 
-type Props = IFormInput<boolean> & React.ComponentProps<"input">;
+type Props = FormInput<boolean> & React.ComponentProps<"input">;
 
 const CheckboxField = ({
   label = "",

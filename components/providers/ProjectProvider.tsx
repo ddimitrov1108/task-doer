@@ -1,26 +1,26 @@
 "use client";
 
-import { IProject } from "@/lib/interfaces";
+import { Project } from "@/lib/interfaces";
 import { createContext, useEffect, useState } from "react";
-import { DeleteConfirmationModal, ProjectModal } from "../modals";
-import { deleteProject } from "@/app/actions";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import ProjectModal from "../modals/ProjectModal";
+import DeleteConfirmationModal from "../modals/DeleteConfirmationModal";
 
 interface Props {
-  initValue: IProject;
+  initValue: Project;
   children: React.ReactNode;
 }
 
 export const ProjectContext = createContext<{
-  setProject: React.Dispatch<React.SetStateAction<IProject | undefined>>;
+  setProject: React.Dispatch<React.SetStateAction<Project | undefined>>;
   setOpenProjectModal: React.Dispatch<React.SetStateAction<boolean>>;
   setOpenDeleteModal: React.Dispatch<React.SetStateAction<boolean>>;
 } | null>(null);
 
 const ProjectProvider = ({ initValue, children }: Props) => {
   const router = useRouter();
-  const [project, setProject] = useState<IProject>();
+  const [project, setProject] = useState<Project>();
   const [openProjectModal, setOpenProjectModal] = useState<boolean>(false);
   const [openDeleteModal, setOpenDeleteModal] = useState<boolean>(false);
 
@@ -30,6 +30,7 @@ const ProjectProvider = ({ initValue, children }: Props) => {
       setOpenDeleteModal(false);
       return;
     }
+    const { deleteProject } = await import("@/app/actions");
 
     await deleteProject(project.id)
       .then(({ error }) => {
@@ -49,13 +50,7 @@ const ProjectProvider = ({ initValue, children }: Props) => {
   }, [initValue]);
 
   return (
-    <ProjectContext.Provider
-      value={{
-        setProject,
-        setOpenProjectModal,
-        setOpenDeleteModal,
-      }}
-    >
+    <>
       <ProjectModal
         open={openProjectModal}
         setOpen={setOpenProjectModal}
@@ -71,8 +66,16 @@ const ProjectProvider = ({ initValue, children }: Props) => {
         onSubmit={onDeleteProjectHandler}
       />
 
-      {children}
-    </ProjectContext.Provider>
+      <ProjectContext.Provider
+        value={{
+          setProject,
+          setOpenProjectModal,
+          setOpenDeleteModal,
+        }}
+      >
+        {children}
+      </ProjectContext.Provider>
+    </>
   );
 };
 export default ProjectProvider;

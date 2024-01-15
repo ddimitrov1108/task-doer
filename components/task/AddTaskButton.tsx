@@ -1,14 +1,13 @@
 "use client";
 
-import { MouseEventHandler } from "react";
-import { Button } from "../ui";
 import { cn } from "@/lib/utils";
 import { Plus } from "lucide-react";
+import Button from "../ui/Button";
 
 interface Props {
   className?: string;
   title?: string;
-  onClick?: MouseEventHandler<HTMLButtonElement> | undefined;
+  onClick?: React.MouseEventHandler<HTMLButtonElement> | undefined;
 }
 
 const AddTaskButton = ({ className, ...restProps }: Props) => {

@@ -2,9 +2,13 @@
 
 import { MoreHorizontal, Pencil, Trash2 } from "lucide-react";
 import { useContext, useId } from "react";
-import { AddTaskButton } from "../task";
-import { Dropdown, DropdownListItem, ButtonIcon } from "../ui";
-import { ProjectContext } from "../providers";
+import { ProjectContext } from "../providers/ProjectProvider";
+import AddTaskButton from "../task/AddTaskButton";
+import dynamic from "next/dynamic";
+import ButtonIcon from "../ui/ButtonIcon";
+
+const Dropdown = dynamic(() => import("../ui/Dropdown"))
+const DropdownListItem = dynamic(() => import("../ui/DropdownListItem"))
 
 const ProjectInteractiveButtons = () => {
   const projectContext = useContext(ProjectContext);
@@ -38,8 +42,8 @@ const ProjectInteractiveButtons = () => {
 
       <Dropdown
         showChevron={false}
-        btnClassName="p-0"
-        btn={
+        buttonClassName="p-0"
+        buttonContent={
           <ButtonIcon className="p-2 transition-all bg-black-main text-main">
             <MoreHorizontal size={20} />
           </ButtonIcon>

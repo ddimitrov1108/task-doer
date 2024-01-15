@@ -1,3 +1,5 @@
+import { getServerSession } from "next-auth";
+import authConfig from "@/lib/auth";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 
@@ -8,9 +10,7 @@ interface Props {
 const Logo = dynamic(() => import("@/components/ui/Logo"));
 
 const AuthLayout = async ({ children }: Props) => {
-  const session = await (
-    await import("next-auth")
-  ).getServerSession((await import("@/lib/auth")).authConfig);
+  const session = await getServerSession(authConfig);
 
   if (session) return (await import("next/navigation")).redirect("/todo");
 
@@ -33,6 +33,7 @@ const AuthLayout = async ({ children }: Props) => {
             height={1080}
             draggable={false}
             className="min-h-screen object-cover"
+            quality={75}
           />
         </div>
       </div>

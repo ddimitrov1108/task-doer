@@ -1,8 +1,10 @@
 "use client";
 
 import { X } from "lucide-react";
-import { Logo } from ".";
 import { cn } from "@/lib/utils";
+import dynamic from "next/dynamic";
+
+const Logo = dynamic(() => import("./Logo"), { loading: () => <span></span> });
 
 interface Props {
   title?: React.ReactNode;
@@ -27,12 +29,10 @@ const SideBar = ({
   headerClassName,
   bodyClassName,
 }: Props) => {
-  const onSideBarCloseHandler = () => setOpen(false);
-
   return (
     <div className="lg:hidden z-50 w-full h-full">
       <div
-        onClick={onSideBarCloseHandler}
+        onClick={() => setOpen(false)}
         className={cn(
           "z-50 transition-all fixed top-0 right-0 left-0 bottom-0 sm:backdrop-blur-sm sm:bg-containerBg/20",
           overlayClassName,
@@ -64,7 +64,7 @@ const SideBar = ({
                 tabIndex={0}
                 type="button"
                 className="grid items-center justify-center transition-all rounded-full outline-none text-gray-400 hover:text-slate-100 text-xl"
-                onClick={onSideBarCloseHandler}
+                onClick={() => setOpen(false)}
                 title="Close navigation"
               >
                 <X />

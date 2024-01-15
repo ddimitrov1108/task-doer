@@ -1,12 +1,14 @@
 "use client";
 
-import { INavList } from "@/lib/interfaces";
-import { LabelsNavList, NavLink, ProjectsNavList } from ".";
+import { NavList } from "@/lib/interfaces";
 import { CheckCheck, InfinityIcon, LandPlot, Star, Sun } from "lucide-react";
 import { v4 as uuidv4 } from "uuid";
+import ProjectsList from "./ProjectsList";
+import LabelsList from "./LabelsList";
+import NavigationLink from "./NavigationLink";
 
 interface Props {
-  navList: INavList;
+  navList: NavList;
   onNavElClick?: () => void;
 }
 
@@ -43,12 +45,12 @@ const taskLinks = [
   },
 ];
 
-const NavList = ({ navList, onNavElClick = () => {} }: Props) => {
+const NavigationList = ({ navList, onNavElClick = () => {} }: Props) => {
   return (
     <>
       <div className="grid gap-2">
         {taskLinks.map(({ id, name, icon, href }) => (
-          <NavLink
+          <NavigationLink
             key={id}
             href={href}
             title={name}
@@ -60,9 +62,9 @@ const NavList = ({ navList, onNavElClick = () => {} }: Props) => {
         ))}
       </div>
 
-      <ProjectsNavList projects={navList.projects} onNavElClick={onNavElClick} />
-      <LabelsNavList labels={navList.labels} onNavElClick={onNavElClick} />
+      <ProjectsList projects={navList.projects} onNavElClick={onNavElClick} />
+      <LabelsList labels={navList.labels} onNavElClick={onNavElClick} />
     </>
   );
 };
-export default NavList;
+export default NavigationList;

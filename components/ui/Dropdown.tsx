@@ -1,43 +1,43 @@
-"use client";
-
 import { cn } from "@/lib/utils";
 import { Menu, Transition } from "@headlessui/react";
 import { ChevronDown } from "lucide-react";
 import { Fragment } from "react";
 
 interface Props {
-  btn: React.ReactNode;
+  buttonContent?: React.ReactNode;
   children: React.ReactNode;
   className?: string;
-  btnClassName?: string;
+  buttonClassName?: string;
+  buttonEvents?: React.MouseEventHandler[];
   bodyClassName?: string;
   chevronClassName?: string;
   showChevron?: boolean;
 }
 
 const Dropdown = ({
-  btn,
+  buttonContent,
   className,
-  btnClassName,
+  buttonClassName,
   bodyClassName,
   chevronClassName,
   showChevron = true,
   children,
+  buttonEvents,
   ...restProps
 }: Props) => {
   return (
-    <Menu as="div" className={cn("", className)} {...restProps}>
+    <Menu as="div" className={className} {...restProps}>
       <Menu.Button
         as="div"
         className={cn(
           "cursor-pointer transition-all w-fit p-2 rounded-lg",
-          btnClassName
+          buttonClassName
         )}
-        onMouseUp={(e: React.MouseEvent) => e.stopPropagation()}
+        {...buttonEvents}
       >
         {({ open }) => (
-          <>
-            {btn}
+          <Fragment>
+            {buttonContent}
             {showChevron && (
               <div
                 className={cn(
@@ -49,7 +49,7 @@ const Dropdown = ({
                 <ChevronDown size={20} />
               </div>
             )}
-          </>
+          </Fragment>
         )}
       </Menu.Button>
 

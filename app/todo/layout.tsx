@@ -1,7 +1,9 @@
 import { getUserFromServerSession } from "@/lib/auth";
 import { redirect } from "next/navigation";
-import { HeaderNav, SideNav } from "@/components";
-import { labelController, projectController } from "@/db";
+import labelController from "@/db/LabelController";
+import projectController from "@/db/ProjectController";
+import HeaderNavigation from "@/components/navigation/HeaderNavigation";
+import SideNavigation from "@/components/navigation/SideNavigation";
 
 interface Props {
   children: React.ReactNode;
@@ -19,8 +21,8 @@ const TodoLayout = async ({ children }: Props) => {
 
   return (
     <div className="w-full flex">
-      <HeaderNav user={user} navList={{ projects, labels }} />
-      <SideNav user={user} navList={{ projects, labels }} />
+      <HeaderNavigation user={user} navList={{ projects, labels }} />
+      <SideNavigation user={user} navList={{ projects, labels }} />
 
       <div className="bg-black-dark h-full w-full mt-16 lg:mt-0 lg:ml-96 py-8 px-4 xxs:px-4 lg:px-8 xl:p-12">
         {children}

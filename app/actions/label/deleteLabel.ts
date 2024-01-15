@@ -1,6 +1,6 @@
 "use server";
 
-import { labelController } from "@/db";
+import labelController from "@/db/LabelController";
 import { getUserFromServerSession } from "@/lib/auth";
 import { isUUID } from "@/lib/utils";
 import { revalidatePath } from "next/cache";

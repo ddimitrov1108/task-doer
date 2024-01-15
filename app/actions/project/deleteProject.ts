@@ -1,6 +1,6 @@
 "use server";
 
-import { projectController } from "@/db";
+import projectController from "@/db/ProjectController";
 import { getUserFromServerSession } from "@/lib/auth";
 import { isUUID } from "@/lib/utils";
 import { revalidatePath } from "next/cache";
