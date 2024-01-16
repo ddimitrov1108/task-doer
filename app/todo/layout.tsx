@@ -1,7 +1,5 @@
 import { getUserFromServerSession } from "@/lib/auth";
 import { redirect } from "next/navigation";
-import labelController from "@/db/LabelController";
-import projectController from "@/db/ProjectController";
 import HeaderNavigation from "@/components/navigation/HeaderNavigation";
 import SideNavigation from "@/components/navigation/SideNavigation";
 
@@ -15,8 +13,8 @@ const TodoLayout = async ({ children }: Props) => {
   if (!user) return redirect("/");
 
   const [projects, labels] = await Promise.all([
-    projectController.getList(user.id),
-    labelController.getList(user.id),
+    (await import("@/db/ProjectController")).default.getList(user.id),
+    (await import("@/db/LabelController")).default.getList(user.id),
   ]);
 
   return (

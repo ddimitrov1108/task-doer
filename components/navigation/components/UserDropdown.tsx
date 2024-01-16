@@ -8,6 +8,15 @@ import { signOut } from "next-auth/react";
 import Dropdown from "@/components/ui/Dropdown";
 import DropdownListItem from "@/components/ui/DropdownListItem";
 
+const userLinks = [
+  {
+    id: uuidv4(),
+    name: "Settings",
+    icon: <UserRoundCog size={20} />,
+    href: "/account/settings",
+  },
+];
+
 interface Props {
   user: IUserData;
 }
@@ -32,14 +41,7 @@ const UserDropdown = ({ user }: Props) => {
       }
       chevronClassName="pr-0.5"
     >
-      {[
-        {
-          id: uuidv4(),
-          name: "Settings",
-          icon: <UserRoundCog size={20} />,
-          href: "/account/settings",
-        },
-      ].map((link) => (
+      {userLinks.map((link) => (
         <DropdownListItem
           key={link.id}
           as={Link}

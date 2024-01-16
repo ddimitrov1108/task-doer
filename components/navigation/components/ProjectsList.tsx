@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Plus } from "lucide-react";
-import { IProject } from "@/lib/interfaces";
+import { Project } from "@/lib/interfaces";
 import DisclousureContainer from "@/components/ui/DisclousureContainer";
 import NavLink from "./NavLink";
 import dynamic from "next/dynamic";
@@ -10,7 +10,7 @@ import dynamic from "next/dynamic";
 const ProjectModal = dynamic(() => import("@/components/modals/ProjectModal"));
 
 interface Props {
-  projects: IProject[];
+  projects: Project[];
   onNavElClick?: () => void;
 }
 

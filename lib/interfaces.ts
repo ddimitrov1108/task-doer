@@ -22,8 +22,8 @@ export interface IUserSession {
 }
 
 export interface INavList {
-  projects: IProject[];
-  labels: ILabel[];
+  projects: Project[];
+  labels: Label[];
 }
 
 export interface INavLink {
@@ -56,10 +56,10 @@ export interface IFormInput<T> {
   form: FormikProps<FormikValues>;
 }
 
-export interface IProject extends ProjectFormValues {
+export interface Project extends ProjectFormValues {
   id: string;
 }
 
-export interface ILabel extends LabelFormValues {
+export interface Label extends LabelFormValues {
   id: string;
 }
