@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Label } from "@/lib/interfaces";
+import { ILabel } from "@/lib/interfaces";
 import { AtSign, Plus } from "lucide-react";
 import DisclousureContainer from "@/components/ui/DisclousureContainer";
 import NavLink from "./NavLink";
@@ -10,24 +10,26 @@ import dynamic from "next/dynamic";
 const LabelModal = dynamic(() => import("@/components/modals/LabelModal"));
 
 interface Props {
-  labels: Label[];
+  labels: ILabel[];
   onNavElClick?: () => void;
 }
 
 const LabelsList = ({ labels, onNavElClick = () => {} }: Props) => {
   const [open, setOpen] = useState<boolean>(false);
 
+  const onAfterSubmitHandler = () => setOpen(false);
   const onClickHandler = (e: React.MouseEvent) => {
     e.preventDefault();
     onNavElClick();
     setOpen(true);
   };
+
   return (
     <>
       <LabelModal
         open={open}
         setOpen={setOpen}
-        afterSubmit={() => setOpen(false)}
+        afterSubmit={onAfterSubmitHandler}
       />
 
       <DisclousureContainer

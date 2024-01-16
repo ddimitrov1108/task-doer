@@ -1,4 +1,4 @@
-import { Label } from "@/lib/interfaces";
+import { ILabel } from "@/lib/interfaces";
 import DbConnector from "./DbConnector";
 import { LabelFormValues, labelFormSchema } from "@/lib/form-schemas";
 
@@ -31,7 +31,7 @@ class LabelController extends DbConnector {
     }
   }
 
-  public async getList(user_id: string): Promise<Label[]> {
+  public async getList(user_id: string): Promise<ILabel[]> {
     try {
       return await this.prisma.label.findMany({
         where: {
@@ -104,7 +104,7 @@ class LabelController extends DbConnector {
   public async create(
     user_id: string,
     newLabel: LabelFormValues
-  ): Promise<Label | null> {
+  ): Promise<ILabel | null> {
     try {
       return await this.prisma.label.create({
         data: {
@@ -119,7 +119,7 @@ class LabelController extends DbConnector {
     }
   }
 
-  public async update(user_id: string, label: Label): Promise<Label | null> {
+  public async update(user_id: string, label: ILabel): Promise<ILabel | null> {
     try {
       return await this.prisma.label.update({
         where: {
@@ -143,7 +143,7 @@ class LabelController extends DbConnector {
   public async delete(
     user_id: string,
     label_id: string
-  ): Promise<Label | null> {
+  ): Promise<ILabel | null> {
     try {
       const labelToDelete = await this.prisma.label.findFirst({
         where: {

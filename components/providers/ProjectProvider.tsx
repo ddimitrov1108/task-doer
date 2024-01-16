@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { ProjectContext } from "../context/ProjectContext";
-import { Project } from "@/lib/interfaces";
+import { IProject } from "@/lib/interfaces";
 import { useState } from "react";
 import { toast } from "sonner";
 import dynamic from "next/dynamic";
@@ -18,8 +18,7 @@ interface Props {
 
 const ProjectProvider = ({ children }: Props) => {
   const router = useRouter();
-  const [project, setProject] = useState<Project>();
-
+  const [project, setProject] = useState<IProject>();
   const [openEditModal, setOpenEditModal] = useState<boolean>(false);
   const [openDeleteModal, setOpenDeleteModal] = useState<boolean>(false);
 
