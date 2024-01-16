@@ -1,7 +1,8 @@
 import { FolderEdit, FolderPlus } from "lucide-react";
 import Modal from "../ui/Modal";
 import ProjectForm from "../forms/ProjectForm";
-import { IFormModal, IProjectFormValues } from "@/lib/interfaces";
+import { IFormModal } from "@/lib/interfaces";
+import { ProjectFormValues } from "@/lib/form-schemas";
 
 const ProjectModal = ({
   open,
@@ -9,7 +10,7 @@ const ProjectModal = ({
   editMode = false,
   initialState,
   afterSubmit,
-}: IFormModal<IProjectFormValues>) => {
+}: IFormModal<ProjectFormValues>) => {
   return (
     <Modal
       modalTitle={
