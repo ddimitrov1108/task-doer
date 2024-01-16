@@ -2,13 +2,13 @@
 
 import labelController from "@/db/LabelController";
 import { getUserFromServerSession } from "@/lib/auth";
-import { ILabelFormValues } from "@/lib/interfaces";
+import { LabelFormValues } from "@/lib/form-schemas";
 import { isUUID } from "@/lib/utils";
 import { revalidatePath } from "next/cache";
 
 export const updateLabel = async (
   label_id: string,
-  values: ILabelFormValues
+  values: LabelFormValues
 ) => {
   const user = await getUserFromServerSession();
 

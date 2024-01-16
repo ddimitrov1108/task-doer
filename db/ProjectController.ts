@@ -1,5 +1,5 @@
 import DbConnector from "./DbConnector";
-import { IProject, IProjectFormValues } from "@/lib/interfaces";
+import { Project } from "@/lib/interfaces";
 import { ProjectFormValues, projectFormSchema } from "@/lib/form-schemas";
 
 class ProjectController extends DbConnector {
@@ -11,7 +11,7 @@ class ProjectController extends DbConnector {
     return projectFormSchema.safeParse(project).success;
   }
 
-  public async getList(user_id: string): Promise<IProject[]> {
+  public async getList(user_id: string): Promise<Project[]> {
     try {
       return await this.prisma.project.findMany({
         where: {
@@ -80,8 +80,8 @@ class ProjectController extends DbConnector {
 
   public async create(
     user_id: string,
-    newProject: IProjectFormValues
-  ): Promise<IProject | null> {
+    newProject: ProjectFormValues
+  ): Promise<Project | null> {
     try {
       return await this.prisma.project.create({
         data: {
@@ -97,8 +97,8 @@ class ProjectController extends DbConnector {
 
   public async update(
     user_id: string,
-    project: IProject
-  ): Promise<IProject | null> {
+    project: Project
+  ): Promise<Project | null> {
     try {
       return await this.prisma.project.update({
         where: {
@@ -124,7 +124,7 @@ class ProjectController extends DbConnector {
   public async delete(
     user_id: string,
     project_id: string
-  ): Promise<IProject | null> {
+  ): Promise<Project | null> {
     try {
       const projectToDelete = await this.prisma.project.findUnique({
         where: {

@@ -2,13 +2,13 @@
 
 import projectController from "@/db/ProjectController";
 import { getUserFromServerSession } from "@/lib/auth";
-import { IProjectFormValues } from "@/lib/interfaces";
+import { ProjectFormValues } from "@/lib/form-schemas";
 import { isUUID } from "@/lib/utils";
 import { revalidatePath } from "next/cache";
 
 export const updateProject = async (
   project_id: string,
-  values: IProjectFormValues
+  values: ProjectFormValues
 ) => {
   const user = await getUserFromServerSession();
 

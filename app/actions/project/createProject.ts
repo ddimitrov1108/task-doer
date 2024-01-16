@@ -2,10 +2,10 @@
 
 import projectController from "@/db/ProjectController";
 import { getUserFromServerSession } from "@/lib/auth";
-import { IProjectFormValues } from "@/lib/interfaces";
+import { ProjectFormValues } from "@/lib/form-schemas";
 import { revalidatePath } from "next/cache";
 
-export const createProject = async (values: IProjectFormValues) => {
+export const createProject = async (values: ProjectFormValues) => {
   const user = await getUserFromServerSession();
 
   if (!user) return { error: "Unauthenticated" };
