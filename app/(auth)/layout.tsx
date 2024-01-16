@@ -27,7 +27,7 @@ const AuthLayout = async ({ children }: Props) => {
       <div className="fixed top-0 left-0 right-0 bottom-0 hidden lg:block">
         <div className="max-h-screen">
           <Image
-            src="/svg/auth-bg.svg"
+            src="/auth-bg.svg"
             width={1920}
             height={1080}
             alt="banner"

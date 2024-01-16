@@ -1,6 +1,6 @@
 import { NextRouteParams } from "@/lib/interfaces";
 
-const ProjectPage = async ({ params }: NextRouteParams) => {
-  return <div>{params?.id}</div>;
+const ProjectPage = ({ params }: NextRouteParams) => {
+  return <>{params?.id}</>;
 };
 export default ProjectPage;

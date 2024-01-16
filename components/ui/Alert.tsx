@@ -1,4 +1,4 @@
-import { AlertIconsVariants, AlertVariants, alert } from "../cva/alert";
+import { AlertVariants, alert } from "../cva/alert";
 import { AlertOctagon, AlertTriangle, CheckCircle, Info } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -8,7 +8,7 @@ interface Props {
   className?: string;
 }
 
-const getAlertVariantIcon = (variant: AlertIconsVariants) => {
+const getAlertVariantIcon = (variant: AlertVariants) => {
   switch (variant) {
     case "success":
       return <CheckCircle size={20} />;

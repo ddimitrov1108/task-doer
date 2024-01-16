@@ -6,7 +6,6 @@ import { X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import ButtonIcon from "./ButtonIcon";
 
-
 interface Props {
   open: boolean;
   setOpen: (
@@ -14,7 +13,6 @@ interface Props {
   ) => void | React.Dispatch<React.SetStateAction<boolean>>;
   modalTitle?: React.ReactNode;
   children: React.ReactNode;
-  showCloseBtn?: boolean;
   className?: string;
   headerClassName?: string;
   bodyClassName?: string;
@@ -25,7 +23,6 @@ const Modal = ({
   setOpen,
   modalTitle = "",
   children,
-  showCloseBtn = true,
   className,
   headerClassName,
   bodyClassName,
@@ -80,14 +77,14 @@ const Modal = ({
                 >
                   {modalTitle}
 
-                    <ButtonIcon
-                      type="button"
-                      tabIndex={0}
-                      onClick={onCloseClickHandler}
-                      className="text-xl"
-                    >
-                      <X />
-                    </ButtonIcon>
+                  <ButtonIcon
+                    type="button"
+                    tabIndex={0}
+                    onClick={onCloseClickHandler}
+                    className="text-xl"
+                  >
+                    <X />
+                  </ButtonIcon>
                 </Dialog.Title>
                 <div className={cn("mt-1", bodyClassName)}>{children}</div>
               </Dialog.Panel>

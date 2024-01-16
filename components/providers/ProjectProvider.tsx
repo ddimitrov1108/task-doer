@@ -29,6 +29,7 @@ const ProjectProvider = ({ children }: Props) => {
       setOpenDeleteModal(false);
       return;
     }
+
     const { deleteProject } = await import(
       "@/app/actions/project/deleteProject"
     );

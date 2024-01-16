@@ -29,8 +29,6 @@ const LabelForm = ({
   };
 
   const onSubmitHandler = async (values: LabelFormValues) => {
-    if (!values) return;
-
     setForm({ loading: true, error: "" });
 
     if (editMode) {

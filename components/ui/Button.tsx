@@ -1,9 +1,8 @@
 import { cn } from "@/lib/utils";
-import { ComponentProps } from "react";
 import { ButtonVariants, button } from "../cva/button";
 import Spinner from "./Spinner";
 
-interface Props extends ComponentProps<"button"> {
+interface Props extends React.ComponentProps<"button"> {
   variant?: ButtonVariants;
   size?: "sm" | "md" | "lg";
   fullWidth?: boolean;

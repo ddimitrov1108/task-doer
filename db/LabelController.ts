@@ -7,11 +7,11 @@ class LabelController extends DbConnector {
     super();
   }
 
-  private formatName(labelName: string): string {
+  private formatName(labelName: string) {
     return labelName.toLowerCase().replace(/\s+/g, "-");
   }
 
-  public validate(label: LabelFormValues): boolean {
+  public validate(label: LabelFormValues) {
     return labelFormSchema.safeParse(label).success;
   }
 

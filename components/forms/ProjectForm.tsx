@@ -31,8 +31,6 @@ const ProjectForm = ({
   };
 
   const onSubmitHandler = async (values: ProjectFormValues) => {
-    if (!values) return;
-
     setForm({ loading: true, error: "" });
 
     if (editMode) {

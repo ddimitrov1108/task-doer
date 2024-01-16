@@ -2,7 +2,6 @@
 
 import { useRouter } from "next/navigation";
 import useForm from "../hooks/useForm";
-import { SignInResponse } from "next-auth/react";
 import { Field, Form, Formik } from "formik";
 import { FormErrors, SignUpFormValues } from "@/lib/form-schemas";
 import Link from "next/link";
@@ -26,8 +25,6 @@ const SignUpForm = () => {
   };
 
   const onSubmitHandler = async (values: SignUpFormValues) => {
-    if (!values) return;
-
     setForm({ loading: true, error: "" });
     const { signIn } = await import("next-auth/react");
 
@@ -35,7 +32,7 @@ const SignUpForm = () => {
       ...values,
       redirect: false,
     })
-      .then((res: SignInResponse | undefined) => {
+      .then(async (res) => {
         if (res?.error) throw res.error;
         router.replace("/todo");
       })

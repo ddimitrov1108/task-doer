@@ -1,7 +1,6 @@
 import { cva } from "class-variance-authority";
 
 export type AlertVariants = "info" | "success" | "error" | "warning";
-export type AlertIconsVariants = "info" | "success" | "error" | "warning";
 
 export const alert = cva("div", {
   variants: {

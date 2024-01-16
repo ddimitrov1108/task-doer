@@ -7,7 +7,7 @@ class ProjectController extends DbConnector {
     super();
   }
 
-  public validate(project: ProjectFormValues): boolean {
+  public validate(project: ProjectFormValues) {
     return projectFormSchema.safeParse(project).success;
   }
 

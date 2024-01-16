@@ -30,15 +30,13 @@ const ProjectProvider = ({ children }: Props) => {
       return;
     }
 
-    const { deleteProject } = await import(
-      "@/app/actions/project/deleteProject"
-    );
+    const { deleteLabel } = await import("@/app/actions/label/deleteLabel");
 
-    await deleteProject(label.id)
+    await deleteLabel(label.id)
       .then(({ error }) => {
         if (error) throw error;
 
-        toast.success("Project deleted successfully!");
+        toast.success("Label deleted successfully!");
         setOpenDeleteModal(false);
         router.replace("/todo");
       })
@@ -58,7 +56,7 @@ const ProjectProvider = ({ children }: Props) => {
       />
 
       <DeleteConfirmationModal
-        message="Do you want to delete this project? All tasks will be deleted."
+        message="Do you want to delete this Label? It will be removed from all tasks."
         open={openDeleteModal}
         setOpen={setOpenDeleteModal}
         onSubmit={onAfterDeleteHandler}
