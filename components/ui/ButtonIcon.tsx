@@ -1,17 +1,28 @@
 import { cn } from "@/lib/utils";
 import { ComponentProps } from "react";
+import { ButtonIconVariants, button_icon } from "../cva/button-icon";
 import Spinner from "./Spinner";
 
 interface Props extends ComponentProps<"button"> {
+  variant?: ButtonIconVariants;
+  size?: "sm" | "md" | "lg";
   loading?: boolean;
 }
 
-const ButtonIcon = ({ children, loading, className, ...restProps }: Props) => {
+const ButtonIcon = ({
+  variant = "primary",
+  size = "md",
+  loading,
+  children,
+  className,
+  ...restProps
+}: Props) => {
   return (
     <button
       className={cn(
-        "text-main hover:text-white outline-none grid items-center justify-center p-1.5 transition-all rounded-full",
-        className
+        "outline-none grid items-center justify-center p-1.5 transition-all rounded-full",
+        className,
+        button_icon({ intent: variant, size: size })
       )}
       {...restProps}
     >
