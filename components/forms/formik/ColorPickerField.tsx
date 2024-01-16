@@ -2,10 +2,10 @@
 
 import { IFormInput } from "@/lib/interfaces";
 import { cn } from "@/lib/utils";
-import Label from "./Label";
+import FormLabel from "./FormLabel";
 import dynamic from "next/dynamic";
 
-const ErrorMessage = dynamic(() => import("./ErrorMessage"));
+const FormErrorMessage = dynamic(() => import("./FormErrorMessage"));
 
 const colorPickerColors = [
   "#b8255f",
@@ -43,7 +43,7 @@ const ColorPickerField = ({
 
   return (
     <div className={cn("mb-4", className, fullWidth ? "w-full" : "w-fit")}>
-      <Label className="pb-2" htmlFor={field.name} label={label} />
+      <FormLabel className="pb-2" htmlFor={field.name} label={label} />
 
       <div className="w-full flex flex-wrap gap-2">
         {colorPickerColors.map((color) => (
@@ -67,7 +67,7 @@ const ColorPickerField = ({
       </div>
 
       {errors[field.name] && touched[field.name] && (
-        <ErrorMessage message={errors[field.name]} />
+        <FormErrorMessage message={errors[field.name]} />
       )}
     </div>
   );

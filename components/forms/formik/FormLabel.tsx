@@ -6,11 +6,11 @@ type Props = {
   className?: string;
 };
 
-const Label = ({ label, htmlFor, className }: Props) => {
+const FormLabel = ({ label, htmlFor, className }: Props) => {
   return (
     <div className={cn("font-medium text-sm text-light min-w-fit", className)}>
       <label htmlFor={htmlFor}>{label}</label>
     </div>
   );
 };
-export default Label;
+export default FormLabel;

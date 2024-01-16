@@ -11,7 +11,7 @@ type Props = {
   className?: string;
 };
 
-const ErrorMessage = ({ message, className }: Props) => {
+const FormErrorMessage = ({ message, className }: Props) => {
   return (
     <div
       className={cn(
@@ -23,4 +23,4 @@ const ErrorMessage = ({ message, className }: Props) => {
     </div>
   );
 };
-export default ErrorMessage;
+export default FormErrorMessage;
