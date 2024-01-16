@@ -1,22 +1,29 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useForm } from "../hooks";
+import useForm from "../hooks/useForm";
 import { SignInResponse } from "next-auth/react";
-import { SignUpFormValues } from "@/lib/interfaces";
 import { Field, Form, Formik } from "formik";
-import { registerSchema } from "@/lib/yup-schemas";
+import { FormErrors, SignUpFormValues } from "@/lib/form-schemas";
 import Link from "next/link";
 import TextField from "./formik/TextField";
 import PasswordField from "./formik/PasswordField";
 import Button from "../ui/Button";
-import dynamic from "next/dynamic"
+import dynamic from "next/dynamic";
 
 const Alert = dynamic(() => import("../ui/Alert"));
 
 const SignUpForm = () => {
   const router = useRouter();
   const [form, setForm] = useForm();
+
+  const onValidateHandler = async (values: SignUpFormValues) => {
+    try {
+      (await import("@/lib/form-schemas")).signUpFormSchema.parse(values);
+    } catch (error) {
+      if (error instanceof FormErrors) return error.formErrors.fieldErrors;
+    }
+  };
 
   const onSubmitHandler = async (values: SignUpFormValues) => {
     if (!values) return;
@@ -44,7 +51,7 @@ const SignUpForm = () => {
         password: "",
         confirmPassword: "",
       }}
-      validationSchema={registerSchema}
+      validate={onValidateHandler}
       onSubmit={onSubmitHandler}
     >
       <Form>

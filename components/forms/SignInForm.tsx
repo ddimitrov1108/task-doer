@@ -1,11 +1,10 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useForm } from "../hooks";
+import useForm from "../hooks/useForm";
 import { SignInResponse } from "next-auth/react";
-import { SignInFormValues } from "@/lib/interfaces";
 import { Field, Form, Formik } from "formik";
-import { loginSchema } from "@/lib/yup-schemas";
+import { FormErrors, SignInFormValues } from "@/lib/form-schemas";
 import Link from "next/link";
 import TextField from "./formik/TextField";
 import PasswordField from "./formik/PasswordField";
@@ -17,6 +16,14 @@ const Alert = dynamic(() => import("../ui/Alert"));
 const SignInForm = () => {
   const router = useRouter();
   const [form, setForm] = useForm();
+
+  const onValidateHandler = async (values: SignInFormValues) => {
+    try {
+      (await import("@/lib/form-schemas")).signInFormSchema.parse(values);
+    } catch (error) {
+      if (error instanceof FormErrors) return error.formErrors.fieldErrors;
+    }
+  };
 
   const onSubmitHandler = async (values: SignInFormValues) => {
     if (!values) return;
@@ -38,7 +45,7 @@ const SignInForm = () => {
   return (
     <Formik
       initialValues={{ email: "", password: "" }}
-      validationSchema={loginSchema}
+      validate={onValidateHandler}
       onSubmit={onSubmitHandler}
     >
       <Form>

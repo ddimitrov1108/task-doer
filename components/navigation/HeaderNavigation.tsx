@@ -1,21 +1,21 @@
 "use client";
 
-import { NavList, UserData } from "@/lib/interfaces";
-import { useSideBarState } from "../hooks";
+import { INavList, IUserData } from "@/lib/interfaces";
+import useSideBarState from "../hooks/useSideBarState";
 import { AlignRight } from "lucide-react";
 import dynamic from "next/dynamic";
 import ButtonIcon from "../ui/ButtonIcon";
+import UserDropdown from "./components/UserDropdown";
+import NavigationList from "./NavigationList";
 
+const SideBar = dynamic(() => import("../ui/SideBar"));
 const Logo = dynamic(() => import("../ui/Logo"), {
   loading: () => <span></span>,
 });
 
-const SideBar = dynamic(() => import("../ui/SideBar"));
-const UserDropdown = dynamic(() => import("./components/UserDropdown"));
-
 interface Props {
-  user: UserData;
-  navList: NavList;
+  user: IUserData;
+  navList: INavList;
 }
 
 const HeaderNavigation = ({ user, navList }: Props) => {
@@ -33,6 +33,7 @@ const HeaderNavigation = ({ user, navList }: Props) => {
         bodyClassName="w-full grid gap-4 px-4 py-4 bg-inherit"
       >
         <UserDropdown user={user} />
+        <NavigationList navList={navList} />
       </SideBar>
 
       <ButtonIcon

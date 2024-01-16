@@ -1,10 +1,10 @@
-import { NavList, UserData } from "@/lib/interfaces";
+import { INavList, IUserData } from "@/lib/interfaces";
 import UserDropdown from "./components/UserDropdown";
-import NavigationList from "./components/NavigationList";
+import NavigationList from "./NavigationList";
 
 interface Props {
-  user: UserData;
-  navList: NavList;
+  user: IUserData;
+  navList: INavList;
 }
 
 const SideNavigation = ({ user, navList }: Props) => {

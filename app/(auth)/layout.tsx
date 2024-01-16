@@ -1,13 +1,13 @@
-import { getServerSession } from "next-auth";
 import authConfig from "@/lib/auth";
+import { getServerSession } from "next-auth";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 
-interface Props {
-  children: React.ReactNode;
-}
-
 const Logo = dynamic(() => import("@/components/ui/Logo"));
+
+type Props = {
+  children: React.ReactNode;
+};
 
 const AuthLayout = async ({ children }: Props) => {
   const session = await getServerSession(authConfig);
@@ -27,13 +27,12 @@ const AuthLayout = async ({ children }: Props) => {
       <div className="fixed top-0 left-0 right-0 bottom-0 hidden lg:block">
         <div className="max-h-screen">
           <Image
-            src="/auth-bg.svg"
-            alt="banner"
+            src="/svg/auth-bg.svg"
             width={1920}
             height={1080}
+            alt="banner"
             draggable={false}
             className="min-h-screen object-cover"
-            quality={75}
           />
         </div>
       </div>

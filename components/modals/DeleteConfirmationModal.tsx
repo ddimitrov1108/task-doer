@@ -1,14 +1,13 @@
 "use client";
 
-import { Dispatch, FormEvent, SetStateAction } from "react";
 import Modal from "../ui/Modal";
 import Button from "../ui/Button";
-import { useForm } from "../hooks";
+import useForm from "../hooks/useForm";
 import { AlertTriangle } from "lucide-react";
 
 interface Props {
   open: boolean;
-  setOpen: Dispatch<SetStateAction<boolean>>;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   message: string;
   onSubmit: () => Promise<void> | void;
 }
@@ -21,7 +20,7 @@ const DeleteConfirmationModal = ({
 }: Props) => {
   const [form, setForm] = useForm();
 
-  const onSubmitHandler = async (e: FormEvent) => {
+  const onSubmitHandler = async (e: React.FormEvent) => {
     e.preventDefault();
     setForm({ ...form, loading: true });
     await onSubmit();

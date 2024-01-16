@@ -1,13 +1,13 @@
 "use client";
 
-import { FormInput } from "@/lib/interfaces";
+import { IFormInput } from "@/lib/interfaces";
 import { cn } from "@/lib/utils";
 import Label from "./Label";
 import dynamic from "next/dynamic";
 
 const ErrorMessage = dynamic(() => import("./ErrorMessage"));
 
-const colorPickerColors: string[] = [
+const colorPickerColors = [
   "#b8255f",
   "#db4035",
   "#ff9933",
@@ -37,7 +37,7 @@ const ColorPickerField = ({
   form: { setFieldValue, touched, errors },
   fullWidth,
   disabled,
-}: FormInput<string>) => {
+}: IFormInput<string>) => {
   const onClickHandler = (e: React.MouseEvent<HTMLButtonElement>) =>
     setFieldValue(field.name, e.currentTarget.value);
 

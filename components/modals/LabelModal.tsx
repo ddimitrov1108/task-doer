@@ -1,4 +1,4 @@
-import { FormModal, LabelFormValues } from "@/lib/interfaces";
+import { IFormModal, ILabelFormValues } from "@/lib/interfaces";
 import { AtSign } from "lucide-react";
 import LabelForm from "../forms/LabelForm";
 import Modal from "../ui/Modal";
@@ -9,7 +9,7 @@ const LabelModal = ({
   editMode = false,
   initialState,
   afterSubmit,
-}: FormModal<LabelFormValues>) => {
+}: IFormModal<ILabelFormValues>) => {
   return (
     <Modal
       modalTitle={

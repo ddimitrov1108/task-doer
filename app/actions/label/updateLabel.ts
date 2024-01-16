@@ -2,14 +2,14 @@
 
 import labelController from "@/db/LabelController";
 import { getUserFromServerSession } from "@/lib/auth";
-import { LabelFormValues } from "@/lib/interfaces";
+import { ILabelFormValues } from "@/lib/interfaces";
 import { isUUID } from "@/lib/utils";
 import { revalidatePath } from "next/cache";
 
-export default async function updateLabel(
+export const updateLabel = async (
   label_id: string,
-  values: LabelFormValues
-) {
+  values: ILabelFormValues
+) => {
   const user = await getUserFromServerSession();
 
   if (!user) return { error: "Unauthenticated" };
@@ -34,4 +34,4 @@ export default async function updateLabel(
     console.error(e);
     return { error: "Something went wrong. Please try again later" };
   }
-}
+};

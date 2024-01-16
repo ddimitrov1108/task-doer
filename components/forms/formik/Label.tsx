@@ -1,10 +1,10 @@
 import { cn } from "@/lib/utils";
 
-interface Props {
+type Props = {
   label: string;
   htmlFor?: string;
   className?: string;
-}
+};
 
 const Label = ({ label, htmlFor, className }: Props) => {
   return (

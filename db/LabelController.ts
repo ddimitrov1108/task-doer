@@ -1,11 +1,6 @@
-import { Label, LabelDetails, LabelFormValues } from "@/lib/interfaces";
+import { ILabel, ILabelFormValues } from "@/lib/interfaces";
 import DbConnector from "./DbConnector";
-import { sectionNameRegex } from "@/lib/regex";
-import { z } from "zod";
-
-type ValidateLabelValues = {
-  name: string | null | undefined;
-};
+import { LabelFormValues, labelFormSchema } from "@/lib/form-schemas";
 
 class LabelController extends DbConnector {
   constructor() {
@@ -16,14 +11,8 @@ class LabelController extends DbConnector {
     return labelName.toLowerCase().replace(/\s+/g, "-");
   }
 
-  public validate(label: ValidateLabelValues): boolean {
-    const schema = z
-      .object({
-        name: z.string().regex(sectionNameRegex),
-      })
-      .safeParse(label);
-
-    return schema.success;
+  public validate(label: LabelFormValues): boolean {
+    return labelFormSchema.safeParse(label).success;
   }
 
   public async exists(user_id: string, labelName: string): Promise<boolean> {
@@ -42,7 +31,7 @@ class LabelController extends DbConnector {
     }
   }
 
-  public async getList(user_id: string): Promise<Label[]> {
+  public async getList(user_id: string): Promise<ILabel[]> {
     try {
       return await this.prisma.label.findMany({
         where: {
@@ -59,10 +48,7 @@ class LabelController extends DbConnector {
     }
   }
 
-  public async get(
-    user_id: string,
-    label_id: string
-  ): Promise<LabelDetails | null> {
+  public async get(user_id: string, label_id: string) {
     try {
       const label = await this.prisma.label.findFirst({
         where: {
@@ -117,8 +103,8 @@ class LabelController extends DbConnector {
 
   public async create(
     user_id: string,
-    newLabel: LabelFormValues
-  ): Promise<Label | null> {
+    newLabel: ILabelFormValues
+  ): Promise<ILabel | null> {
     try {
       return await this.prisma.label.create({
         data: {
@@ -133,7 +119,7 @@ class LabelController extends DbConnector {
     }
   }
 
-  public async update(user_id: string, label: Label): Promise<Label | null> {
+  public async update(user_id: string, label: ILabel): Promise<ILabel | null> {
     try {
       return await this.prisma.label.update({
         where: {
@@ -157,7 +143,7 @@ class LabelController extends DbConnector {
   public async delete(
     user_id: string,
     label_id: string
-  ): Promise<Label | null> {
+  ): Promise<ILabel | null> {
     try {
       const labelToDelete = await this.prisma.label.findFirst({
         where: {

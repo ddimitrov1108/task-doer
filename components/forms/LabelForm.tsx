@@ -1,18 +1,16 @@
 "use client";
 
 import { useParams } from "next/navigation";
-import { useForm } from "../hooks";
-import { toast } from "sonner";
+import useForm from "../hooks/useForm";
 import { Field, Form, Formik } from "formik";
-import { labelSchema } from "@/lib/yup-schemas";
-import { IForm, LabelFormValues } from "@/lib/interfaces";
+import { FormErrors, LabelFormValues } from "@/lib/form-schemas";
+import { toast } from "sonner";
+import { IForm } from "@/lib/interfaces";
 import Button from "../ui/Button";
 import TextField from "./formik/TextField";
 import dynamic from "next/dynamic";
 
 const Alert = dynamic(() => import("../ui/Alert"));
-
-const initialValues: LabelFormValues = { name: "" };
 
 const LabelForm = ({
   initialState,
@@ -22,13 +20,21 @@ const LabelForm = ({
   const params = useParams();
   const [form, setForm] = useForm();
 
+  const onValidateHandler = async (values: LabelFormValues) => {
+    try {
+      (await import("@/lib/form-schemas")).labelFormSchema.parse(values);
+    } catch (error) {
+      if (error instanceof FormErrors) return error.formErrors.fieldErrors;
+    }
+  };
+
   const onSubmitHandler = async (values: LabelFormValues) => {
     if (!values) return;
 
     setForm({ loading: true, error: "" });
 
     if (editMode) {
-      const { updateLabel } = await import("@/app/actions");
+      const { updateLabel } = await import("@/app/actions/label/updateLabel");
 
       await updateLabel(params.id.toString(), values)
         .then(({ error }) => {
@@ -42,7 +48,7 @@ const LabelForm = ({
           setForm({ ...form, error: e, loading: false });
         });
     } else {
-      const { createLabel } = await import("@/app/actions");
+      const { createLabel } = await import("@/app/actions/label/createLabel");
 
       await createLabel(values)
         .then(({ error }) => {
@@ -60,8 +66,8 @@ const LabelForm = ({
 
   return (
     <Formik
-      initialValues={initialState || initialValues}
-      validationSchema={labelSchema}
+      initialValues={initialState || { name: "" }}
+      validate={onValidateHandler}
       onSubmit={onSubmitHandler}
     >
       <Form>

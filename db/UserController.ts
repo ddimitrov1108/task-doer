@@ -1,8 +1,11 @@
+import {
+  SignInFormValues,
+  SignUpFormValues,
+  signInFormSchema,
+  signUpFormSchema,
+} from "@/lib/form-schemas";
 import DbConnector from "./DbConnector";
-import { SignInFormValues, SignUpFormValues } from "@/lib/interfaces";
-import { emailRegex, nameRegex, passwordRegex } from "@/lib/regex";
 import bcryptjs from "bcryptjs";
-import { z } from "zod";
 
 type NewUser = {
   first_name: string;
@@ -17,27 +20,11 @@ class UserController extends DbConnector {
   }
 
   public validateSignIn(values: SignInFormValues) {
-    return z
-      .object({
-        email: z.string().regex(emailRegex),
-        password: z.string().regex(passwordRegex),
-      })
-      .safeParse(values).success;
+    return signInFormSchema.safeParse(values).success;
   }
 
   public validateSignUp(values: SignUpFormValues) {
-    return (
-      values?.password === values?.confirmPassword &&
-      z
-        .object({
-          first_name: z.string().regex(nameRegex),
-          last_name: z.string().regex(nameRegex),
-          email: z.string().regex(emailRegex),
-          password: z.string().regex(passwordRegex),
-          confirmPassword: z.string().regex(passwordRegex),
-        })
-        .safeParse(values).success
-    );
+    return signUpFormSchema.safeParse(values).success;
   }
 
   public async exists(email: string) {

@@ -2,24 +2,20 @@
 
 import { useState } from "react";
 import { Plus } from "lucide-react";
-import { Project } from "@/lib/interfaces";
-import ProjectModal from "@/components/modals/ProjectModal";
+import { IProject } from "@/lib/interfaces";
 import DisclousureContainer from "@/components/ui/DisclousureContainer";
-import NavLink from "./NavigationLink";
+import NavLink from "./NavLink";
+import dynamic from "next/dynamic";
+
+const ProjectModal = dynamic(() => import("@/components/modals/ProjectModal"));
 
 interface Props {
-  projects: Project[];
+  projects: IProject[];
   onNavElClick?: () => void;
 }
 
 const ProjectsList = ({ projects, onNavElClick = () => {} }: Props) => {
   const [open, setOpen] = useState<boolean>(false);
-
-  const onClickHandler = (e: React.MouseEvent) => {
-    e.preventDefault();
-    onNavElClick();
-    setOpen(true);
-  };
 
   return (
     <>
@@ -34,7 +30,11 @@ const ProjectsList = ({ projects, onNavElClick = () => {} }: Props) => {
         appendToTitle={
           <button
             className="text-xl text-main hover:text-primary-main"
-            onClick={onClickHandler}
+            onClick={(e: React.MouseEvent) => {
+              e.preventDefault();
+              onNavElClick();
+              setOpen(true);
+            }}
           >
             <Plus size={20} />
           </button>

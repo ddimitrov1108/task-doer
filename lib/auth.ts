@@ -1,8 +1,8 @@
 import { NextAuthOptions, getServerSession } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { UserSession } from "./interfaces";
-import bcryptjs from "bcryptjs";
 import userController from "@/db/UserController";
+import { IUserSession } from "./interfaces";
+import bcryptjs from "bcryptjs";
 
 const authConfig: NextAuthOptions = {
   pages: {
@@ -120,7 +120,7 @@ const authConfig: NextAuthOptions = {
 export default authConfig;
 
 export const getUserFromServerSession = async () => {
-  const session = await getServerSession<NextAuthOptions, UserSession>(
+  const session = await getServerSession<NextAuthOptions, IUserSession>(
     authConfig
   );
 

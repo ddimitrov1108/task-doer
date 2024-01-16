@@ -26,6 +26,7 @@ const Providers = ({ children }: Props) => {
           },
         }}
       />
+      
       {children}
     </SessionProvider>
   );

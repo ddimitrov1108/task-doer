@@ -4,9 +4,8 @@ import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 import { X } from "lucide-react";
 import { cn } from "@/lib/utils";
-import dynamic from "next/dynamic";
+import ButtonIcon from "./ButtonIcon";
 
-const ButtonIcon = dynamic(() => import("./ButtonIcon"));
 
 interface Props {
   open: boolean;
@@ -81,7 +80,6 @@ const Modal = ({
                 >
                   {modalTitle}
 
-                  {showCloseBtn && (
                     <ButtonIcon
                       type="button"
                       tabIndex={0}
@@ -90,7 +88,6 @@ const Modal = ({
                     >
                       <X />
                     </ButtonIcon>
-                  )}
                 </Dialog.Title>
                 <div className={cn("mt-1", bodyClassName)}>{children}</div>
               </Dialog.Panel>

@@ -1,19 +1,17 @@
 "use client";
 
 import { useParams, useRouter } from "next/navigation";
-import { useForm } from "../hooks";
+import useForm from "../hooks/useForm";
 import { Field, Form, Formik } from "formik";
-import { projectSchema } from "@/lib/yup-schemas";
+import { FormErrors, ProjectFormValues } from "@/lib/form-schemas";
 import { toast } from "sonner";
-import { IForm, ProjectFormValues } from "@/lib/interfaces";
+import { IForm } from "@/lib/interfaces";
 import Button from "../ui/Button";
 import TextField from "./formik/TextField";
 import ColorPickerField from "./formik/ColorPickerField";
 import dynamic from "next/dynamic";
 
 const Alert = dynamic(() => import("../ui/Alert"));
-
-const initialValues: ProjectFormValues = { name: "", color: "#b8255f" };
 
 const ProjectForm = ({
   initialState,
@@ -24,13 +22,23 @@ const ProjectForm = ({
   const router = useRouter();
   const [form, setForm] = useForm();
 
+  const onValidateHandler = async (values: ProjectFormValues) => {
+    try {
+      (await import("@/lib/form-schemas")).projectFormSchema.parse(values);
+    } catch (error) {
+      if (error instanceof FormErrors) return error.formErrors.fieldErrors;
+    }
+  };
+
   const onSubmitHandler = async (values: ProjectFormValues) => {
     if (!values) return;
 
     setForm({ loading: true, error: "" });
 
     if (editMode) {
-      const { updateProject } = await import("@/app/actions");
+      const { updateProject } = await import(
+        "@/app/actions/project/updateProject"
+      );
 
       await updateProject(params.id.toString(), values)
         .then(({ error }) => {
@@ -41,7 +49,9 @@ const ProjectForm = ({
         })
         .catch((e: string) => setForm({ loading: false, error: e }));
     } else {
-      const { createProject } = await import("@/app/actions");
+      const { createProject } = await import(
+        "@/app/actions/project/createProject"
+      );
 
       await createProject(values)
         .then(({ error, href }) => {
@@ -60,8 +70,8 @@ const ProjectForm = ({
 
   return (
     <Formik
-      initialValues={initialState || initialValues}
-      validationSchema={projectSchema}
+      initialValues={initialState || { name: "", color: "#b8255f" }}
+      validate={onValidateHandler}
       onSubmit={onSubmitHandler}
     >
       <Form>

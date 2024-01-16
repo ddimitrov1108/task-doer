@@ -1,14 +1,16 @@
 "use client";
 
-import { Label } from "@/lib/interfaces";
 import { useState } from "react";
+import { ILabel } from "@/lib/interfaces";
 import { AtSign, Plus } from "lucide-react";
-import LabelModal from "@/components/modals/LabelModal";
 import DisclousureContainer from "@/components/ui/DisclousureContainer";
-import NavLink from "./NavigationLink";
+import NavLink from "./NavLink";
+import dynamic from "next/dynamic";
+
+const LabelModal = dynamic(() => import("@/components/modals/LabelModal"));
 
 interface Props {
-  labels: Label[];
+  labels: ILabel[];
   onNavElClick?: () => void;
 }
 

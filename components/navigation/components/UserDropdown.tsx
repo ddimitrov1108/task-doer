@@ -1,6 +1,6 @@
 "use client";
 
-import { UserData } from "@/lib/interfaces";
+import { IUserData } from "@/lib/interfaces";
 import { LogOut, UserRound, UserRoundCog } from "lucide-react";
 import { v4 as uuidv4 } from "uuid";
 import Link from "next/link";
@@ -9,7 +9,7 @@ import Dropdown from "@/components/ui/Dropdown";
 import DropdownListItem from "@/components/ui/DropdownListItem";
 
 interface Props {
-  user: UserData;
+  user: IUserData;
 }
 
 const UserDropdown = ({ user }: Props) => {

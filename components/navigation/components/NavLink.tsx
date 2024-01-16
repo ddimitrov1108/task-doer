@@ -1,8 +1,6 @@
-"use client";
-
 import { cn } from "@/lib/utils";
-import Link from "next/link";
 import { usePathname } from "next/navigation";
+import Link from "next/link";
 
 interface Props {
   href: string;
@@ -13,7 +11,7 @@ interface Props {
   onClick?: React.MouseEventHandler;
 }
 
-const NavigationLink = ({
+const NavLink = ({
   href,
   text,
   appendIcon,
@@ -39,4 +37,4 @@ const NavigationLink = ({
     </Link>
   );
 };
-export default NavigationLink;
+export default NavLink;
