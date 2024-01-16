@@ -1,8 +1,5 @@
 import { cva } from "class-variance-authority";
 
-export type ButtonSizes = "sm" | "md" | "lg";
-export type ButtonLoadingAnimationColor = "text-primary-main" | "text-white";
-
 export type ButtonVariants =
   | "primary"
   | "secondary"
@@ -40,7 +37,12 @@ export const button = cva("button", {
         "hover:bg-error-dark",
         "hover:border-error-dark",
       ],
-      text: ["text-primary-main", "bg-inherit", "border-transparent", "hover:bg-primary-main/10"],
+      text: [
+        "text-primary-main",
+        "bg-inherit",
+        "border-transparent",
+        "hover:bg-primary-main/10",
+      ],
     },
     size: {
       sm: ["py-1", "px-2"],
