@@ -1,4 +1,11 @@
 import { FieldInputProps, FormikProps, FormikValues } from "formik";
+import { LabelFormValues, ProjectFormValues } from "./form-schemas";
+
+export interface NextRouteParams {
+  params: {
+    id: string | null | undefined;
+  };
+}
 
 export interface IUserData {
   id: string;
@@ -49,19 +56,10 @@ export interface IFormInput<T> {
   form: FormikProps<FormikValues>;
 }
 
-export interface IProjectFormValues {
-  name: string;
-  color: string;
-}
-
-export interface ILabelFormValues {
-  name: string;
-}
-
-export interface IProject extends IProjectFormValues {
+export interface IProject extends ProjectFormValues {
   id: string;
 }
 
-export interface ILabel extends ILabelFormValues {
+export interface ILabel extends LabelFormValues {
   id: string;
 }

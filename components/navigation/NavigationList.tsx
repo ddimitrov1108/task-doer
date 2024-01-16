@@ -7,6 +7,39 @@ import { CheckCheck, InfinityIcon, LandPlot, Star, Sun } from "lucide-react";
 import NavLink from "./components/NavLink";
 import { v4 as uuidv4 } from "uuid";
 
+const navLinks = [
+  {
+    id: uuidv4(),
+    name: "My Day",
+    icon: <Sun size={20} />,
+    href: "/todo",
+  },
+  {
+    id: uuidv4(),
+    name: "Important",
+    icon: <Star size={20} />,
+    href: "/todo/important",
+  },
+  {
+    id: uuidv4(),
+    name: "Planned",
+    icon: <LandPlot size={20} />,
+    href: "/todo/planned",
+  },
+  {
+    id: uuidv4(),
+    name: "Completed",
+    icon: <CheckCheck size={20} />,
+    href: "/todo/completed",
+  },
+  {
+    id: uuidv4(),
+    name: "All",
+    icon: <InfinityIcon size={20} />,
+    href: "/todo/all",
+  },
+];
+
 interface Props {
   navList: INavList;
   onNavElClick?: () => void;
@@ -16,38 +49,7 @@ const NavigationList = ({ navList, onNavElClick = () => {} }: Props) => {
   return (
     <>
       <div className="grid gap-2">
-        {[
-          {
-            id: uuidv4(),
-            name: "My Day",
-            icon: <Sun size={20} />,
-            href: "/todo",
-          },
-          {
-            id: uuidv4(),
-            name: "Important",
-            icon: <Star size={20} />,
-            href: "/todo/important",
-          },
-          {
-            id: uuidv4(),
-            name: "Planned",
-            icon: <LandPlot size={20} />,
-            href: "/todo/planned",
-          },
-          {
-            id: uuidv4(),
-            name: "Completed",
-            icon: <CheckCheck size={20} />,
-            href: "/todo/completed",
-          },
-          {
-            id: uuidv4(),
-            name: "All",
-            icon: <InfinityIcon size={20} />,
-            href: "/todo/all",
-          },
-        ].map(({ id, name, icon, href }) => (
+        {navLinks.map(({ id, name, icon, href }) => (
           <NavLink
             key={id}
             href={href}

@@ -103,7 +103,6 @@ export const taskFormSchema = z.object({
       })
     )
     .default([])
-    .nullable(),
 });
 
 export type SignInFormValues = z.infer<typeof signInFormSchema>;
