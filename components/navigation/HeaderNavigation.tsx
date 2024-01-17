@@ -33,7 +33,7 @@ const HeaderNavigation = ({ user, navList }: Props) => {
         bodyClassName="w-full grid gap-4 px-4 py-4 bg-inherit"
       >
         <UserDropdown user={user} />
-        <NavigationList navList={navList} />
+        <NavigationList navList={navList} onNavElClick={() => setOpen(false)} />
       </SideBar>
 
       <ButtonIcon

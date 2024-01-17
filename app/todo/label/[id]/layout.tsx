@@ -18,8 +18,6 @@ const LabelLayout = async ({ children, params }: Props) => {
   const label = await (
     await import("@/db/LabelController")
   ).default.get(user.id, params.id);
-  
-  console.log(label);
 
   return <LabelProvider>{children}</LabelProvider>;
 };
