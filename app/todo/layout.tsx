@@ -6,7 +6,7 @@ interface Props {
   children: React.ReactNode;
 }
 
-const TodoLayout = async ({ children }: Props) => {
+const TodoLayout = async ({ children, modal }: Props) => {
   const user = await getUserFromServerSession();
 
   if (!user) return (await import("next/navigation")).redirect("/");
