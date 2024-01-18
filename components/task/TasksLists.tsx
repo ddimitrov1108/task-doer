@@ -56,6 +56,7 @@ const TasksLists = ({ tasks }: Props) => {
           <ListOfTasks listTitle="Past Due Tasks" tasks={pastDueTasks} />
           <ListOfTasks listTitle="Important Tasks" tasks={importantTasks} />
           <ListOfTasks listTitle="Active Tasks" tasks={activeTasks} />
+          <ListOfTasks listTitle="Completed Tasks" tasks={completedTasks} />
         </>
       )}
     </div>
