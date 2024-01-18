@@ -38,7 +38,7 @@ const Task = ({ task }: Props) => {
   return (
     <div
       onClick={onClickHandler}
-      className="p-2 transition-all cursor-pointer group flex gap-4 items-start bg-black-main border border-transparent border-b-black-light/20 last:border-b-transparent first:rounded-t-md last:rounded-b-md"
+      className="p-2.5 transition-all cursor-pointer group flex gap-4 items-start bg-black-main border border-transparent border-b-black-light/20 last:border-b-transparent first:rounded-t-md last:rounded-b-md"
     >
       <button
         onClick={onCompletedHandler}
