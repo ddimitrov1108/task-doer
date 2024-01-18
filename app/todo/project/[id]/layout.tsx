@@ -1,11 +1,15 @@
 import ProjectProvider from "@/components/providers/ProjectProvider";
-import { NextRouteParams } from "@/lib/interfaces";
+import TaskProvider from "@/components/providers/TaskProvider";
 
-interface Props extends NextRouteParams {
+interface Props {
   children: React.ReactNode;
 }
 
 const ProjectLayout = async ({ children }: Props) => {
-  return <ProjectProvider>{children}</ProjectProvider>;
+  return (
+    <ProjectProvider>
+      <TaskProvider>{children}</TaskProvider>
+    </ProjectProvider>
+  );
 };
 export default ProjectLayout;

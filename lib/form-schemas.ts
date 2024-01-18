@@ -95,6 +95,7 @@ export const taskFormSchema = z.object({
     .nullable(),
   due_date: z.date({ required_error: "Field is required" }),
   important: z.boolean().default(false),
+  completed: z.boolean().default(false),
   labels: z
     .array(
       z.object({
