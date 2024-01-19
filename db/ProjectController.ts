@@ -22,6 +22,7 @@ class ProjectController extends DbConnector {
           name: true,
           color: true,
         },
+        orderBy: [{ name: "asc" }],
       });
     } catch (e) {
       console.error(e);

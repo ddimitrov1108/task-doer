@@ -6,6 +6,7 @@ import { MoreVertical, Pencil, Trash2 } from "lucide-react";
 import Dropdown from "../ui/Dropdown";
 import DropdownListItem from "../ui/DropdownListItem";
 import { ITask } from "@/lib/interfaces";
+import ButtonIcon from "../ui/ButtonIcon";
 
 interface Props {
   task: ITask;
@@ -44,9 +45,9 @@ const TaskInteractiveButtons = ({ task }: Props) => {
       showChevron={false}
       buttonClassName="p-0"
       buttonContent={
-        <button className="transition-all min-w-fit min-h-fit p-0.5 text-main hover:text-light">
+        <ButtonIcon className="transition-all min-w-fit min-h-fit p-0.5 text-main hover:text-light">
           <MoreVertical size={20} />
-        </button>
+        </ButtonIcon>
       }
     >
       {taskInteractions.map(

@@ -41,6 +41,7 @@ class LabelController extends DbConnector {
           id: true,
           name: true,
         },
+        orderBy: [{ name: "asc" }],
       });
     } catch (e) {
       console.error(e);

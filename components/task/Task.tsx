@@ -9,19 +9,21 @@ import { ITask } from "@/lib/interfaces";
 import Link from "next/link";
 import Chip from "../ui/Chip";
 import TaskInteractiveButtons from "../interactive-buttons/TaskInteractiveButtons";
+import ButtonIcon from "../ui/ButtonIcon";
 
 interface Props {
   task: ITask;
 }
 
+const getDueDateText = (due_date: Date): string => {
+  if (isToday(due_date)) return "Today";
+  if (isTomorrow(due_date)) return "Tomorrow";
+  return format(due_date, "EEE, d MMM, yy", { locale: enUS });
+};
+
 const Task = ({ task }: Props) => {
   const isPastDue = isPast(task.due_date);
-
-  const getDueDateText = () => {
-    if (isToday(task.due_date)) return "Today";
-    if (isTomorrow(task.due_date)) return "Tomorrow";
-    return format(task.due_date, "EEE, d MMM, yy", { locale: enUS });
-  };
+  const dueDate = getDueDateText(task.due_date);
 
   const onClickHandler = (e: MouseEvent) => {
     alert(1);
@@ -40,17 +42,17 @@ const Task = ({ task }: Props) => {
       onClick={onClickHandler}
       className="p-2.5 transition-all cursor-pointer group flex gap-4 items-start bg-black-main border border-transparent border-b-black-light/20 last:border-b-transparent first:rounded-t-md last:rounded-b-md"
     >
-      <button
+      <ButtonIcon
         onClick={onCompletedHandler}
         className={cn(
-          "transition-all min-w-fit min-h-fit p-1 border border-black-light/40 rounded-full",
+          "p-1 min-w-fit min-h-fit border border-black-light/40 rounded-full",
           task.completed
             ? "border-success-main bg-success-main/20 text-success-main"
             : "text-black-main hover:text-success-main hover:border-black-light"
         )}
       >
         <Check size={16} />
-      </button>
+      </ButtonIcon>
 
       <div className="w-full grid gap-1">
         <div className="grid">
@@ -70,7 +72,7 @@ const Task = ({ task }: Props) => {
                 isPastDue ? "text-error-main" : "text-primary-main"
               )}
             >
-              {getDueDateText()}
+              {dueDate}
             </div>
             {task.description && (
               <>
@@ -97,7 +99,7 @@ const Task = ({ task }: Props) => {
       </div>
 
       <div className="flex items-start gap-1">
-        <button
+        <ButtonIcon
           onClick={onImportantHandler}
           className={cn(
             "transition-all min-w-fit min-h-fit p-0.5",
@@ -105,7 +107,7 @@ const Task = ({ task }: Props) => {
           )}
         >
           <Star size={20} />
-        </button>
+        </ButtonIcon>
 
         <div
           onClick={(e: React.MouseEvent) => {
