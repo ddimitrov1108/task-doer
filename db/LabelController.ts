@@ -82,6 +82,11 @@ class LabelController extends DbConnector {
                 },
               },
             },
+            orderBy: {
+              task: {
+                due_date: "asc",
+              },
+            },
           },
         },
       });

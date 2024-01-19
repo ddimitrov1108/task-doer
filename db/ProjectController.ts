@@ -60,11 +60,14 @@ class ProjectController extends DbConnector {
                 },
               },
             },
+            orderBy: [{ due_date: "asc" }],
           },
         },
       });
 
       if (!project) return null;
+
+      console.log(project.tasks);
 
       return {
         ...project,
