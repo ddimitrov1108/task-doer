@@ -17,14 +17,12 @@ export const updateLabel = async (
   if (!labelController.validate(values)) return { error: "Invalid fields" };
 
   try {
-    const updatedLabel = await labelController.update(user.id, {
+    await labelController.update(user.id, {
       id: label_id,
       name: values.name,
     });
 
-    if (!updatedLabel) throw new Error("Failed to update label");
-
-    revalidatePath(`/todo/label/${updatedLabel.id}`, "page");
+    revalidatePath(`/todo/label/[id]`, "page");
     return {};
   } catch (e) {
     console.error(e);

@@ -17,15 +17,13 @@ export const updateProject = async (
   if (!projectController.validate(values)) return { error: "Invalid fields" };
 
   try {
-    const updatedProject = await projectController.update(user.id, {
+    await projectController.update(user.id, {
       id: project_id,
       name: values.name,
       color: values.color,
     });
 
-    if (!updatedProject) throw new Error("Failed to update project");
-
-    revalidatePath(`/todo/project/${updatedProject.id}`, "page");
+    revalidatePath(`/todo/project/[id]`, "page");
     return {};
   } catch (e) {
     console.error(e);
