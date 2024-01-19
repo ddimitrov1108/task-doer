@@ -1,4 +1,5 @@
 import PageTitle from "@/components/ui/PageTitle";
+import labelController from "@/db/LabelController";
 import { getUserFromServerSession } from "@/lib/auth";
 import { NextRouteParams } from "@/lib/interfaces";
 import { isUUID } from "@/lib/utils";
@@ -18,9 +19,7 @@ const LabelPage = async ({ params }: NextRouteParams) => {
 
   if (!user) return redirect("/");
 
-  const label = await (
-    await import("@/db/LabelController")
-  ).default.get(user.id, params.id);
+  const label = await labelController.get(user.id, params.id);
 
   if (!label) return notFound();
 

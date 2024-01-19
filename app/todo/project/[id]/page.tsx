@@ -1,4 +1,5 @@
 import PageTitle from "@/components/ui/PageTitle";
+import projectController from "@/db/ProjectController";
 import { getUserFromServerSession } from "@/lib/auth";
 import { NextRouteParams } from "@/lib/interfaces";
 import { isUUID } from "@/lib/utils";
@@ -17,9 +18,7 @@ const ProjectPage = async ({ params }: NextRouteParams) => {
 
   if (!user) return redirect("/");
 
-  const project = await (
-    await import("@/db/ProjectController")
-  ).default.get(user.id, params.id);
+  const project = await projectController.get(user.id, params.id);
 
   if (!project) return notFound();
 

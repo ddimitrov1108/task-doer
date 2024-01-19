@@ -27,4 +27,3 @@ const AddTaskButton = ({ className, ...restProps }: Props) => {
   );
 };
 export default AddTaskButton;
-// onClick={() => taskContext.setOpenNewTaskModal(true)}

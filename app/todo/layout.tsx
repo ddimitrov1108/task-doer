@@ -1,6 +1,10 @@
 import { getUserFromServerSession } from "@/lib/auth";
 import HeaderNavigation from "@/components/navigation/HeaderNavigation";
 import SideNavigation from "@/components/navigation/SideNavigation";
+import TaskProvider from "@/components/providers/TaskProvider";
+import { redirect } from "next/navigation";
+import projectController from "@/db/ProjectController";
+import labelController from "@/db/LabelController";
 
 interface Props {
   children: React.ReactNode;
@@ -9,11 +13,11 @@ interface Props {
 const TodoLayout = async ({ children }: Props) => {
   const user = await getUserFromServerSession();
 
-  if (!user) return (await import("next/navigation")).redirect("/");
+  if (!user) return redirect("/");
 
   const [projects, labels] = await Promise.all([
-    (await import("@/db/ProjectController")).default.getList(user.id),
-    (await import("@/db/LabelController")).default.getList(user.id),
+    projectController.getList(user.id),
+    labelController.getList(user.id),
   ]);
 
   return (
@@ -22,7 +26,7 @@ const TodoLayout = async ({ children }: Props) => {
       <SideNavigation user={user} navList={{ projects, labels }} />
 
       <div className="bg-black-dark h-full w-full mt-16 lg:mt-0 lg:ml-96 py-8 px-4 xxs:px-4 lg:px-8 xl:p-12">
-        {children}
+        <TaskProvider>{children}</TaskProvider>
       </div>
     </div>
   );

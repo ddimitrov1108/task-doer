@@ -46,7 +46,7 @@ const TasksLists = ({ tasks }: Props) => {
         <EmptyTasksStatus />
       ) : !pastDueTasks.length &&
         !importantTasks.length &&
-        !activeTasks.length ? (
+        !activeTasks.length && completedTasks.length ? (
         <>
           <CompletedTasksStatus />
           <ListOfTasks listTitle="Completed Tasks" tasks={completedTasks} />
