@@ -7,7 +7,6 @@ import { LabelContext } from "../context/LabelContext";
 import { ILabel } from "@/lib/interfaces";
 import Dropdown from "../ui/Dropdown";
 import DropdownListItem from "../ui/DropdownListItem";
-import AddTaskButton from "../task/AddTaskButton";
 
 interface Props {
   label: ILabel;
@@ -46,8 +45,6 @@ const LabelInteractiveButtons = ({ label }: Props) => {
 
   return (
     <div className="min-w-full md:min-w-fit flex items-center justify-between gap-1">
-      <AddTaskButton />
-
       <Dropdown
         showChevron={false}
         buttonContent={

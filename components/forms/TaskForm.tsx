@@ -9,6 +9,7 @@ import TextareaField from "./formik/TextareaField";
 import CheckboxField from "./formik/CheckboxField";
 import dynamic from "next/dynamic";
 import useForm from "../hooks/useForm";
+import { useParams } from "next/navigation";
 
 const Alert = dynamic(() => import("../ui/Alert"));
 
@@ -31,9 +32,14 @@ const initialValues: TaskFormValues = {
 };
 
 const TaskForm = ({ initialState, editMode = false, afterSubmit }: Props) => {
+  const params = useParams();
+  console.log(params);
   const [form, setForm] = useForm();
 
-  const onSubmitHandler = async (values: TaskFormValues) => {};
+  const onSubmitHandler = async (values: TaskFormValues) => {
+    console.log(values);
+    setForm({...form, loading: true, })
+  };
 
   return (
     <Formik
