@@ -10,7 +10,7 @@ const NotFoundTasksStatus = () => {
           width={128}
           height={128}
           alt="tasks-notfound.svg"
-          className="w-24 h-24 lg:w-32 lg:h-32 mx-auto"
+          className="w-24 h-24 lg:w-32 lg:h-32 mx-auto mb-3"
         />
 
         <p className="text-center text-main">
