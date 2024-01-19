@@ -14,13 +14,11 @@ export const updateTask = async (task_id: string, values: TaskFormValues) => {
   if (!taskController.validate(values)) return { error: "Invalid fields" };
 
   try {
-    const updatedTask = await taskController.update(user.id, {
+    await taskController.update(user.id, {
       ...values,
       id: task_id,
       due_date: new Date(values.due_date),
     });
-
-    if (!updatedTask) throw new Error("Failed to update task");
 
     revalidatePath("/todo");
     return {};

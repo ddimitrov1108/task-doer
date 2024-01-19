@@ -25,8 +25,7 @@ export const updateProject = async (
 
     if (!updatedProject) throw new Error("Failed to update project");
 
-    revalidatePath("/todo/project/[id]", "page");
-
+    revalidatePath(`/todo/project/${updatedProject.id}`, "page");
     return {};
   } catch (e) {
     console.error(e);

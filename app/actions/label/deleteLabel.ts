@@ -12,12 +12,8 @@ export const deleteLabel = async (label_id: string) => {
   if (!isUUID(label_id)) return { error: "Bad Request" };
 
   try {
-    const deletedLabel = await labelController.delete(user.id, label_id);
-
-    if (!deletedLabel) throw new Error("Failed to delete label");
-
-    revalidatePath("/todo/label/[id]", "page");
-
+    await labelController.delete(user.id, label_id);
+    revalidatePath("/todo");
     return {};
   } catch (e) {
     console.error(e);

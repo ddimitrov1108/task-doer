@@ -23,7 +23,6 @@ export const createTask = async (
 
     if (project_id) revalidatePath(`/todo/project/${project_id}`, "page");
     else revalidatePath("/todo");
-
     return {};
   } catch (e) {
     console.error(e);

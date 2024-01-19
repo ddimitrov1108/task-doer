@@ -24,8 +24,7 @@ export const updateLabel = async (
 
     if (!updatedLabel) throw new Error("Failed to update label");
 
-    revalidatePath("/todo/label/[id]", "page");
-
+    revalidatePath(`/todo/label/${updatedLabel.id}`, "page");
     return {};
   } catch (e) {
     console.error(e);

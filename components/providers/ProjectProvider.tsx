@@ -25,7 +25,7 @@ const ProjectProvider = ({ children }: Props) => {
   const onAfterEditHandler = () => setOpenEditModal(false);
   const onAfterDeleteHandler = async () => {
     if (!project) {
-      toast.success("Something went wrong. Please try again later");
+      toast.error("Something went wrong. Please try again later");
       setOpenDeleteModal(false);
       return;
     }

@@ -8,6 +8,7 @@ import { cn } from "@/lib/utils";
 import { format } from "date-fns";
 import { toast } from "sonner";
 import useSound from "../hooks/useSound";
+import { useRouter } from "next/navigation";
 
 const TaskModal = dynamic(() => import("../modals/TaskModal"));
 const DeleteConfirmationModal = dynamic(
@@ -19,6 +20,7 @@ interface Props {
 }
 
 const TaskProvider = ({ children }: Props) => {
+  const router = useRouter();
   const [isPlaying, playSound, stopSound] = useSound("/task-completed.wav");
   const [task, setTask] = useState<ITask>();
   const [taskModal, setTaskModal] = useState<{
@@ -61,7 +63,25 @@ const TaskProvider = ({ children }: Props) => {
   };
 
   const onDeleteTaskHandler = async () => {
-    setOpenDeleteModal(true);
+    if (!task) {
+      toast.error("Something went wrong. Please try again later");
+      setOpenDeleteModal(false);
+      return;
+    }
+
+    const { deleteTask } = await import("@/app/actions/task/deleteTask");
+
+    await deleteTask(task.id)
+      .then(({ error }) => {
+        if (error) throw error;
+
+        toast.success("Project deleted successfully!");
+        setOpenDeleteModal(false);
+        router.replace("/todo");
+      })
+      .catch((e: string) => {
+        console.error(e);
+      });
   };
 
   return (

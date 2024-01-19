@@ -13,10 +13,7 @@ export const setTaskImportant = async (task_id: string, important: boolean) => {
   if (typeof important != "boolean") return { error: "Invalid fields" };
 
   try {
-    const task = await taskController.setImportant(user.id, task_id, important);
-
-    if (!task) throw new Error("Failed to update completed status");
-
+    await taskController.setImportant(user.id, task_id, important);
     revalidatePath("/todo");
     return {};
   } catch (e) {

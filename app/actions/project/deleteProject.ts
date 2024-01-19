@@ -12,12 +12,8 @@ export const deleteProject = async (project_id: string) => {
   if (!isUUID(project_id)) return { error: "Bad Request" };
 
   try {
-    const deletedProject = await projectController.delete(user.id, project_id);
-
-    if (!deletedProject) throw new Error("Failed to delete project");
-
-    revalidatePath("/todo/project/[id]", "page");
-
+    await projectController.delete(user.id, project_id);
+    revalidatePath("/todo");
     return {};
   } catch (e) {
     console.error(e);

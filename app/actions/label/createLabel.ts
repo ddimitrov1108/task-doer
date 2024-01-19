@@ -13,12 +13,7 @@ export const createLabel = async (values: LabelFormValues) => {
   if (!labelController.validate(values)) return { error: "Invalid fields" };
 
   try {
-    const label = await labelController.create(user.id, {
-      name: values.name,
-    });
-
-    if (!label) throw new Error("Label failed to create");
-
+    await labelController.create(user.id, { name: values.name });
     revalidatePath("/todo");
     return {};
   } catch (e) {
