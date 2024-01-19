@@ -1,6 +1,8 @@
 import { ITask } from "@/lib/interfaces";
 import DisclousureContainer from "../ui/DisclousureContainer";
-import Task from "./Task";
+import dynamic from "next/dynamic";
+
+const Task = dynamic(() => import("./Task"));
 
 interface Props {
   listTitle: string;

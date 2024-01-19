@@ -1,18 +1,22 @@
 import { ITask } from "@/lib/interfaces";
 import { isFuture, isPast, isToday } from "date-fns";
-import ListOfTasks from "./ListOfTasks";
 import dynamic from "next/dynamic";
 
 const CompletedTasksStatus = dynamic(
   () => import("./status/CompletedTasksStatus")
 );
-const NotFoundTasksStatus = dynamic(() => import("./status/NotFoundTasksStatus"));
+const NotFoundTasksStatus = dynamic(
+  () => import("./status/NotFoundTasksStatus")
+);
+const ListOfTasks = dynamic(() => import("./ListOfTasks"));
 
 interface Props {
   tasks: ITask[];
 }
 
 const TasksLists = ({ tasks }: Props) => {
+  if (!tasks.length) return <NotFoundTasksStatus />;
+
   const pastDueTasks = tasks.filter(
     (e) => !e.completed && isPast(e.due_date) && !isToday(e.due_date)
   );
@@ -35,12 +39,10 @@ const TasksLists = ({ tasks }: Props) => {
 
   return (
     <div className="grid gap-6">
-      {!tasks.length ? (
-        <NotFoundTasksStatus />
-      ) : !pastDueTasks.length &&
-        !importantTasks.length &&
-        !activeTasks.length &&
-        completedTasks.length ? (
+      {!pastDueTasks.length &&
+      !importantTasks.length &&
+      !activeTasks.length &&
+      completedTasks.length ? (
         <>
           <CompletedTasksStatus />
           <ListOfTasks listTitle="Completed Tasks" tasks={completedTasks} />

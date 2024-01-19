@@ -4,12 +4,13 @@ import { cn } from "@/lib/utils";
 import { format, isPast, isToday, isTomorrow } from "date-fns";
 import { enUS } from "date-fns/locale";
 import { AtSign, Check, Star, ReceiptText } from "lucide-react";
-import React, { MouseEvent } from "react";
+import { MouseEvent, useContext } from "react";
 import { ITask } from "@/lib/interfaces";
 import Link from "next/link";
 import Chip from "../ui/Chip";
 import TaskInteractiveButtons from "../interactive-buttons/TaskInteractiveButtons";
 import ButtonIcon from "../ui/ButtonIcon";
+import { TaskContext } from "../context/TaskContext";
 
 interface Props {
   task: ITask;
@@ -22,19 +23,23 @@ const getDueDateText = (due_date: Date): string => {
 };
 
 const Task = ({ task }: Props) => {
+  const taskContext = useContext(TaskContext);
+
   const isPastDue = isPast(task.due_date);
   const dueDate = getDueDateText(task.due_date);
 
-  const onClickHandler = (e: MouseEvent) => {
+  const onClickHandler = (e: React.MouseEvent) => {
     alert(1);
   };
 
-  const onCompletedHandler = (e: MouseEvent) => {
+  const onCompletedHandler = (e: React.MouseEvent) => {
     e.stopPropagation();
+    taskContext?.setCompleted(task.id, !task.completed);
   };
 
-  const onImportantHandler = (e: MouseEvent) => {
+  const onImportantHandler = (e: React.MouseEvent) => {
     e.stopPropagation();
+    taskContext?.setImportant(task.id, !task.important);
   };
 
   return (
