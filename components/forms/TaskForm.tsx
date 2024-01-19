@@ -12,22 +12,19 @@ import useForm from "../hooks/useForm";
 import { useParams } from "next/navigation";
 import { toast } from "sonner";
 import { format } from "date-fns";
+import { useContext } from "react";
+import { TaskContext } from "../context/TaskContext";
 
 const Alert = dynamic(() => import("../ui/Alert"));
 
 interface Props {
   initialState?: TaskFormValues | null;
-  task_id?: string | null;
   editMode?: boolean;
   afterSubmit: () => void;
 }
 
-const TaskForm = ({
-  initialState,
-  task_id = null,
-  editMode = false,
-  afterSubmit,
-}: Props) => {
+const TaskForm = ({ initialState, editMode = false, afterSubmit }: Props) => {
+  const taskContext = useContext(TaskContext);
   const params = useParams();
   const [form, setForm] = useForm();
 
@@ -43,15 +40,18 @@ const TaskForm = ({
     setForm({ loading: true, error: "" });
 
     if (editMode) {
-      if (!task_id) {
-        setForm({ loading: false, error: "Something went wrong. Please try again later" });
+      if (!taskContext?.task) {
+        setForm({
+          loading: false,
+          error: "Something went wrong. Please try again later",
+        });
         return;
       }
 
       const updateTask = (await import("@/app/actions/task/updateTask"))
         .default;
 
-      await updateTask(task_id, values)
+      await updateTask(taskContext.task.id, values)
         .then(({ error }) => {
           if (error) throw error;
 

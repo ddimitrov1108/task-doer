@@ -49,7 +49,6 @@ const TaskProvider = ({ children }: Props) => {
       />
 
       <TaskModal
-        task_id={taskModal.editMode ? task?.id : null}
         open={taskModal.open}
         setOpen={() => setTaskModal({ ...taskModal, open: false })}
         initialState={
@@ -67,6 +66,7 @@ const TaskProvider = ({ children }: Props) => {
 
       <TaskContext.Provider
         value={{
+          task,
           setTask,
           setTaskModal,
           setOpenDeleteModal,
