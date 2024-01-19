@@ -2,7 +2,6 @@ import { FieldInputProps, FormikProps, FormikValues } from "formik";
 import {
   LabelFormValues,
   ProjectFormValues,
-  TaskFormValues,
 } from "./form-schemas";
 
 export interface NextRouteParams {
@@ -68,6 +67,15 @@ export interface ILabel extends LabelFormValues {
   id: string;
 }
 
-export interface ITask extends TaskFormValues {
+export interface ITask {
   id: string;
+  name: string;
+  description: string | null;
+  due_date: Date;
+  important: boolean;
+  completed: boolean;
+  labels: {
+    name: string;
+    id: string;
+  }[];
 }

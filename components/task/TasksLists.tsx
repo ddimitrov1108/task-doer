@@ -6,7 +6,7 @@ import dynamic from "next/dynamic";
 const CompletedTasksStatus = dynamic(
   () => import("./status/CompletedTasksStatus")
 );
-const EmptyTasksStatus = dynamic(() => import("./status/EmptyTasksStatus"));
+const NotFoundTasksStatus = dynamic(() => import("./status/NotFoundTasksStatus"));
 
 interface Props {
   tasks: ITask[];
@@ -36,7 +36,7 @@ const TasksLists = ({ tasks }: Props) => {
   return (
     <div className="grid gap-6">
       {!tasks.length ? (
-        <EmptyTasksStatus />
+        <NotFoundTasksStatus />
       ) : !pastDueTasks.length &&
         !importantTasks.length &&
         !activeTasks.length &&

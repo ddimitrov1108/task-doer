@@ -5,15 +5,12 @@ import { getUserFromServerSession } from "@/lib/auth";
 import { LabelFormValues } from "@/lib/form-schemas";
 import { revalidatePath } from "next/cache";
 
-export const createLabel = async (values: LabelFormValues) => {
+export default async function createLabel(values: LabelFormValues) {
   const user = await getUserFromServerSession();
 
   if (!user) return { error: "Unauthenticated" };
-  if (!values) return { error: "Invalid fields" };
-
-  const isFormDataValid = labelController.validate(values);
-
-  if (!isFormDataValid) return { error: "Invalid fields" };
+  if (!values) return { error: "Bad Request" };
+  if (!labelController.validate(values)) return { error: "Invalid fields" };
 
   try {
     const label = await labelController.create(user.id, {
@@ -28,4 +25,4 @@ export const createLabel = async (values: LabelFormValues) => {
     console.error(e);
     return { error: "Something went wrong. Please try again later" };
   }
-};
+}

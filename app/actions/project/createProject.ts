@@ -5,15 +5,12 @@ import { getUserFromServerSession } from "@/lib/auth";
 import { ProjectFormValues } from "@/lib/form-schemas";
 import { revalidatePath } from "next/cache";
 
-export const createProject = async (values: ProjectFormValues) => {
+export default async function createProject(values: ProjectFormValues) {
   const user = await getUserFromServerSession();
 
   if (!user) return { error: "Unauthenticated" };
-  if (!values) return { error: "Invalid fields" };
-
-  const isFormDataValid = projectController.validate(values);
-
-  if (!isFormDataValid) return { error: "Invalid fields" };
+  if (!values) return { error: "Bad Request" };
+  if (!projectController.validate(values)) return { error: "Invalid fields" };
 
   try {
     const project = await projectController.create(user.id, {
@@ -29,4 +26,4 @@ export const createProject = async (values: ProjectFormValues) => {
     console.error(e);
     return { error: "Something went wrong. Please try again later" };
   }
-};
+}

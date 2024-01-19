@@ -4,13 +4,16 @@ import TaskForm from "../forms/TaskForm";
 import Modal from "../ui/Modal";
 import { FilePen, FilePlus2 } from "lucide-react";
 
+type ITaskFormModal = { task_id?: string | null } & IFormModal<TaskFormValues>;
+
 const TaskModal = ({
   open,
   setOpen,
   editMode = false,
   initialState,
   afterSubmit,
-}: IFormModal<TaskFormValues>) => {
+  task_id,
+}: ITaskFormModal) => {
   return (
     <Modal
       modalTitle={
@@ -27,6 +30,7 @@ const TaskModal = ({
       bodyClassName="pt-4"
     >
       <TaskForm
+        task_id={task_id}
         editMode={editMode}
         initialState={initialState}
         afterSubmit={afterSubmit}

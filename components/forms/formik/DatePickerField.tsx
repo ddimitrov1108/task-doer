@@ -8,28 +8,18 @@ const FormErrorMessage = dynamic(() => import("./FormErrorMessage"));
 
 type Props = IFormInput<string> & React.ComponentProps<"input">;
 
-const tryFormatDate = (value: Date) => {
-  try {
-    if (isValid(value)) {
-      return format(value, "dd/MM/yyyy");
-    } else {
-      format(new Date(), "dd/MM/yyyy");
-    }
-  } catch (error) {
-    return format(new Date(), "dd/MM/yyyy");
-  }
-};
-
 const DatePickerField = ({
   label = "",
   type = "date",
   className,
   field,
-  form: { touched, errors },
+  form: { setFieldValue, touched, errors },
   fullWidth,
   ...restProps
 }: Props) => {
-  const formattedDate = format(field.value || new Date(), "dd/MM/yyyy");
+  const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFieldValue(field.name, format(new Date(e.target.value), "yyyy-MM-dd"));
+  };
 
   return (
     <div className={cn("mb-4 min-h-fit", fullWidth ? "w-full" : "w-fit")}>
@@ -37,7 +27,7 @@ const DatePickerField = ({
 
       <input
         type="date"
-        placeholder={formattedDate}
+        placeholder={format(new Date(field.value) || new Date(), "dd/MM/yyyy")}
         className={cn(
           "bg-black-dark border outline-none px-4 py-2.5 rounded-lg w-full",
           className,
@@ -47,6 +37,7 @@ const DatePickerField = ({
         )}
         {...field}
         {...restProps}
+        onChange={onChangeHandler}
       />
 
       {errors[field.name] && touched[field.name] && (

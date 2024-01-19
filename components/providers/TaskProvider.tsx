@@ -5,6 +5,7 @@ import { useState } from "react";
 import { TaskContext } from "../context/TaskContext";
 import dynamic from "next/dynamic";
 import { cn } from "@/lib/utils";
+import { format } from "date-fns";
 
 const TaskModal = dynamic(() => import("../modals/TaskModal"));
 const DeleteConfirmationModal = dynamic(
@@ -40,21 +41,30 @@ const TaskProvider = ({ children }: Props) => {
 
   return (
     <>
-      <TaskModal
-        open={taskModal.open}
-        setOpen={() => setTaskModal({ ...taskModal, open: false })}
-        initialState={taskModal.editMode ? task : undefined}
-        editMode={taskModal.editMode}
-        afterSubmit={() => setTaskModal({ ...taskModal, open: false })}
-      />
-
       <DeleteConfirmationModal
         message={`Are you sure you want to delete "${task?.name}"?`}
         open={openDeleteModal}
         setOpen={setOpenDeleteModal}
         onSubmit={onDeleteTaskHandler}
       />
-      
+
+      <TaskModal
+        task_id={taskModal.editMode ? task?.id : null}
+        open={taskModal.open}
+        setOpen={() => setTaskModal({ ...taskModal, open: false })}
+        initialState={
+          taskModal.editMode && task
+            ? {
+                ...task,
+                due_date: format(new Date(task.due_date), "yyyy-MM-dd"),
+                description: task.description || null,
+              }
+            : undefined
+        }
+        editMode={taskModal.editMode}
+        afterSubmit={() => setTaskModal({ ...taskModal, open: false })}
+      />
+
       <TaskContext.Provider
         value={{
           setTask,

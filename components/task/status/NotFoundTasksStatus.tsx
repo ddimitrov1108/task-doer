@@ -1,16 +1,16 @@
 import Image from "next/image";
 import AddTaskButton from "../AddTaskButton";
 
-const EmptyTasksStatus = () => {
+const NotFoundTasksStatus = () => {
   return (
     <div className="py-24 lg:py-40 grid justify-center items-center gap-4">
       <div>
         <Image
           src="/tasks-notfound.svg"
-          width={192}
-          height={192}
+          width={128}
+          height={128}
           alt="tasks-notfound.svg"
-          className="w-24 h-24 lg:w-48 lg:h-48 mx-auto"
+          className="w-24 h-24 lg:w-32 lg:h-32 mx-auto"
         />
 
         <p className="text-center text-main">
@@ -22,4 +22,4 @@ const EmptyTasksStatus = () => {
     </div>
   );
 };
-export default EmptyTasksStatus;
+export default NotFoundTasksStatus;

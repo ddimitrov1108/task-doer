@@ -1,7 +1,7 @@
 "use client";
 
 import { Field, Form, Formik } from "formik";
-import { TaskFormValues, taskFormSchema } from "@/lib/form-schemas";
+import { FormErrors, TaskFormValues, taskFormSchema } from "@/lib/form-schemas";
 import Button from "../ui/Button";
 import TextField from "./formik/TextField";
 import DatePickerField from "./formik/DatePickerField";
@@ -10,41 +10,85 @@ import CheckboxField from "./formik/CheckboxField";
 import dynamic from "next/dynamic";
 import useForm from "../hooks/useForm";
 import { useParams } from "next/navigation";
+import { toast } from "sonner";
+import { format } from "date-fns";
 
 const Alert = dynamic(() => import("../ui/Alert"));
 
 interface Props {
   initialState?: TaskFormValues | null;
+  task_id?: string | null;
   editMode?: boolean;
   afterSubmit: () => void;
 }
 
-//format(new Date(), "yyyy-MM-dd")
-//format(new Date(initialState.due_date), "yyyy-MM-dd")
-
-const initialValues: TaskFormValues = {
-  name: "",
-  description: "",
-  important: false,
-  completed: false,
-  due_date: new Date(),
-  labels: [],
-};
-
-const TaskForm = ({ initialState, editMode = false, afterSubmit }: Props) => {
+const TaskForm = ({
+  initialState,
+  task_id = null,
+  editMode = false,
+  afterSubmit,
+}: Props) => {
   const params = useParams();
-  console.log(params);
   const [form, setForm] = useForm();
 
+  const onValidateHandler = async (values: TaskFormValues) => {
+    try {
+      taskFormSchema.parse(values);
+    } catch (error) {
+      if (error instanceof FormErrors) return error.formErrors.fieldErrors;
+    }
+  };
+
   const onSubmitHandler = async (values: TaskFormValues) => {
-    console.log(values);
-    setForm({...form, loading: true, })
+    setForm({ loading: true, error: "" });
+
+    if (editMode) {
+      if (!task_id) {
+        setForm({ loading: false, error: "Something went wrong. Please try again later" });
+        return;
+      }
+
+      const updateTask = (await import("@/app/actions/task/updateTask"))
+        .default;
+
+      await updateTask(task_id, values)
+        .then(({ error }) => {
+          if (error) throw error;
+
+          toast.success("Task edited successfully!");
+          afterSubmit();
+        })
+        .catch((e: string) => setForm({ loading: false, error: e }));
+    } else {
+      const createTask = (await import("@/app/actions/task/createTask"))
+        .default;
+
+      await createTask(params.id.toString(), values)
+        .then(({ error }) => {
+          if (error) throw error;
+
+          toast.success("Task created successfully!");
+          afterSubmit();
+        })
+        .catch((e: string) => setForm({ loading: false, error: e }));
+    }
   };
 
   return (
     <Formik
-      initialValues={initialState ? initialState : initialValues}
-      validationSchema={taskFormSchema}
+      initialValues={
+        initialState
+          ? initialState
+          : {
+              name: "",
+              description: "",
+              important: false,
+              completed: false,
+              due_date: format(new Date(), "yyyy-MM-dd"),
+              labels: [],
+            }
+      }
+      validate={onValidateHandler}
       onSubmit={onSubmitHandler}
     >
       <Form>

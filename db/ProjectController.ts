@@ -67,8 +67,6 @@ class ProjectController extends DbConnector {
 
       if (!project) return null;
 
-      console.log(project.tasks);
-
       return {
         ...project,
         tasks: project.tasks.map(({ labels, ...restTask }) => ({

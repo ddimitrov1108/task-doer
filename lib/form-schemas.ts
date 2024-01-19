@@ -4,7 +4,7 @@ const nameRegex = /^[\p{L}\p{S}\s'-]{2,20}$/iu;
 const emailRegex = /^[a-zA-Z0-9._%+-]{4,60}@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 const passwordRegex =
   /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,20}$/;
-const sectionNameRegex = /^[\p{P}\p{S}\p{L}\s-][\p{L}\d\s-]{3,30}$/u;
+const sectionNameRegex = /^[\p{P}\p{S}\p{L}\s-][\p{L}\d\s-]{2,30}$/u;
 const descriptionRegex = /^[\p{L}\p{N}\p{P}\s]{0,255}$/u;
 const hexColorRegex = /^#?([0-9a-fA-F]{3}){1,2}$/i;
 
@@ -93,7 +93,7 @@ export const taskFormSchema = z.object({
     .max(255, "Maximum length of 255 symbols is exceeded")
     .regex(descriptionRegex, "Invalid field")
     .nullable(),
-  due_date: z.date({ required_error: "Field is required" }),
+  due_date: z.string({ required_error: "Field is required" }),
   important: z.boolean().default(false),
   completed: z.boolean().default(false),
   labels: z
