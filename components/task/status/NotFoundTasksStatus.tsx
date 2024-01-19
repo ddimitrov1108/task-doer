@@ -3,7 +3,7 @@ import AddTaskButton from "../AddTaskButton";
 
 const NotFoundTasksStatus = () => {
   return (
-    <div className="py-24 lg:py-40 grid justify-center items-center gap-4">
+    <div className="py-24 lg:py-32 grid justify-center items-center gap-4">
       <div>
         <Image
           src="/tasks-notfound.svg"
