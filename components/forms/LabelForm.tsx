@@ -32,7 +32,7 @@ const LabelForm = ({
     setForm({ loading: true, error: "" });
 
     if (editMode) {
-      const updateLabel = (await import("@/app/actions/label/updateLabel")).default;
+      const { updateLabel } = await import("@/app/actions/label/updateLabel");
 
       await updateLabel(params.id.toString(), values)
         .then(({ error }) => {
@@ -46,7 +46,7 @@ const LabelForm = ({
           setForm({ ...form, error: e, loading: false });
         });
     } else {
-      const createLabel = (await import("@/app/actions/label/createLabel")).default;
+      const { createLabel } = await import("@/app/actions/label/createLabel");
 
       await createLabel(values)
         .then(({ error }) => {

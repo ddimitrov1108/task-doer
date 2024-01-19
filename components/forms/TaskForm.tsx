@@ -48,8 +48,7 @@ const TaskForm = ({ initialState, editMode = false, afterSubmit }: Props) => {
         return;
       }
 
-      const updateTask = (await import("@/app/actions/task/updateTask"))
-        .default;
+      const { updateTask } = await import("@/app/actions/task/updateTask");
 
       await updateTask(taskContext.task.id, values)
         .then(({ error }) => {
@@ -60,8 +59,7 @@ const TaskForm = ({ initialState, editMode = false, afterSubmit }: Props) => {
         })
         .catch((e: string) => setForm({ loading: false, error: e }));
     } else {
-      const createTask = (await import("@/app/actions/task/createTask"))
-        .default;
+      const { createTask } = await import("@/app/actions/task/createTask");
 
       await createTask(params.id.toString(), values)
         .then(({ error }) => {

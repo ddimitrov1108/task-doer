@@ -34,9 +34,9 @@ const ProjectForm = ({
     setForm({ loading: true, error: "" });
 
     if (editMode) {
-      const updateProject = (
-        await import("@/app/actions/project/updateProject")
-      ).default;
+      const { updateProject } = await import(
+        "@/app/actions/project/updateProject"
+      );
 
       await updateProject(params.id.toString(), values)
         .then(({ error }) => {
@@ -47,9 +47,9 @@ const ProjectForm = ({
         })
         .catch((e: string) => setForm({ loading: false, error: e }));
     } else {
-      const createProject = (
-        await import("@/app/actions/project/createProject")
-      ).default;
+      const { createProject } = await import(
+        "@/app/actions/project/createProject"
+      );
 
       await createProject(values)
         .then(({ error, href }) => {
