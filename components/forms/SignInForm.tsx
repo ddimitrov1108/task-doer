@@ -28,15 +28,15 @@ const SignInForm = () => {
     setForm({ loading: true, error: "" });
     const { signIn } = await import("next-auth/react");
 
-    await signIn("sign-in", {
-      ...values,
-      redirect: false,
-    })
-      .then((res) => {
-        if (res?.error) throw res.error;
-        router.replace("/todo");
-      })
-      .catch((e: string) => setForm({ loading: false, error: e }));
+    try {
+      await signIn("sign-in", {
+        ...values,
+        redirect: false,
+      });
+      router.replace("/todo");
+    } catch (e) {
+      if (e instanceof Error) setForm({ loading: false, error: e.message });
+    }
   };
 
   return (
@@ -70,9 +70,30 @@ const SignInForm = () => {
           maxLength={20}
           component={PasswordField}
           fullWidth
+          containerClassName="mb-2"
         />
 
-        <div className="w-full flex mt-1 space-x-2 text-sm text-main">
+        <div className="mb-8">
+          <Link
+            aria-disabled={form.loading}
+            href="/reset-password"
+            className="font-medium text-sm text-primary-main"
+            title="Forgotten Password?"
+          >
+            Forgotten Password?
+          </Link>
+        </div>
+
+        <Button
+          type="submit"
+          disabled={form.loading}
+          loading={form.loading}
+          fullWidth
+        >
+          Sign In
+        </Button>
+
+        <div className="w-full flex items-center justify-center space-x-2 text-sm text-main mt-4">
           <span>Dont have an account?</span>
           <Link
             aria-disabled={form.loading}
@@ -83,16 +104,6 @@ const SignInForm = () => {
             Sign Up
           </Link>
         </div>
-
-        <Button
-          type="submit"
-          className="flex justify-center mt-8"
-          disabled={form.loading}
-          loading={form.loading}
-          fullWidth
-        >
-          Sign In
-        </Button>
       </Form>
     </Formik>
   );

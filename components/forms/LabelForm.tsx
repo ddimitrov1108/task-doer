@@ -33,32 +33,24 @@ const LabelForm = ({
 
     if (editMode) {
       const { updateLabel } = await import("@/app/actions/label/updateLabel");
-
-      await updateLabel(params.id.toString(), values)
-        .then(({ error }) => {
-          if (error) throw error;
-
-          toast.success("Label edited successfully!");
-          afterSubmit();
-        })
-        .catch((e: string) => {
-          console.error(e);
-          setForm({ ...form, error: e, loading: false });
-        });
+      
+      try {
+        await updateLabel(params.id.toString(), values);
+        toast.success("Label edited successfully!");
+        afterSubmit();
+      } catch (e) {
+        if (e instanceof Error) setForm({ loading: false, error: e.message });
+      }
     } else {
       const { createLabel } = await import("@/app/actions/label/createLabel");
 
-      await createLabel(values)
-        .then(({ error }) => {
-          if (error) throw error;
-
-          toast.success("Label created successfully!");
-          afterSubmit();
-        })
-        .catch((e: string) => {
-          console.error(e);
-          setForm({ ...form, error: e, loading: false });
-        });
+      try {
+        await createLabel(values);
+        toast.success("Label created successfully!");
+        afterSubmit();
+      } catch (e) {
+        if (e instanceof Error) setForm({ loading: false, error: e.message });
+      }
     }
   };
 
@@ -82,10 +74,9 @@ const LabelForm = ({
           fullWidth
         />
 
-        <div className="flex flex-col-reverse md:flex-row gap-2 justify-between items-center">
+        <div className="flex flex-col-reverse md:flex-row gap-2 justify-between items-center mt-8">
           <Button
             variant="text"
-            className="flex justify-center"
             disabled={form.loading}
             onClick={afterSubmit}
             fullWidth
@@ -94,7 +85,6 @@ const LabelForm = ({
           </Button>
           <Button
             type="submit"
-            className="flex justify-center"
             disabled={form.loading}
             loading={form.loading}
             fullWidth

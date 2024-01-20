@@ -8,15 +8,9 @@ import { revalidatePath } from "next/cache";
 export const deleteProject = async (project_id: string) => {
   const user = await getUserFromServerSession();
 
-  if (!user) return { error: "Unauthenticated" };
-  if (!isUUID(project_id)) return { error: "Bad Request" };
+  if (!user) throw new Error("Unauthenticated");
+  if (!isUUID(project_id)) throw new Error("Bad Request");
 
-  try {
-    await projectController.delete(user.id, project_id);
-    revalidatePath("/todo");
-    return {};
-  } catch (e) {
-    console.error(e);
-    return { error: "Something went wrong. Please try again later" };
-  }
+  await projectController.delete(user.id, project_id);
+  revalidatePath("/todo");
 };

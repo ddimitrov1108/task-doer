@@ -50,25 +50,23 @@ const TaskForm = ({ initialState, editMode = false, afterSubmit }: Props) => {
 
       const { updateTask } = await import("@/app/actions/task/updateTask");
 
-      await updateTask(taskContext.task.id, values)
-        .then(({ error }) => {
-          if (error) throw error;
-
-          toast.success("Task edited successfully!");
-          afterSubmit();
-        })
-        .catch((e: string) => setForm({ loading: false, error: e }));
+      try {
+        await updateTask(taskContext.task.id, values);
+        toast.success("Task edited successfully!");
+        afterSubmit();
+      } catch (e) {
+        if (e instanceof Error) setForm({ loading: false, error: e.message });
+      }
     } else {
       const { createTask } = await import("@/app/actions/task/createTask");
-
-      await createTask(params.id.toString(), values)
-        .then(({ error }) => {
-          if (error) throw error;
-
-          toast.success("Task created successfully!");
-          afterSubmit();
-        })
-        .catch((e: string) => setForm({ loading: false, error: e }));
+      
+      try {
+        await createTask(params.id.toString(), values);
+        toast.success("Task created successfully!");
+        afterSubmit();
+      } catch (e) {
+        if (e instanceof Error) setForm({ loading: false, error: e.message });
+      }
     }
   };
 
@@ -157,7 +155,6 @@ const TaskForm = ({ initialState, editMode = false, afterSubmit }: Props) => {
         <div className="flex flex-col-reverse md:flex-row gap-2 justify-between items-center">
           <Button
             variant="text"
-            className="flex justify-center"
             disabled={form.loading}
             onClick={afterSubmit}
             fullWidth
@@ -167,7 +164,6 @@ const TaskForm = ({ initialState, editMode = false, afterSubmit }: Props) => {
 
           <Button
             type="submit"
-            className="flex justify-center"
             disabled={form.loading}
             loading={form.loading}
             fullWidth

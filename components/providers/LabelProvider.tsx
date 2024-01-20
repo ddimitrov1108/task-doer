@@ -32,17 +32,14 @@ const ProjectProvider = ({ children }: Props) => {
 
     const { deleteLabel } = await import("@/app/actions/label/deleteLabel");
 
-    await deleteLabel(label.id)
-      .then(({ error }) => {
-        if (error) throw error;
-
-        toast.success("Label deleted successfully!");
-        setOpenDeleteModal(false);
-        router.replace("/todo");
-      })
-      .catch((e: string) => {
-        console.error(e);
-      });
+    try {
+      await deleteLabel(label.id);
+      toast.success("Label deleted successfully!");
+      setOpenDeleteModal(false);
+      router.replace("/todo");
+    } catch (e) {
+      if (e instanceof Error) toast.error(e.message);
+    }
   };
 
   return (

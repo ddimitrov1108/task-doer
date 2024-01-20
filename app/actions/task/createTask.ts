@@ -12,20 +12,14 @@ export const createTask = async (
 ) => {
   const user = await getUserFromServerSession();
 
-  if (!user) return { error: "Unauthenticated" };
-  if (project_id && !isUUID(project_id)) return { error: "Invalid fields" };
-  if (!values) return { error: "Invalid fields" };
-  if (!taskController.validate(values)) return { error: "Invalid fields" };
+  if (!user) throw new Error("Unauthenticated");
+  if (project_id && !isUUID(project_id)) throw new Error("Invalid fields");
+  if (!values) throw new Error("Invalid fields");
+  if (!taskController.validate(values)) throw new Error("Invalid fields");
 
-  try {
-    const task = await taskController.create(user.id, project_id, values);
-    if (!task) throw new Error("Failed to create Task");
+  const task = await taskController.create(user.id, project_id, values);
+  if (!task) throw new Error("Failed to create Task");
 
-    if (project_id) revalidatePath(`/todo/project/${project_id}`, "page");
-    else revalidatePath("/todo");
-    return {};
-  } catch (e) {
-    console.error(e);
-    return { error: "Something went wrong. Please try again later" };
-  }
+  if (project_id) revalidatePath(`/todo/project/${project_id}`, "page");
+  else revalidatePath("/todo");
 };

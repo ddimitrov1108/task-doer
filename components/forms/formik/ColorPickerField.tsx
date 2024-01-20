@@ -32,6 +32,7 @@ const colorPickerColors = [
 
 const ColorPickerField = ({
   label = "",
+  containerClassName,
   className,
   field,
   form: { setFieldValue, touched, errors },
@@ -42,7 +43,9 @@ const ColorPickerField = ({
     setFieldValue(field.name, e.currentTarget.value);
 
   return (
-    <div className={cn("mb-4", className, fullWidth ? "w-full" : "w-fit")}>
+    <div
+      className={cn("mb-4", fullWidth ? "w-full" : "w-fit", containerClassName)}
+    >
       <FormLabel className="pb-2" htmlFor={field.name} label={label} />
 
       <div className="w-full flex flex-wrap gap-2">

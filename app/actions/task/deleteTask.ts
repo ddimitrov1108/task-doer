@@ -8,15 +8,9 @@ import { revalidatePath } from "next/cache";
 export const deleteTask = async (task_id: string) => {
   const user = await getUserFromServerSession();
 
-  if (!user) return { error: "Unauthenticated" };
-  if (!isUUID(task_id)) return { error: "Bad Request" };
+  if (!user) throw new Error("Unauthenticated");
+  if (!isUUID(task_id)) throw new Error("Bad Request");
 
-  try {
-    await taskController.delete(user.id, task_id);
-    revalidatePath("/todo");
-    return {};
-  } catch (e) {
-    console.error(e);
-    return { error: "Something went wrong. Please try again later" };
-  }
+  await taskController.delete(user.id, task_id);
+  revalidatePath("/todo");
 };

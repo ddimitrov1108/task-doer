@@ -14,6 +14,7 @@ type Props = IFormInput<string> & React.ComponentProps<"input">;
 const PasswordField = ({
   label = "",
   type = "password",
+  containerClassName,
   className,
   field,
   form: { touched, errors },
@@ -66,7 +67,9 @@ const PasswordField = ({
   }, []);
 
   return (
-    <div className={cn("mb-4", fullWidth ? "w-full" : "w-fit")}>
+    <div
+      className={cn("mb-4", fullWidth ? "w-full" : "w-fit", containerClassName)}
+    >
       <FormLabel className="pb-2" htmlFor={field.name} label={label} />
 
       <div className="relative">

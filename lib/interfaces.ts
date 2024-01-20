@@ -52,6 +52,7 @@ export interface IForm<T> {
 export interface IFormInput<T> {
   type: "text" | "email" | "password" | "date";
   label: string;
+  containerClassName?: string;
   className?: string;
   fullWidth?: boolean;
   disabled?: boolean;

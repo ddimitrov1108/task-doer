@@ -1,6 +1,6 @@
 "use client";
 
-import { useParams, useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 import useForm from "../hooks/useForm";
 import { Field, Form, Formik } from "formik";
 import { FormErrors, ProjectFormValues } from "@/lib/form-schemas";
@@ -19,7 +19,6 @@ const ProjectForm = ({
   afterSubmit,
 }: IForm<ProjectFormValues>) => {
   const params = useParams();
-  const router = useRouter();
   const [form, setForm] = useForm();
 
   const onValidateHandler = async (values: ProjectFormValues) => {
@@ -38,31 +37,25 @@ const ProjectForm = ({
         "@/app/actions/project/updateProject"
       );
 
-      await updateProject(params.id.toString(), values)
-        .then(({ error }) => {
-          if (error) throw error;
-
-          toast.success("Project edited successfully!");
-          afterSubmit();
-        })
-        .catch((e: string) => setForm({ loading: false, error: e }));
+      try {
+        await updateProject(params.id.toString(), values);
+        toast.success("Project edited successfully!");
+        afterSubmit();
+      } catch (e) {
+        if (e instanceof Error) setForm({ loading: false, error: e.message });
+      }
     } else {
       const { createProject } = await import(
         "@/app/actions/project/createProject"
       );
 
-      await createProject(values)
-        .then(({ error, href }) => {
-          if (error) throw error;
-
-          if (href) {
-            toast.success("Project created successfully!");
-            router.replace(href);
-          }
-
-          afterSubmit();
-        })
-        .catch((e: string) => setForm({ loading: false, error: e }));
+      try {
+        const res = await createProject(values);
+        toast.success("Project created successfully!");
+        afterSubmit();
+      } catch (e) {
+        if (e instanceof Error) setForm({ loading: false, error: e.message });
+      }
     }
   };
 
@@ -93,14 +86,12 @@ const ProjectForm = ({
           disabled={form.loading}
           maxLength={9}
           component={ColorPickerField}
-          className="mb-8"
           fullWidth
         />
 
-        <div className="flex flex-col-reverse md:flex-row gap-4 justify-between items-center">
+        <div className="flex flex-col-reverse md:flex-row gap-4 justify-between items-center mt-8">
           <Button
             variant="text"
-            className="flex justify-center"
             disabled={form.loading}
             onClick={afterSubmit}
             fullWidth
@@ -110,7 +101,6 @@ const ProjectForm = ({
 
           <Button
             type="submit"
-            className="flex justify-center"
             disabled={form.loading}
             loading={form.loading}
             fullWidth

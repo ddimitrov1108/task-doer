@@ -10,6 +10,7 @@ type Props = IFormInput<string> & React.ComponentProps<"input">;
 const TextField = ({
   label,
   type = "text",
+  containerClassName,
   className,
   field,
   form: { touched, errors },
@@ -17,7 +18,9 @@ const TextField = ({
   ...restProps
 }: Props) => {
   return (
-    <div className={cn("mb-4", fullWidth ? "w-full" : "w-fit")}>
+    <div
+      className={cn("mb-4", fullWidth ? "w-full" : "w-fit", containerClassName)}
+    >
       <FormLabel className="pb-2" htmlFor={field.name} label={label} />
 
       <input

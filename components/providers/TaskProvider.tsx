@@ -35,15 +35,12 @@ const TaskProvider = ({ children }: Props) => {
       "@/app/actions/task/setTaskCompleted"
     );
 
-    await setTaskCompleted(task_id, completed)
-      .then(({ error }) => {
-        if (error) throw error;
-
-        if (completed) playSound();
-      })
-      .catch((e: string) => {
-        toast.error(e);
-      });
+    try {
+      await setTaskCompleted(task_id, completed);
+      if (completed) playSound();
+    } catch (e) {
+      if (e instanceof Error) toast.error(e.message);
+    }
   };
 
   const setImportant = async (task_id: string, important: boolean) => {
@@ -51,13 +48,11 @@ const TaskProvider = ({ children }: Props) => {
       "@/app/actions/task/setTaskImportant"
     );
 
-    await setTaskImportant(task_id, important)
-      .then(({ error }) => {
-        if (error) throw error;
-      })
-      .catch((e: string) => {
-        toast.error(e);
-      });
+    try {
+      await setTaskImportant(task_id, important);
+    } catch (e) {
+      if (e instanceof Error) toast.error(e.message);
+    }
   };
 
   const onDeleteTaskHandler = async () => {
@@ -69,16 +64,13 @@ const TaskProvider = ({ children }: Props) => {
 
     const { deleteTask } = await import("@/app/actions/task/deleteTask");
 
-    await deleteTask(task.id)
-      .then(({ error }) => {
-        if (error) throw error;
-
-        toast.success("Task deleted successfully!");
-        setOpenDeleteModal(false);
-      })
-      .catch((e: string) => {
-        console.error(e);
-      });
+    try {
+      await deleteTask(task.id);
+      toast.success("Task deleted successfully!");
+      setOpenDeleteModal(false);
+    } catch (e) {
+      if (e instanceof Error) toast.error(e.message);
+    }
   };
 
   return (

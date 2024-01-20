@@ -21,14 +21,14 @@ const Button = ({
   return (
     <button
       className={cn(
-        "font-medium border transition-all duration-300 rounded-lg",
+        "font-medium border transition-all duration-300 rounded-lg flex justify-center",
         className,
         fullWidth ? "w-full" : "w-fit",
         button({ intent: variant, size: size })
       )}
       {...restProps}
     >
-      {loading ? <Spinner className="w-fit h-fit mx-auto" /> : children}
+      {loading ? <Spinner /> : children}
     </button>
   );
 };

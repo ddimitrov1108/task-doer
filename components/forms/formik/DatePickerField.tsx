@@ -11,6 +11,7 @@ type Props = IFormInput<string> & React.ComponentProps<"input">;
 const DatePickerField = ({
   label = "",
   type = "date",
+  containerClassName,
   className,
   field,
   form: { setFieldValue, touched, errors },
@@ -22,7 +23,9 @@ const DatePickerField = ({
   };
 
   return (
-    <div className={cn("mb-4 min-h-fit", fullWidth ? "w-full" : "w-fit")}>
+    <div
+      className={cn("mb-4", fullWidth ? "w-full" : "w-fit", containerClassName)}
+    >
       <FormLabel className="pb-2" htmlFor={field.name} label={label} />
 
       <input

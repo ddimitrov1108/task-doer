@@ -10,6 +10,7 @@ const CheckboxField = ({
   fullWidth = false,
   field,
   disabled,
+  containerClassName,
   form: { setFieldValue },
 }: Props) => {
   return (
@@ -17,7 +18,8 @@ const CheckboxField = ({
       as="div"
       className={cn(
         "flex items-center gap-2 mb-4",
-        fullWidth ? "w-full" : "w-fit"
+        fullWidth ? "w-full" : "w-fit",
+        containerClassName
       )}
     >
       <FormLabel className="pb-2" htmlFor={field.name} label={label} />

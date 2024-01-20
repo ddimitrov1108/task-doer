@@ -22,9 +22,9 @@ const DeleteConfirmationModal = ({
 
   const onSubmitHandler = async (e: React.FormEvent) => {
     e.preventDefault();
-    setForm({ ...form, loading: true });
+    setForm({ error: "", loading: true });
     await onSubmit();
-    setForm({ ...form, loading: false });
+    setForm({ error: "", loading: false });
   };
 
   return (

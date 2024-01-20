@@ -10,6 +10,7 @@ type Props = IFormInput<string> & React.ComponentProps<"textarea">;
 const TextareaField = ({
   label,
   type = "text",
+  containerClassName,
   className,
   field,
   form: { touched, errors },
@@ -17,7 +18,9 @@ const TextareaField = ({
   ...restProps
 }: Props) => {
   return (
-    <div className={cn("mb-4", fullWidth ? "w-full" : "w-fit")}>
+    <div
+      className={cn("mb-4", fullWidth ? "w-full" : "w-fit", containerClassName)}
+    >
       <FormLabel className="pb-2" htmlFor={field.name} label={label} />
 
       <textarea
