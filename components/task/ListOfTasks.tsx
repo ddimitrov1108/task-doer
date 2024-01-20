@@ -5,17 +5,18 @@ import dynamic from "next/dynamic";
 const Task = dynamic(() => import("./Task"));
 
 interface Props {
+  open?: boolean;
   listTitle: string;
   tasks: ITask[];
 }
 
-const ListOfTasks = ({ listTitle, tasks }: Props) => {
+const ListOfTasks = ({ open = true, listTitle, tasks }: Props) => {
   return (
     !!tasks.length && (
       <DisclousureContainer
         title={listTitle}
         btnClassName="py-2 text-main"
-        open
+        open={open}
       >
         {tasks.map((task) => (
           <Task key={task.id} task={task} />

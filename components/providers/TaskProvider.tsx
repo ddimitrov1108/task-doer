@@ -39,7 +39,11 @@ const TaskProvider = ({ children }: Props) => {
       .then(({ error }) => {
         if (error) throw error;
 
-        if (completed) playSound();
+        if (completed) {
+          if(isPlaying) stopSound();
+          
+          playSound();
+        }
       })
       .catch((e: string) => {
         toast.error(e);
