@@ -1,8 +1,14 @@
 import { FieldInputProps, FormikProps, FormikValues } from "formik";
-import {
-  LabelFormValues,
-  ProjectFormValues,
-} from "./form-schemas";
+import { LabelFormValues, ProjectFormValues } from "./form-schemas";
+
+export interface NavigationData {
+  my_day: number;
+  important: number;
+  planned: number;
+  completed: number;
+  all: number;
+  nav: INavList;
+}
 
 export interface NextRouteParams {
   params: {

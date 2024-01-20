@@ -43,7 +43,7 @@ const ProjectsList = ({ projects, onNavElClick = () => {} }: Props) => {
           </button>
         }
         btnClassName="p-2 rounded-lg justify-between"
-        bodyClassName="px-2 styled-overflow max-h-[240px] overflow-auto grid gap-1"
+        bodyClassName="styled-overflow max-h-[240px] overflow-auto grid gap-1"
         open
       >
         {projects.map(({ id, name, color }) => (

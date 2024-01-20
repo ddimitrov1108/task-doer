@@ -5,6 +5,7 @@ import Link from "next/link";
 interface Props {
   href: string;
   text: string;
+  count?: number;
   appendIcon?: React.ReactNode;
   className?: string;
   title?: string;
@@ -14,6 +15,7 @@ interface Props {
 const NavLink = ({
   href,
   text,
+  count = 0,
   appendIcon,
   className,
   ...restProps
@@ -28,12 +30,23 @@ const NavLink = ({
         className,
         pathname === href
           ? "bg-black-light/10 text-white"
-          : "text-light hover:text-white hover:bg-black-light/10"
+          : "text-light hover:text-white hover:bg-black-light/10",
+        count && "justify-between"
       )}
       {...restProps}
     >
-      {appendIcon}
-      {text}
+      <div className="flex items-center gap-3">
+        {appendIcon}
+        {text}
+      </div>
+
+      {count > 0 && (
+        <div className="grid items-center max-w-[60px] rounded-full bg-primary-main/10 truncate ...">
+          <span className="py-1 px-2 text-xs text-light">
+            {count <= 10 ? count : "10+"}
+          </span>
+        </div>
+      )}
     </Link>
   );
 };
