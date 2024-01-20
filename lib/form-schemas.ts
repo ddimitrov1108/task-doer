@@ -3,10 +3,40 @@ import { z } from "zod";
 const nameRegex = /^[\p{L}\p{S}\s'-]{2,20}$/iu;
 const emailRegex = /^[a-zA-Z0-9._%+-]{4,60}@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 const passwordRegex =
-  /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,20}$/;
+/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&_-])[A-Za-z\d@$!%*#?&_-]{8,20}$/
 const sectionNameRegex = /^[\p{P}\p{S}\p{L}\s-][\p{L}\d\s-]{2,30}$/u;
 const descriptionRegex = /^[\p{L}\p{N}\p{P}\s]{0,255}$/u;
 const hexColorRegex = /^#?([0-9a-fA-F]{3}){1,2}$/i;
+
+export const resetPasswordSchema = z.object({
+  email: z
+    .string({ required_error: "Field is required" })
+    .email("Invalid field")
+    .max(60, "Maximum length of 60 symbols is exceeded")
+    .regex(emailRegex),
+});
+
+export const changePasswordSchema = z.object({
+  password: z
+    .string({ required_error: "Field is required" })
+    .min(
+      8,
+      "Required minimum 8 symbol, from which one must be a number and special symbol"
+    )
+    .max(20, "Maximum length of 20 symbols is exceeded")
+    .regex(
+      passwordRegex,
+      "Required minimum 8 symbol, from which one must be a number and special symbol"
+    ),
+  confirmPassword: z
+    .string({ required_error: "Field is required" })
+    .min(8, "Minimum length of 8 symbols is required")
+    .max(20, "Maximum length of 20 symbols is exceeded")
+    .regex(
+      passwordRegex,
+      "Required minimum 8 symbol, from which one must be a number and special symbol"
+    ),
+});
 
 export const signInFormSchema = z.object({
   email: z
@@ -106,6 +136,8 @@ export const taskFormSchema = z.object({
     .default([]),
 });
 
+export type ResetPasswordFormValues = z.infer<typeof resetPasswordSchema>;
+export type ChangePasswordFormValues = z.infer<typeof changePasswordSchema>;
 export type SignInFormValues = z.infer<typeof signInFormSchema>;
 export type SignUpFormValues = z.infer<typeof signUpFormSchema>;
 export type ProjectFormValues = z.infer<typeof projectFormSchema>;
