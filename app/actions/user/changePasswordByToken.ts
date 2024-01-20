@@ -9,13 +9,19 @@ export const changePasswordByToken = async (
 ) => {
   const user = await userController.getByToken(reset_password_token);
 
-  if (!user) throw new Error("User with this email does not exist");
+  if (!user) return { error: "User with this email does not exist" };
 
   const resetPasswordTokenExpiry = user.reset_password_token_expiry;
   const today = new Date();
 
-  if (!resetPasswordTokenExpiry) throw new Error("Token expired");
-  if (today > resetPasswordTokenExpiry) throw new Error("Token expired");
-
-  await userController.resetPasswordByToken(user.id, values.password);
+  if (!resetPasswordTokenExpiry) return { error: "Token expired" };
+  if (today > resetPasswordTokenExpiry) return { error: "Token expired" };
+  
+  try {
+    await userController.resetPasswordByToken(user.id, values.password);
+    return {};
+  } catch (e) {
+    console.error(e);
+    return { error: "Something went wrong. Please try again later" };
+  }
 };

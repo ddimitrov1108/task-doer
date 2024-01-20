@@ -9,11 +9,11 @@ import {
 
 export const resetPassword = async (values: ResetPasswordFormValues) => {
   if (!resetPasswordSchema.safeParse(values).success)
-    throw new Error("Invalid form data");
+    return { error: "Invalid form data" };
 
   const user = await userController.get(values.email);
 
-  if (!user) throw new Error("User with this email does not exist");
+  if (!user) return { error: "User with this email does not exist" };
 
   const resetPasswordToken = (await import("crypto"))
     .randomBytes(32)
@@ -29,12 +29,19 @@ export const resetPassword = async (values: ResetPasswordFormValues) => {
 
   const { sendEmail } = await import("../email/sendEmail");
 
-  await sendEmail({
-    to: [values.email],
-    subject: "Task-Doer: Reset your password",
-    react: ResetPasswordEmailTemplate({
-      email: values.email,
-      resetPasswordToken,
-    }) as React.ReactElement,
-  });
+  try {
+    await sendEmail({
+      to: [values.email],
+      subject: "Task-Doer: Reset your password",
+      react: ResetPasswordEmailTemplate({
+        email: values.email,
+        resetPasswordToken,
+      }) as React.ReactElement,
+    });
+
+    return{};
+  } catch (e) {
+    console.error(e);
+    return { error: "Something went wrong. Please try again later" };
+  }
 };

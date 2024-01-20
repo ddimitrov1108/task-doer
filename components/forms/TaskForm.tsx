@@ -50,23 +50,25 @@ const TaskForm = ({ initialState, editMode = false, afterSubmit }: Props) => {
 
       const { updateTask } = await import("@/app/actions/task/updateTask");
 
-      try {
-        await updateTask(taskContext.task.id, values);
-        toast.success("Task edited successfully!");
-        afterSubmit();
-      } catch (e) {
-        if (e instanceof Error) setForm({ loading: false, error: e.message });
-      }
+      await updateTask(taskContext.task.id, values)
+        .then(({ error }) => {
+          if (error) throw error;
+
+          toast.success("Task edited successfully!");
+          afterSubmit();
+        })
+        .catch((e: string) => setForm({ loading: false, error: e }));
     } else {
       const { createTask } = await import("@/app/actions/task/createTask");
-      
-      try {
-        await createTask(params.id.toString(), values);
-        toast.success("Task created successfully!");
-        afterSubmit();
-      } catch (e) {
-        if (e instanceof Error) setForm({ loading: false, error: e.message });
-      }
+
+      await createTask(params.id.toString(), values)
+        .then(({ error }) => {
+          if (error) throw error;
+
+          toast.success("Task created successfully!");
+          afterSubmit();
+        })
+        .catch((e: string) => setForm({ loading: false, error: e }));
     }
   };
 

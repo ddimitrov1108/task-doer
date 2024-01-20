@@ -28,15 +28,15 @@ const SignInForm = () => {
     setForm({ loading: true, error: "" });
     const { signIn } = await import("next-auth/react");
 
-    try {
-      await signIn("sign-in", {
-        ...values,
-        redirect: false,
-      });
-      router.replace("/todo");
-    } catch (e) {
-      if (e instanceof Error) setForm({ loading: false, error: e.message });
-    }
+    await signIn("sign-in", {
+      ...values,
+      redirect: false,
+    })
+      .then((res) => {
+        if (res?.error) throw res.error;
+        router.replace("/todo");
+      })
+      .catch((e: string) => setForm({ loading: false, error: e }));
   };
 
   return (

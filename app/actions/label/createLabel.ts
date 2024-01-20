@@ -8,10 +8,16 @@ import { revalidatePath } from "next/cache";
 export const createLabel = async (values: LabelFormValues) => {
   const user = await getUserFromServerSession();
 
-  if (!user) throw new Error("Unauthenticated");
-  if (!values) throw new Error("Bad Request");
-  if (!labelController.validate(values)) throw new Error("Invalid fields");
+  if (!user) return { error: "Unauthenticated" };
+  if (!values) return { error: "Bad Request" };
+  if (!labelController.validate(values)) return { error: "Invalid fields" };
 
-  await labelController.create(user.id, { name: values.name });
-  revalidatePath("/todo");
+  try {
+    await labelController.create(user.id, { name: values.name });
+    revalidatePath("/todo");
+    return {};
+  } catch (e) {
+    console.error(e);
+    return { error: "Something went wrong. Please try again later" };
+  }
 };

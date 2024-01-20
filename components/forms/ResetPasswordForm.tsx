@@ -27,13 +27,16 @@ const ResetPasswordForm = () => {
     setForm({ loading: true, error: "" });
     const { resetPassword } = await import("@/app/actions/user/resetPassword");
 
-    try {
-      await resetPassword(values);
-      toast.success("Reset password link was send to your email address.");
-      router.replace("/sign-in");
-    } catch (e) {
-      if (e instanceof Error) setForm({ loading: false, error: e.message });
-    }
+    await resetPassword(values)
+      .then(({ error }) => {
+        if (error) throw error;
+
+        toast.success("Reset password link was send to your email address.");
+        router.replace("/sign-in");
+      })
+      .catch((e: string) => {
+        setForm({ loading: false, error: e });
+      });
   };
 
   return (

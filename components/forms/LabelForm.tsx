@@ -33,24 +33,32 @@ const LabelForm = ({
 
     if (editMode) {
       const { updateLabel } = await import("@/app/actions/label/updateLabel");
-      
-      try {
-        await updateLabel(params.id.toString(), values);
-        toast.success("Label edited successfully!");
-        afterSubmit();
-      } catch (e) {
-        if (e instanceof Error) setForm({ loading: false, error: e.message });
-      }
+
+      await updateLabel(params.id.toString(), values)
+        .then(({ error }) => {
+          if (error) throw error;
+
+          toast.success("Label edited successfully!");
+          afterSubmit();
+        })
+        .catch((e: string) => {
+          console.error(e);
+          setForm({ ...form, error: e, loading: false });
+        });
     } else {
       const { createLabel } = await import("@/app/actions/label/createLabel");
 
-      try {
-        await createLabel(values);
-        toast.success("Label created successfully!");
-        afterSubmit();
-      } catch (e) {
-        if (e instanceof Error) setForm({ loading: false, error: e.message });
-      }
+      await createLabel(values)
+        .then(({ error }) => {
+          if (error) throw error;
+
+          toast.success("Label created successfully!");
+          afterSubmit();
+        })
+        .catch((e: string) => {
+          console.error(e);
+          setForm({ ...form, error: e, loading: false });
+        });
     }
   };
 

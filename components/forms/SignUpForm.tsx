@@ -19,8 +19,14 @@ const SignUpForm = () => {
   const onValidateHandler = async (values: SignUpFormValues) => {
     try {
       (await import("@/lib/form-schemas")).signUpFormSchema.parse(values);
+
+      if (values.password !== values.confirmPassword)
+        throw new Error("Passwords do not match.");
+      else setForm({ loading: false, error: "" });
     } catch (error) {
       if (error instanceof FormErrors) return error.formErrors.fieldErrors;
+      else if (error instanceof Error)
+        setForm({ loading: false, error: error.message });
     }
   };
 
@@ -28,16 +34,15 @@ const SignUpForm = () => {
     setForm({ loading: true, error: "" });
     const { signIn } = await import("next-auth/react");
 
-    try {
-      await signIn("sign-up", {
-        ...values,
-        redirect: false,
-      });
-
-      router.replace("/todo");
-    } catch (e) {
-      if (e instanceof Error) setForm({ loading: false, error: e.message });
-    }
+    await signIn("sign-up", {
+      ...values,
+      redirect: false,
+    })
+      .then(async (res) => {
+        if (res?.error) throw res.error;
+        router.replace("/todo");
+      })
+      .catch((e: string) => setForm({ loading: false, error: e }));
   };
 
   return (

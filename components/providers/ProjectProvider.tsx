@@ -34,14 +34,17 @@ const ProjectProvider = ({ children }: Props) => {
       "@/app/actions/project/deleteProject"
     );
 
-    try {
-      await deleteProject(project.id);
-      toast.success("Project deleted successfully!");
-      setOpenDeleteModal(false);
-      router.replace("/todo");
-    } catch (e) {
-      if (e instanceof Error) toast.error(e.message);
-    }
+    await deleteProject(project.id)
+      .then(({ error }) => {
+        if (error) throw error;
+
+        toast.success("Project deleted successfully!");
+        setOpenDeleteModal(false);
+        router.replace("/todo");
+      })
+      .catch((e: string) => {
+        console.error(e);
+      });
   };
 
   return (

@@ -12,14 +12,20 @@ export const updateLabel = async (
 ) => {
   const user = await getUserFromServerSession();
 
-  if (!user) throw new Error("Unauthenticated");
-  if (!isUUID(label_id) || !values) throw new Error("Bad Request");
-  if (!labelController.validate(values)) throw new Error("Invalid fields");
+  if (!user) return { error: "Unauthenticated" };
+  if (!isUUID(label_id) || !values) return { error: "Bad Request" };
+  if (!labelController.validate(values)) return { error: "Invalid fields" };
 
-  await labelController.update(user.id, {
-    id: label_id,
-    name: values.name,
-  });
+  try {
+    await labelController.update(user.id, {
+      id: label_id,
+      name: values.name,
+    });
 
-  revalidatePath(`/todo/label/[id]`, "page");
+    revalidatePath(`/todo/label/[id]`, "page");
+    return {};
+  } catch (e) {
+    console.error(e);
+    return { error: "Something went wrong. Please try again later" };
+  }
 };

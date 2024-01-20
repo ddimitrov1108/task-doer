@@ -1,6 +1,6 @@
 "use client";
 
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import useForm from "../hooks/useForm";
 import { Field, Form, Formik } from "formik";
 import { FormErrors, ProjectFormValues } from "@/lib/form-schemas";
@@ -18,6 +18,7 @@ const ProjectForm = ({
   editMode = false,
   afterSubmit,
 }: IForm<ProjectFormValues>) => {
+  const router = useRouter();
   const params = useParams();
   const [form, setForm] = useForm();
 
@@ -37,25 +38,31 @@ const ProjectForm = ({
         "@/app/actions/project/updateProject"
       );
 
-      try {
-        await updateProject(params.id.toString(), values);
-        toast.success("Project edited successfully!");
-        afterSubmit();
-      } catch (e) {
-        if (e instanceof Error) setForm({ loading: false, error: e.message });
-      }
+      await updateProject(params.id.toString(), values)
+        .then(({ error }) => {
+          if (error) throw error;
+
+          toast.success("Project edited successfully!");
+          afterSubmit();
+        })
+        .catch((e: string) => setForm({ loading: false, error: e }));
     } else {
       const { createProject } = await import(
         "@/app/actions/project/createProject"
       );
 
-      try {
-        const res = await createProject(values);
-        toast.success("Project created successfully!");
-        afterSubmit();
-      } catch (e) {
-        if (e instanceof Error) setForm({ loading: false, error: e.message });
-      }
+      await createProject(values)
+        .then(({ error, href }) => {
+          if (error) throw error;
+
+          if (href) {
+            toast.success("Project created successfully!");
+            router.replace(href);
+          }
+
+          afterSubmit();
+        })
+        .catch((e: string) => setForm({ loading: false, error: e }));
     }
   };
 

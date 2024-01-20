@@ -12,15 +12,21 @@ export const updateProject = async (
 ) => {
   const user = await getUserFromServerSession();
 
-  if (!user) throw new Error("Unauthenticated");
-  if (!isUUID(project_id) || !values) throw new Error("Bad Request");
-  if (!projectController.validate(values)) throw new Error("Invalid fields");
+  if (!user) return { error: "Unauthenticated" };
+  if (!isUUID(project_id) || !values) return { error: "Bad Request" };
+  if (!projectController.validate(values)) return { error: "Invalid fields" };
 
-  await projectController.update(user.id, {
-    id: project_id,
-    name: values.name,
-    color: values.color,
-  });
+  try {
+    await projectController.update(user.id, {
+      id: project_id,
+      name: values.name,
+      color: values.color,
+    });
 
-  revalidatePath(`/todo/project/[id]`, "page");
+    revalidatePath(`/todo/project/[id]`, "page");
+    return {};
+  } catch (e) {
+    console.error(e);
+    return { error: "Something went wrong. Please try again later" };
+  }
 };

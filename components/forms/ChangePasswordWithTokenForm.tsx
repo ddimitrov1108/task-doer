@@ -25,6 +25,7 @@ const ChangePasswordWithTokenForm = ({ reset_password_token }: Props) => {
 
       if (values.password !== values.confirmPassword)
         throw new Error("Passwords do not match.");
+      else setForm({ loading: false, error: "" });
     } catch (error) {
       if (error instanceof FormErrors) return error.formErrors.fieldErrors;
       else if (error instanceof Error)
@@ -39,13 +40,16 @@ const ChangePasswordWithTokenForm = ({ reset_password_token }: Props) => {
       "@/app/actions/user/changePasswordByToken"
     );
 
-    try {
-      await changePasswordByToken(reset_password_token, values);
-      toast.success("Password changed successfully.");
-      router.replace("/sign-in");
-    } catch (e) {
-      if (e instanceof Error) setForm({ loading: false, error: e.message });
-    }
+    await changePasswordByToken(reset_password_token, values)
+      .then(({ error }) => {
+        if (error) throw error;
+
+        toast.success("Password changed successfully.");
+        router.replace("/sign-in");
+      })
+      .catch((e: string) => {
+        setForm({ loading: false, error: e });
+      });
   };
 
   return (
