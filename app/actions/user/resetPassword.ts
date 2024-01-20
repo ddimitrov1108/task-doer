@@ -1,7 +1,5 @@
 "use server";
 
-import crypto from "crypto";
-import { sendEmail } from "../email/sendEmail";
 import userController from "@/db/UserController";
 import { ResetPasswordEmailTemplate } from "@/components/email-temlates/ResetPasswordEmailTemplate";
 import {
@@ -17,7 +15,9 @@ export const resetPassword = async (values: ResetPasswordFormValues) => {
 
   if (!user) throw new Error("User with this email does not exist");
 
-  const resetPasswordToken = crypto.randomBytes(32).toString("base64url");
+  const resetPasswordToken = (await import("crypto"))
+    .randomBytes(32)
+    .toString("base64url");
   const today = new Date();
   const expiryDate = new Date(today.setDate(today.getDate() + 1));
 
@@ -26,6 +26,8 @@ export const resetPassword = async (values: ResetPasswordFormValues) => {
     resetPasswordToken,
     expiryDate
   );
+
+  const { sendEmail } = await import("../email/sendEmail");
 
   await sendEmail({
     to: [values.email],
