@@ -11,12 +11,12 @@ const ResetPasswordPage = async ({ searchParams }: ResetPasswordPageProps) => {
   if (!searchParams.token)
     return (
       <>
-        <div className="mb-8">
+        <div>
           <h1 className="text-3xl xl:text-4xl font-semibold text-white">
             Reset Password
           </h1>
-          <p className="mt-1 text-main">
-            Fill up your email and we will send you an reset password link.
+          <p className="mt-1">
+            Fill up your account email and we will send you an reset password link.
           </p>
         </div>
 

@@ -11,7 +11,7 @@ const Logo = ({ className }: Props) => {
     <Link
       href="/"
       className={cn(
-        "group flex items-center gap-2 text-xl font-semibold text-primary-main",
+        "group flex items-center gap-2 text-xl font-semibold text-primary-main max-w-fit",
         className
       )}
     >
