@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 import { format, isPast, isToday, isTomorrow } from "date-fns";
 import { enUS } from "date-fns/locale";
 import { AtSign, Check, Star, ReceiptText } from "lucide-react";
-import { MouseEvent, useContext } from "react";
+import { useContext } from "react";
 import { ITask } from "@/lib/interfaces";
 import Link from "next/link";
 import Chip from "../../ui/Chip";
@@ -95,7 +95,6 @@ const Task = ({ task }: Props) => {
                 <Chip
                   title={label.name}
                   prepEndIcon={<AtSign size={16} />}
-                  onClick={(e: MouseEvent) => e.stopPropagation()}
                 />
               </Link>
             ))}

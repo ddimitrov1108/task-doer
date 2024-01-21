@@ -22,6 +22,8 @@ interface Props {
 }
 
 const UserDropdown = ({ user }: Props) => {
+  const onSignOutClickHandler = () => signOut();
+
   return (
     <Dropdown
       buttonClassName="select-none w-full flex items-center gap-3 hover:bg-black-light/10"
@@ -54,7 +56,7 @@ const UserDropdown = ({ user }: Props) => {
 
       <DropdownListItem
         as="button"
-        onClick={() => signOut()}
+        onClick={onSignOutClickHandler}
         className="text-error-main"
         item={{
           name: "Sign Out",

@@ -27,6 +27,8 @@ const DeleteConfirmationModal = ({
     setForm({ error: "", loading: false });
   };
 
+  const onCloseClickHandler = () => setOpen(false);
+
   return (
     <Modal
       modalTitle={
@@ -50,7 +52,7 @@ const DeleteConfirmationModal = ({
             variant="text"
             className="flex justify-center"
             disabled={form.loading}
-            onClick={() => setOpen(false)}
+            onClick={onCloseClickHandler}
             fullWidth
           >
             Cancel

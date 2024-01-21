@@ -20,7 +20,8 @@ const TaskInteractiveButtons = ({ task }: Props) => {
       id: useId(),
       name: "Edit",
       icon: <Pencil size={20} />,
-      onClick: () => {
+      onClick: (e: React.MouseEvent) => {
+        e.stopPropagation();
         taskContext?.setTask(task);
         taskContext?.setTaskModal({ open: true, editMode: true });
       },
@@ -31,7 +32,8 @@ const TaskInteractiveButtons = ({ task }: Props) => {
       id: useId(),
       name: "Delete",
       icon: <Trash2 size={20} />,
-      onClick: () => {
+      onClick: (e: React.MouseEvent) => {
+        e.stopPropagation();
         taskContext?.setTask(task);
         taskContext?.setOpenDeleteModal(true);
       },
@@ -55,10 +57,7 @@ const TaskInteractiveButtons = ({ task }: Props) => {
           <DropdownListItem
             key={id}
             as="button"
-            onClick={(e: React.MouseEvent) => {
-              e.stopPropagation();
-              onClick();
-            }}
+            onClick={onClick}
             item={item}
             className={className}
             iconClassName={iconClassName}

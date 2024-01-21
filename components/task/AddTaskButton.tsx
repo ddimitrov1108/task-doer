@@ -14,12 +14,15 @@ interface Props {
 const AddTaskButton = ({ className, ...restProps }: Props) => {
   const taskContext = useContext(TaskContext);
 
+  const onClickHandler = () =>
+    taskContext?.setTaskModal({ open: true, editMode: false });
+
   return (
     <Button
       variant="secondary"
       size="sm"
       className={cn("px-2 flex items-center gap-1 justify-center", className)}
-      onClick={() => taskContext?.setTaskModal({ open: true, editMode: false })}
+      onClick={onClickHandler}
       {...restProps}
     >
       <Plus size={20} /> New Task
