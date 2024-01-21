@@ -1,61 +1,83 @@
+"use client";
+
 import { ITask } from "@/lib/interfaces";
 import { isFuture, isPast, isToday } from "date-fns";
 import dynamic from "next/dynamic";
+import TaskSearchForm from "../forms/TaskSearchForm";
+import { useSearchParams } from "next/navigation";
 
 const CompletedTasksStatus = dynamic(
-  () => import("./status/CompletedTasksStatus")
+  () => import("./components/status/CompletedTasksStatus")
 );
 const NotFoundTasksStatus = dynamic(
-  () => import("./status/NotFoundTasksStatus")
+  () => import("./components/status/NotFoundTasksStatus")
 );
-const ListOfTasks = dynamic(() => import("./ListOfTasks"));
+const ListOfTasks = dynamic(() => import("./components/ListOfTasks"));
 
 interface Props {
   tasks: ITask[];
 }
 
 const TasksLists = ({ tasks }: Props) => {
+  const searchParams = useSearchParams();
+
   if (!tasks.length) return <NotFoundTasksStatus />;
 
-  const pastDueTasks = tasks.filter(
+  const searchValue = searchParams.get("search");
+
+  const filteredTasks = searchValue
+    ? tasks.filter((task) => task.name.includes(searchValue))
+    : tasks;
+
+  const pastDueTasks = filteredTasks.filter(
     (e) => !e.completed && isPast(e.due_date) && !isToday(e.due_date)
   );
 
-  const importantTasks = tasks.filter(
+  const importantTasks = filteredTasks.filter(
     (e) =>
       e.important &&
       !e.completed &&
       (isToday(e.due_date) || isFuture(e.due_date))
   );
 
-  const activeTasks = tasks.filter(
+  const activeTasks = filteredTasks.filter(
     (e) =>
       !e.important &&
       !e.completed &&
       (isToday(e.due_date) || isFuture(e.due_date))
   );
 
-  const completedTasks = tasks.filter((e) => e.completed);
+  const completedTasks = filteredTasks.filter((e) => e.completed);
 
   return (
-    <div className="grid gap-6">
-      {!pastDueTasks.length &&
-      !importantTasks.length &&
-      !activeTasks.length &&
-      completedTasks.length ? (
-        <>
-          <CompletedTasksStatus />
-          <ListOfTasks open={false} listTitle="Completed Tasks" tasks={completedTasks} />
-        </>
-      ) : (
-        <>
-          <ListOfTasks listTitle="Past Due Tasks" tasks={pastDueTasks} />
-          <ListOfTasks listTitle="Important Tasks" tasks={importantTasks} />
-          <ListOfTasks listTitle="Active Tasks" tasks={activeTasks} />
-          <ListOfTasks open={false} listTitle="Completed Tasks" tasks={completedTasks} />
-        </>
-      )}
-    </div>
+    <>
+      <div className="flex items-center justify-between gap-6 mb-8">
+        <TaskSearchForm />
+      </div>
+
+      <div className="grid gap-6">
+        {!filteredTasks.length ? (
+          <NotFoundTasksStatus />
+        ) : (
+          <>
+            {!pastDueTasks.length &&
+              !importantTasks.length &&
+              !activeTasks.length &&
+              completedTasks.length &&
+              !searchValue && <CompletedTasksStatus />}
+
+            <ListOfTasks listTitle="Past Due Tasks" tasks={pastDueTasks} />
+            <ListOfTasks listTitle="Important Tasks" tasks={importantTasks} />
+            <ListOfTasks listTitle="Active Tasks" tasks={activeTasks} />
+            <ListOfTasks
+              open={!!searchValue}
+              listTitle="Completed Tasks"
+              tasks={completedTasks}
+            />
+          </>
+        )}
+      </div>
+    </>
   );
 };
 export default TasksLists;
