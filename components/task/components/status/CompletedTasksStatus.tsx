@@ -1,5 +1,5 @@
 import Image from "next/image";
-import AddTaskButton from "../AddTaskButton";
+import AddTaskButton from "../../AddTaskButton";
 
 const CompletedTasksStatus = () => {
   return (

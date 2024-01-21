@@ -16,7 +16,7 @@ const PageTitle = ({ children, label = "", className }: Props) => {
           </label>
         )}
 
-        <div className={cn("capitalize text-xl xs:text-2xl lg:text-3xl font-bold", className)}>
+        <div className={cn("text-light capitalize text-xl xs:text-2xl lg:text-3xl font-bold", className)}>
           {children}
         </div>
       </div>

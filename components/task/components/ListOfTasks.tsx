@@ -1,8 +1,6 @@
 import { ITask } from "@/lib/interfaces";
-import DisclousureContainer from "../ui/DisclousureContainer";
-import dynamic from "next/dynamic";
-
-const Task = dynamic(() => import("./Task"));
+import DisclousureContainer from "../../ui/DisclousureContainer";
+import Task from "./Task";
 
 interface Props {
   open?: boolean;

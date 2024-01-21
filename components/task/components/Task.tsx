@@ -7,10 +7,10 @@ import { AtSign, Check, Star, ReceiptText } from "lucide-react";
 import { MouseEvent, useContext } from "react";
 import { ITask } from "@/lib/interfaces";
 import Link from "next/link";
-import Chip from "../ui/Chip";
-import TaskInteractiveButtons from "../interactive-buttons/TaskInteractiveButtons";
-import ButtonIcon from "../ui/ButtonIcon";
-import { TaskContext } from "../context/TaskContext";
+import Chip from "../../ui/Chip";
+import TaskInteractiveButtons from "../../interactive-buttons/TaskInteractiveButtons";
+import ButtonIcon from "../../ui/ButtonIcon";
+import { TaskContext } from "../../context/TaskContext";
 
 interface Props {
   task: ITask;
