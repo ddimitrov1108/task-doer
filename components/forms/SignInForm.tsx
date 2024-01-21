@@ -70,7 +70,7 @@ const SignInForm = () => {
           maxLength={20}
           component={PasswordField}
           fullWidth
-          containerClassName="mb-2"
+          containerClassName="mb-1"
         />
 
         <div className="mb-8">

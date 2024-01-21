@@ -7,25 +7,25 @@ export const alert = cva("div", {
     intent: {
       info: [
         "bg-primary-main/10",
-        "border-primary-main/40",
+        "border-primary-main/10",
         "border-l-primary-main",
         "text-primary-main",
       ],
       success: [
         "bg-success-light/10",
-        "border-success-light/40",
+        "border-success-light/10",
         "border-l-success-main",
         "text-success-main",
       ],
       error: [
         "bg-error-light/10",
-        "border-error-light/20",
+        "border-error-light/10",
         "border-l-error-main",
         "text-error-main",
       ],
       warning: [
         "bg-warning-light/10",
-        "border-warning-light/40",
+        "border-warning-light/10",
         "border-l-warning-main",
         "text-warning-main",
       ],
