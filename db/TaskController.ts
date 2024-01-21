@@ -178,11 +178,6 @@ class TaskController extends DbConnector {
         const incomingLabelIDs = task.labels.map((l) => l.id);
         const existingLabelIDs = updatedTask.labels.map((l) => l.label_id);
 
-        console.log("incoming labels");
-        console.log(incomingLabelIDs);
-        console.log("existing in db labels");
-        console.log(existingLabelIDs);
-
         if (
           incomingLabelIDs.length !== existingLabelIDs.length ||
           !incomingLabelIDs.every((lid) => existingLabelIDs.includes(lid))
