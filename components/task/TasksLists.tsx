@@ -23,10 +23,10 @@ const TasksLists = ({ tasks }: Props) => {
 
   if (!tasks.length) return <NotFoundTasksStatus />;
 
-  const searchValue = searchParams.get("search");
+  const searchValue = searchParams.get("search")?.toLowerCase();
 
   const filteredTasks = searchValue
-    ? tasks.filter((task) => task.name.includes(searchValue))
+    ? tasks.filter((task) => task.name.toLowerCase().includes(searchValue))
     : tasks;
 
   const pastDueTasks = filteredTasks.filter(
