@@ -1,20 +1,15 @@
 import SignInForm from "@/components/forms/SignInForm";
+import Title from "../title";
 
 const SignInPage = () => {
   return (
     <>
-      <div className="grid gap-1 mb-8">
-        <h1 className="text-3xl xl:text-4xl font-semibold text-white">
-          Sign In
-        </h1>
-        <p>
-          Welcome back! Enter your login details.
-        </p>
-      </div>
+      <Title
+        title="Sign In"
+        description="Welcome back! Enter your login details."
+      />
 
-      <div className="w-full">
-        <SignInForm />
-      </div>
+      <SignInForm />
     </>
   );
 };
