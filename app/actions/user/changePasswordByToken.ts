@@ -4,10 +4,10 @@ import userController from "@/db/UserController";
 import { ChangePasswordFormValues } from "@/lib/form-schemas";
 
 export const changePasswordByToken = async (
-  reset_password_token: string,
+  resetPasswordToken: string,
   values: ChangePasswordFormValues
 ) => {
-  const user = await userController.getByToken(reset_password_token);
+  const user = await userController.getByToken(resetPasswordToken);
 
   if (!user) return { error: "User with this email does not exist" };
 

@@ -48,7 +48,7 @@ class UserController extends DbConnector {
           firstName: true,
           lastName: true,
           email: true,
-          hash_password: true,
+          hashPassword: true,
         },
       });
     } catch (e) {
@@ -69,7 +69,7 @@ class UserController extends DbConnector {
           firstName: user.firstName,
           lastName: user.lastName,
           email: user.email,
-          hash_password,
+          hashPassword,
         },
       });
     } catch (e) {
@@ -90,8 +90,8 @@ class UserController extends DbConnector {
           id: userId,
         },
         data: {
-          hash_password,
-          reset_password_token: null,
+          hashPassword,
+          resetPasswordToken: null,
           resetPasswordTokenExpiry: null,
         },
         select: {
@@ -104,13 +104,13 @@ class UserController extends DbConnector {
     }
   }
 
-  public async getByToken(reset_password_token: string) {
+  public async getByToken(resetPasswordToken: string) {
     try {
       return await this.prisma.user.findUnique({
         where: { resetPasswordToken},
         select: {
           id: true,
-          reset_password_token: true,
+          resetPasswordToken: true,
           resetPasswordTokenExpiry: true,
         },
       });
@@ -122,7 +122,7 @@ class UserController extends DbConnector {
 
   public async resetPasswordToken(
     userId: string,
-    reset_password_token: string,
+    resetPasswordToken: string,
     resetPasswordTokenExpiry: Date
   ) {
     try {
@@ -131,7 +131,7 @@ class UserController extends DbConnector {
           id: userId,
         },
         data: {
-          reset_password_token: reset_password_token,
+          resetPasswordToken: resetPasswordToken,
           resetPasswordTokenExpiry: resetPasswordTokenExpiry,
         },
       });

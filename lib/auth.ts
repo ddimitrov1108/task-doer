@@ -35,7 +35,7 @@ const authConfig: NextAuthOptions = {
 
         const comparePasswords = await bcryptjs.compare(
           credentials.password,
-          user.hash_password
+          user.hashPassword
         );
 
         if (!comparePasswords)
