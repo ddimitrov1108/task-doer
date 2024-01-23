@@ -77,7 +77,7 @@ const SortTasksListbox = () => {
                     selected ? "justify-between" : "justify-end"
                   )
                 }
-                value={sort}
+                value={sort.value}
               >
                 {({ selected }) => (
                   <>
