@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 import { Menu, Transition } from "@headlessui/react";
-import { ChevronDown } from "lucide-react";
+import { ChevronDownIcon } from "lucide-react";
 import { Fragment } from "react";
 
 interface Props {
@@ -36,20 +36,20 @@ const Dropdown = ({
         {...buttonEvents}
       >
         {({ open }) => (
-          <Fragment>
+          <>
             {buttonContent}
             {showChevron && (
               <div
                 className={cn(
-                  "text-xl text-main transition-all",
+                  " text-main transition-all",
                   open && "rotate-180",
                   chevronClassName
                 )}
               >
-                <ChevronDown size={20} />
+                <ChevronDownIcon size={20} />
               </div>
             )}
-          </Fragment>
+          </>
         )}
       </Menu.Button>
 
