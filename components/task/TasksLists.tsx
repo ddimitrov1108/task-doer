@@ -5,7 +5,6 @@ import { isFuture, isPast, isToday } from "date-fns";
 import dynamic from "next/dynamic";
 import TaskSearchForm from "../forms/TaskSearchForm";
 import { useSearchParams } from "next/navigation";
-import SortTasksListbox from "./components/SortTasksListbox";
 import { sortBy } from "@/lib/utils";
 
 const CompletedTasksStatus = dynamic(
@@ -15,6 +14,7 @@ const NotFoundTasksStatus = dynamic(
   () => import("./components/status/NotFoundTasksStatus")
 );
 const ListOfTasks = dynamic(() => import("./components/ListOfTasks"));
+const SortTasksListbox = dynamic(() => import("./components/SortTasksListbox"));
 
 interface Props {
   tasks: ITask[];
@@ -25,11 +25,11 @@ const TasksLists = ({ tasks }: Props) => {
 
   if (!tasks.length) return <NotFoundTasksStatus />;
 
-  const searchValue = searchParams.get("search")?.toLowerCase();
-  const sortValue = searchParams.get("sort")?.toLowerCase();
+  const searchParam = searchParams.get("search")?.toLowerCase();
+  const sortParam = searchParams.get("sort")?.toLowerCase();
 
-  const filteredTasks = searchValue
-    ? tasks.filter((task) => task.name.toLowerCase().includes(searchValue))
+  const filteredTasks = searchParam
+    ? tasks.filter((task) => task.name.toLowerCase().includes(searchParam))
     : tasks;
 
   const pastDueTasks = filteredTasks.filter(
@@ -63,27 +63,29 @@ const TasksLists = ({ tasks }: Props) => {
         ) : (
           <>
             {!pastDueTasks.length &&
-              !importantTasks.length &&
-              !activeTasks.length &&
-              completedTasks.length &&
-              !searchValue && <CompletedTasksStatus />}
+            !importantTasks.length &&
+            !activeTasks.length &&
+            completedTasks.length &&
+            !searchParam ? (
+              <CompletedTasksStatus />
+            ) : null}
 
             <ListOfTasks
               listTitle="Past Due Tasks"
-              tasks={sortBy(pastDueTasks, sortValue)}
+              tasks={sortBy(pastDueTasks, sortParam)}
             />
             <ListOfTasks
               listTitle="Important Tasks"
-              tasks={sortBy(importantTasks, sortValue)}
+              tasks={sortBy(importantTasks, sortParam)}
             />
             <ListOfTasks
               listTitle="Active Tasks"
-              tasks={sortBy(activeTasks, sortValue)}
+              tasks={sortBy(activeTasks, sortParam)}
             />
             <ListOfTasks
-              open={!!searchValue}
+              open={!!searchParam}
               listTitle="Completed Tasks"
-              tasks={sortBy(completedTasks, sortValue)}
+              tasks={sortBy(completedTasks, sortParam)}
             />
           </>
         )}

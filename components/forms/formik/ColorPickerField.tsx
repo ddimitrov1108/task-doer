@@ -69,9 +69,9 @@ const ColorPickerField = ({
         ))}
       </div>
 
-      {errors[field.name] && touched[field.name] && (
+      {errors[field.name] && touched[field.name] ? (
         <FormErrorMessage message={errors[field.name]} />
-      )}
+      ) : null}
     </div>
   );
 };
