@@ -11,7 +11,7 @@ export const changePasswordByToken = async (
 
   if (!user) return { error: "User with this email does not exist" };
 
-  const resetPasswordTokenExpiry = user.reset_password_token_expiry;
+  const resetPasswordTokenExpiry = user.resetPasswordTokenExpiry;
   const today = new Date();
 
   if (!resetPasswordTokenExpiry) return { error: "Token expired" };

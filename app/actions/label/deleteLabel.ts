@@ -5,14 +5,14 @@ import { getUserFromServerSession } from "@/lib/auth";
 import { isUUID } from "@/lib/utils";
 import { revalidatePath } from "next/cache";
 
-export const deleteLabel = async (label_id: string) => {
+export const deleteLabel = async (labelId: string) => {
   const user = await getUserFromServerSession();
 
   if (!user) return { error: "Unauthenticated" };
-  if (!isUUID(label_id)) return { error: "Bad Request" };
+  if (!isUUID(labelId)) return { error: "Bad Request" };
 
   try {
-    await labelController.delete(user.id, label_id);
+    await labelController.delete(user.id, labelId);
     revalidatePath("/todo");
     return {};
   } catch (e) {

@@ -58,12 +58,12 @@ export const signInFormSchema = z.object({
 });
 
 export const signUpFormSchema = z.object({
-  first_name: z
+  firstName: z
     .string({ required_error: "Field is required" })
     .min(2, "Minimum length of 2 symbols is required")
     .max(20, "Maximum length of 20 symbols is exceeded")
     .regex(nameRegex, "Invalid field"),
-  last_name: z
+  lastName: z
     .string({ required_error: "Field is required" })
     .min(2, "Minimum length of 2 symbols is required")
     .max(20, "Maximum length of 20 symbols is exceeded")
@@ -123,7 +123,7 @@ export const taskFormSchema = z.object({
     .max(255, "Maximum length of 255 symbols is exceeded")
     .regex(descriptionRegex, "Invalid field")
     .nullable(),
-  due_date: z.string({ required_error: "Field is required" }),
+  dueDate: z.string({ required_error: "Field is required" }),
   important: z.boolean().default(false),
   completed: z.boolean().default(false),
   labels: z

@@ -30,21 +30,21 @@ const TasksLists = ({ tasks }: Props) => {
     : tasks;
 
   const pastDueTasks = filteredTasks.filter(
-    (e) => !e.completed && isPast(e.due_date) && !isToday(e.due_date)
+    (e) => !e.completed && isPast(e.dueDate) && !isToday(e.dueDate)
   );
 
   const importantTasks = filteredTasks.filter(
     (e) =>
       e.important &&
       !e.completed &&
-      (isToday(e.due_date) || isFuture(e.due_date))
+      (isToday(e.dueDate) || isFuture(e.dueDate))
   );
 
   const activeTasks = filteredTasks.filter(
     (e) =>
       !e.important &&
       !e.completed &&
-      (isToday(e.due_date) || isFuture(e.due_date))
+      (isToday(e.dueDate) || isFuture(e.dueDate))
   );
 
   const completedTasks = filteredTasks.filter((e) => e.completed);

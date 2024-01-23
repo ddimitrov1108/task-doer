@@ -8,8 +8,8 @@ import DbConnector from "./DbConnector";
 import bcryptjs from "bcryptjs";
 
 type NewUser = {
-  first_name: string;
-  last_name: string;
+  firstName: string;
+  lastName: string;
   email: string;
   password: string;
 };
@@ -45,8 +45,8 @@ class UserController extends DbConnector {
         where: { email },
         select: {
           id: true,
-          first_name: true,
-          last_name: true,
+          firstName: true,
+          lastName: true,
           email: true,
           hash_password: true,
         },
@@ -59,15 +59,15 @@ class UserController extends DbConnector {
 
   public async create(user: NewUser) {
     try {
-      const hash_password = await bcryptjs.hash(
+      const hashPassword= await bcryptjs.hash(
         user.password,
         Number(process.env.HASH_SALT)
       );
 
       return await this.prisma.user.create({
         data: {
-          first_name: user.first_name,
-          last_name: user.last_name,
+          firstName: user.firstName,
+          lastName: user.lastName,
           email: user.email,
           hash_password,
         },
@@ -78,21 +78,21 @@ class UserController extends DbConnector {
     }
   }
 
-  public async resetPasswordByToken(user_id: string, password: string) {
+  public async resetPasswordByToken(userId: string, password: string) {
     try {
-      const hash_password = await bcryptjs.hash(
+      const hashPassword= await bcryptjs.hash(
         password,
         Number(process.env.HASH_SALT)
       );
 
       await this.prisma.user.update({
         where: {
-          id: user_id,
+          id: userId,
         },
         data: {
           hash_password,
           reset_password_token: null,
-          reset_password_token_expiry: null,
+          resetPasswordTokenExpiry: null,
         },
         select: {
           id: true,
@@ -107,11 +107,11 @@ class UserController extends DbConnector {
   public async getByToken(reset_password_token: string) {
     try {
       return await this.prisma.user.findUnique({
-        where: { reset_password_token },
+        where: { resetPasswordToken},
         select: {
           id: true,
           reset_password_token: true,
-          reset_password_token_expiry: true,
+          resetPasswordTokenExpiry: true,
         },
       });
     } catch (e) {
@@ -121,18 +121,18 @@ class UserController extends DbConnector {
   }
 
   public async resetPasswordToken(
-    user_id: string,
+    userId: string,
     reset_password_token: string,
-    reset_password_token_expiry: Date
+    resetPasswordTokenExpiry: Date
   ) {
     try {
       await this.prisma.user.update({
         where: {
-          id: user_id,
+          id: userId,
         },
         data: {
           reset_password_token: reset_password_token,
-          reset_password_token_expiry: reset_password_token_expiry,
+          resetPasswordTokenExpiry: resetPasswordTokenExpiry,
         },
       });
     } catch (e) {

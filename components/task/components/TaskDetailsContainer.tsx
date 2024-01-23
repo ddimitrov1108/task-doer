@@ -39,7 +39,7 @@ const TaskDetailsContainer = ({ task, open, setOpen }: Props) => {
 
             {task.description}
 
-            {format(task.due_date, "dd/MM/yyyy")}
+            {format(task.dueDate, "dd/MM/yyyy")}
           </div>
         )}
       </div>

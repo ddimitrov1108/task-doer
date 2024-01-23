@@ -43,7 +43,7 @@ const authConfig: NextAuthOptions = {
 
         return {
           id: user.id,
-          name: `${user.first_name} ${user.last_name}`,
+          name: `${user.firstName} ${user.lastName}`,
           email: user.email,
         };
       },
@@ -53,8 +53,8 @@ const authConfig: NextAuthOptions = {
       name: "Sign up",
       type: "credentials",
       credentials: {
-        first_name: { type: "text" },
-        last_name: { type: "text" },
+        firstName: { type: "text" },
+        lastName: { type: "text" },
         email: { type: "email" },
         password: { type: "password" },
         confirmPassword: { type: "password" },
@@ -71,8 +71,8 @@ const authConfig: NextAuthOptions = {
           throw new Error("User with this email already exists");
 
         const user = await userController.create({
-          first_name: credentials.first_name,
-          last_name: credentials.last_name,
+          firstName: credentials.firstName,
+          lastName: credentials.lastName,
           email: credentials.email,
           password: credentials.password,
         });
@@ -81,7 +81,7 @@ const authConfig: NextAuthOptions = {
 
         return {
           id: user.id,
-          name: `${user.first_name} ${user.last_name}`,
+          name: `${user.firstName} ${user.lastName}`,
           email: user.email,
         };
       },

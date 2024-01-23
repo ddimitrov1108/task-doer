@@ -15,7 +15,7 @@ interface Props {
   reset_password_token: string;
 }
 
-const ChangePasswordWithTokenForm = ({ reset_password_token }: Props) => {
+const ChangePasswordWithTokenForm = ({ resetPasswordToken}: Props) => {
   const router = useRouter();
   const [form, setForm] = useForm();
 

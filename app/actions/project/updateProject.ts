@@ -7,18 +7,18 @@ import { isUUID } from "@/lib/utils";
 import { revalidatePath } from "next/cache";
 
 export const updateProject = async (
-  project_id: string,
+  projectId: string,
   values: ProjectFormValues
 ) => {
   const user = await getUserFromServerSession();
 
   if (!user) return { error: "Unauthenticated" };
-  if (!isUUID(project_id) || !values) return { error: "Bad Request" };
+  if (!isUUID(projectId) || !values) return { error: "Bad Request" };
   if (!projectController.validate(values)) return { error: "Invalid fields" };
 
   try {
     await projectController.update(user.id, {
-      id: project_id,
+      id: projectId,
       name: values.name,
       color: values.color,
     });

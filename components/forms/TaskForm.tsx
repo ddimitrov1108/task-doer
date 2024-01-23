@@ -82,7 +82,7 @@ const TaskForm = ({ initialState, editMode = false, afterSubmit }: Props) => {
               description: "",
               important: false,
               completed: false,
-              due_date: format(new Date(), "yyyy-MM-dd"),
+              dueDate: format(new Date(), "yyyy-MM-dd"),
               labels: [],
             }
       }
@@ -104,8 +104,8 @@ const TaskForm = ({ initialState, editMode = false, afterSubmit }: Props) => {
         />
 
         <Field
-          id="due_date"
-          name="due_date"
+          id="dueDate"
+          name="dueDate"
           label="Due Date"
           disabled={form.loading}
           component={DatePickerField}

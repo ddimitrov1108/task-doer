@@ -30,12 +30,12 @@ const TaskProvider = ({ children }: Props) => {
   });
   const [openDeleteModal, setOpenDeleteModal] = useState<boolean>(false);
 
-  const setCompleted = async (task_id: string, completed: boolean) => {
+  const setCompleted = async (taskId: string, completed: boolean) => {
     const { setTaskCompleted } = await import(
       "@/app/actions/task/setTaskCompleted"
     );
 
-    await setTaskCompleted(task_id, completed)
+    await setTaskCompleted(taskId, completed)
       .then(({ error }) => {
         if (error) throw error;
 
@@ -50,12 +50,12 @@ const TaskProvider = ({ children }: Props) => {
       });
   };
 
-  const setImportant = async (task_id: string, important: boolean) => {
+  const setImportant = async (taskId: string, important: boolean) => {
     const { setTaskImportant } = await import(
       "@/app/actions/task/setTaskImportant"
     );
 
-    await setTaskImportant(task_id, important)
+    await setTaskImportant(taskId, important)
       .then(({ error }) => {
         if (error) throw error;
       })
@@ -111,7 +111,7 @@ const TaskProvider = ({ children }: Props) => {
             taskModal.editMode && task
               ? {
                   ...task,
-                  due_date: format(new Date(task.due_date), "yyyy-MM-dd"),
+                  dueDate: format(new Date(task.dueDate), "yyyy-MM-dd"),
                   description: task.description || null,
                 }
               : undefined
