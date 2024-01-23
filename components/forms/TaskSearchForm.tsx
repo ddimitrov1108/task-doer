@@ -2,14 +2,13 @@
 
 import { Search } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useCallback, useState } from "react";
+import { useCallback } from "react";
 import { useDebouncedCallback } from "use-debounce";
 
 const TaskSearchForm = () => {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const [value, setValue] = useState(searchParams.get("search") || "");
 
   const createQueryString = useCallback(
     (name: string, value: string) => {
@@ -34,9 +33,8 @@ const TaskSearchForm = () => {
           type="text"
           placeholder="Search task..."
           className="w-full bg-black-dark outline-none"
-          value={value}
+          defaultValue={searchParams.get("search") || ""}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-            setValue(e.target.value);
             debounced(e.target.value);
           }}
         />

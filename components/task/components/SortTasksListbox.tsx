@@ -17,9 +17,6 @@ const SortTasksListbox = () => {
   const pathname = usePathname();
   const router = useRouter();
   const searchParams = useSearchParams();
-  const [selected, setSelected] = useState(
-    sortBy.find((item) => item.value === searchParams.get("sort")) || sortBy[2]
-  );
 
   const createQueryString = useCallback(
     (name: string, value: string) => {
@@ -32,12 +29,17 @@ const SortTasksListbox = () => {
   );
 
   const onChangeHandler = (value: { name: string; value: string }) => {
-    setSelected(value);
     router.push(`${pathname}?${createQueryString("sort", value.value)}`);
   };
 
   return (
-    <Listbox value={selected} onChange={onChangeHandler}>
+    <Listbox
+      defaultValue={
+        sortBy.find((item) => item.value === searchParams.get("sort")) ||
+        sortBy[2]
+      }
+      onChange={onChangeHandler}
+    >
       <div className="relative select-none outline-none">
         <Listbox.Button
           className={({ open }) =>
@@ -49,7 +51,7 @@ const SortTasksListbox = () => {
         >
           {({ open }) => (
             <>
-              <span className="text-light truncate">{selected.name}</span>
+              <span className="text-light truncate">Sort By</span>
               <ChevronDownIcon
                 size={20}
                 className={cn("text-main transition-all", open && "rotate-180")}
@@ -72,9 +74,7 @@ const SortTasksListbox = () => {
                   cn(
                     "flex items-center gap-2 text-light transition-all w-full p-2 rounded-lg hover:bg-black-light/10",
                     active ? "" : "",
-                    selected
-                      ? "justify-between"
-                      : "justify-end"
+                    selected ? "justify-between" : "justify-end"
                   )
                 }
                 value={sort}
