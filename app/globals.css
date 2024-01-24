@@ -95,6 +95,10 @@ body::-webkit-scrollbar-thumb {
   background-color: red;
 }
 
+input {
+  color: #C7C9D9;
+}
+
 input[type="date"]::-webkit-calendar-picker-indicator {
   filter: invert(0.5);
 }
