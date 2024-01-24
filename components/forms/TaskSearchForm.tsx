@@ -36,7 +36,7 @@ const TaskSearchForm = () => {
         <input
           type="text"
           placeholder="Search task..."
-          className="w-full bg-black-dark outline-none"
+          className="w-full bg-black-main outline-none"
           defaultValue={searchParams.get("search") || ""}
           onChange={onChangeHandler}
           maxLength={30}
