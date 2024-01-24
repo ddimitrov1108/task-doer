@@ -52,7 +52,7 @@ const TasksLists = ({ tasks }: Props) => {
 
   return (
     <>
-      <div className="flex items-center justify-between gap-6 mb-8">
+      <div className="flex items-center justify-between gap-4 mb-8">
         <TaskSearchForm />
         <SortTasksListbox />
       </div>

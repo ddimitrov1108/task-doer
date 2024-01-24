@@ -30,7 +30,7 @@ const TaskSearchForm = () => {
 
   return (
     <form onSubmit={(e: React.FormEvent) => e.preventDefault()} className="w-full">
-      <div className="transition-all group md:max-w-[360px] py-2 px-4 flex items-center gap-2 bg-black-dark border border-black-light/20 focus-within:border-primary-main rounded-lg outline-none">
+      <div className="bg-black-main transition-all group md:max-w-[360px] py-2 px-4 flex items-center gap-2 border border-black-light/20 focus-within:border-primary-main rounded-lg outline-none">
         <Search size={20} className="group-focus-within:text-primary-main" />
 
         <input
