@@ -33,7 +33,6 @@ const colorPickerColors = [
 const ColorPickerField = ({
   label = "",
   containerClassName,
-  className,
   field,
   form: { setFieldValue, touched, errors },
   fullWidth,

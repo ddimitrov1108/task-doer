@@ -15,6 +15,7 @@ const NotFoundTasksStatus = dynamic(
 const ListOfTasks = dynamic(() => import("./components/ListOfTasks"));
 const SortTasksListbox = dynamic(() => import("./components/SortTasksListbox"));
 const TaskSearchForm = dynamic(() => import("../forms/TaskSearchForm"));
+
 interface Props {
   tasks: ITask[];
 }

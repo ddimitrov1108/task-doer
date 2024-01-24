@@ -38,7 +38,7 @@ const PasswordField = ({
     });
   };
 
-  const PasswordIconClickHandler = () => {
+  const onBtnClickHandler = () => {
     if (!inputRef.current) return;
 
     setIsVisible(!isVisible);
@@ -78,7 +78,7 @@ const PasswordField = ({
           type="button"
           disabled={disabled}
           className="text-main transition-all bg-transparent absolute top-3 right-3 rounded-full select-none outline-none"
-          onClick={PasswordIconClickHandler}
+          onClick={onBtnClickHandler}
         >
           {isVisible ? <EyeOff /> : <Eye />}
         </button>

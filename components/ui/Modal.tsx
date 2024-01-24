@@ -27,9 +27,7 @@ const Modal = ({
   headerClassName,
   bodyClassName,
 }: Props) => {
-  const onCloseClickHandler = () => {
-    setOpen(false);
-  };
+  const onClickHandler = () => setOpen(false);
 
   return (
     <Transition appear show={open} as={Fragment}>
@@ -37,7 +35,7 @@ const Modal = ({
         as="div"
         className="relative z-50"
         open={open}
-        onClose={onCloseClickHandler}
+        onClose={onClickHandler}
       >
         <Transition.Child
           as={Fragment}
@@ -80,7 +78,7 @@ const Modal = ({
                   <ButtonIcon
                     type="button"
                     tabIndex={0}
-                    onClick={onCloseClickHandler}
+                    onClick={onClickHandler}
                     className="text-xl"
                   >
                     <X />
