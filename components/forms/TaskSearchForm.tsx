@@ -29,8 +29,8 @@ const TaskSearchForm = () => {
   };
 
   return (
-    <form onSubmit={(e: React.FormEvent) => e.preventDefault()}>
-      <div className="transition-all group md:max-w-[380px] py-2 px-4 flex items-center gap-2 bg-black-dark border border-black-light/20 focus-within:border-primary-main rounded-lg outline-none">
+    <form onSubmit={(e: React.FormEvent) => e.preventDefault()} className="w-full">
+      <div className="transition-all group md:max-w-[360px] py-2 px-4 flex items-center gap-2 bg-black-dark border border-black-light/20 focus-within:border-primary-main rounded-lg outline-none">
         <Search size={20} className="group-focus-within:text-primary-main" />
 
         <input
@@ -39,6 +39,7 @@ const TaskSearchForm = () => {
           className="w-full bg-black-dark outline-none"
           defaultValue={searchParams.get("search") || ""}
           onChange={onChangeHandler}
+          maxLength={30}
         />
       </div>
     </form>

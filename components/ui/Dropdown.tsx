@@ -65,7 +65,7 @@ const Dropdown = ({
         <div className="relative">
           <Menu.Items
             className={cn(
-              "border border-black-light/20 bg-black-main p-2 overflow-hidden z-40 absolute right-0 mt-2 w-56 origin-top-right rounded-lg shadow-lg focus:outline-none outline-none select-none",
+              "grid gap-1 border border-black-light/20 bg-black-main p-2 overflow-hidden z-40 absolute right-0 mt-2 w-56 origin-top-right rounded-lg shadow-lg focus:outline-none outline-none select-none",
               bodyClassName
             )}
           >

@@ -3,7 +3,6 @@
 import { ITask } from "@/lib/interfaces";
 import { isFuture, isPast, isToday } from "date-fns";
 import dynamic from "next/dynamic";
-import TaskSearchForm from "../forms/TaskSearchForm";
 import { useSearchParams } from "next/navigation";
 import { sortBy } from "@/lib/utils";
 
@@ -15,7 +14,7 @@ const NotFoundTasksStatus = dynamic(
 );
 const ListOfTasks = dynamic(() => import("./components/ListOfTasks"));
 const SortTasksListbox = dynamic(() => import("./components/SortTasksListbox"));
-
+const TaskSearchForm = dynamic(() => import("../forms/TaskSearchForm"));
 interface Props {
   tasks: ITask[];
 }

@@ -26,7 +26,7 @@ const NavLink = ({
     <Link
       href={href}
       className={cn(
-        "transition-all w-full px-2 py-1 rounded-lg flex items-center gap-3",
+        "transition-all w-full px-2 py-1.5 rounded-lg flex items-center gap-3",
         className,
         pathname === href
           ? "bg-black-light/10 text-white"

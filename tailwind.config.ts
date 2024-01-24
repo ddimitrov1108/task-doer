@@ -13,7 +13,7 @@ const config: Config = {
         xs: "420px",
       },
       colors: {
-        white: "#FAFAFA",
+        white: "#E5E6EE",
         light: "#C7C9D9",
         main: "#8F90A6",
         dark: "#555770",

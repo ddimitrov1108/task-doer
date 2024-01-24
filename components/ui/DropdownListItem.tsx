@@ -23,7 +23,7 @@ const DropdownListItem = ({
     <Menu.Item
       as={as}
       className={cn(
-        "transition-all w-full p-2 rounded-lg flex items-center gap-2 hover:bg-black-light/10",
+        "transition-all w-full px-2 py-1.5 rounded-lg flex items-center gap-2 hover:bg-black-light/10",
         className
       )}
       {...restProps}
