@@ -16,21 +16,22 @@ interface Props {
   children: React.ReactNode;
 }
 
-const ProjectProvider = ({ children }: Props) => {
+const LabelProvider = ({ children }: Props) => {
   const router = useRouter();
   const [label, setLabel] = useState<ILabel>();
   const [openEditModal, setOpenEditModal] = useState<boolean>(false);
   const [openDeleteModal, setOpenDeleteModal] = useState<boolean>(false);
 
-  const onAfterEditHandler = () => setOpenEditModal(false);
-  const onAfterDeleteHandler = async () => {
+  const afterSubmitHandler = () => setOpenEditModal(false);
+  const onSubmitHandler = async () => {
     if (!label) {
       toast.error("Something went wrong. Please try again later");
       setOpenDeleteModal(false);
       return;
     }
 
-    const { deleteLabel } = await import("@/app/actions/label/deleteLabel");
+    const deleteLabel = (await import("@/app/actions/label/deleteLabel"))
+      .default;
 
     await deleteLabel(label.id)
       .then(({ error }) => {
@@ -52,14 +53,14 @@ const ProjectProvider = ({ children }: Props) => {
         setOpen={setOpenEditModal}
         editMode={true}
         initialState={label}
-        afterSubmit={onAfterEditHandler}
+        afterSubmit={afterSubmitHandler}
       />
 
       <DeleteConfirmationModal
         message="Do you want to delete this Label? It will be removed from all tasks."
         open={openDeleteModal}
         setOpen={setOpenDeleteModal}
-        onSubmit={onAfterDeleteHandler}
+        onSubmit={onSubmitHandler}
       />
 
       <LabelContext.Provider
@@ -74,4 +75,4 @@ const ProjectProvider = ({ children }: Props) => {
     </>
   );
 };
-export default ProjectProvider;
+export default LabelProvider;

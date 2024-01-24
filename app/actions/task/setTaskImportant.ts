@@ -5,7 +5,10 @@ import { getUserFromServerSession } from "@/lib/auth";
 import { isUUID } from "@/lib/utils";
 import { revalidatePath } from "next/cache";
 
-export const setTaskImportant = async (taskId: string, important: boolean) => {
+export default async function setTaskImportant(
+  taskId: string,
+  important: boolean
+) {
   const user = await getUserFromServerSession();
 
   if (!user) return { error: "Unauthenticated" };
@@ -20,4 +23,4 @@ export const setTaskImportant = async (taskId: string, important: boolean) => {
     console.error(e);
     return { error: "Something went wrong. Please try again later" };
   }
-};
+}

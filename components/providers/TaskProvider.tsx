@@ -31,17 +31,17 @@ const TaskProvider = ({ children }: Props) => {
   const [openDeleteModal, setOpenDeleteModal] = useState<boolean>(false);
 
   const setCompleted = async (taskId: string, completed: boolean) => {
-    const { setTaskCompleted } = await import(
-      "@/app/actions/task/setTaskCompleted"
-    );
+    const setTaskCompleted = (
+      await import("@/app/actions/task/setTaskCompleted")
+    ).default;
 
     await setTaskCompleted(taskId, completed)
       .then(({ error }) => {
         if (error) throw error;
 
         if (completed) {
-          if(isPlaying) stopSound();
-          
+          if (isPlaying) stopSound();
+
           playSound();
         }
       })
@@ -51,9 +51,9 @@ const TaskProvider = ({ children }: Props) => {
   };
 
   const setImportant = async (taskId: string, important: boolean) => {
-    const { setTaskImportant } = await import(
-      "@/app/actions/task/setTaskImportant"
-    );
+    const setTaskImportant = (
+      await import("@/app/actions/task/setTaskImportant")
+    ).default;
 
     await setTaskImportant(taskId, important)
       .then(({ error }) => {
@@ -71,7 +71,7 @@ const TaskProvider = ({ children }: Props) => {
       return;
     }
 
-    const { deleteTask } = await import("@/app/actions/task/deleteTask");
+    const deleteTask = (await import("@/app/actions/task/deleteTask")).default;
 
     await deleteTask(task.id)
       .then(({ error }) => {

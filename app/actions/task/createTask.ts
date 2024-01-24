@@ -6,10 +6,10 @@ import { TaskFormValues } from "@/lib/form-schemas";
 import { isUUID } from "@/lib/utils";
 import { revalidatePath } from "next/cache";
 
-export const createTask = async (
+export default async function createTask(
   projectId: string | null,
   values: TaskFormValues
-) => {
+) {
   const user = await getUserFromServerSession();
 
   if (!user) return { error: "Unauthenticated" };
@@ -28,4 +28,4 @@ export const createTask = async (
     console.error(e);
     return { error: "Something went wrong. Please try again later" };
   }
-};
+}

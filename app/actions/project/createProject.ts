@@ -5,7 +5,7 @@ import { getUserFromServerSession } from "@/lib/auth";
 import { ProjectFormValues } from "@/lib/form-schemas";
 import { revalidatePath } from "next/cache";
 
-export const createProject = async (values: ProjectFormValues) => {
+export default async function createProject(values: ProjectFormValues) {
   const user = await getUserFromServerSession();
 
   if (!user) return { error: "Unauthenticated" };
@@ -26,4 +26,4 @@ export const createProject = async (values: ProjectFormValues) => {
     console.error(e);
     return { error: "Something went wrong. Please try again later" };
   }
-};
+}

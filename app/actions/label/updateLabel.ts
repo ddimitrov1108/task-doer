@@ -6,10 +6,10 @@ import { LabelFormValues } from "@/lib/form-schemas";
 import { isUUID } from "@/lib/utils";
 import { revalidatePath } from "next/cache";
 
-export const updateLabel = async (
+export default async function updateLabel(
   labelId: string,
   values: LabelFormValues
-) => {
+) {
   const user = await getUserFromServerSession();
 
   if (!user) return { error: "Unauthenticated" };
@@ -28,4 +28,4 @@ export const updateLabel = async (
     console.error(e);
     return { error: "Something went wrong. Please try again later" };
   }
-};
+}

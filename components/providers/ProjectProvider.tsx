@@ -30,9 +30,8 @@ const ProjectProvider = ({ children }: Props) => {
       return;
     }
 
-    const { deleteProject } = await import(
-      "@/app/actions/project/deleteProject"
-    );
+    const deleteProject = (await import("@/app/actions/project/deleteProject"))
+      .default;
 
     await deleteProject(project.id)
       .then(({ error }) => {

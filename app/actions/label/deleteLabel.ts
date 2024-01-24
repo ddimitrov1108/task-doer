@@ -5,7 +5,7 @@ import { getUserFromServerSession } from "@/lib/auth";
 import { isUUID } from "@/lib/utils";
 import { revalidatePath } from "next/cache";
 
-export const deleteLabel = async (labelId: string) => {
+export default async function deleteLabel(labelId: string) {
   const user = await getUserFromServerSession();
 
   if (!user) return { error: "Unauthenticated" };
@@ -19,4 +19,4 @@ export const deleteLabel = async (labelId: string) => {
     console.error(e);
     return { error: "Something went wrong. Please try again later" };
   }
-};
+}

@@ -6,10 +6,10 @@ import { ProjectFormValues } from "@/lib/form-schemas";
 import { isUUID } from "@/lib/utils";
 import { revalidatePath } from "next/cache";
 
-export const updateProject = async (
+export default async function updateProject(
   projectId: string,
   values: ProjectFormValues
-) => {
+) {
   const user = await getUserFromServerSession();
 
   if (!user) return { error: "Unauthenticated" };
@@ -29,4 +29,4 @@ export const updateProject = async (
     console.error(e);
     return { error: "Something went wrong. Please try again later" };
   }
-};
+}

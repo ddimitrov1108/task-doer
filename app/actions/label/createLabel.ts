@@ -5,7 +5,7 @@ import { getUserFromServerSession } from "@/lib/auth";
 import { LabelFormValues } from "@/lib/form-schemas";
 import { revalidatePath } from "next/cache";
 
-export const createLabel = async (values: LabelFormValues) => {
+export default async function createLabel(values: LabelFormValues) {
   const user = await getUserFromServerSession();
 
   if (!user) return { error: "Unauthenticated" };
