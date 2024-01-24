@@ -5,15 +5,15 @@ import { getUserFromServerSession } from "@/lib/auth";
 import { isUUID } from "@/lib/utils";
 import { revalidatePath } from "next/cache";
 
-export const setTaskCompleted = async (task_id: string, completed: boolean) => {
+export const setTaskCompleted = async (taskId: string, completed: boolean) => {
   const user = await getUserFromServerSession();
 
   if (!user) return { error: "Unauthenticated" };
-  if (!isUUID(task_id)) return { error: "Bad Request" };
+  if (!isUUID(taskId)) return { error: "Bad Request" };
   if (typeof completed != "boolean") return { error: "Invalid fields" };
 
   try {
-    await taskController.setCompleted(user.id, task_id, completed);
+    await taskController.setCompleted(user.id, taskId, completed);
     revalidatePath("/todo");
     return {};
   } catch (e) {

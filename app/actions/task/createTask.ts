@@ -7,21 +7,21 @@ import { isUUID } from "@/lib/utils";
 import { revalidatePath } from "next/cache";
 
 export const createTask = async (
-  project_id: string | null,
+  projectId: string | null,
   values: TaskFormValues
 ) => {
   const user = await getUserFromServerSession();
 
   if (!user) return { error: "Unauthenticated" };
-  if (project_id && !isUUID(project_id)) return { error: "Invalid fields" };
+  if (projectId && !isUUID(projectId)) return { error: "Invalid fields" };
   if (!values) return { error: "Invalid fields" };
   if (!taskController.validate(values)) return { error: "Invalid fields" };
 
   try {
-    const task = await taskController.create(user.id, project_id, values);
+    const task = await taskController.create(user.id, projectId, values);
     if (!task) throw new Error("Failed to create Task");
 
-    if (project_id) revalidatePath(`/todo/project/${project_id}`, "page");
+    if (projectId) revalidatePath(`/todo/project/${projectId}`, "page");
     else revalidatePath("/todo");
     return {};
   } catch (e) {

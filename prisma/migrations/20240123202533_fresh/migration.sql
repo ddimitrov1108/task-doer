@@ -1,40 +1,43 @@
 -- CreateTable
 CREATE TABLE `User` (
     `id` VARCHAR(191) NOT NULL,
-    `first_name` VARCHAR(20) NOT NULL,
-    `last_name` VARCHAR(20) NOT NULL,
+    `firstName` VARCHAR(20) NOT NULL,
+    `lastName` VARCHAR(20) NOT NULL,
     `email` VARCHAR(60) NOT NULL,
-    `hash_password` VARCHAR(255) NOT NULL,
+    `hashPassword` VARCHAR(255) NOT NULL,
+    `resetPasswordToken` VARCHAR(191) NULL,
+    `resetPasswordTokenExpiry` DATETIME(3) NULL,
     `updated_at` TIMESTAMP(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
     `created_at` TIMESTAMP(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
 
     UNIQUE INDEX `email`(`email`),
+    UNIQUE INDEX `User_resetPasswordToken_key`(`resetPasswordToken`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
 CREATE TABLE `Label` (
     `id` VARCHAR(191) NOT NULL,
-    `user_id` VARCHAR(191) NOT NULL,
+    `userId` VARCHAR(191) NOT NULL,
     `name` VARCHAR(30) NOT NULL,
     `updated_at` TIMESTAMP(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
     `created_at` TIMESTAMP(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
 
     UNIQUE INDEX `Label_name_key`(`name`),
-    INDEX `user_id`(`user_id`),
+    INDEX `userId`(`userId`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
 CREATE TABLE `Project` (
     `id` VARCHAR(191) NOT NULL,
-    `user_id` VARCHAR(191) NOT NULL,
+    `userId` VARCHAR(191) NOT NULL,
     `name` VARCHAR(30) NOT NULL,
     `color` VARCHAR(9) NOT NULL DEFAULT '#b8255f',
     `updated_at` TIMESTAMP(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
     `created_at` TIMESTAMP(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
 
-    INDEX `user_id`(`user_id`),
+    INDEX `userId`(`userId`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
@@ -45,43 +48,43 @@ CREATE TABLE `Task` (
     `description` TINYTEXT NOT NULL DEFAULT '',
     `completed` BOOLEAN NOT NULL DEFAULT false,
     `important` BOOLEAN NOT NULL DEFAULT false,
-    `due_date` DATE NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `dueDate` DATE NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updated_at` TIMESTAMP(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
     `created_at` TIMESTAMP(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0),
-    `user_id` VARCHAR(191) NOT NULL,
-    `project_id` VARCHAR(191) NULL,
+    `userId` VARCHAR(191) NOT NULL,
+    `projectId` VARCHAR(191) NULL,
 
-    INDEX `user_id`(`user_id`),
-    INDEX `project_id`(`project_id`),
+    INDEX `userId`(`userId`),
+    INDEX `projectId`(`projectId`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
 CREATE TABLE `TaskWithLabel` (
     `id` VARCHAR(191) NOT NULL,
-    `task_id` VARCHAR(191) NOT NULL,
-    `label_id` VARCHAR(191) NOT NULL,
+    `taskId` VARCHAR(191) NOT NULL,
+    `labelId` VARCHAR(191) NOT NULL,
 
-    INDEX `task_id`(`task_id`),
-    INDEX `label_id`(`label_id`),
-    UNIQUE INDEX `TaskWithLabel_task_id_label_id_key`(`task_id`, `label_id`),
+    INDEX `taskId`(`taskId`),
+    INDEX `labelId`(`labelId`),
+    UNIQUE INDEX `TaskWithLabel_taskId_labelId_key`(`taskId`, `labelId`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- AddForeignKey
-ALTER TABLE `Label` ADD CONSTRAINT `labels_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `User`(`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+ALTER TABLE `Label` ADD CONSTRAINT `labels_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `User`(`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 -- AddForeignKey
-ALTER TABLE `Project` ADD CONSTRAINT `projects_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `User`(`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+ALTER TABLE `Project` ADD CONSTRAINT `projects_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `User`(`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 -- AddForeignKey
-ALTER TABLE `Task` ADD CONSTRAINT `Task_user_id_fkey` FOREIGN KEY (`user_id`) REFERENCES `User`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE `Task` ADD CONSTRAINT `Task_userId_fkey` FOREIGN KEY (`userId`) REFERENCES `User`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `Task` ADD CONSTRAINT `Task_project_id_fkey` FOREIGN KEY (`project_id`) REFERENCES `Project`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE `Task` ADD CONSTRAINT `Task_projectId_fkey` FOREIGN KEY (`projectId`) REFERENCES `Project`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `TaskWithLabel` ADD CONSTRAINT `TaskWithLabel_task_id_fkey` FOREIGN KEY (`task_id`) REFERENCES `Task`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE `TaskWithLabel` ADD CONSTRAINT `TaskWithLabel_taskId_fkey` FOREIGN KEY (`taskId`) REFERENCES `Task`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `TaskWithLabel` ADD CONSTRAINT `TaskWithLabel_label_id_fkey` FOREIGN KEY (`label_id`) REFERENCES `Label`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE `TaskWithLabel` ADD CONSTRAINT `TaskWithLabel_labelId_fkey` FOREIGN KEY (`labelId`) REFERENCES `Label`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;

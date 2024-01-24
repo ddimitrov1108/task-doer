@@ -7,18 +7,18 @@ import { isUUID } from "@/lib/utils";
 import { revalidatePath } from "next/cache";
 
 export const updateLabel = async (
-  label_id: string,
+  labelId: string,
   values: LabelFormValues
 ) => {
   const user = await getUserFromServerSession();
 
   if (!user) return { error: "Unauthenticated" };
-  if (!isUUID(label_id) || !values) return { error: "Bad Request" };
+  if (!isUUID(labelId) || !values) return { error: "Bad Request" };
   if (!labelController.validate(values)) return { error: "Invalid fields" };
 
   try {
     await labelController.update(user.id, {
-      id: label_id,
+      id: labelId,
       name: values.name,
     });
 

@@ -7,6 +7,10 @@ body {
   color: #8F90A6;
 }
 
+input, textarea {
+  color: #C7C9D9;
+}
+
 html {
   scroll-behavior: smooth !important;
 }

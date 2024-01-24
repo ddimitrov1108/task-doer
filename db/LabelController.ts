@@ -15,13 +15,13 @@ class LabelController extends DbConnector {
     return labelFormSchema.safeParse(label).success;
   }
 
-  public async exists(user_id: string, labelName: string): Promise<boolean> {
+  public async exists(userId: string, labelName: string): Promise<boolean> {
     const formattedName: string = this.formatName(labelName);
 
     try {
       return !!(await this.prisma.label.count({
         where: {
-          user_id: user_id,
+          userId: userId,
           name: formattedName,
         },
       }));
@@ -31,11 +31,11 @@ class LabelController extends DbConnector {
     }
   }
 
-  public async getList(user_id: string): Promise<ILabel[]> {
+  public async getList(userId: string): Promise<ILabel[]> {
     try {
       return await this.prisma.label.findMany({
         where: {
-          user_id: user_id,
+          userId: userId,
         },
         select: {
           id: true,
@@ -49,12 +49,12 @@ class LabelController extends DbConnector {
     }
   }
 
-  public async get(user_id: string, label_id: string) {
+  public async get(userId: string, labelId: string) {
     try {
       const label = await this.prisma.label.findFirst({
         where: {
-          id: label_id,
-          user_id: user_id,
+          id: labelId,
+          userId: userId,
         },
         select: {
           id: true,
@@ -68,7 +68,7 @@ class LabelController extends DbConnector {
                   description: true,
                   important: true,
                   completed: true,
-                  due_date: true,
+                  dueDate: true,
                   labels: {
                     select: {
                       label: {
@@ -84,7 +84,7 @@ class LabelController extends DbConnector {
             },
             orderBy: {
               task: {
-                due_date: "asc",
+                dueDate: "asc",
               },
             },
           },
@@ -108,14 +108,14 @@ class LabelController extends DbConnector {
   }
 
   public async create(
-    user_id: string,
+    userId: string,
     newLabel: LabelFormValues
   ): Promise<ILabel | null> {
     try {
       return await this.prisma.label.create({
         data: {
           ...newLabel,
-          user_id: user_id,
+          userId: userId,
           name: this.formatName(newLabel.name),
         },
       });
@@ -125,12 +125,12 @@ class LabelController extends DbConnector {
     }
   }
 
-  public async update(user_id: string, label: ILabel): Promise<ILabel | null> {
+  public async update(userId: string, label: ILabel): Promise<ILabel | null> {
     try {
       return await this.prisma.label.update({
         where: {
           id: label.id,
-          user_id: user_id,
+          userId: userId,
         },
         data: {
           name: this.formatName(label.name),
@@ -147,14 +147,14 @@ class LabelController extends DbConnector {
   }
 
   public async delete(
-    user_id: string,
-    label_id: string
+    userId: string,
+    labelId: string
   ): Promise<ILabel | null> {
     try {
       const labelToDelete = await this.prisma.label.findFirst({
         where: {
-          id: label_id,
-          user_id: user_id,
+          id: labelId,
+          userId: userId,
         },
         include: {
           tasks: true,
@@ -165,7 +165,7 @@ class LabelController extends DbConnector {
 
       await this.prisma.taskWithLabel.deleteMany({
         where: {
-          label_id: labelToDelete.id,
+          labelId: labelToDelete.id,
         },
       });
 

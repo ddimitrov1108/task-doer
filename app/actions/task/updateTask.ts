@@ -6,18 +6,18 @@ import { TaskFormValues } from "@/lib/form-schemas";
 import { isUUID } from "@/lib/utils";
 import { revalidatePath } from "next/cache";
 
-export const updateTask = async (task_id: string, values: TaskFormValues) => {
+export const updateTask = async (taskId: string, values: TaskFormValues) => {
   const user = await getUserFromServerSession();
 
   if (!user) return { error: "Unauthenticated" };
-  if (!isUUID(task_id) || !values) return { error: "Bad Request" };
+  if (!isUUID(taskId) || !values) return { error: "Bad Request" };
   if (!taskController.validate(values)) return { error: "Invalid fields" };
 
   try {
     await taskController.update(user.id, {
       ...values,
-      id: task_id,
-      due_date: new Date(values.due_date),
+      id: taskId,
+      dueDate: new Date(values.dueDate),
     });
 
     revalidatePath("/todo");

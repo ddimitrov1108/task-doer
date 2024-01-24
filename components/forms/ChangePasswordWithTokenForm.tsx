@@ -12,10 +12,10 @@ import { toast } from "sonner";
 const Alert = dynamic(() => import("../ui/Alert"));
 
 interface Props {
-  reset_password_token: string;
+  resetPasswordToken: string;
 }
 
-const ChangePasswordWithTokenForm = ({ reset_password_token }: Props) => {
+const ChangePasswordWithTokenForm = ({ resetPasswordToken}: Props) => {
   const router = useRouter();
   const [form, setForm] = useForm();
 
@@ -40,7 +40,7 @@ const ChangePasswordWithTokenForm = ({ reset_password_token }: Props) => {
       "@/app/actions/user/changePasswordByToken"
     );
 
-    await changePasswordByToken(reset_password_token, values)
+    await changePasswordByToken(resetPasswordToken, values)
       .then(({ error }) => {
         if (error) throw error;
 

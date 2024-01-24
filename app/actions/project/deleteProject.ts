@@ -5,14 +5,14 @@ import { getUserFromServerSession } from "@/lib/auth";
 import { isUUID } from "@/lib/utils";
 import { revalidatePath } from "next/cache";
 
-export const deleteProject = async (project_id: string) => {
+export const deleteProject = async (projectId: string) => {
   const user = await getUserFromServerSession();
 
   if (!user) return { error: "Unauthenticated" };
-  if (!isUUID(project_id)) return { error: "Bad Request" };
+  if (!isUUID(projectId)) return { error: "Bad Request" };
 
   try {
-    await projectController.delete(user.id, project_id);
+    await projectController.delete(user.id, projectId);
     revalidatePath("/todo");
     return {};
   } catch (e) {

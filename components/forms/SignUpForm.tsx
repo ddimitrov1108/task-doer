@@ -48,8 +48,8 @@ const SignUpForm = () => {
   return (
     <Formik
       initialValues={{
-        first_name: "",
-        last_name: "",
+        firstName: "",
+        lastName: "",
         email: "",
         password: "",
         confirmPassword: "",
@@ -62,8 +62,8 @@ const SignUpForm = () => {
 
         <div className="md:flex gap-4 justify-between">
           <Field
-            id="first_name"
-            name="first_name"
+            id="firstName"
+            name="firstName"
             label="First Name"
             placeholder="e.g. Daniel"
             disabled={form.loading}
@@ -73,8 +73,8 @@ const SignUpForm = () => {
           />
 
           <Field
-            id="last_name"
-            name="last_name"
+            id="lastName"
+            name="lastName"
             label="Last Name"
             placeholder="e.g. Dimitrov"
             disabled={form.loading}

@@ -9,7 +9,7 @@ import TextareaField from "./formik/TextareaField";
 import CheckboxField from "./formik/CheckboxField";
 import dynamic from "next/dynamic";
 import useForm from "../hooks/useForm";
-import { useParams } from "next/navigation";
+import { useParams, usePathname } from "next/navigation";
 import { toast } from "sonner";
 import { format } from "date-fns";
 import { useContext } from "react";
@@ -26,6 +26,7 @@ interface Props {
 const TaskForm = ({ initialState, editMode = false, afterSubmit }: Props) => {
   const taskContext = useContext(TaskContext);
   const params = useParams();
+  const pathname = usePathname();
   const [form, setForm] = useForm();
 
   const onValidateHandler = async (values: TaskFormValues) => {
@@ -61,7 +62,10 @@ const TaskForm = ({ initialState, editMode = false, afterSubmit }: Props) => {
     } else {
       const { createTask } = await import("@/app/actions/task/createTask");
 
-      await createTask(params.id.toString(), values)
+      await createTask(
+        pathname.startsWith("/todo/project/") ? params.id.toString() : null,
+        values
+      )
         .then(({ error }) => {
           if (error) throw error;
 
@@ -82,7 +86,7 @@ const TaskForm = ({ initialState, editMode = false, afterSubmit }: Props) => {
               description: "",
               important: false,
               completed: false,
-              due_date: format(new Date(), "yyyy-MM-dd"),
+              dueDate: format(new Date(), "yyyy-MM-dd"),
               labels: [],
             }
       }
@@ -104,8 +108,8 @@ const TaskForm = ({ initialState, editMode = false, afterSubmit }: Props) => {
         />
 
         <Field
-          id="due_date"
-          name="due_date"
+          id="dueDate"
+          name="dueDate"
           label="Due Date"
           disabled={form.loading}
           component={DatePickerField}

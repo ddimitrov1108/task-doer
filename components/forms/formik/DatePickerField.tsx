@@ -1,6 +1,6 @@
 import { IFormInput } from "@/lib/interfaces";
 import { cn } from "@/lib/utils";
-import { format, isValid } from "date-fns";
+import { format } from "date-fns";
 import FormLabel from "./FormLabel";
 import dynamic from "next/dynamic";
 
@@ -43,9 +43,9 @@ const DatePickerField = ({
         onChange={onChangeHandler}
       />
 
-      {errors[field.name] && touched[field.name] && (
+      {errors[field.name] && touched[field.name] ? (
         <FormErrorMessage message={errors[field.name]} />
-      )}
+      ) : null}
     </div>
   );
 };

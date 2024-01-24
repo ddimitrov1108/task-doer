@@ -78,7 +78,7 @@ export interface ITask {
   id: string;
   name: string;
   description: string | null;
-  due_date: Date;
+  dueDate: Date;
   important: boolean;
   completed: boolean;
   labels: {

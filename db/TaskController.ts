@@ -1,19 +1,18 @@
 import { TaskFormValues, taskFormSchema } from "@/lib/form-schemas";
 import DbConnector from "./DbConnector";
 import { ITask } from "@/lib/interfaces";
-import TasksLists from "@/components/task/TasksLists";
 
 class TaskController extends DbConnector {
   constructor() {
     super();
   }
 
-  public async exists(user_id: string, task_id: string): Promise<boolean> {
+  public async exists(userId: string, taskId: string): Promise<boolean> {
     try {
       return !!(await this.prisma.task.count({
         where: {
-          id: task_id,
-          user_id,
+          id: taskId,
+          userId,
         },
       }));
     } catch (e) {
@@ -26,12 +25,12 @@ class TaskController extends DbConnector {
     return taskFormSchema.safeParse(task).success;
   }
 
-  public async get(user_id: string, task_id: string) {
+  public async get(userId: string, taskId: string) {
     try {
       const task = await this.prisma.task.findFirst({
         where: {
-          id: task_id,
-          user_id,
+          id: taskId,
+          userId,
         },
         select: {
           id: true,
@@ -39,7 +38,7 @@ class TaskController extends DbConnector {
           description: true,
           important: true,
           completed: true,
-          due_date: true,
+          dueDate: true,
           labels: {
             select: {
               label: {
@@ -66,20 +65,20 @@ class TaskController extends DbConnector {
   }
 
   public async create(
-    user_id: string,
-    project_id: string | null,
+    userId: string,
+    projectId: string | null,
     task: TaskFormValues
   ) {
     try {
       const newTask = await this.prisma.task.create({
         data: {
-          user_id,
-          project_id: project_id,
+          userId,
+          projectId: projectId,
           name: task.name,
           description: task.description || undefined,
           completed: task.completed,
           important: task.important,
-          due_date: new Date(task.due_date),
+          dueDate: new Date(task.dueDate),
         },
       });
 
@@ -88,8 +87,8 @@ class TaskController extends DbConnector {
           task.labels.map((label) =>
             this.prisma.taskWithLabel.create({
               data: {
-                task_id: newTask.id,
-                label_id: label.id,
+                taskId: newTask.id,
+                labelId: label.id,
               },
             })
           )
@@ -104,15 +103,15 @@ class TaskController extends DbConnector {
   }
 
   public async setCompleted(
-    user_id: string,
-    task_id: string,
+    userId: string,
+    taskId: string,
     completed: boolean
   ) {
     try {
       return await this.prisma.task.update({
         where: {
-          id: task_id,
-          user_id,
+          id: taskId,
+          userId,
         },
         data: {
           completed,
@@ -128,15 +127,15 @@ class TaskController extends DbConnector {
   }
 
   public async setImportant(
-    user_id: string,
-    task_id: string,
+    userId: string,
+    taskId: string,
     important: boolean
   ) {
     try {
       return await this.prisma.task.update({
         where: {
-          id: task_id,
-          user_id,
+          id: taskId,
+          userId,
         },
         data: {
           important,
@@ -151,9 +150,9 @@ class TaskController extends DbConnector {
     }
   }
 
-  public async update(user_id: string, task: ITask) {
+  public async update(userId: string, task: ITask) {
     try {
-      if (!this.exists(user_id, task.id)) throw new Error("Task not found");
+      if (!this.exists(userId, task.id)) throw new Error("Task not found");
 
       const updatedTask = await this.prisma.task.update({
         where: {
@@ -162,7 +161,7 @@ class TaskController extends DbConnector {
         data: {
           name: task.name,
           description: task.description || undefined,
-          due_date: new Date(task.due_date),
+          dueDate: new Date(task.dueDate),
           important: task.important,
           completed: task.completed,
         },
@@ -176,7 +175,7 @@ class TaskController extends DbConnector {
 
       if (task.labels.length) {
         const incomingLabelIDs = task.labels.map((l) => l.id);
-        const existingLabelIDs = updatedTask.labels.map((l) => l.label_id);
+        const existingLabelIDs = updatedTask.labels.map((l) => l.labelId);
 
         if (
           incomingLabelIDs.length !== existingLabelIDs.length ||
@@ -184,9 +183,9 @@ class TaskController extends DbConnector {
         ) {
           await this.prisma.taskWithLabel.deleteMany({
             where: {
-              task_id: updatedTask.id,
+              taskId: updatedTask.id,
               NOT: {
-                label_id: {
+                labelId: {
                   in: incomingLabelIDs,
                 },
               },
@@ -202,8 +201,8 @@ class TaskController extends DbConnector {
           try {
             await this.prisma.taskWithLabel.create({
               data: {
-                task_id: updatedTask.id,
-                label_id: label.id,
+                taskId: updatedTask.id,
+                labelId: label.id,
               },
             });
           } catch (e) {}
@@ -211,7 +210,7 @@ class TaskController extends DbConnector {
       } else {
         await this.prisma.taskWithLabel.deleteMany({
           where: {
-            task_id: updatedTask.id,
+            taskId: updatedTask.id,
           },
         });
       }
@@ -223,12 +222,12 @@ class TaskController extends DbConnector {
     }
   }
 
-  public async delete(user_id: string, task_id: string) {
+  public async delete(userId: string, taskId: string) {
     try {
       const deletedTask = await this.prisma.task.delete({
         where: {
-          id: task_id,
-          user_id,
+          id: taskId,
+          userId,
         },
         select: {
           id: true,
@@ -239,7 +238,7 @@ class TaskController extends DbConnector {
 
       await this.prisma.taskWithLabel.deleteMany({
         where: {
-          task_id: deletedTask.id,
+          taskId: deletedTask.id,
         },
       });
 

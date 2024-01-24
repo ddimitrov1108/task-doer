@@ -16,17 +16,17 @@ interface Props {
   task: ITask;
 }
 
-const getDueDateText = (due_date: Date): string => {
-  if (isToday(due_date)) return "Today";
-  if (isTomorrow(due_date)) return "Tomorrow";
-  return format(due_date, "EEE, d MMM, yy", { locale: enUS });
+const getDueDateText = (dueDate: Date): string => {
+  if (isToday(dueDate)) return "Today";
+  if (isTomorrow(dueDate)) return "Tomorrow";
+  return format(dueDate, "EEE, d MMM, yy", { locale: enUS });
 };
 
 const Task = ({ task }: Props) => {
   const taskContext = useContext(TaskContext);
 
-  const isPastDue = isPast(task.due_date);
-  const dueDate = getDueDateText(task.due_date);
+  const isPastDue = isPast(task.dueDate);
+  const dueDate = getDueDateText(task.dueDate);
 
   const onClickHandler = (e: React.MouseEvent) => {
     alert(1);

@@ -35,7 +35,7 @@ const ResetPasswordPage = async ({ searchParams }: Props) => {
       />
 
       <ChangePasswordWithTokenForm
-        reset_password_token={searchParams.token as string}
+        resetPasswordToken={searchParams.token as string}
       />
     </>
   );
