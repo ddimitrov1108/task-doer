@@ -24,6 +24,10 @@ const TaskSearchForm = () => {
     router.push(`${pathname}?${createQueryString("search", value)}`);
   }, 1000);
 
+  const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    debounced(e.target.value);
+  };
+
   return (
     <form onSubmit={(e: React.FormEvent) => e.preventDefault()}>
       <div className="transition-all group md:max-w-[380px] py-2 px-4 flex items-center gap-2 bg-black-dark border border-black-light/20 focus-within:border-primary-main rounded-lg outline-none">
@@ -34,9 +38,7 @@ const TaskSearchForm = () => {
           placeholder="Search task..."
           className="w-full bg-black-dark outline-none"
           defaultValue={searchParams.get("search") || ""}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-            debounced(e.target.value);
-          }}
+          onChange={onChangeHandler}
         />
       </div>
     </form>
