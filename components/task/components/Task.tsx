@@ -1,26 +1,23 @@
 "use client";
 
-import { cn } from "@/lib/utils";
-import { format, isPast, isToday, isTomorrow } from "date-fns";
-import { enUS } from "date-fns/locale";
+import { cn, getDueDateText } from "@/lib/utils";
+import { isPast } from "date-fns";
 import { AtSign, Check, Star, ReceiptText } from "lucide-react";
 import { useContext } from "react";
 import { ITask } from "@/lib/interfaces";
 import Link from "next/link";
 import Chip from "../../ui/Chip";
-import TaskInteractiveButtons from "../../interactive-buttons/TaskInteractiveButtons";
 import ButtonIcon from "../../ui/ButtonIcon";
 import { TaskContext } from "../../context/TaskContext";
+import dynamic from "next/dynamic";
+
+const TaskInteractiveButtons = dynamic(
+  () => import("../../interactive-buttons/TaskInteractiveButtons")
+);
 
 interface Props {
   task: ITask;
 }
-
-const getDueDateText = (dueDate: Date): string => {
-  if (isToday(dueDate)) return "Today";
-  if (isTomorrow(dueDate)) return "Tomorrow";
-  return format(dueDate, "EEE, d MMM, yy", { locale: enUS });
-};
 
 const Task = ({ task }: Props) => {
   const taskContext = useContext(TaskContext);
@@ -29,7 +26,8 @@ const Task = ({ task }: Props) => {
   const dueDate = getDueDateText(task.dueDate);
 
   const onClickHandler = (e: React.MouseEvent) => {
-    alert(1);
+    taskContext?.setTask(task);
+    taskContext?.setOpenDetails(true);
   };
 
   const onCompletedHandler = (e: React.MouseEvent) => {
@@ -92,10 +90,7 @@ const Task = ({ task }: Props) => {
           <div className="flex w-full items-center gap-1 py-1 overflow-auto styled-overflow-horizontal">
             {task.labels.map((label) => (
               <Link key={label.id} href={`/todo/label/${label.id}`}>
-                <Chip
-                  title={label.name}
-                  prepEndIcon={<AtSign size={16} />}
-                />
+                <Chip title={label.name} prepEndIcon={<AtSign size={16} />} />
               </Link>
             ))}
           </div>

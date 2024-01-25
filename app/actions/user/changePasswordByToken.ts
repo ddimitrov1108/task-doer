@@ -1,6 +1,5 @@
 "use server";
 
-import { changePasswordSchema } from './../../../lib/form-schemas';
 import userController from "@/db/UserController";
 import { ChangePasswordFormValues } from "@/lib/form-schemas";
 
@@ -8,8 +7,8 @@ export const changePasswordByToken = async (
   resetPasswordToken: string,
   values: ChangePasswordFormValues
 ) => {
-  if(!changePasswordSchema.safeParse(values).success)
-    return { error: "Invalid form data" };
+  if (!userController.validateChangePassword(values))
+    return { error: "Invalid email" };
 
   const user = await userController.getByToken(resetPasswordToken);
 
@@ -20,7 +19,7 @@ export const changePasswordByToken = async (
 
   if (!resetPasswordTokenExpiry) return { error: "Token expired" };
   if (today > resetPasswordTokenExpiry) return { error: "Token expired" };
-  
+
   try {
     await userController.resetPasswordByToken(user.id, values.password);
     return {};

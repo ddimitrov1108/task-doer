@@ -2,13 +2,10 @@
 
 import userController from "@/db/UserController";
 import { ResetPasswordEmailTemplate } from "@/components/email-temlates/ResetPasswordEmailTemplate";
-import {
-  ResetPasswordFormValues,
-  resetPasswordSchema,
-} from "@/lib/form-schemas";
+import { ResetPasswordFormValues } from "@/lib/form-schemas";
 
 export const resetPassword = async (values: ResetPasswordFormValues) => {
-  if (!resetPasswordSchema.safeParse(values).success)
+  if (!userController.validatePasswordReset(values))
     return { error: "Invalid form data" };
 
   const user = await userController.get(values.email);
@@ -39,7 +36,7 @@ export const resetPassword = async (values: ResetPasswordFormValues) => {
       }) as React.ReactElement,
     });
 
-    return{};
+    return {};
   } catch (e) {
     console.error(e);
     return { error: "Something went wrong. Please try again later" };

@@ -1,7 +1,7 @@
 "use server";
 
 import { getUserFromServerSession } from "@/lib/auth";
-import { TaskFormValues, taskFormSchema } from "@/lib/form-schemas";
+import { TaskFormValues } from "@/lib/form-schemas";
 import { isUUID } from "@/lib/utils";
 import { revalidatePath } from "next/cache";
 
@@ -14,12 +14,11 @@ export default async function createTask(
   if (!user) return { error: "Unauthenticated" };
   if (projectId && !isUUID(projectId)) return { error: "Invalid form data" };
   if (!values) return { error: "Invalid form data" };
-  if (!taskFormSchema.safeParse(values).success)
-    return { error: "Invalid form data" };
+
+  const taskController = (await import("@/db/TaskController")).default;
+  if (!taskController.validate(values)) return { error: "Invalid form data" };
 
   try {
-    const taskController = (await import("@/db/TaskController")).default;
-
     const task = await taskController.create(user.id, projectId, values);
     if (!task) throw new Error("Failed to create Task");
 

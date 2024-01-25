@@ -9,6 +9,9 @@ import { format } from "date-fns";
 import { toast } from "sonner";
 import useSound from "../hooks/useSound";
 
+const TaskDetailsContainer = dynamic(
+  () => import("../task/TaskDetailsContainer")
+);
 const TaskModal = dynamic(() => import("../modals/TaskModal"));
 const DeleteConfirmationModal = dynamic(
   () => import("../modals/DeleteConfirmationModal")
@@ -21,6 +24,7 @@ interface Props {
 const TaskProvider = ({ children }: Props) => {
   const [isPlaying, playSound, stopSound] = useSound("/task-completed.wav");
   const [task, setTask] = useState<ITask>();
+  const [openDetails, setOpenDetails] = useState<boolean>(false);
   const [taskModal, setTaskModal] = useState<{
     open: boolean;
     editMode: boolean;
@@ -40,6 +44,11 @@ const TaskProvider = ({ children }: Props) => {
         if (error) throw error;
 
         if (completed) {
+          if (openDetails) {
+            setOpenDetails(true);
+            if (task) setTask({ ...task, completed: !task.completed });
+          }
+
           if (isPlaying) stopSound();
 
           playSound();
@@ -58,6 +67,11 @@ const TaskProvider = ({ children }: Props) => {
     await setTaskImportant(taskId, important)
       .then(({ error }) => {
         if (error) throw error;
+
+        if (openDetails) {
+          setOpenDetails(true);
+          if (task) setTask({ ...task, important: !task.important });
+        }
       })
       .catch((e: string) => {
         toast.error(e);
@@ -78,6 +92,8 @@ const TaskProvider = ({ children }: Props) => {
         if (error) throw error;
 
         toast.success("Task deleted successfully!");
+        setTask(undefined);
+        setOpenDetails(false);
         setOpenDeleteModal(false);
       })
       .catch((e: string) => {
@@ -98,6 +114,8 @@ const TaskProvider = ({ children }: Props) => {
         value={{
           task,
           setTask,
+          openDetails,
+          setOpenDetails,
           setTaskModal,
           setOpenDeleteModal,
           setCompleted,
@@ -120,7 +138,20 @@ const TaskProvider = ({ children }: Props) => {
           afterSubmit={() => setTaskModal({ ...taskModal, open: false })}
         />
 
-        <div className={cn("h-full")}>{children}</div>
+        <div className={cn("h-full")}>
+          <div
+            className={cn(
+              openDetails && task ? "transition-all xl:mr-80" : null
+            )}
+          >
+            {children}
+          </div>
+
+          <TaskDetailsContainer
+            open={!!(openDetails && task)}
+            setOpen={() => setOpenDetails(false)}
+          />
+        </div>
       </TaskContext.Provider>
     </>
   );

@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 import { Eye, EyeOff } from "lucide-react";
 import { IFormInput } from "@/lib/interfaces";
 import dynamic from "next/dynamic";
-import FormLabel from "./FormLabel";
+import Label from "./FormLabel";
 
 const FormErrorMessage = dynamic(() => import("./FormErrorMessage"));
 
@@ -70,7 +70,7 @@ const PasswordField = ({
     <div
       className={cn("mb-4", fullWidth ? "w-full" : "w-fit", containerClassName)}
     >
-      <FormLabel className="pb-2" htmlFor={field.name} label={label} />
+      <Label className="pb-2" htmlFor={field.name} label={label} />
 
       <div className="relative">
         <button

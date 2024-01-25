@@ -1,3 +1,13 @@
+import {
+  ChangePasswordFormValues,
+  ResetPasswordFormValues,
+  SignInFormValues,
+  SignUpFormValues,
+  changePasswordSchema,
+  resetPasswordSchema,
+  signInFormSchema,
+  signUpFormSchema,
+} from "@/lib/form-schemas";
 import DbConnector from "./DbConnector";
 import bcryptjs from "bcryptjs";
 
@@ -11,6 +21,22 @@ type NewUser = {
 class UserController extends DbConnector {
   constructor() {
     super();
+  }
+
+  public validatePasswordReset(values: ResetPasswordFormValues) {
+    return resetPasswordSchema.safeParse(values).success;
+  }
+
+  public validateChangePassword(values: ChangePasswordFormValues) {
+    return changePasswordSchema.safeParse(values).success;
+  }
+
+  public validateSignIn(values: SignInFormValues) {
+    return signInFormSchema.safeParse(values).success;
+  }
+
+  public validateSignUp(values: SignUpFormValues) {
+    return signUpFormSchema.safeParse(values).success;
   }
 
   public async exists(email: string) {

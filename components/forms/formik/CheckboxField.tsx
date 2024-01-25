@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
 import { Switch } from "@headlessui/react";
 import { IFormInput } from "@/lib/interfaces";
-import FormLabel from "./FormLabel";
+import Label from "./FormLabel";
 
 type Props = IFormInput<boolean> & React.ComponentProps<"input">;
 
@@ -22,7 +22,7 @@ const CheckboxField = ({
         containerClassName
       )}
     >
-      <FormLabel className="pb-2" htmlFor={field.name} label={label} />
+      <Label className="pb-2" htmlFor={field.name} label={label} />
 
       <Switch
         disabled={disabled}

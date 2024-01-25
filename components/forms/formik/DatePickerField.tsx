@@ -1,7 +1,7 @@
 import { IFormInput } from "@/lib/interfaces";
 import { cn } from "@/lib/utils";
 import { format } from "date-fns";
-import FormLabel from "./FormLabel";
+import Label from "./FormLabel";
 import dynamic from "next/dynamic";
 
 const FormErrorMessage = dynamic(() => import("./FormErrorMessage"));
@@ -26,7 +26,7 @@ const DatePickerField = ({
     <div
       className={cn("mb-4", fullWidth ? "w-full" : "w-fit", containerClassName)}
     >
-      <FormLabel className="pb-2" htmlFor={field.name} label={label} />
+      <Label className="pb-2" htmlFor={field.name} label={label} />
 
       <input
         type="date"

@@ -1,9 +1,7 @@
 import { NextAuthOptions, getServerSession } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import userController from "@/db/UserController";
 import { IUserSession } from "./interfaces";
 import bcryptjs from "bcryptjs";
-import { signInFormSchema, signUpFormSchema } from "./form-schemas";
 
 const authConfig: NextAuthOptions = {
   pages: {
@@ -27,7 +25,9 @@ const authConfig: NextAuthOptions = {
       async authorize(credentials) {
         if (!credentials) return null;
 
-        if (!signInFormSchema.safeParse(credentials).success)
+        const userController = (await import("@/db/UserController")).default;
+
+        if (!userController.validateSignIn(credentials))
           throw new Error("Invalid credentials");
 
         const user = await userController.get(credentials.email);
@@ -63,7 +63,9 @@ const authConfig: NextAuthOptions = {
       async authorize(credentials) {
         if (!credentials) return null;
 
-        if (!signUpFormSchema.safeParse(credentials).success)
+        const userController = (await import("@/db/UserController")).default;
+
+        if (!userController.validateSignUp(credentials))
           throw new Error("Invalid credentials");
 
         const isEmailTaken = await userController.exists(credentials.email);
@@ -91,6 +93,8 @@ const authConfig: NextAuthOptions = {
   callbacks: {
     async session({ session, token }) {
       if (!session || !token) throw new Error("Session expired");
+
+      const userController = (await import("@/db/UserController")).default;
 
       const doesUserExist =
         token.email && (await userController.exists(token.email));

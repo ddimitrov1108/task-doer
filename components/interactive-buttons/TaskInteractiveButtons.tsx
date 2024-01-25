@@ -23,6 +23,7 @@ const TaskInteractiveButtons = ({ task }: Props) => {
       onClick: (e: React.MouseEvent) => {
         e.stopPropagation();
         taskContext?.setTask(task);
+        taskContext?.setOpenDetails(false);
         taskContext?.setTaskModal({ open: true, editMode: true });
       },
       className: "text-light hover:text-white",
