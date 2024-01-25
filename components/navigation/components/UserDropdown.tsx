@@ -12,7 +12,7 @@ const userLinks = [
   {
     id: uuidv4(),
     name: "Settings",
-    icon: <UserRoundCog size={20} />,
+    icon: <UserRoundCog className="text-primary-main" size={20} />,
     href: "/account/settings",
   },
 ];
@@ -50,7 +50,6 @@ const UserDropdown = ({ user }: Props) => {
           href={link.href}
           item={link}
           className="text-light hover:text-white"
-          iconClassName="text-primary-main"
         />
       ))}
 
@@ -60,7 +59,7 @@ const UserDropdown = ({ user }: Props) => {
         className="text-error-main"
         item={{
           name: "Sign Out",
-          icon: <LogOut size={20} />,
+          icon: <LogOut className="text-error-main" size={20} />,
         }}
       />
     </Dropdown>

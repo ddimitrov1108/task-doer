@@ -20,22 +20,19 @@ const ProjectInteractiveButtons = ({ project }: Props) => {
     {
       id: useId(),
       name: "Edit",
-      icon: <Pencil size={20} />,
+      icon: <Pencil className="text-primary-main" size={20} />,
       onClick: () => {
         projectContext?.setOpenEditModal(true);
       },
-      className: "text-light hover:text-white",
-      iconClassName: "text-primary-main",
     },
     {
       id: useId(),
       name: "Delete",
-      icon: <Trash2 size={20} />,
+      icon: <Trash2 className="text-error-main" size={20} />,
       onClick: () => {
         projectContext?.setOpenDeleteModal(true);
       },
-      className: "text-error-main",
-      iconClassName: "text-error-main",
+      className: "text-error-main hover:text-error-main",
     },
   ];
 
@@ -57,18 +54,15 @@ const ProjectInteractiveButtons = ({ project }: Props) => {
           </ButtonIcon>
         }
       >
-        {projectInteractions.map(
-          ({ id, className, iconClassName, onClick, ...item }) => (
-            <DropdownListItem
-              key={id}
-              as="button"
-              onClick={onClick}
-              item={item}
-              className={className}
-              iconClassName={iconClassName}
-            />
-          )
-        )}
+        {projectInteractions.map(({ id, className, onClick, ...item }) => (
+          <DropdownListItem
+            key={id}
+            as="button"
+            onClick={onClick}
+            item={item}
+            className={className}
+          />
+        ))}
       </Dropdown>
     </div>
   );
