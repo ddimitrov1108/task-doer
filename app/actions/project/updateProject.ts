@@ -1,8 +1,7 @@
 "use server";
 
-import projectController from "@/db/ProjectController";
 import { getUserFromServerSession } from "@/lib/auth";
-import { ProjectFormValues } from "@/lib/form-schemas";
+import { ProjectFormValues, projectFormSchema } from "@/lib/form-schemas";
 import { isUUID } from "@/lib/utils";
 import { revalidatePath } from "next/cache";
 
@@ -14,9 +13,12 @@ export default async function updateProject(
 
   if (!user) return { error: "Unauthenticated" };
   if (!isUUID(projectId) || !values) return { error: "Bad Request" };
-  if (!projectController.validate(values)) return { error: "Invalid fields" };
+  if (!projectFormSchema.safeParse(values).success)
+    return { error: "Invalid form data" };
 
   try {
+    const projectController = (await import("@/db/ProjectController")).default;
+
     await projectController.update(user.id, {
       id: projectId,
       name: values.name,

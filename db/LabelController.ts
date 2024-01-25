@@ -1,6 +1,6 @@
 import { ILabel } from "@/lib/interfaces";
 import DbConnector from "./DbConnector";
-import { LabelFormValues, labelFormSchema } from "@/lib/form-schemas";
+import { LabelFormValues } from "@/lib/form-schemas";
 
 class LabelController extends DbConnector {
   constructor() {
@@ -9,10 +9,6 @@ class LabelController extends DbConnector {
 
   private formatName(labelName: string) {
     return labelName.toLowerCase().replace(/\s+/g, "-");
-  }
-
-  public validate(label: LabelFormValues) {
-    return labelFormSchema.safeParse(label).success;
   }
 
   public async exists(userId: string, labelName: string): Promise<boolean> {
@@ -146,10 +142,7 @@ class LabelController extends DbConnector {
     }
   }
 
-  public async delete(
-    userId: string,
-    labelId: string
-  ): Promise<ILabel | null> {
+  public async delete(userId: string, labelId: string): Promise<ILabel | null> {
     try {
       const labelToDelete = await this.prisma.label.findFirst({
         where: {

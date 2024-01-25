@@ -3,6 +3,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import userController from "@/db/UserController";
 import { IUserSession } from "./interfaces";
 import bcryptjs from "bcryptjs";
+import { signInFormSchema, signUpFormSchema } from "./form-schemas";
 
 const authConfig: NextAuthOptions = {
   pages: {
@@ -26,7 +27,7 @@ const authConfig: NextAuthOptions = {
       async authorize(credentials) {
         if (!credentials) return null;
 
-        if (!userController.validateSignIn(credentials))
+        if (!signInFormSchema.safeParse(credentials).success)
           throw new Error("Invalid credentials");
 
         const user = await userController.get(credentials.email);
@@ -62,7 +63,7 @@ const authConfig: NextAuthOptions = {
       async authorize(credentials) {
         if (!credentials) return null;
 
-        if (!userController.validateSignUp(credentials))
+        if (!signUpFormSchema.safeParse(credentials).success)
           throw new Error("Invalid credentials");
 
         const isEmailTaken = await userController.exists(credentials.email);

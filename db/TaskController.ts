@@ -1,4 +1,4 @@
-import { TaskFormValues, taskFormSchema } from "@/lib/form-schemas";
+import { TaskFormValues } from "@/lib/form-schemas";
 import DbConnector from "./DbConnector";
 import { ITask } from "@/lib/interfaces";
 
@@ -19,10 +19,6 @@ class TaskController extends DbConnector {
       console.error(e);
       return false;
     }
-  }
-
-  public validate(task: TaskFormValues) {
-    return taskFormSchema.safeParse(task).success;
   }
 
   public async get(userId: string, taskId: string) {

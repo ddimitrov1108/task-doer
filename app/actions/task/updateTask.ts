@@ -1,8 +1,7 @@
 "use server";
 
-import taskController from "@/db/TaskController";
 import { getUserFromServerSession } from "@/lib/auth";
-import { TaskFormValues } from "@/lib/form-schemas";
+import { TaskFormValues, taskFormSchema } from "@/lib/form-schemas";
 import { isUUID } from "@/lib/utils";
 import { revalidatePath } from "next/cache";
 
@@ -14,9 +13,12 @@ export default async function updateTask(
 
   if (!user) return { error: "Unauthenticated" };
   if (!isUUID(taskId) || !values) return { error: "Bad Request" };
-  if (!taskController.validate(values)) return { error: "Invalid fields" };
+  if (!taskFormSchema.safeParse(values).success)
+    return { error: "Invalid form data" };
 
   try {
+    const taskController = (await import("@/db/TaskController")).default;
+    
     await taskController.update(user.id, {
       ...values,
       id: taskId,

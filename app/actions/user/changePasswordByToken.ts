@@ -1,5 +1,6 @@
 "use server";
 
+import { changePasswordSchema } from './../../../lib/form-schemas';
 import userController from "@/db/UserController";
 import { ChangePasswordFormValues } from "@/lib/form-schemas";
 
@@ -7,6 +8,9 @@ export const changePasswordByToken = async (
   resetPasswordToken: string,
   values: ChangePasswordFormValues
 ) => {
+  if(!changePasswordSchema.safeParse(values).success)
+    return { error: "Invalid form data" };
+
   const user = await userController.getByToken(resetPasswordToken);
 
   if (!user) return { error: "User with this email does not exist" };

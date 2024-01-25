@@ -1,9 +1,3 @@
-import {
-  SignInFormValues,
-  SignUpFormValues,
-  signInFormSchema,
-  signUpFormSchema,
-} from "@/lib/form-schemas";
 import DbConnector from "./DbConnector";
 import bcryptjs from "bcryptjs";
 
@@ -17,14 +11,6 @@ type NewUser = {
 class UserController extends DbConnector {
   constructor() {
     super();
-  }
-
-  public validateSignIn(values: SignInFormValues) {
-    return signInFormSchema.safeParse(values).success;
-  }
-
-  public validateSignUp(values: SignUpFormValues) {
-    return signUpFormSchema.safeParse(values).success;
   }
 
   public async exists(email: string) {

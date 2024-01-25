@@ -1,6 +1,5 @@
 "use server";
 
-import taskController from "@/db/TaskController";
 import { getUserFromServerSession } from "@/lib/auth";
 import { isUUID } from "@/lib/utils";
 import { revalidatePath } from "next/cache";
@@ -12,7 +11,10 @@ export default async function deleteTask(taskId: string) {
   if (!isUUID(taskId)) return { error: "Bad Request" };
 
   try {
+    const taskController = (await import("@/db/TaskController")).default;
+    
     await taskController.delete(user.id, taskId);
+
     revalidatePath("/todo");
     return {};
   } catch (e) {

@@ -1,14 +1,10 @@
 import DbConnector from "./DbConnector";
 import { IProject } from "@/lib/interfaces";
-import { ProjectFormValues, projectFormSchema } from "@/lib/form-schemas";
+import { ProjectFormValues } from "@/lib/form-schemas";
 
 class ProjectController extends DbConnector {
   constructor() {
     super();
-  }
-
-  public validate(project: ProjectFormValues) {
-    return projectFormSchema.safeParse(project).success;
   }
 
   public async getList(userId: string): Promise<IProject[]> {

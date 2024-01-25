@@ -1,8 +1,7 @@
 "use server";
 
-import labelController from "@/db/LabelController";
 import { getUserFromServerSession } from "@/lib/auth";
-import { LabelFormValues } from "@/lib/form-schemas";
+import { LabelFormValues, labelFormSchema } from "@/lib/form-schemas";
 import { revalidatePath } from "next/cache";
 
 export default async function createLabel(values: LabelFormValues) {
@@ -10,9 +9,12 @@ export default async function createLabel(values: LabelFormValues) {
 
   if (!user) return { error: "Unauthenticated" };
   if (!values) return { error: "Bad Request" };
-  if (!labelController.validate(values)) return { error: "Invalid fields" };
+  if (!labelFormSchema.safeParse(values).success)
+    return { error: "Invalid form data" };
 
   try {
+    const labelController = (await import("@/db/LabelController")).default;
+
     await labelController.create(user.id, { name: values.name });
     revalidatePath("/todo");
     return {};
@@ -20,4 +22,4 @@ export default async function createLabel(values: LabelFormValues) {
     console.error(e);
     return { error: "Something went wrong. Please try again later" };
   }
-};
+}

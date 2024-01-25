@@ -1,6 +1,5 @@
 "use server";
 
-import projectController from "@/db/ProjectController";
 import { getUserFromServerSession } from "@/lib/auth";
 import { isUUID } from "@/lib/utils";
 import { revalidatePath } from "next/cache";
@@ -12,7 +11,10 @@ export default async function deleteProject(projectId: string) {
   if (!isUUID(projectId)) return { error: "Bad Request" };
 
   try {
+    const projectController = (await import("@/db/ProjectController")).default;
+    
     await projectController.delete(user.id, projectId);
+
     revalidatePath("/todo");
     return {};
   } catch (e) {

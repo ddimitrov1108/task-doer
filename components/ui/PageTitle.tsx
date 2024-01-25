@@ -9,7 +9,7 @@ interface Props {
 const PageTitle = ({ children, label = "", className }: Props) => {
   return (
     <>
-      <div className="w-full truncate ...">
+      <div className="w-full">
         {label && (
           <label className="uppercase font-semibold text-primary-main text-sm">
             {label}
