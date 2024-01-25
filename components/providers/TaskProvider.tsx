@@ -45,8 +45,7 @@ const TaskProvider = ({ children }: Props) => {
 
         if (completed) {
           if (openDetails) {
-            setOpenDetails(true);
-            if (task) setTask({ ...task, completed: !task.completed });
+            setOpenDetails(false);
           }
 
           if (isPlaying) stopSound();
@@ -69,8 +68,7 @@ const TaskProvider = ({ children }: Props) => {
         if (error) throw error;
 
         if (openDetails) {
-          setOpenDetails(true);
-          if (task) setTask({ ...task, important: !task.important });
+          setOpenDetails(false);
         }
       })
       .catch((e: string) => {

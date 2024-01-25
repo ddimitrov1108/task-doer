@@ -23,8 +23,8 @@ const TaskDetailsContainer = ({ open, setOpen }: Props) => {
   return taskContext?.task ? (
     <div
       className={cn(
-        "transition-all hidden bg-black-main h-full overflow-auto styled-overflow",
-        open && "xl:block fixed top-0 right-0 bottom-0 w-80"
+        "hidden xl:block fixed top-0 right-0 bottom-0 transition-all bg-black-main h-full overflow-auto styled-overflow",
+        open ? "w-80" : "w-0"
       )}
     >
       <div className="p-6">
