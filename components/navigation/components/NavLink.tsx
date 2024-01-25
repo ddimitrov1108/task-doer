@@ -31,7 +31,7 @@ const NavLink = ({
         "transition-all w-full px-2 py-1.5 rounded-lg flex items-center gap-3",
         className,
         pathname === href
-          ? "bg-black-light/10 text-white"
+          ? "bg-primary-light/10 text-white"
           : "text-light hover:text-white hover:bg-black-light/10",
         count && "justify-between"
       )}
