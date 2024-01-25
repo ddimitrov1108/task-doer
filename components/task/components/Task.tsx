@@ -32,6 +32,7 @@ const Task = ({ task }: Props) => {
 
   const onCompletedHandler = async (e: React.MouseEvent) => {
     e.stopPropagation();
+    if (taskContext?.openDetails) taskContext?.setOpenDetails(false);
     await taskContext?.setCompleted(task.id, !task.completed);
   };
 
@@ -43,7 +44,7 @@ const Task = ({ task }: Props) => {
   useEffect(() => {
     if (taskContext?.openDetails && taskContext?.task?.id === task.id)
       taskContext?.setTask(task);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [task, taskContext?.openDetails]);
 
   return (
