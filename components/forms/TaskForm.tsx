@@ -104,7 +104,7 @@ const TaskForm = ({ initialState, editMode = false, afterSubmit }: Props) => {
           label="Name"
           placeholder="My Task Name"
           disabled={form.loading}
-          maxLength={30}
+          maxLength={60}
           component={TextField}
           fullWidth
         />

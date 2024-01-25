@@ -49,7 +49,7 @@ model Project {
 
 model Task {
   id            String    @id @default(uuid())
-  name          String    @db.VarChar(30)
+  name          String    @db.VarChar(60)
   description   String    @default("") @db.TinyText
   completed     Boolean   @default(false)
   important     Boolean   @default(false)
