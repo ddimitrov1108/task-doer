@@ -44,10 +44,6 @@ const TaskProvider = ({ children }: Props) => {
         if (error) throw error;
 
         if (completed) {
-          if (openDetails) {
-            setOpenDetails(false);
-          }
-
           if (isPlaying) stopSound();
 
           playSound();
@@ -66,10 +62,6 @@ const TaskProvider = ({ children }: Props) => {
     await setTaskImportant(taskId, important)
       .then(({ error }) => {
         if (error) throw error;
-
-        if (openDetails) {
-          setOpenDetails(false);
-        }
       })
       .catch((e: string) => {
         toast.error(e);

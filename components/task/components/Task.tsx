@@ -3,7 +3,7 @@
 import { cn, getDueDateText } from "@/lib/utils";
 import { isPast } from "date-fns";
 import { AtSign, Check, Star, ReceiptText } from "lucide-react";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { ITask } from "@/lib/interfaces";
 import Link from "next/link";
 import Chip from "../../ui/Chip";
@@ -25,20 +25,26 @@ const Task = ({ task }: Props) => {
   const isPastDue = isPast(task.dueDate);
   const dueDate = getDueDateText(task.dueDate);
 
-  const onClickHandler = (e: React.MouseEvent) => {
+  const onClickHandler = () => {
     taskContext?.setTask(task);
     taskContext?.setOpenDetails(true);
   };
 
-  const onCompletedHandler = (e: React.MouseEvent) => {
+  const onCompletedHandler = async (e: React.MouseEvent) => {
     e.stopPropagation();
-    taskContext?.setCompleted(task.id, !task.completed);
+    await taskContext?.setCompleted(task.id, !task.completed);
   };
 
-  const onImportantHandler = (e: React.MouseEvent) => {
+  const onImportantHandler = async (e: React.MouseEvent) => {
     e.stopPropagation();
-    taskContext?.setImportant(task.id, !task.important);
+    await taskContext?.setImportant(task.id, !task.important);
   };
+
+  useEffect(() => {
+    if (taskContext?.openDetails && taskContext?.task?.id === task.id)
+      taskContext?.setTask(task);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [task, taskContext?.openDetails]);
 
   return (
     <div
