@@ -78,8 +78,10 @@ const SortTasksListbox = () => {
                 key={index}
                 className={({ selected }) =>
                   cn(
-                    "flex items-center gap-2 text-light hover:text-white transition-all w-full px-2 py-1.5 rounded-lg hover:bg-black-light/10",
-                    selected ? "bg-primary-light/10 text-white" : null
+                    "cursor-pointer flex items-center gap-2 text-light transition-all w-full px-2 py-1.5 rounded-lg",
+                    selected
+                      ? "bg-primary-light/10 text-white"
+                      : "hover:bg-black-light/10 hover:text-white"
                   )
                 }
                 value={sort}

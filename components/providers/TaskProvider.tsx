@@ -9,6 +9,9 @@ import { format } from "date-fns";
 import { toast } from "sonner";
 import useSound from "../hooks/useSound";
 
+const TaskSideBarDetails = dynamic(
+  () => import("../task/TaskSideBarDetails")
+);
 const TaskDetailsContainer = dynamic(
   () => import("../task/TaskDetailsContainer")
 );
@@ -139,7 +142,12 @@ const TaskProvider = ({ children }: Props) => {
 
           <TaskDetailsContainer
             open={!!(openDetails && task)}
-            setOpen={() => setOpenDetails(false)}
+            setOpen={setOpenDetails}
+          />
+
+          <TaskSideBarDetails
+            open={!!(openDetails && task)}
+            setOpen={setOpenDetails}
           />
         </div>
       </TaskContext.Provider>

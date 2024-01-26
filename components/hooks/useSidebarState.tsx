@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 const useSideBarState = (initialState: boolean = false) => {
   const [open, setOpen] = useState<boolean>(initialState);
-  const toggleIsOpen = () => setOpen(!open);
+  const toggleOpen = () => setOpen(!open);
 
   useEffect(() => {
     if (window && window.innerWidth < 1280)
@@ -13,6 +13,6 @@ const useSideBarState = (initialState: boolean = false) => {
     };
   }, [open]);
 
-  return [open, setOpen, toggleIsOpen] as const;
+  return [open, setOpen, toggleOpen] as const;
 };
 export default useSideBarState;

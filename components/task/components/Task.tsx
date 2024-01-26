@@ -26,6 +26,8 @@ const Task = ({ task }: Props) => {
   const dueDate = getDueDateText(task.dueDate);
 
   const onClickHandler = () => {
+    if (taskContext?.openDetails && taskContext?.task?.id === task.id) return;
+
     taskContext?.setTask(task);
     taskContext?.setOpenDetails(true);
   };
@@ -50,7 +52,7 @@ const Task = ({ task }: Props) => {
   return (
     <div
       onClick={onClickHandler}
-      className="p-2.5 transition-all cursor-pointer group flex gap-4 items-start bg-black-main border border-transparent border-b-black-light/20 last:border-b-transparent first:rounded-t-md last:rounded-b-md"
+      className="group p-2.5 cursor-pointer flex gap-4 items-start bg-black-main hover:bg-primary-light/[0.08] border border-transparent border-b-black-light/20 last:border-b-transparent first:rounded-t-md last:rounded-b-md"
     >
       <ButtonIcon
         onClick={onCompletedHandler}
@@ -65,7 +67,7 @@ const Task = ({ task }: Props) => {
       </ButtonIcon>
 
       <div className="w-full grid gap-1">
-        <div className="grid">
+        <div>
           <h1
             className={cn(
               "transition-all font-[500] w-full max-w-[400px] truncate ...",
@@ -76,14 +78,15 @@ const Task = ({ task }: Props) => {
           </h1>
 
           <div className="flex items-center gap-1">
-            <div
+            <span
               className={cn(
                 "max-w-fit max-h-fit text-xs xxs:text-sm",
                 isPastDue ? "text-error-main" : "text-primary-main"
               )}
             >
               {dueDate}
-            </div>
+            </span>
+
             {task.description && (
               <>
                 <span className="text-main">&#8226;</span>

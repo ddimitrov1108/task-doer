@@ -22,6 +22,10 @@ const TaskInteractiveButtons = ({ task }: Props) => {
       icon: <GanttChartSquare className="text-primary-main" size={20} />,
       onClick: (e: React.MouseEvent) => {
         e.stopPropagation();
+
+        if (taskContext?.openDetails && taskContext?.task?.id === task.id)
+          return;
+
         taskContext?.setTask(task);
         taskContext?.setOpenDetails(true);
       },

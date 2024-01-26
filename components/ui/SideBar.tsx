@@ -8,11 +8,13 @@ const Logo = dynamic(() => import("./Logo"), { loading: () => <span></span> });
 
 interface Props {
   title?: React.ReactNode;
+  showTitle?: boolean;
   showLogo?: boolean;
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   children: React.ReactNode;
   showFrom?: "left" | "right";
+  className?: string;
   containerClassName?: string;
   overlayClassName?: string;
   headerClassName?: string;
@@ -21,11 +23,13 @@ interface Props {
 
 const SideBar = ({
   title,
+  showTitle = true,
   showLogo = true,
   open,
   setOpen,
   children,
   showFrom = "left",
+  className,
   containerClassName,
   overlayClassName,
   headerClassName,
@@ -34,7 +38,7 @@ const SideBar = ({
   const onCloseClickHandler = () => setOpen(false);
 
   return (
-    <div className="lg:hidden z-50 w-full h-full">
+    <div className={cn("z-50 w-full h-full", className)}>
       <div
         onClick={onCloseClickHandler}
         className={cn(
@@ -58,11 +62,12 @@ const SideBar = ({
           <div className="relative grid">
             <div
               className={cn(
-                "flex items-center w-full justify-between",
+                "flex items-center w-full",
+                showTitle ? "justify-between" : "justify-end",
                 headerClassName
               )}
             >
-              {title ? title : showLogo && <Logo />}
+              {showTitle ? (title ? title : showLogo && <Logo />) : null}
 
               <button
                 tabIndex={0}
@@ -71,7 +76,7 @@ const SideBar = ({
                 onClick={onCloseClickHandler}
                 title="Close navigation"
               >
-                <X />
+                <X size={20} />
               </button>
             </div>
 

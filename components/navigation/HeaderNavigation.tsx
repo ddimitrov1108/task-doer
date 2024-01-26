@@ -19,7 +19,7 @@ interface Props {
 }
 
 const HeaderNavigation = ({ user, navList }: Props) => {
-  const [open, setOpen, toggleIsOpen] = useSideBarState();
+  const [open, setOpen, toggleOpen] = useSideBarState();
 
   return (
     <header className="bg-black-main shadow-lg shadow-black-dark flex items-center justify-between z-20 fixed top-0 w-full py-2 px-4 lg:hidden">
@@ -40,7 +40,7 @@ const HeaderNavigation = ({ user, navList }: Props) => {
         type="button"
         className="group lg:hidden flex flex-col items-end gap-1.5 min-w-[35px]"
         title="Open navigation"
-        onClick={toggleIsOpen}
+        onClick={toggleOpen}
       >
         <AlignRight />
       </ButtonIcon>
