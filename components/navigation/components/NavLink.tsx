@@ -43,9 +43,9 @@ const NavLink = ({
       </div>
 
       {count > 0 && (
-        <div className="grid items-center max-w-[60px] rounded-full bg-primary-main/10 truncate ...">
-          <span className="py-1 px-2 text-xs text-light">
-            {!limitCount && count <= 10 ? count : "10+"}
+        <div className="grid items-center max-w-[60px] px-1 rounded-full text-primary-light/70">
+          <span className="text-sm truncate ...">
+            {!limitCount && count <= 10 ? count.toLocaleString() : "10+"}
           </span>
         </div>
       )}

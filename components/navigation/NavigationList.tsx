@@ -16,27 +16,29 @@ const navLinks = [
   },
   {
     id: uuidv4(),
-    name: "Important",
-    icon: <Star size={20} />,
-    href: "/todo/important",
-  },
-  {
-    id: uuidv4(),
     name: "Planned",
     icon: <LandPlot size={20} />,
     href: "/todo/planned",
   },
   {
     id: uuidv4(),
-    name: "Completed",
-    icon: <CheckCheck size={20} />,
-    href: "/todo/completed",
+    name: "Important",
+    icon: <Star size={20} />,
+    href: "/todo/important",
   },
+
   {
     id: uuidv4(),
     name: "All",
     icon: <InfinityIcon size={20} />,
     href: "/todo/all",
+    limitCount: false,
+  },
+  {
+    id: uuidv4(),
+    name: "Completed",
+    icon: <CheckCheck size={20} />,
+    href: "/todo/completed",
   },
 ];
 
@@ -49,7 +51,7 @@ const NavigationList = ({ navList, onNavElClick = () => {} }: Props) => {
   return (
     <>
       <div className="grid gap-2">
-        {navLinks.map(({ id, name, icon, href }) => (
+        {navLinks.map(({ id, name, icon, href, limitCount }, index) => (
           <NavLink
             key={id}
             href={href}
@@ -58,6 +60,8 @@ const NavigationList = ({ navList, onNavElClick = () => {} }: Props) => {
             onClick={onNavElClick}
             appendIcon={<div className="text-primary-main">{icon}</div>}
             className="font-medium"
+            count={navList.count[index]}
+            limitCount={limitCount}
           />
         ))}
       </div>

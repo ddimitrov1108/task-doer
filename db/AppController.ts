@@ -1,47 +1,59 @@
 import DbConnector from "./DbConnector";
 
-export default class AppController extends DbConnector {
+const TODAY_COUNT_LIMIT = 11;
+
+class AppController extends DbConnector {
   constructor() {
     super();
   }
 
   public async getNavigation(userId: string) {
-    const todayDate = new Date();
-    todayDate.setHours(0, 0, 0, 0);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    
+    const tomorrow = new Date(today);
+    tomorrow.setDate(today.getDate() + 1);
+
 
     try {
-      const today = await this.prisma.task.count({
-        where: { userId: userId, dueDate: todayDate },
-        take: 11,
-      });
+      const [
+        todayTaskCount,
+        futureTaskCount,
+        importantTaskCount,
+        totalTaskCount,
+      ] = await this.prisma.$transaction([
+        this.prisma.task.count({
+          where: { userId: userId, dueDate: { gte: today, lt: tomorrow } },
+          take: TODAY_COUNT_LIMIT,
+        }),
+        this.prisma.task.count({
+          where: { userId: userId, dueDate: { gte: tomorrow } },
+          take: TODAY_COUNT_LIMIT,
+        }),
+        this.prisma.task.count({
+          where: { userId: userId, important: true },
+          take: TODAY_COUNT_LIMIT,
+        }),
+        this.prisma.task.count({
+          where: { userId: userId, completed: false },
+        }),
+      ]);
 
-      const future = await this.prisma.task.count({
-        where: { userId: userId, dueDate: { gte: todayDate } },
-        take: 11,
-      });
-
-      const important = await this.prisma.task.count({
-        where: { userId: userId, important: true },
-        take: 11,
-      });
-
-      const completed = await this.prisma.task.count({
-        where: { userId: userId, completed: true },
-        take: 11,
-      });
-
-      const all = await this.prisma.task.count({
-        where: { userId: userId },
-      });
+      const [projects, labels] = await Promise.all([
+        (await import("./ProjectController")).default.getList(userId),
+        (await import("./LabelController")).default.getList(userId),
+      ]);
 
       return {
-        tasksCount: {
-          today,
-          future,
-          important,
-          completed,
-          all,
-        },
+        count: [
+          todayTaskCount,
+          futureTaskCount,
+          importantTaskCount,
+          totalTaskCount,
+          0,
+        ],
+        projects,
+        labels,
       };
     } catch (e) {
       console.error(e);
@@ -49,3 +61,6 @@ export default class AppController extends DbConnector {
     }
   }
 }
+
+const appController = new AppController();
+export default appController;

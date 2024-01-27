@@ -31,6 +31,7 @@ export interface IUserSession {
 }
 
 export interface INavList {
+  count: number[];
   projects: IProject[];
   labels: ILabel[];
 }
