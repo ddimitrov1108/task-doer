@@ -1,7 +1,5 @@
 import DbConnector from "./DbConnector";
 
-const TODAY_COUNT_LIMIT = 11;
-
 class AppController extends DbConnector {
   constructor() {
     super();
@@ -10,10 +8,9 @@ class AppController extends DbConnector {
   public async getNavigation(userId: string) {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
-    
+
     const tomorrow = new Date(today);
     tomorrow.setDate(today.getDate() + 1);
-
 
     try {
       const [
@@ -24,15 +21,12 @@ class AppController extends DbConnector {
       ] = await this.prisma.$transaction([
         this.prisma.task.count({
           where: { userId: userId, dueDate: { gte: today, lt: tomorrow } },
-          take: TODAY_COUNT_LIMIT,
         }),
         this.prisma.task.count({
           where: { userId: userId, dueDate: { gte: tomorrow } },
-          take: TODAY_COUNT_LIMIT,
         }),
         this.prisma.task.count({
           where: { userId: userId, important: true },
-          take: TODAY_COUNT_LIMIT,
         }),
         this.prisma.task.count({
           where: { userId: userId, completed: false },

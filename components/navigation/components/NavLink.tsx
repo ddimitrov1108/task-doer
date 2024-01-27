@@ -17,7 +17,6 @@ const NavLink = ({
   href,
   text,
   count = 0,
-  limitCount = false,
   appendIcon,
   className,
   ...restProps
@@ -44,9 +43,7 @@ const NavLink = ({
 
       {count > 0 && (
         <div className="grid items-center max-w-[60px] px-1 rounded-full text-primary-light/70">
-          <span className="text-sm truncate ...">
-            {!limitCount && count <= 10 ? count.toLocaleString() : "10+"}
-          </span>
+          <span className="text-sm truncate ...">{count.toLocaleString()}</span>
         </div>
       )}
     </Link>

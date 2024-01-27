@@ -1,7 +1,5 @@
 import ChangePasswordWithTokenForm from "@/components/forms/ChangePasswordWithTokenForm";
 import ResetPasswordForm from "@/components/forms/ResetPasswordForm";
-import userController from "@/db/UserController";
-import { redirect } from "next/navigation";
 import Title from "../title";
 
 interface Props {
@@ -21,10 +19,12 @@ const ResetPasswordPage = async ({ searchParams }: Props) => {
       </>
     );
 
-  const user = await userController.getByToken(searchParams.token as string);
+  const user = await (
+    await import("@/db/UserController")
+  ).default.getByToken(searchParams.token as string);
 
   if (!user) {
-    return redirect("/sign-in");
+    return (await import("next/navigation")).redirect("/sign-in");
   }
 
   return (
