@@ -4,7 +4,6 @@ import { TaskContext } from "@/components/context/TaskContext";
 import Label from "@/components/forms/formik/Label";
 import AtSign from "@/components/ui/AtSign";
 import Chip from "@/components/ui/Chip";
-import { ITask } from "@/lib/interfaces";
 import { formatDate, getDueDateText } from "@/lib/utils";
 import { isPast } from "date-fns";
 import dynamic from "next/dynamic";
