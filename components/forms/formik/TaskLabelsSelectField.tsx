@@ -16,7 +16,7 @@ const TaskLabelsSelectField = ({
   label = "",
   containerClassName,
   field,
-  form: { setFieldValue, touched, errors },
+  form: { setFieldValue },
   fullWidth,
   disabled,
 }: IFormInput<

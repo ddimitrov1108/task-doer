@@ -2,6 +2,8 @@
 
 import { TaskContext } from "@/components/context/TaskContext";
 import Label from "@/components/forms/formik/Label";
+import AtSign from "@/components/ui/AtSign";
+import Chip from "@/components/ui/Chip";
 import { ITask } from "@/lib/interfaces";
 import { formatDate, getDueDateText } from "@/lib/utils";
 import { isPast } from "date-fns";
@@ -22,17 +24,13 @@ const TaskDetails = () => {
     <div className="grid gap-6">
       <div>
         <div className="flex items-center justify-between">
-          <Label
-            className="mb-1 text-main"
-            htmlFor="task-name"
-            label="Task Name:"
-          />
+          <Label className="mb-1 text-main" htmlFor="task-name" label="Name:" />
 
           <TaskInteractiveButtons task={taskContext?.task} />
         </div>
 
         <h1 id="task-name" className="font-medium text-light">
-          {taskContext?.task.name}
+          {taskContext.task.name}
         </h1>
       </div>
 
@@ -40,11 +38,28 @@ const TaskDetails = () => {
         <Label
           className="mb-1 text-main"
           htmlFor="task-description"
-          label="Task Description:"
+          label="Description:"
         />
         <p id="task-description" className="font-medium text-light">
-          {taskContext?.task.description}
+          {taskContext.task.description}
         </p>
+      </div>
+
+      <div>
+        <Label
+          className="mb-1 text-main"
+          htmlFor="task-labels"
+          label="Labels:"
+        />
+
+        <div
+          id="task-labels"
+          className="flex items-center gap-1 flex-wrap max-h-[380px] styled-overflow overflow-auto"
+        >
+          {taskContext?.task?.labels?.map((label) => (
+            <Chip key={label.id} title={label.name} prepEndIcon={<AtSign />} />
+          ))}
+        </div>
       </div>
 
       <div>
@@ -57,7 +72,7 @@ const TaskDetails = () => {
           <>
             {dueDate === "Today" || dueDate === "Tomorrow"
               ? dueDate
-              : formatDate(taskContext?.task.dueDate)}
+              : formatDate(taskContext.task.dueDate)}
           </>
         </h1>
       </div>
@@ -66,7 +81,7 @@ const TaskDetails = () => {
         <Label
           className="mb-2 text-main"
           htmlFor="task-status"
-          label="Task Status:"
+          label="Status:"
         />
         <div
           id="task-status"
