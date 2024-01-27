@@ -53,7 +53,7 @@ const TaskDetails = () => {
 
         <div
           id="task-labels"
-          className="flex items-center gap-1 flex-wrap max-h-[380px] styled-overflow overflow-auto"
+          className="w-full flex items-center gap-1 flex-wrap max-h-[380px] styled-overflow overflow-auto"
         >
           {taskContext?.task?.labels?.map((label) => (
             <Chip key={label.id} title={label.name} prepEndIcon={<AtSign />} />
