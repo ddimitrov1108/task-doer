@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
 import { Switch } from "@headlessui/react";
 import { IFormInput } from "@/lib/interfaces";
-import Label from "./FormLabel";
+import Label from "./Label";
 
 type Props = IFormInput<boolean> & React.ComponentProps<"input">;
 

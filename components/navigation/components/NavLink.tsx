@@ -27,7 +27,7 @@ const NavLink = ({
     <Link
       href={href}
       className={cn(
-        "transition-all w-full px-2 py-1.5 rounded-lg flex items-center gap-3",
+        "transition-all w-full px-2 py-1.5 rounded-lg flex items-center gap-4",
         className,
         pathname === href
           ? "bg-primary-light/10 text-white"
@@ -36,7 +36,7 @@ const NavLink = ({
       )}
       {...restProps}
     >
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-2">
         {appendIcon}
         {text}
       </div>

@@ -1,9 +1,9 @@
+import AtSign from "@/components/ui/AtSign";
 import PageTitle from "@/components/ui/PageTitle";
 import labelController from "@/db/LabelController";
 import { getUserFromServerSession } from "@/lib/auth";
 import { NextRouteParams } from "@/lib/interfaces";
 import { isUUID } from "@/lib/utils";
-import { AtSign } from "lucide-react";
 import dynamic from "next/dynamic";
 import { notFound, redirect } from "next/navigation";
 
@@ -27,7 +27,7 @@ const LabelPage = async ({ params }: NextRouteParams) => {
     <>
       <div className="mb-8 grid gap-4 md:flex md:items-end md:justify-between">
         <PageTitle label="label" className="flex gap-2 items-center">
-          <AtSign size={20} className="text-primary-main" />
+          <AtSign />
           <h1>{label.name}</h1>
         </PageTitle>
 

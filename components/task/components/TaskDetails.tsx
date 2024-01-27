@@ -1,7 +1,7 @@
 "use client";
 
 import { TaskContext } from "@/components/context/TaskContext";
-import Label from "@/components/forms/formik/FormLabel";
+import Label from "@/components/forms/formik/Label";
 import { ITask } from "@/lib/interfaces";
 import { formatDate, getDueDateText } from "@/lib/utils";
 import { isPast } from "date-fns";

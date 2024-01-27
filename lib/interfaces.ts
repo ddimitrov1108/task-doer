@@ -83,7 +83,7 @@ export interface ITask {
   important: boolean;
   completed: boolean;
   labels: {
-    name: string;
     id: string;
+    name: string;
   }[];
 }

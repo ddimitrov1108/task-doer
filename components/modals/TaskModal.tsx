@@ -23,7 +23,7 @@ const TaskModal = ({
       }
       open={open}
       setOpen={setOpen}
-      className="max-w-sm"
+      className="max-w-md"
       bodyClassName="pt-4"
     >
       <TaskForm

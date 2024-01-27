@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 import { Eye, EyeOff } from "lucide-react";
 import { IFormInput } from "@/lib/interfaces";
 import dynamic from "next/dynamic";
-import Label from "./FormLabel";
+import Label from "./Label";
 
 const FormErrorMessage = dynamic(() => import("./FormErrorMessage"));
 

@@ -1,8 +1,8 @@
 import { IFormModal } from "@/lib/interfaces";
-import { AtSign } from "lucide-react";
 import LabelForm from "../forms/LabelForm";
 import Modal from "../ui/Modal";
 import { LabelFormValues } from "@/lib/form-schemas";
+import AtSign from "../ui/AtSign";
 
 const LabelModal = ({
   open,
@@ -16,7 +16,7 @@ const LabelModal = ({
       modalTitle={
         <div className="flex items-center gap-2">
           <div className="text-2xl text-main">
-            <AtSign size={20} />
+            <AtSign />
           </div>
           {editMode ? "Edit Label" : "New Label"}
         </div>

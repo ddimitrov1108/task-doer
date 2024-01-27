@@ -14,6 +14,7 @@ import { toast } from "sonner";
 import { format } from "date-fns";
 import { useContext } from "react";
 import { TaskContext } from "../context/TaskContext";
+import TaskLabelsSelectField from "./formik/TaskLabelsSelectField";
 
 const Alert = dynamic(() => import("../ui/Alert"));
 
@@ -117,16 +118,16 @@ const TaskForm = ({ initialState, editMode = false, afterSubmit }: Props) => {
           component={DatePickerField}
           fullWidth
         />
-        {/*
+        
         <Field
           id="labels"
           name="labels"
           label="Labels"
           disabled={form.loading}
-          component={LabelsSelectField}
+          component={TaskLabelsSelectField}
           fullWidth
         />
-*/}
+
         <Field
           id="description"
           name="description"

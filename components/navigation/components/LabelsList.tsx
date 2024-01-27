@@ -2,10 +2,11 @@
 
 import { useState } from "react";
 import { ILabel } from "@/lib/interfaces";
-import { AtSign, Plus } from "lucide-react";
+import { Plus } from "lucide-react";
 import DisclousureContainer from "@/components/ui/DisclousureContainer";
 import NavLink from "./NavLink";
 import dynamic from "next/dynamic";
+import AtSign from "@/components/ui/AtSign";
 
 const LabelModal = dynamic(() => import("@/components/modals/LabelModal"));
 
@@ -52,7 +53,7 @@ const LabelsList = ({ labels, onNavElClick = () => {} }: Props) => {
             href={`/todo/label/${id}`}
             text={name}
             onClick={onNavElClick}
-            appendIcon={<AtSign size={16} className="text-primary-main" />}
+            appendIcon={<AtSign />}
           />
         ))}
       </DisclousureContainer>

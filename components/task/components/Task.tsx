@@ -2,14 +2,15 @@
 
 import { cn, getDueDateText } from "@/lib/utils";
 import { isPast } from "date-fns";
-import { AtSign, Check, Star, ReceiptText } from "lucide-react";
-import { useContext, useEffect } from "react";
+import { Check, Star, ReceiptText } from "lucide-react";
+import React, { useContext, useEffect } from "react";
 import { ITask } from "@/lib/interfaces";
 import Link from "next/link";
 import Chip from "../../ui/Chip";
 import ButtonIcon from "../../ui/ButtonIcon";
 import { TaskContext } from "../../context/TaskContext";
 import dynamic from "next/dynamic";
+import AtSign from "@/components/ui/AtSign";
 
 const TaskInteractiveButtons = dynamic(
   () => import("../../interactive-buttons/TaskInteractiveButtons")
@@ -99,8 +100,12 @@ const Task = ({ task }: Props) => {
         {task.labels && !!task.labels.length && (
           <div className="flex w-full items-center gap-1 py-1 overflow-auto styled-overflow-horizontal">
             {task.labels.map((label) => (
-              <Link key={label.id} href={`/todo/label/${label.id}`}>
-                <Chip title={label.name} prepEndIcon={<AtSign size={16} />} />
+              <Link
+                onClick={(e: React.MouseEvent) => e.stopPropagation()}
+                key={label.id}
+                href={`/todo/label/${label.id}`}
+              >
+                <Chip title={label.name} prepEndIcon={<AtSign />} />
               </Link>
             ))}
           </div>

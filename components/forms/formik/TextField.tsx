@@ -1,7 +1,7 @@
 import { IFormInput } from "@/lib/interfaces";
 import { cn } from "@/lib/utils";
 import dynamic from "next/dynamic";
-import Label from "./FormLabel";
+import Label from "./Label";
 
 const FormErrorMessage = dynamic(() => import("./FormErrorMessage"));
 
