@@ -52,7 +52,7 @@ const Task = ({ task }: Props) => {
   return (
     <div
       onClick={onClickHandler}
-      className="group p-2.5 cursor-pointer flex gap-4 items-start bg-black-main hover:bg-primary-light/[0.08] border border-transparent border-b-black-light/20 last:border-b-transparent first:rounded-t-md last:rounded-b-md"
+      className="transition-all group p-2.5 cursor-pointer flex gap-4 items-start bg-black-main hover:bg-black-main/70 border border-transparent border-b-black-light/20 last:border-b-transparent first:rounded-t-md last:rounded-b-md"
     >
       <ButtonIcon
         onClick={onCompletedHandler}

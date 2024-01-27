@@ -69,7 +69,7 @@ const Modal = ({
                 <Dialog.Title
                   as="div"
                   className={cn(
-                    "flex items-center justify-between",
+                    "text-light flex items-center justify-between",
                     headerClassName
                   )}
                 >
@@ -79,9 +79,9 @@ const Modal = ({
                     type="button"
                     tabIndex={0}
                     onClick={onClickHandler}
-                    className="text-xl"
+                    className="text-main hover:text-light"
                   >
-                    <X />
+                    <X size={20} />
                   </ButtonIcon>
                 </Dialog.Title>
                 <div className={cn("mt-1", bodyClassName)}>{children}</div>

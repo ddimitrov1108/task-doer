@@ -47,7 +47,7 @@ const ColorPickerField = ({
     >
       <Label className="pb-2" htmlFor={field.name} label={label} />
 
-      <div className="w-full flex flex-wrap gap-2">
+      <div className="w-full flex flex-wrap gap-1">
         {colorPickerColors.map((color) => (
           <button
             type="button"

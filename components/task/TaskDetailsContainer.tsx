@@ -22,10 +22,9 @@ const TaskDetailsContainer = ({ open, setOpen }: Props) => {
 
           <div className="flex items-center gap-2">
             <ButtonIcon
-              tabIndex={0}
               aria-label="Close Menu"
               onClick={() => setOpen(false)}
-              className="text-xl"
+              className="text-main hover:text-light"
             >
               <X size={20} />
             </ButtonIcon>

@@ -1,7 +1,5 @@
-"use client";
-
 import { cn } from "@/lib/utils";
-import { Disclosure } from "@headlessui/react";
+import { Disclosure, Transition } from "@headlessui/react";
 import { ChevronDown } from "lucide-react";
 
 interface Props {
@@ -27,7 +25,7 @@ const DisclousureContainer = ({
   ...restProps
 }: Props) => {
   return (
-    <div className={cn("select-none", className)}>
+    <div className={cn("outline-none select-none", className)}>
       <Disclosure {...restProps} defaultOpen={open}>
         {({ open }) => (
           <>
@@ -38,25 +36,39 @@ const DisclousureContainer = ({
                 btnClassName
               )}
             >
-              <div className="flex items-center gap-3">
-                <div
-                  className={cn(
-                    "z-0 transition-all text-main text-xl",
-                    open && "rotate-180"
-                  )}
-                >
-                  {showChevron && <ChevronDown size={20} />}
-                </div>
+              <div className="flex items-center gap-2">
+                {showChevron && (
+                  <ChevronDown
+                    size={20}
+                    className={cn(
+                      "z-0 transition-all text-main",
+                      open && "rotate-180"
+                    )}
+                  />
+                )}
                 {title}
               </div>
               {appendToTitle}
             </Disclosure.Button>
 
-            <Disclosure.Panel
-              className={cn("grid text-black transition-all", bodyClassName)}
+            <Transition
+              show={open}
+              enter="transition duration-100 ease-out"
+              enterFrom="scale-95 opacity-0"
+              enterTo="scale-100 opacity-100"
+              leave="transition duration-75 ease-out"
+              leaveFrom="scale-100 opacity-100"
+              leaveTo="scale-95 opacity-0"
             >
-              {children}
-            </Disclosure.Panel>
+              <Disclosure.Panel
+                className={cn(
+                  "transition-all duration-300 ease-in-out grid",
+                  bodyClassName
+                )}
+              >
+                {children}
+              </Disclosure.Panel>
+            </Transition>
           </>
         )}
       </Disclosure>

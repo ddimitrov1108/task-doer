@@ -50,7 +50,7 @@ const SortTasksListbox = () => {
         <Listbox.Button
           className={({ open }) =>
             cn(
-              "flex items-center gap-4 bg-black-main border border-black-light/20 cursor-pointer transition-all w-fit p-2 rounded-lg",
+              "flex items-center gap-4 bg-black-main border border-black-light/20 cursor-pointer transition-all w-fit py-1.5 px-2 rounded-lg",
               open ? "border-primary-main" : "border-black-light/20"
             )
           }

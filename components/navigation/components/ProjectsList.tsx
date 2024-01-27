@@ -36,7 +36,7 @@ const ProjectsList = ({ projects, onNavElClick = () => {} }: Props) => {
         title="Projects"
         appendToTitle={
           <button
-            className="text-xl text-main hover:text-primary-main"
+            className="text-xl text-main hover:text-light"
             onClick={onClickHandler}
           >
             <Plus size={20} />
