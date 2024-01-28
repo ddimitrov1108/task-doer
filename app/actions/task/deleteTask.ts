@@ -10,8 +10,6 @@ export default async function deleteTask(taskId: string) {
   if (!user) return { error: "Unauthenticated" };
   if (!isUUID(taskId)) return { error: "Bad Request" };
 
-  console.log(taskId);
-
   try {
     const taskController = (await import("@/db/TaskController")).default;
     
