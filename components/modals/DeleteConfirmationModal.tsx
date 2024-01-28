@@ -32,10 +32,8 @@ const DeleteConfirmationModal = ({
   return (
     <Modal
       modalTitle={
-        <div className="flex items-center gap-2">
-          <div className="text-2xl text-main">
-            <AlertTriangle />
-          </div>
+        <div className="flex items-center gap-2 text-error-main font-medium">
+          <AlertTriangle />
           Delete Confirmation
         </div>
       }
@@ -45,7 +43,7 @@ const DeleteConfirmationModal = ({
       bodyClassName="pt-4"
     >
       <form onSubmit={onSubmitHandler}>
-        <div className="mb-6">{message}</div>
+        <div className="mb-6 text-light">{message}</div>
 
         <div className="flex flex-col-reverse md:flex-row gap-2 justify-between items-center">
           <Button

@@ -39,9 +39,15 @@ const TaskDetails = () => {
           htmlFor="task-description"
           label="Description:"
         />
-        <div className="w-full grid">
+        <div className="min-w-[300px] max-w-[300px] overflow-hidden break-all">
           <p id="task-description" className="font-medium text-light">
             {taskContext.task.description}
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime
+            animi corporis tenetur numquam ad, atque perspiciatis iure dolores,
+            recusandae repellat sequi eius esse, consectetur praesentium odit?
+            Quo possimus enim sed laboriosam, cupiditate commodi deleniti fuga
+            amet esse ut aliquam accusamus at similique cum hic sequi.
+            Dignissimos vero maiores id eum!
           </p>
         </div>
       </div>

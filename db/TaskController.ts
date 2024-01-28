@@ -224,28 +224,20 @@ class TaskController extends DbConnector {
 
   public async delete(userId: string, taskId: string) {
     try {
-      const deletedTask = await this.prisma.task.delete({
+      await this.prisma.taskWithLabel.deleteMany({
+        where: {
+          taskId,
+        },
+      });
+
+      return await this.prisma.task.delete({
         where: {
           id: taskId,
           userId,
         },
-        select: {
-          id: true,
-        },
       });
-
-      if (!deletedTask) throw new Error("Task failed to delete");
-
-      await this.prisma.taskWithLabel.deleteMany({
-        where: {
-          taskId: deletedTask.id,
-        },
-      });
-
-      return deletedTask;
     } catch (e) {
       console.error(e);
-      return null;
     }
   }
 }
