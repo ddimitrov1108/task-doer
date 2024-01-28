@@ -1,6 +1,8 @@
 import ChangePasswordWithTokenForm from "@/components/forms/ChangePasswordWithTokenForm";
 import ResetPasswordForm from "@/components/forms/ResetPasswordForm";
 import Title from "../title";
+import { redirect } from "next/navigation";
+import { toast } from "sonner";
 
 interface Props {
   searchParams: { token?: string | string[] | undefined };
@@ -24,7 +26,8 @@ const ResetPasswordPage = async ({ searchParams }: Props) => {
   ).default.getByToken(searchParams.token as string);
 
   if (!user) {
-    return (await import("next/navigation")).redirect("/sign-in");
+    toast.error("User does not exist");
+    return redirect("/sign-in");
   }
 
   return (

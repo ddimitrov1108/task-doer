@@ -54,7 +54,7 @@ body::-webkit-scrollbar-thumb {
 .styled-overflow-horizontal::-webkit-scrollbar-thumb {
   border-radius: 6px;
   height: 4px;
-  background-color: #28293D;
+  background-color: #303149;
 }
 
 .color-picker {

@@ -53,7 +53,7 @@ const Task = ({ task }: Props) => {
   return (
     <div
       onClick={onClickHandler}
-      className="transition-all group p-2.5 cursor-pointer flex gap-4 items-start bg-black-main hover:bg-black-main/70 border border-transparent border-b-black-light/20 last:border-b-transparent first:rounded-t-md last:rounded-b-md"
+      className="transition-all group p-2.5 cursor-pointer flex gap-2 items-start bg-black-main hover:bg-black-main/70 border border-transparent border-b-black-light/20 last:border-b-transparent first:rounded-t-md last:rounded-b-md"
     >
       <ButtonIcon
         onClick={onCompletedHandler}
@@ -68,67 +68,74 @@ const Task = ({ task }: Props) => {
       </ButtonIcon>
 
       <div className="w-full grid gap-1">
-        <div>
-          <h1
-            className={cn(
-              "transition-all font-[500] w-full max-w-[400px] truncate ...",
-              task.completed ? "line-through text-main" : "text-light"
-            )}
-          >
-            {task.name}
-          </h1>
-
-          <div className="flex items-center gap-1">
-            <span
+        <div className="flex items-start justify-between gap-2">
+          <div>
+            <h1
+              title={task.name}
               className={cn(
-                "max-w-fit max-h-fit text-xs xxs:text-sm",
-                isPastDue ? "text-error-main" : "text-primary-main"
+                "transition-all font-medium w-full text-sm max-w-[170px] xxs:max-w-[220px] xs:max-w-[260px] sm:text-base sm:max-w-[440px] truncate ...",
+                task.completed ? "line-through text-main" : "text-light"
               )}
             >
-              {dueDate}
-            </span>
+              {task.name}
+            </h1>
 
-            {task.description && (
-              <>
-                <span className="text-main">&#8226;</span>
-                <ReceiptText size={16} className="text-main" />
-              </>
-            )}
+            <div className="flex items-center gap-1">
+              <span
+                className={cn(
+                  "max-w-fit max-h-fit text-xs xxs:text-sm",
+                  isPastDue ? "text-error-main" : "text-primary-main"
+                )}
+              >
+                {dueDate}
+              </span>
+
+              {task.description && (
+                <>
+                  <span className="text-main">&#8226;</span>
+                  <ReceiptText size={16} className="text-main" />
+                </>
+              )}
+            </div>
+          </div>
+
+          <div className="flex items-start gap-1">
+            <ButtonIcon
+              onClick={onImportantHandler}
+              className={cn(
+                "transition-all min-w-fit min-h-fit p-0.5",
+                task.important
+                  ? "text-warning-main"
+                  : "text-main hover:text-light"
+              )}
+            >
+              <Star size={20} />
+            </ButtonIcon>
+
+            <div
+              onClick={(e: React.MouseEvent) => {
+                e.stopPropagation();
+              }}
+            >
+              <TaskInteractiveButtons task={task} />
+            </div>
           </div>
         </div>
 
-        {task.labels && !!task.labels.length && (
-          <div className="flex w-full items-center gap-1 py-1 overflow-auto styled-overflow-horizontal">
-            {task.labels.map((label) => (
-              <Link
-                onClick={(e: React.MouseEvent) => e.stopPropagation()}
-                key={label.id}
-                href={`/todo/label/${label.id}`}
-              >
-                <Chip title={label.name} prepEndIcon={<AtSign />} />
-              </Link>
-            ))}
-          </div>
-        )}
-      </div>
-
-      <div className="flex items-start gap-1">
-        <ButtonIcon
-          onClick={onImportantHandler}
-          className={cn(
-            "transition-all min-w-fit min-h-fit p-0.5",
-            task.important ? "text-warning-main" : "text-main hover:text-light"
+        <div className="w-full grid gap-1 pr-3">
+          {task.labels && !!task.labels.length && (
+            <div className="flex w-full items-center gap-1 py-1 overflow-auto styled-overflow-horizontal">
+              {task.labels.map((label) => (
+                <Link
+                  onClick={(e: React.MouseEvent) => e.stopPropagation()}
+                  key={label.id}
+                  href={`/todo/label/${label.id}`}
+                >
+                  <Chip title={label.name} prepEndIcon={<AtSign />} />
+                </Link>
+              ))}
+            </div>
           )}
-        >
-          <Star size={20} />
-        </ButtonIcon>
-
-        <div
-          onClick={(e: React.MouseEvent) => {
-            e.stopPropagation();
-          }}
-        >
-          <TaskInteractiveButtons task={task} />
         </div>
       </div>
     </div>

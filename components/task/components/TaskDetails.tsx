@@ -33,7 +33,7 @@ const TaskDetails = () => {
         </h1>
       </div>
 
-      <div>
+      <div className="max-w-full">
         <Label
           className="mb-1 text-main"
           htmlFor="task-description"
@@ -53,7 +53,7 @@ const TaskDetails = () => {
 
         <div
           id="task-labels"
-          className="w-full flex items-center gap-1 flex-wrap max-h-[380px] styled-overflow overflow-auto"
+          className="max-w-[200px] flex items-center gap-1 flex-wrap max-h-[380px] styled-overflow overflow-auto"
         >
           {taskContext?.task?.labels?.map((label) => (
             <Chip key={label.id} title={label.name} prepEndIcon={<AtSign />} />
