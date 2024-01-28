@@ -73,7 +73,7 @@ const Task = ({ task }: Props) => {
             <h1
               title={task.name}
               className={cn(
-                "transition-all font-medium w-full text-sm max-w-[170px] xxs:max-w-[220px] xs:max-w-[260px] sm:text-base sm:max-w-[440px] truncate ...",
+                "transition-all font-medium w-full text-sm max-w-[170px] xxs:max-w-[220px] xs:max-w-[260px] sm:text-base sm:max-w-[440px] md:max-w-[580px] lg:max-w-[500px] xl:max-w-[500px] truncate ...",
                 task.completed ? "line-through text-main" : "text-light"
               )}
             >

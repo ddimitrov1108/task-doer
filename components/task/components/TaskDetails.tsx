@@ -20,7 +20,7 @@ const TaskDetails = () => {
     : null;
 
   return taskContext?.task ? (
-    <div className="grid gap-6">
+    <div className="w-full grid gap-6">
       <div>
         <div className="flex items-center justify-between">
           <Label className="mb-1 text-main" htmlFor="task-name" label="Name:" />
@@ -39,9 +39,11 @@ const TaskDetails = () => {
           htmlFor="task-description"
           label="Description:"
         />
-        <p id="task-description" className="font-medium text-light">
-          {taskContext.task.description}
-        </p>
+        <div className="w-full grid">
+          <p id="task-description" className="font-medium text-light">
+            {taskContext.task.description}
+          </p>
+        </div>
       </div>
 
       <div>
@@ -53,7 +55,7 @@ const TaskDetails = () => {
 
         <div
           id="task-labels"
-          className="max-w-[200px] flex items-center gap-1 flex-wrap max-h-[380px] styled-overflow overflow-auto"
+          className="w-full flex items-center gap-1 flex-wrap max-h-[380px] styled-overflow overflow-auto"
         >
           {taskContext?.task?.labels?.map((label) => (
             <Chip key={label.id} title={label.name} prepEndIcon={<AtSign />} />
