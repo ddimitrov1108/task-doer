@@ -85,7 +85,7 @@ const TaskLabelsSelectField = ({
                       key={label.id}
                       title={label.name}
                       prepEndIcon={<AtSign />}
-                      endIcon={
+                      appendIcon={
                         <button
                           onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
                             e.preventDefault();

@@ -22,11 +22,10 @@ const DisclousureContainer = ({
   bodyClassName,
   showChevron = true,
   open = false,
-  ...restProps
 }: Props) => {
   return (
     <div className={cn("outline-none select-none", className)}>
-      <Disclosure {...restProps} defaultOpen={open}>
+      <Disclosure defaultOpen={open}>
         {({ open }) => (
           <>
             <Disclosure.Button

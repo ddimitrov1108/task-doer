@@ -1,10 +1,9 @@
 import cn from "@/lib/cn";
 
-interface Props {
-  className?: string;
-}
-
-const Skeleton = ({ className }: Props) => (
-  <div className={cn(`animate-pulse bg-black-main`, className)}></div>
+const Skeleton = ({ className, ...restProps }: React.ComponentProps<"div">) => (
+  <div
+    className={cn(`animate-pulse bg-black-main`, className)}
+    {...restProps}
+  ></div>
 );
 export default Skeleton;

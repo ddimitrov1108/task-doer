@@ -2,10 +2,9 @@ import alert, { AlertVariants } from "../cva/alert";
 import { AlertOctagon, AlertTriangle, CheckCircle, Info } from "lucide-react";
 import cn from "@/lib/cn";
 
-interface Props {
+interface Props extends React.ComponentProps<"div"> {
   variant: AlertVariants;
   message: string;
-  className?: string;
 }
 
 const getAlertVariantIcon = (variant: AlertVariants) => {

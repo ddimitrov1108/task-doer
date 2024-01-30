@@ -1,11 +1,7 @@
 import cn from "@/lib/cn";
 
-interface Props {
-  className?: string;
-}
-
-const Spinner = ({ className }: Props) => (
-  <div className={cn("loader-spinner", className)}>
+const Spinner = ({ className, ...restProps }: React.ComponentProps<"div">) => (
+  <div className={cn("loader-spinner", className)} {...restProps}>
     <svg viewBox="25 25 50 50">
       <circle r="20" cy="50" cx="50"></circle>
     </svg>

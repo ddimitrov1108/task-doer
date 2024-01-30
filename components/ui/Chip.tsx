@@ -1,15 +1,13 @@
 import cn from "@/lib/cn";
 
-interface Props extends React.ComponentProps<"button"> {
-  title: string;
+interface Props extends React.ComponentProps<"div"> {
   prepEndIcon?: React.ReactNode;
-  endIcon?: React.ReactNode;
-  className?: string;
+  appendIcon?: React.ReactNode;
 }
 
 const Chip = ({
   prepEndIcon,
-  endIcon,
+  appendIcon,
   className,
   title,
   ...restProps
@@ -20,10 +18,11 @@ const Chip = ({
         "text-sm text-light transition-all flex items-center gap-1 min-w-fit max-w-fit whitespace-no-wrap py-0.5 px-1.5 border border-black-light/20 rounded-full",
         className
       )}
+      {...restProps}
     >
       {prepEndIcon}
       {title}
-      {endIcon}
+      {appendIcon}
     </div>
   );
 };

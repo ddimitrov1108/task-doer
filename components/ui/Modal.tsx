@@ -4,13 +4,10 @@ import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 import { X } from "lucide-react";
 import cn from "@/lib/cn";
-import ButtonIcon from "./ButtonIcon";
 
 interface Props {
   open: boolean;
-  setOpen: (
-    state: boolean
-  ) => void | React.Dispatch<React.SetStateAction<boolean>>;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   modalTitle?: React.ReactNode;
   children: React.ReactNode;
   className?: string;
@@ -75,14 +72,14 @@ const Modal = ({
                 >
                   {modalTitle}
 
-                  <ButtonIcon
+                  <button
                     type="button"
                     tabIndex={0}
                     onClick={onClickHandler}
                     className="text-main hover:text-light"
                   >
                     <X size={20} />
-                  </ButtonIcon>
+                  </button>
                 </Dialog.Title>
                 <div className={cn("mt-1", bodyClassName)}>{children}</div>
               </Dialog.Panel>
