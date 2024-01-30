@@ -12,7 +12,7 @@ import {
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Fragment, useCallback } from "react";
 
-const sortBy = [
+const sortByList = [
   { name: "Ascending", value: "asc", icon: <ArrowUpAZ size={20} /> },
   { name: "Descending", value: "desc", icon: <ArrowDownZA size={20} /> },
   { name: "Newest", value: "newest", icon: <ArrowDown10 size={20} /> },
@@ -41,8 +41,8 @@ const SortTasksListbox = () => {
   return (
     <Listbox
       defaultValue={
-        sortBy.find((item) => item.value === searchParams.get("sort")) ||
-        sortBy[2]
+        sortByList.find((item) => item.value === searchParams.get("sort")) ||
+        sortByList[2]
       }
       onChange={onChangeHandler}
     >
@@ -76,7 +76,7 @@ const SortTasksListbox = () => {
           leaveTo="transform opacity-0 scale-95"
         >
           <Listbox.Options className="grid gap-1 rounded-lg min-w-fit absolute right-0 mt-2 w-full border border-black-light/20 bg-black-main p-2 overflow-hidden z-40 origin-top-right">
-            {sortBy.map((sort, index) => (
+            {sortByList.map((sort, index) => (
               <Listbox.Option
                 key={index}
                 className={({ selected }) =>
