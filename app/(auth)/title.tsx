@@ -1,5 +1,4 @@
 interface Props extends React.ComponentProps<"div"> {
-  title: string;
   description: string;
 }
 

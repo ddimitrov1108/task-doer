@@ -7,7 +7,7 @@ export type ButtonVariants =
   | "error"
   | "text";
 
-export const button = cva("button", {
+export default cva("button", {
   variants: {
     intent: {
       primary: [
