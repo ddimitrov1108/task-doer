@@ -1,6 +1,6 @@
 "use client";
 
-import { cn } from "@/lib/utils";
+import cn from "@/lib/cn";
 import { Listbox, Transition } from "@headlessui/react";
 import {
   ArrowDown01,

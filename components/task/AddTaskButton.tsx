@@ -1,6 +1,6 @@
 "use client";
 
-import { cn } from "@/lib/utils";
+import cn from "@/lib/cn";
 import { Plus } from "lucide-react";
 import Button from "../ui/Button";
 import { useContext } from "react";

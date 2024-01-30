@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils";
+import cn from "@/lib/cn";
 import { X } from "lucide-react";
 import ButtonIcon from "../ui/ButtonIcon";
 import TaskDetails from "./components/TaskDetails";

@@ -4,7 +4,7 @@ import { ITask } from "@/lib/interfaces";
 import { useState } from "react";
 import { TaskContext } from "../context/TaskContext";
 import dynamic from "next/dynamic";
-import { cn } from "@/lib/utils";
+import cn from "@/lib/cn";
 import { format } from "date-fns";
 import { toast } from "sonner";
 import useSound from "../hooks/useSound";

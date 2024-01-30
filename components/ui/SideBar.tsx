@@ -1,7 +1,7 @@
 "use client";
 
 import { X } from "lucide-react";
-import { cn } from "@/lib/utils";
+import cn from "@/lib/cn";
 import dynamic from "next/dynamic";
 
 const Logo = dynamic(() => import("./Logo"), { loading: () => <span></span> });

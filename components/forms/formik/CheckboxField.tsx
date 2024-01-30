@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils";
+import cn from "@/lib/cn";
 import { Switch } from "@headlessui/react";
 import { IFormInput } from "@/lib/interfaces";
 import Label from "./Label";

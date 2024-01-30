@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils";
+import cn from "@/lib/cn";
 import { Disclosure, Transition } from "@headlessui/react";
 import { ChevronDown } from "lucide-react";
 

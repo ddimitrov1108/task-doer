@@ -1,6 +1,7 @@
 "use client";
 
-import { cn, getDueDateText } from "@/lib/utils";
+import cn from "@/lib/cn";
+import { getDueDateText } from "@/lib/utils";
 import { isPast } from "date-fns";
 import { Check, Star, ReceiptText } from "lucide-react";
 import React, { useContext, useEffect } from "react";

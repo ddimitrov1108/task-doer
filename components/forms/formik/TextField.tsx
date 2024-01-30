@@ -1,5 +1,5 @@
 import { IFormInput } from "@/lib/interfaces";
-import { cn } from "@/lib/utils";
+import cn from "@/lib/cn";
 import dynamic from "next/dynamic";
 import Label from "./Label";
 

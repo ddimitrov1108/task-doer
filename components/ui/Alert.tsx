@@ -1,6 +1,6 @@
-import { AlertVariants, alert } from "../cva/alert";
+import alert, { AlertVariants } from "../cva/alert";
 import { AlertOctagon, AlertTriangle, CheckCircle, Info } from "lucide-react";
-import { cn } from "@/lib/utils";
+import cn from "@/lib/cn";
 
 interface Props {
   variant: AlertVariants;

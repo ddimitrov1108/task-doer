@@ -1,5 +1,5 @@
-import { cn } from "@/lib/utils";
-import { ButtonVariants, button } from "../cva/button";
+import cn from "@/lib/cn";
+import button, { ButtonVariants } from "../cva/button";
 import Spinner from "./Spinner";
 
 interface Props extends React.ComponentProps<"button"> {

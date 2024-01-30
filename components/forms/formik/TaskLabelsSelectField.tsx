@@ -3,7 +3,7 @@
 import { Fragment } from "react";
 import { Listbox, Transition } from "@headlessui/react";
 import { IFormInput } from "@/lib/interfaces";
-import { cn } from "@/lib/utils";
+import cn from "@/lib/cn";
 import getLabels from "@/app/actions/label/getLabels";
 import useSWR from "swr";
 import Label from "./Label";
