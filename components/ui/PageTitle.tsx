@@ -1,12 +1,10 @@
 import cn from "@/lib/cn";
 
-const PageTitle = ({
-  children,
-  label = "",
-  className,
-  title,
-  ...restProps
-}: React.ComponentProps<"div">) => {
+interface Props extends React.ComponentProps<"div"> {
+  label?: string;
+}
+
+const PageTitle = ({ children, label = "", className, title }: Props) => {
   return (
     <div className="w-full">
       {label && (
@@ -21,7 +19,6 @@ const PageTitle = ({
           "max-w-[288px] xxs:max-w-[340px] xs:max-w-[390px] sm:max-w-[600px] lg:max-w-[500px] xl:max-w-[380px] 2xl: truncate ... text-light capitalize text-xl xs:text-2xl lg:text-3xl font-bold",
           className
         )}
-        {...restProps}
       >
         {children}
       </div>
