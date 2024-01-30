@@ -1,4 +1,4 @@
-import { IFormInput } from "@/lib/interfaces";
+import { IFormField } from "@/lib/interfaces/form";
 import cn from "@/lib/cn";
 import Label from "./Label";
 import dynamic from "next/dynamic";
@@ -35,7 +35,7 @@ const ColorPickerField = ({
   form: { setFieldValue, touched, errors },
   fullWidth,
   disabled,
-}: IFormInput<string>) => {
+}: IFormField<string>) => {
   const onClickHandler = (e: React.MouseEvent<HTMLButtonElement>) =>
     setFieldValue(field.name, e.currentTarget.value);
 
@@ -43,7 +43,7 @@ const ColorPickerField = ({
     <div
       className={cn("mb-4", fullWidth ? "w-full" : "w-fit", containerClassName)}
     >
-      <Label className="pb-2" htmlFor={field.name} label={label} />
+      <Label className="pb-2" htmlFor={field.name} text={label} />
 
       <div className="w-full flex flex-wrap gap-1">
         {colorPickerColors.map((color) => (

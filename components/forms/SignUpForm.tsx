@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import useForm from "../hooks/useForm";
 import { Field, Form, Formik } from "formik";
-import { FormErrors, SignUpFormValues } from "@/lib/form-schemas";
+import { FormErrors, SignUpFormValues } from "@/lib/interfaces/form-values";
 import Link from "next/link";
 import TextField from "./formik/TextField";
 import PasswordField from "./formik/PasswordField";
@@ -18,7 +18,7 @@ const SignUpForm = () => {
 
   const onValidateHandler = async (values: SignUpFormValues) => {
     try {
-      (await import("@/lib/form-schemas")).signUpFormSchema.parse(values);
+      (await import("@/lib/interfaces/form-schemas")).signUpFormSchema.parse(values);
 
       if (values.password !== values.confirmPassword)
         throw new Error("Passwords do not match.");

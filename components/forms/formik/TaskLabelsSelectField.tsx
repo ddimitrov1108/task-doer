@@ -2,7 +2,7 @@
 
 import { Fragment } from "react";
 import { Listbox, Transition } from "@headlessui/react";
-import { IFormInput } from "@/lib/interfaces";
+import { IFormField } from "@/lib/interfaces/form";
 import cn from "@/lib/cn";
 import getLabels from "@/app/actions/label/getLabels";
 import useSWR from "swr";
@@ -19,7 +19,7 @@ const TaskLabelsSelectField = ({
   form: { setFieldValue },
   fullWidth,
   disabled,
-}: IFormInput<
+}: IFormField<
   {
     id: string;
     name: string;
@@ -59,7 +59,7 @@ const TaskLabelsSelectField = ({
         containerClassName
       )}
     >
-      <Label className="pb-2" htmlFor={field.name} label={label} />
+      <Label className="pb-2" htmlFor={field.name} text={label} />
 
       <Listbox
         value={selectedOptions}

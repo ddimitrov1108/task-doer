@@ -1,12 +1,12 @@
 "use client";
 
 import { Field, Form, Formik } from "formik";
-import { FormErrors, TaskFormValues, taskFormSchema } from "@/lib/form-schemas";
+import { FormErrors, TaskFormValues } from "@/lib/interfaces/form-values";
 import Button from "../ui/Button";
 import TextField from "./formik/TextField";
 import DatePickerField from "./formik/DatePickerField";
 import TextareaField from "./formik/TextareaField";
-import CheckboxField from "./formik/CheckboxField";
+import SwitchField from "./formik/SwitchField";
 import dynamic from "next/dynamic";
 import useForm from "../hooks/useForm";
 import { useParams, usePathname } from "next/navigation";
@@ -32,7 +32,9 @@ const TaskForm = ({ initialState, editMode = false, afterSubmit }: Props) => {
 
   const onValidateHandler = async (values: TaskFormValues) => {
     try {
-      taskFormSchema.parse(values);
+      (await import("@/lib/interfaces/form-schemas")).taskFormSchema.parse(
+        values
+      );
     } catch (error) {
       if (error instanceof FormErrors) return error.formErrors.fieldErrors;
     }
@@ -118,7 +120,7 @@ const TaskForm = ({ initialState, editMode = false, afterSubmit }: Props) => {
           component={DatePickerField}
           fullWidth
         />
-        
+
         <Field
           id="labels"
           name="labels"
@@ -146,7 +148,7 @@ const TaskForm = ({ initialState, editMode = false, afterSubmit }: Props) => {
           type="checkbox"
           disabled={form.loading}
           maxLength={4}
-          component={CheckboxField}
+          component={SwitchField}
           fullWidth
         />
 
@@ -157,7 +159,7 @@ const TaskForm = ({ initialState, editMode = false, afterSubmit }: Props) => {
           type="checkbox"
           disabled={form.loading}
           maxLength={4}
-          component={CheckboxField}
+          component={SwitchField}
           fullWidth
         />
 

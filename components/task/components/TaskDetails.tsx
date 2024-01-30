@@ -23,7 +23,7 @@ const TaskDetails = () => {
     <div className="w-full grid gap-6">
       <div>
         <div className="flex items-center justify-between">
-          <Label className="mb-1 text-main" htmlFor="task-name" label="Name:" />
+          <Label className="mb-1 text-main" htmlFor="task-name" text="Name:" />
 
           <TaskInteractiveButtons task={taskContext?.task} />
         </div>
@@ -38,7 +38,7 @@ const TaskDetails = () => {
           <Label
             className="mb-1 text-main"
             htmlFor="task-description"
-            label="Description:"
+            text="Description:"
           />
           <div className="min-w-full overflow-hidden break-all">
             <p id="task-description" className="font-medium text-light">
@@ -52,7 +52,7 @@ const TaskDetails = () => {
         <Label
           className="mb-1 text-main"
           htmlFor="task-labels"
-          label="Labels:"
+          text="Labels:"
         />
 
         <div
@@ -69,7 +69,7 @@ const TaskDetails = () => {
         <Label
           className="mb-1 text-main"
           htmlFor="task-due-date"
-          label="Due Date:"
+          text="Due Date:"
         />
         <h1 id="task-due-date" className="font-medium text-light">
           {dueDate}
@@ -80,7 +80,7 @@ const TaskDetails = () => {
         <Label
           className="mb-2 text-main"
           htmlFor="task-status"
-          label="Status:"
+          text="Status:"
         />
         <div
           id="task-status"

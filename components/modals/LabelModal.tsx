@@ -1,7 +1,7 @@
-import { IFormModal } from "@/lib/interfaces";
+import { IFormModal } from "@/lib/interfaces/form";
 import LabelForm from "../forms/LabelForm";
 import Modal from "../ui/Modal";
-import { LabelFormValues } from "@/lib/form-schemas";
+import { LabelFormValues } from "@/lib/interfaces/form-values";
 import AtSign from "../ui/AtSign";
 
 const LabelModal = ({

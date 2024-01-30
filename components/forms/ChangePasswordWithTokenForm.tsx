@@ -2,7 +2,7 @@
 
 import dynamic from "next/dynamic";
 import useForm from "../hooks/useForm";
-import { ChangePasswordFormValues, FormErrors } from "@/lib/form-schemas";
+import { ChangePasswordFormValues, FormErrors } from "@/lib/interfaces/form-values";
 import PasswordField from "./formik/PasswordField";
 import Button from "../ui/Button";
 import { useRouter } from "next/navigation";
@@ -21,7 +21,7 @@ const ChangePasswordWithTokenForm = ({ resetPasswordToken}: Props) => {
 
   const onValidateHandler = async (values: ChangePasswordFormValues) => {
     try {
-      (await import("@/lib/form-schemas")).changePasswordSchema.parse(values);
+      (await import("@/lib/interfaces/form-schemas")).changePasswordSchema.parse(values);
 
       if (values.password !== values.confirmPassword)
         throw new Error("Passwords do not match.");

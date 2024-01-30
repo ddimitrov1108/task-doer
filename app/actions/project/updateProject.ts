@@ -1,7 +1,7 @@
 "use server";
 
 import { getUserFromServerSession } from "@/lib/auth";
-import { ProjectFormValues } from "@/lib/form-schemas";
+import { ProjectFormValues } from "@/lib/interfaces/form-values";
 import { isUUID } from "@/lib/utils";
 import { revalidatePath } from "next/cache";
 

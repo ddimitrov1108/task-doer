@@ -1,15 +1,16 @@
+import DbConnector from "./DbConnector";
 import {
   ChangePasswordFormValues,
   ResetPasswordFormValues,
   SignInFormValues,
   SignUpFormValues,
+} from "@/lib/interfaces/form-values";
+import {
   changePasswordSchema,
   resetPasswordSchema,
   signInFormSchema,
   signUpFormSchema,
-} from "@/lib/form-schemas";
-import DbConnector from "./DbConnector";
-import bcryptjs from "bcryptjs";
+} from "@/lib/interfaces/form-schemas";
 
 type NewUser = {
   firstName: string;
@@ -71,10 +72,9 @@ class UserController extends DbConnector {
 
   public async create(user: NewUser) {
     try {
-      const hashPassword= await bcryptjs.hash(
-        user.password,
-        Number(process.env.HASH_SALT)
-      );
+      const hashPassword = await (
+        await import("bcryptjs")
+      ).hash(user.password, Number(process.env.HASH_SALT));
 
       return await this.prisma.user.create({
         data: {
@@ -92,10 +92,9 @@ class UserController extends DbConnector {
 
   public async resetPasswordByToken(userId: string, password: string) {
     try {
-      const hashPassword= await bcryptjs.hash(
-        password,
-        Number(process.env.HASH_SALT)
-      );
+      const hashPassword = await (
+        await import("bcryptjs")
+      ).hash(password, Number(process.env.HASH_SALT));
 
       await this.prisma.user.update({
         where: {
@@ -119,7 +118,7 @@ class UserController extends DbConnector {
   public async getByToken(resetPasswordToken: string) {
     try {
       return await this.prisma.user.findUnique({
-        where: { resetPasswordToken},
+        where: { resetPasswordToken },
         select: {
           id: true,
           resetPasswordToken: true,

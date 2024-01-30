@@ -1,15 +1,14 @@
 import cn from "@/lib/cn";
 import { FormikErrors } from "formik";
 
-type Props = {
+interface Props extends React.ComponentProps<"div"> {
   message?:
     | string
     | FormikErrors<any>
     | string[]
     | FormikErrors<any>[]
     | undefined;
-  className?: string;
-};
+}
 
 const FormErrorMessage = ({ message, className }: Props) => {
   return (
@@ -19,7 +18,7 @@ const FormErrorMessage = ({ message, className }: Props) => {
         className
       )}
     >
-      <>{Array.isArray(message) ? message[0] : message}</>
+      <>{message as string}</>
     </div>
   );
 };

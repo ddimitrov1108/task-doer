@@ -1,11 +1,9 @@
 import cn from "@/lib/cn";
-import { IFormInput } from "@/lib/interfaces";
+import { IFormField } from "@/lib/interfaces/form";
 import Label from "./Label";
 import dynamic from "next/dynamic";
 
 const FormErrorMessage = dynamic(() => import("./FormErrorMessage"));
-
-type Props = IFormInput<string> & React.ComponentProps<"textarea">;
 
 const TextareaField = ({
   label,
@@ -16,12 +14,12 @@ const TextareaField = ({
   form: { touched, errors },
   fullWidth,
   ...restProps
-}: Props) => {
+}: IFormField<string> & React.ComponentProps<"textarea">) => {
   return (
     <div
       className={cn("mb-4", fullWidth ? "w-full" : "w-fit", containerClassName)}
     >
-      <Label className="pb-2" htmlFor={field.name} label={label} />
+      <Label className="pb-2" htmlFor={field.name} text={label} />
 
       <textarea
         autoComplete="on"

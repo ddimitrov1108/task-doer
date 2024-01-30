@@ -2,7 +2,7 @@
 
 import dynamic from "next/dynamic";
 import useForm from "../hooks/useForm";
-import { ResetPasswordFormValues, FormErrors } from "@/lib/form-schemas";
+import { ResetPasswordFormValues, FormErrors } from "@/lib/interfaces/form-values";
 import Button from "../ui/Button";
 import { useRouter } from "next/navigation";
 import { Field, Form, Formik } from "formik";
@@ -17,7 +17,7 @@ const ResetPasswordForm = () => {
 
   const onValidateHandler = async (values: ResetPasswordFormValues) => {
     try {
-      (await import("@/lib/form-schemas")).resetPasswordSchema.parse(values);
+      (await import("@/lib/interfaces/form-schemas")).resetPasswordSchema.parse(values);
     } catch (error) {
       if (error instanceof FormErrors) return error.formErrors.fieldErrors;
     }

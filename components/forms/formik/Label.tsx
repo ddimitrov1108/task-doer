@@ -1,15 +1,13 @@
 import cn from "@/lib/cn";
 
-type Props = {
-  label: string;
-  htmlFor?: string;
-  className?: string;
-};
+interface Props extends React.ComponentProps<"label"> {
+  text: string;
+}
 
-const Label = ({ label, htmlFor, className }: Props) => {
+const Label = ({ text, className, ...restProps }: Props) => {
   return (
-    <div className={cn("font-medium text-sm text-light min-w-fit", className)}>
-      <label htmlFor={htmlFor}>{label}</label>
+    <div className={cn("font-medium text-sm text-light w-fit", className)}>
+      <label {...restProps}>{text}</label>
     </div>
   );
 };

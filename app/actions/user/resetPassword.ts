@@ -2,7 +2,7 @@
 
 import userController from "@/db/UserController";
 import { ResetPasswordEmailTemplate } from "@/components/email-temlates/ResetPasswordEmailTemplate";
-import { ResetPasswordFormValues } from "@/lib/form-schemas";
+import { ResetPasswordFormValues } from "@/lib/interfaces/form-values";
 
 export const resetPassword = async (values: ResetPasswordFormValues) => {
   if (!userController.validatePasswordReset(values))

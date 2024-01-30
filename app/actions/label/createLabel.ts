@@ -1,7 +1,7 @@
 "use server";
 
 import { getUserFromServerSession } from "@/lib/auth";
-import { LabelFormValues } from "@/lib/form-schemas";
+import { LabelFormValues } from "@/lib/interfaces/form-values";
 import { revalidatePath } from "next/cache";
 
 export default async function createLabel(values: LabelFormValues) {

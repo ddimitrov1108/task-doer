@@ -1,7 +1,7 @@
 "use server";
 
 import userController from "@/db/UserController";
-import { ChangePasswordFormValues } from "@/lib/form-schemas";
+import { ChangePasswordFormValues } from "@/lib/interfaces/form-values";
 
 export const changePasswordByToken = async (
   resetPasswordToken: string,

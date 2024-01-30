@@ -7,8 +7,8 @@ import dynamic from "next/dynamic";
 import ButtonIcon from "../ui/ButtonIcon";
 import UserDropdown from "./components/UserDropdown";
 import NavigationList from "./NavigationList";
+import SideBar from "../ui/SideBar";
 
-const SideBar = dynamic(() => import("../ui/SideBar"));
 const Logo = dynamic(() => import("../ui/Logo"), {
   loading: () => <span></span>,
 });

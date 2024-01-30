@@ -3,9 +3,9 @@
 import { useParams, useRouter } from "next/navigation";
 import useForm from "../hooks/useForm";
 import { Field, Form, Formik } from "formik";
-import { FormErrors, ProjectFormValues } from "@/lib/form-schemas";
+import { FormErrors, ProjectFormValues } from "@/lib/interfaces/form-values";
 import { toast } from "sonner";
-import { IForm } from "@/lib/interfaces";
+import { IForm } from "@/lib/interfaces/form";
 import Button from "../ui/Button";
 import TextField from "./formik/TextField";
 import ColorPickerField from "./formik/ColorPickerField";
@@ -24,7 +24,7 @@ const ProjectForm = ({
 
   const onValidateHandler = async (values: ProjectFormValues) => {
     try {
-      (await import("@/lib/form-schemas")).projectFormSchema.parse(values);
+      (await import("@/lib/interfaces/form-schemas")).projectFormSchema.parse(values);
     } catch (error) {
       if (error instanceof FormErrors) return error.formErrors.fieldErrors;
     }

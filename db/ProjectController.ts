@@ -1,6 +1,7 @@
 import DbConnector from "./DbConnector";
 import { IProject } from "@/lib/interfaces";
-import { ProjectFormValues, projectFormSchema } from "@/lib/form-schemas";
+import { projectFormSchema } from "@/lib/interfaces/form-schemas";
+import { ProjectFormValues } from "@/lib/interfaces/form-values";
 
 class ProjectController extends DbConnector {
   constructor() {

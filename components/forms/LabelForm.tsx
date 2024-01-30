@@ -3,9 +3,9 @@
 import { useParams } from "next/navigation";
 import useForm from "../hooks/useForm";
 import { Field, Form, Formik } from "formik";
-import { FormErrors, LabelFormValues } from "@/lib/form-schemas";
+import { FormErrors, LabelFormValues } from "@/lib/interfaces/form-values";
 import { toast } from "sonner";
-import { IForm } from "@/lib/interfaces";
+import { IForm } from "@/lib/interfaces/form";
 import Button from "../ui/Button";
 import TextField from "./formik/TextField";
 import dynamic from "next/dynamic";
@@ -22,7 +22,7 @@ const LabelForm = ({
 
   const onValidateHandler = async (values: LabelFormValues) => {
     try {
-      (await import("@/lib/form-schemas")).labelFormSchema.parse(values);
+      (await import("@/lib/interfaces/form-schemas")).labelFormSchema.parse(values);
     } catch (error) {
       if (error instanceof FormErrors) return error.formErrors.fieldErrors;
     }

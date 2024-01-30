@@ -1,18 +1,16 @@
 import cn from "@/lib/cn";
 import { Switch } from "@headlessui/react";
-import { IFormInput } from "@/lib/interfaces";
+import { IFormField } from "@/lib/interfaces/form";
 import Label from "./Label";
 
-type Props = IFormInput<boolean> & React.ComponentProps<"input">;
-
-const CheckboxField = ({
+const SwitchField = ({
   label = "",
   fullWidth = false,
   field,
   disabled,
   containerClassName,
   form: { setFieldValue },
-}: Props) => {
+}: IFormField<boolean> & React.ComponentProps<"input">) => {
   return (
     <Switch.Group
       as="div"
@@ -22,7 +20,7 @@ const CheckboxField = ({
         containerClassName
       )}
     >
-      <Label className="pb-2" htmlFor={field.name} label={label} />
+      <Label className="pb-2" htmlFor={field.name} text={label} />
 
       <Switch
         disabled={disabled}
@@ -44,4 +42,4 @@ const CheckboxField = ({
     </Switch.Group>
   );
 };
-export default CheckboxField;
+export default SwitchField;

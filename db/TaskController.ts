@@ -1,6 +1,7 @@
-import { TaskFormValues, taskFormSchema } from "@/lib/form-schemas";
+import { TaskFormValues } from "@/lib/interfaces/form-values";
 import DbConnector from "./DbConnector";
 import { ITask } from "@/lib/interfaces";
+import { taskFormSchema } from "@/lib/interfaces/form-schemas";
 
 class TaskController extends DbConnector {
   constructor() {

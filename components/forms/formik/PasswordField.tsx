@@ -3,13 +3,11 @@
 import { useEffect, useRef, useState } from "react";
 import cn from "@/lib/cn";
 import { Eye, EyeOff } from "lucide-react";
-import { IFormInput } from "@/lib/interfaces";
+import { IFormField } from "@/lib/interfaces/form";
 import dynamic from "next/dynamic";
 import Label from "./Label";
 
 const FormErrorMessage = dynamic(() => import("./FormErrorMessage"));
-
-type Props = IFormInput<string> & React.ComponentProps<"input">;
 
 const PasswordField = ({
   label = "",
@@ -21,7 +19,7 @@ const PasswordField = ({
   fullWidth,
   disabled,
   ...restProps
-}: Props) => {
+}: IFormField<string> & React.ComponentProps<"input">) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [isVisible, setIsVisible] = useState<boolean>(false);
 
@@ -51,26 +49,25 @@ const PasswordField = ({
   }, [disabled]);
 
   useEffect(() => {
-    if (inputRef.current)
+    if (inputRef.current) {
       inputRef.current.addEventListener("focus", () => setEndOfInput(), false);
 
-    return () => {
-      if (!inputRef.current) return;
-
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-      inputRef.current.removeEventListener(
-        "focus",
-        () => setEndOfInput(),
-        false
-      );
-    };
+      return () => {
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        inputRef?.current?.removeEventListener(
+          "focus",
+          () => setEndOfInput(),
+          false
+        );
+      };
+    }
   }, []);
 
   return (
     <div
       className={cn("mb-4", fullWidth ? "w-full" : "w-fit", containerClassName)}
     >
-      <Label className="pb-2" htmlFor={field.name} label={label} />
+      <Label className="pb-2" htmlFor={field.name} text={label} />
 
       <div className="relative">
         <button

@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import useForm from "../hooks/useForm";
 import { Field, Form, Formik } from "formik";
-import { FormErrors, SignInFormValues } from "@/lib/form-schemas";
+import { FormErrors, SignInFormValues } from "@/lib/interfaces/form-values";
 import Link from "next/link";
 import TextField from "./formik/TextField";
 import PasswordField from "./formik/PasswordField";
@@ -18,7 +18,7 @@ const SignInForm = () => {
 
   const onValidateHandler = async (values: SignInFormValues) => {
     try {
-      (await import("@/lib/form-schemas")).signInFormSchema.parse(values);
+      (await import("@/lib/interfaces/form-schemas")).signInFormSchema.parse(values);
     } catch (error) {
       if (error instanceof FormErrors) return error.formErrors.fieldErrors;
     }

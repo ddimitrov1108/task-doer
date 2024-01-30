@@ -1,6 +1,7 @@
 import { ILabel } from "@/lib/interfaces";
 import DbConnector from "./DbConnector";
-import { LabelFormValues, labelFormSchema } from "@/lib/form-schemas";
+import { LabelFormValues } from "@/lib/interfaces/form-values";
+import { labelFormSchema } from "@/lib/interfaces/form-schemas";
 
 class LabelController extends DbConnector {
   constructor() {
