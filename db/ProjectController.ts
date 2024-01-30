@@ -61,7 +61,6 @@ class ProjectController extends DbConnector {
                 },
               },
             },
-            orderBy: [{ dueDate: "asc" }],
           },
         },
       });
