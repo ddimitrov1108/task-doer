@@ -14,7 +14,7 @@ const NotFoundTasksStatus = () => {
         />
 
         <p className="text-center text-main">
-          🔍 No tasks have been found.
+          🔍 No tasks have been found or added.
         </p>
       </div>
 

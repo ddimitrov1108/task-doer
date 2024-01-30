@@ -12,8 +12,8 @@ const TaskDetailsContainer = ({ open, setOpen }: Props) => {
   return (
     <div
       className={cn(
-        "hidden xl:block fixed top-0 right-0 bottom-0 transition-all bg-black-main h-full overflow-auto styled-overflow",
-        open ? "w-80" : "w-0"
+        "hidden w-80 xl:block fixed top-0 right-0 bottom-0 transition-all bg-black-main h-full overflow-auto styled-overflow",
+        open ? "right-0 translate-x-0" : "right-0 translate-x-full"
       )}
     >
       <div className="p-6">

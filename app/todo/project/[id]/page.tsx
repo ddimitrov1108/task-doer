@@ -30,7 +30,7 @@ const ProjectPage = async ({ params }: NextRouteParams) => {
             className="min-w-[14px] min-h-[14px] rounded-full"
             style={{ backgroundColor: project.color }}
           ></div>
-          <h1 className="truncate ...">{project.name}</h1>
+          <h1>{project.name}</h1>
         </PageTitle>
 
         <ProjectInteractiveButtons

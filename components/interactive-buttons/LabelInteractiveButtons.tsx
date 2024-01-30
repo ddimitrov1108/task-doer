@@ -36,7 +36,9 @@ const LabelInteractiveButtons = ({ label }: Props) => {
   ];
 
   useEffect(() => {
+    console.log(label);
     labelContext?.setLabel(label);
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [label]);
 

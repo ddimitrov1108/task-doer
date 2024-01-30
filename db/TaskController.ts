@@ -25,6 +25,74 @@ class TaskController extends DbConnector {
     return taskFormSchema.safeParse(task).success;
   }
 
+  public async getList(
+    userId: string = "",
+    projectId = null,
+    options: {
+      today?: boolean;
+      planned?: boolean;
+      all?: boolean;
+      completed?: boolean;
+      important?: boolean;
+    } | null = null
+  ) {
+    if (!userId) return [];
+
+    const todayDate = new Date();
+    todayDate.setHours(0, 0, 0, 0);
+
+    const tomorrowDate = new Date(todayDate);
+    tomorrowDate.setDate(todayDate.getDate() + 1);
+
+    let compiledOptions =
+      !options || options?.all
+        ? {}
+        : options?.today
+        ? { dueDate: { gte: todayDate, lt: tomorrowDate } }
+        : options?.planned
+        ? { dueDate: { gte: tomorrowDate } }
+        : {
+            projectId: projectId ? projectId : undefined,
+            completed: options?.completed,
+            important: options?.important,
+          };
+
+    try {
+      const tasks = await this.prisma.task.findMany({
+        where: {
+          userId,
+          ...compiledOptions,
+        },
+        select: {
+          id: true,
+          name: true,
+          description: true,
+          important: true,
+          completed: true,
+          dueDate: true,
+          labels: {
+            select: {
+              label: {
+                select: {
+                  id: true,
+                  name: true,
+                },
+              },
+            },
+          },
+        },
+      });
+
+      return tasks.map(({ labels, ...restTask }) => ({
+        labels: labels.map(({ label }) => ({ ...label })),
+        ...restTask,
+      }));
+    } catch (e) {
+      console.error(e);
+      return [];
+    }
+  }
+
   public async get(userId: string, taskId: string) {
     try {
       const task = await this.prisma.task.findFirst({

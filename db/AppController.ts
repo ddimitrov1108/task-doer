@@ -29,7 +29,7 @@ class AppController extends DbConnector {
           where: { userId: userId, important: true },
         }),
         this.prisma.task.count({
-          where: { userId: userId, completed: false },
+          where: { userId: userId },
         }),
       ]);
 

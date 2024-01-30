@@ -18,9 +18,15 @@ const TaskSearchForm = dynamic(() => import("../forms/TaskSearchForm"));
 
 interface Props {
   tasks: ITask[];
+  openCompletedTab?: boolean;
+  showCompleteStatus?: boolean;
 }
 
-const TasksLists = ({ tasks }: Props) => {
+const TasksLists = ({
+  tasks,
+  openCompletedTab = false,
+  showCompleteStatus = true,
+}: Props) => {
   const searchParams = useSearchParams();
 
   if (!tasks.length) return <NotFoundTasksStatus />;
@@ -66,6 +72,7 @@ const TasksLists = ({ tasks }: Props) => {
             !importantTasks.length &&
             !activeTasks.length &&
             completedTasks.length &&
+            showCompleteStatus &&
             !searchParam ? (
               <CompletedTasksStatus />
             ) : null}
@@ -83,7 +90,7 @@ const TasksLists = ({ tasks }: Props) => {
               tasks={sortBy(activeTasks, sortParam)}
             />
             <ListOfTasks
-              open={!!searchParam}
+              open={openCompletedTab ? true : !!searchParam}
               listTitle="Completed Tasks"
               tasks={sortBy(completedTasks, sortParam)}
             />

@@ -72,7 +72,7 @@ const SideBar = ({
               <button
                 tabIndex={0}
                 type="button"
-                className="grid items-center justify-center transition-all rounded-full outline-none text-gray-400 hover:text-slate-100 text-xl"
+                className="grid items-center justify-center transition-all rounded-full outline-none hover:text-light"
                 onClick={onCloseClickHandler}
                 title="Close navigation"
               >

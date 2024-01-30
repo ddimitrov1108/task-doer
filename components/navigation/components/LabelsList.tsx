@@ -37,7 +37,7 @@ const LabelsList = ({ labels, onNavElClick = () => {} }: Props) => {
         title="Labels"
         appendToTitle={
           <button
-            className="text-xl text-main hover:text-light"
+            className=""
             onClick={onClickHandler}
           >
             <Plus size={20} />
