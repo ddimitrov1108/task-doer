@@ -4,7 +4,7 @@ import { TaskContext } from "@/components/context/TaskContext";
 import Label from "@/components/forms/formik/Label";
 import AtSign from "@/components/ui/AtSign";
 import Chip from "@/components/ui/Chip";
-import { formatDate, getDueDateText } from "@/lib/utils";
+import { getDueDateText } from "@/lib/utils";
 import { isPast } from "date-fns";
 import dynamic from "next/dynamic";
 import { useContext } from "react";
@@ -72,11 +72,7 @@ const TaskDetails = () => {
           label="Due Date:"
         />
         <h1 id="task-due-date" className="font-medium text-light">
-          <>
-            {dueDate === "Today" || dueDate === "Tomorrow"
-              ? dueDate
-              : formatDate(taskContext.task.dueDate)}
-          </>
+          {dueDate}
         </h1>
       </div>
 

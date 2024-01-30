@@ -4,7 +4,7 @@ const nameRegex = /^[\p{L}\p{S}\s'-]{2,20}$/iu;
 const emailRegex = /^[a-zA-Z0-9._%+-]{4,60}@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 const passwordRegex =
   /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&_-])[A-Za-z\d@$!%*#?&_-]{8,20}$/;
-const sectionNameRegex = /^[\p{P}\p{S}\p{L}\s-][\p{L}\d\s-]{2,60}$/u;
+const sectionNameRegex = /^[\p{P}\p{S}\p{L}\s-][\p{L}\d\s-]{4,60}$/u;
 const descriptionRegex = /^[\p{L}\p{N}\p{P}\s]{0,255}$/u;
 const hexColorRegex = /^#?([0-9a-fA-F]{3}){1,2}$/i;
 
@@ -94,7 +94,7 @@ export const signUpFormSchema = z.object({
 export const projectFormSchema = z.object({
   name: z
     .string({ required_error: "Field is required" })
-    .min(2, "Minimum length of 2 symbols is required")
+    .min(4, "Minimum length of 4 symbols is required")
     .max(30, "Maximum length of 40 symbols is exceeded")
     .regex(sectionNameRegex, "Invalid field"),
   color: z
@@ -107,7 +107,7 @@ export const projectFormSchema = z.object({
 export const labelFormSchema = z.object({
   name: z
     .string({ required_error: "Field is required" })
-    .min(2, "Minimum length of 2 symbols is required")
+    .min(4, "Minimum length of 4 symbols is required")
     .max(30, "Maximum length of 40 symbols is exceeded")
     .regex(sectionNameRegex, "Invalid field"),
 });
@@ -115,7 +115,7 @@ export const labelFormSchema = z.object({
 export const taskFormSchema = z.object({
   name: z
     .string({ required_error: "Field is required" })
-    .min(2, "Minimum length of 2 symbols is required")
+    .min(4, "Minimum length of 4 symbols is required")
     .max(60, "Maximum length of 60 symbols is exceeded")
     .regex(sectionNameRegex, "Invalid field"),
   description: z
