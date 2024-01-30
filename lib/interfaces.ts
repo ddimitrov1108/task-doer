@@ -45,9 +45,7 @@ export interface INavLink {
 
 export interface IFormModal<T> extends IForm<T> {
   open: boolean;
-  setOpen: (
-    state: boolean
-  ) => void | React.Dispatch<React.SetStateAction<boolean>>;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export interface IForm<T> {
