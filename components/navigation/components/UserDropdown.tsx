@@ -13,7 +13,7 @@ const userLinks = [
     id: uuidv4(),
     name: "Settings",
     icon: <UserRoundCog className="text-primary-main" size={20} />,
-    href: "/account/settings",
+    href: "/account",
   },
 ];
 
