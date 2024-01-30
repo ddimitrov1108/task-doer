@@ -16,6 +16,7 @@ export default async function createTask(
   if (!values) return { error: "Invalid form data" };
 
   const taskController = (await import("@/db/TaskController")).default;
+
   if (!taskController.validate(values)) return { error: "Invalid form data" };
 
   try {
@@ -24,7 +25,8 @@ export default async function createTask(
 
     if (projectId) revalidatePath(`/todo/project/${projectId}`, "page");
     else revalidatePath("/todo");
-    return {};
+
+    return { error: "" };
   } catch (e) {
     console.error(e);
     return { error: "Something went wrong. Please try again later" };

@@ -15,12 +15,12 @@ export default async function setTaskImportant(
   if (typeof important != "boolean") return { error: "Invalid form data" };
 
   try {
-    const taskController = (await import("@/db/TaskController")).default;
-    
-    await taskController.setImportant(user.id, taskId, important);
+    await (
+      await import("@/db/TaskController")
+    ).default.setImportant(user.id, taskId, important);
 
     revalidatePath("/todo");
-    return {};
+    return { error: "" };
   } catch (e) {
     console.error(e);
     return { error: "Something went wrong. Please try again later" };

@@ -15,6 +15,7 @@ export default async function updateLabel(
   if (!isUUID(labelId) || !values) return { error: "Bad Request" };
 
   const labelController = (await import("@/db/LabelController")).default;
+
   if (!labelController.validate(values)) return { error: "Invalid form data" };
 
   try {
@@ -24,7 +25,7 @@ export default async function updateLabel(
     });
 
     revalidatePath(`/todo/label/[id]`, "page");
-    return {};
+    return { error: "" };
   } catch (e) {
     console.error(e);
     return { error: "Something went wrong. Please try again later" };

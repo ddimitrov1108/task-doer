@@ -15,7 +15,9 @@ export default async function updateProject(
   if (!isUUID(projectId) || !values) return { error: "Bad Request" };
 
   const projectController = (await import("@/db/ProjectController")).default;
-  if (!projectController.validate(values)) return { error: "Invalid form data" };
+
+  if (!projectController.validate(values))
+    return { error: "Invalid form data" };
 
   try {
     await projectController.update(user.id, {
@@ -25,7 +27,7 @@ export default async function updateProject(
     });
 
     revalidatePath(`/todo/project/[id]`, "page");
-    return {};
+    return { error: "" };
   } catch (e) {
     console.error(e);
     return { error: "Something went wrong. Please try again later" };

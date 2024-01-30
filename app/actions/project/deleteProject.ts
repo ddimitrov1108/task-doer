@@ -11,12 +11,12 @@ export default async function deleteProject(projectId: string) {
   if (!isUUID(projectId)) return { error: "Bad Request" };
 
   try {
-    const projectController = (await import("@/db/ProjectController")).default;
-    
-    await projectController.delete(user.id, projectId);
+    await (
+      await import("@/db/ProjectController")
+    ).default.delete(user.id, projectId);
 
     revalidatePath("/todo");
-    return {};
+    return { error: "" };
   } catch (e) {
     console.error(e);
     return { error: "Something went wrong. Please try again later" };

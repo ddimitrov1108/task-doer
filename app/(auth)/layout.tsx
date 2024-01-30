@@ -1,5 +1,4 @@
 import authConfig from "@/lib/auth";
-import { getServerSession } from "next-auth";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import { redirect } from "next/navigation";
@@ -11,7 +10,9 @@ type Props = {
 };
 
 const AuthLayout = async ({ children }: Props) => {
-  const session = await getServerSession(authConfig);
+  const session = await (
+    await import("next-auth")
+  ).getServerSession(authConfig);
 
   if (session) return redirect("/todo");
 

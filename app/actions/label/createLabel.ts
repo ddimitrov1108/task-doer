@@ -11,12 +11,13 @@ export default async function createLabel(values: LabelFormValues) {
   if (!values) return { error: "Bad Request" };
 
   const labelController = (await import("@/db/LabelController")).default;
+
   if (!labelController.validate(values)) return { error: "Invalid form data" };
 
   try {
     await labelController.create(user.id, { name: values.name });
     revalidatePath("/todo");
-    return {};
+    return { error: "" };
   } catch (e) {
     console.error(e);
     return { error: "Something went wrong. Please try again later" };

@@ -11,7 +11,9 @@ export default async function createProject(values: ProjectFormValues) {
   if (!values) return { error: "Bad Request" };
 
   const projectController = (await import("@/db/ProjectController")).default;
-  if (!projectController.validate(values)) return { error: "Invalid form data" };
+
+  if (!projectController.validate(values))
+    return { error: "Invalid form data" };
 
   try {
     const project = await projectController.create(user.id, {
@@ -22,7 +24,7 @@ export default async function createProject(values: ProjectFormValues) {
     if (!project) throw new Error("Project failed to create");
 
     revalidatePath("/todo");
-    return { href: `/todo/project/${project.id}` };
+    return { href: `/todo/project/${project.id}`, error: "" };
   } catch (e) {
     console.error(e);
     return { error: "Something went wrong. Please try again later" };

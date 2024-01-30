@@ -11,12 +11,9 @@ export default async function deleteTask(taskId: string) {
   if (!isUUID(taskId)) return { error: "Bad Request" };
 
   try {
-    const taskController = (await import("@/db/TaskController")).default;
-    
-    await taskController.delete(user.id, taskId);
-
+    await (await import("@/db/TaskController")).default.delete(user.id, taskId);
     revalidatePath("/todo");
-    return {};
+    return { error: "" };
   } catch (e) {
     console.error(e);
     return { error: "Something went wrong. Please try again later" };

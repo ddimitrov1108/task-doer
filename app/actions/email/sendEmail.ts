@@ -10,7 +10,7 @@ type EmailPayload = {
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-export const sendEmail = async (payload: EmailPayload) => {
+export default async function sendEmail(payload: EmailPayload) {
   const { data, error } = await resend.emails.send({
     from: "Admin <onboarding@resend.dev>",
     ...payload,
@@ -19,4 +19,4 @@ export const sendEmail = async (payload: EmailPayload) => {
   if (error) throw error;
 
   return { data };
-};
+}

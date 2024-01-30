@@ -22,7 +22,7 @@ export const changePasswordByToken = async (
 
   try {
     await userController.resetPasswordByToken(user.id, values.password);
-    return {};
+    return { error: "" };
   } catch (e) {
     console.error(e);
     return { error: "Something went wrong. Please try again later" };

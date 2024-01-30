@@ -13,10 +13,13 @@ export default async function getLabels() {
 
     return {
       labels,
-      error: ""
-    }
+      error: "",
+    };
   } catch (e) {
     console.error(e);
-    return { labels:[], error: "Something went wrong. Please try again later" };
+    return {
+      labels: [],
+      error: "Something went wrong. Please try again later",
+    };
   }
 }

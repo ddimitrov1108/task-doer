@@ -15,12 +15,12 @@ export default async function setTaskCompleted(
   if (typeof completed != "boolean") return { error: "Invalid form data" };
 
   try {
-    const taskController = (await import("@/db/TaskController")).default;
-
-    await taskController.setCompleted(user.id, taskId, completed);
+    await (
+      await import("@/db/TaskController")
+    ).default.setCompleted(user.id, taskId, completed);
 
     revalidatePath("/todo");
-    return {};
+    return { error: "" };
   } catch (e) {
     console.error(e);
     return { error: "Something went wrong. Please try again later" };

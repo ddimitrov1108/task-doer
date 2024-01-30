@@ -11,12 +11,12 @@ export default async function deleteLabel(labelId: string) {
   if (!isUUID(labelId)) return { error: "Bad Request" };
 
   try {
-    const labelController = (await import("@/db/LabelController")).default;
-    
-    await labelController.delete(user.id, labelId);
+    await (
+      await import("@/db/LabelController")
+    ).default.delete(user.id, labelId);
 
     revalidatePath("/todo");
-    return {};
+    return { error: "" };
   } catch (e) {
     console.error(e);
     return { error: "Something went wrong. Please try again later" };

@@ -24,7 +24,7 @@ export const resetPassword = async (values: ResetPasswordFormValues) => {
     expiryDate
   );
 
-  const { sendEmail } = await import("../email/sendEmail");
+  const sendEmail = (await import("../email/sendEmail")).default;
 
   try {
     await sendEmail({
@@ -36,7 +36,7 @@ export const resetPassword = async (values: ResetPasswordFormValues) => {
       }) as React.ReactElement,
     });
 
-    return {};
+    return { error: "" };
   } catch (e) {
     console.error(e);
     return { error: "Something went wrong. Please try again later" };
