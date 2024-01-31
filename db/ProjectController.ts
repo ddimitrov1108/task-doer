@@ -31,7 +31,26 @@ class ProjectController extends DbConnector {
     }
   }
 
-  public async get(userId: string, projectId: string) {
+  public async get(
+    userId: string,
+    projectId: string
+  ): Promise<{
+    tasks: {
+      labels: {
+        id: string;
+        name: string;
+      }[];
+      id: string;
+      name: string;
+      important: boolean;
+      description: string;
+      dueDate: Date;
+      completed: boolean;
+    }[];
+    id: string;
+    color: string;
+    name: string;
+  } | null> {
     try {
       const project = await this.prisma.project.findUnique({
         where: {

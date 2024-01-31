@@ -16,7 +16,7 @@ const PageTitle = ({ children, label = "", className, title }: Props) => {
       <div
         title={title}
         className={cn(
-          "max-w-[288px] xxs:max-w-[340px] xs:max-w-[390px] sm:max-w-[600px] lg:max-w-[500px] xl:max-w-[380px] 2xl: truncate ... text-light capitalize text-xl xs:text-2xl lg:text-3xl font-bold",
+          "max-w-[288px] xxs:max-w-[340px] xs:max-w-[390px] sm:max-w-[600px] lg:max-w-[500px] xl:max-w-[380px] truncate ... text-light capitalize text-xl md:text-2xl font-bold",
           className
         )}
       >
