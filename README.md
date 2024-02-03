@@ -134,5 +134,3 @@ Open http://localhost:3000 with your browser to see the result
 ![Task details on smaller screen](https://i.imgur.com/0CWR0QU.png)
 
 ![Completed tasks status](https://i.imgur.com/gsqK9Aq.png)
-
-![Filtering and sorting](https://i.imgur.com/DW1QTOW.png)
