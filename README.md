@@ -17,6 +17,11 @@
   - CRUD operations over the task via forms and server actions
   - sorting by name (A-Z/Z-A), oldest and newest tasks via url params
   - search field that uses url params to find tasks with a specific name
+ 
+#### Functionalities to be added
+- [ ] Drag & drop between active and completed lists
+- [ ] move/copy task from one project to another
+- [ ] selection to delete many tasks at once
 
 ## Features:
 - authentication, authorization, protected routes
