@@ -1,36 +1,138 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# [Task-Doer](https://the-wild-oasis-six-eta.vercel.app/)
+#### Application that will help you to manage your day to day and future activities.
 
-## Getting Started
+## Functionalities:
+- **users:** 
+  - CRUD operations over the user via forms and server actions
+  - forms for forgotten password using crypt key and reset password
+- **projects:** 
+  - a list of tasks to be separated for individual purposes
+  - CRUD operations over the project via forms and server actions
+  - custom name and selectable color
+- **labels:** 
+  - a list of tasks, that can distinguish tasks with a specific keyword
+  - CRUD operations over the label via forms and server actions
+  - custom names that are unique
+- **tasks:** 
+  - CRUD operations over the task via forms and server actions
+  - sorting by name (A-Z/Z-A), oldest and newest tasks via url params
+  - search field that uses url params to find tasks with a specific name
 
-First, run the development server:
+## Features:
+- authentication, authorization, protected routes
+- server actions
+- email services
+- compound components
+- form validation
+- sorting & filtering
+
+## Tech stack:
+  - Front-End technologies:
+    - Next.js
+    - React.js
+    - TypeScript
+    - TailwindCSS
+    - HeadlessUI
+    - sonner-toast
+    - lucide-react
+    - date-fns
+
+  - Back-End technologies:
+    - Next.js server actions
+    - Prisma client
+    - MySQL
+
+  - Authentication and validation:
+    - next-auth
+    - bcryptjs
+    - formik
+    - zod
+    - resend
+
+## Getting Started:
+
+#### Run command to install dependencies
+
+```bash
+npm install
+# or
+yarn install
+# or
+pnpm install
+# or
+bun install
+```
+
+#### Create .env in your project folder
+
+```bash
+DATABASE_URL=mysql://USER:PASSWORD@HOST:PORT/DATABASE
+BASE_URL=http://localhost:3000
+NEXTAUTH_SECRET=
+HASH_SALT=
+RESEND_API_KEY=
+```
+
+#### Run prisma migration script
+
+```bash
+npx prisma migrate dev
+#or push database
+npx prisma db push
+```
+
+#### Run the development server
 
 ```bash
 npm run dev
 # or
-yarn dev
+yarn run dev
 # or
-pnpm dev
+pnpm run dev
 # or
-bun dev
+bun --watch run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+#### Build the app for production
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm run build
+# or
+yarn run build
+# or
+pnpm run build
+# or
+bun run build
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+#### Run the production server
 
-## Learn More
+```bash
+npm run start
+# or
+yarn run start
+# or
+pnpm run start
+# or
+bun run start
+```
 
-To learn more about Next.js, take a look at the following resources:
+Open http://localhost:3000 with your browser to see the result
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Previews:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+![SignUp Page](https://imgur.com/OKM2AoZ)
 
-## Deploy on Vercel
+![Core page](https://imgur.com/fNz09yF)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+![Create a project](https://imgur.com/cpKHHWN)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+![Create a task](https://imgur.com/bmZhRYh)
+
+![Task details](https://imgur.com/C614Z8U)
+
+![Task details on smaller screen](https://imgur.com/0CWR0QU)
+
+![Completed tasks status](https://imgur.com/gsqK9Aq)
+
+![Filtering and sorting](https://imgur.com/DW1QTOW)
