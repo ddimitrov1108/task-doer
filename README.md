@@ -121,18 +121,18 @@ Open http://localhost:3000 with your browser to see the result
 
 ## Previews:
 
-![SignUp Page](https://imgur.com/OKM2AoZ)
+![SignUp Page](https://i.imgur.com/OKM2AoZ.png)
 
-![Core page](https://imgur.com/fNz09yF)
+![Core page](https://i.imgur.com/fNz09yF.png)
 
-![Create a project](https://imgur.com/cpKHHWN)
+![Create a project](https://i.imgur.com/cpKHHWN.png)
 
-![Create a task](https://imgur.com/bmZhRYh)
+![Create a task](https://i.imgur.com/bmZhRYh.png)
 
-![Task details](https://imgur.com/C614Z8U)
+![Task details](https://i.imgur.com/C614Z8U.png)
 
-![Task details on smaller screen](https://imgur.com/0CWR0QU)
+![Task details on smaller screen](https://i.imgur.com/0CWR0QU.png)
 
-![Completed tasks status](https://imgur.com/gsqK9Aq)
+![Completed tasks status](https://i.imgur.com/gsqK9Aq.png)
 
-![Filtering and sorting](https://imgur.com/DW1QTOW)
+![Filtering and sorting](https://i.imgur.com/DW1QTOW.png)
