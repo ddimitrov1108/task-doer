@@ -77,7 +77,7 @@ RESEND_API_KEY=
 
 ```bash
 npx prisma migrate dev
-#or push database
+#or
 npx prisma db push
 ```
 
