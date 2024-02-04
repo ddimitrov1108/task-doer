@@ -40,7 +40,6 @@
     - HeadlessUI
     - sonner-toast
     - lucide-react
-    - date-fns
 
   - Back-End technologies:
     - Next.js server actions
