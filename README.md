@@ -1,4 +1,4 @@
-# [Task-Doer](https://the-wild-oasis-six-eta.vercel.app/)
+## Task-Doer
 #### Application that will help you to manage your day to day and future activities.
 
 ## Functionalities:
